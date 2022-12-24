@@ -3,9 +3,9 @@
 
 using namespace std;
 
-int QuickSort()
+void quickSort()
 {
-
+  cout << "Quick sort";
   // int n, i;
   // cout << "\nEnter the number of data elements to be sorted: ";
   // cin >> n;
@@ -83,9 +83,42 @@ int QuickSort()
   // }
 }
 
+void bubbleSort()
+{
+  cout << "Bubble sort";
+}
+
 int main()
 {
-  cout << "Choose your selection";
-  
-  return 0;
+
+  cout << "1: Bubble sort\n";
+  cout << "2: Quick sort\n";
+  cout << "3: Selection sort\n";
+  cout << "4: Merge sort\n";
+  cout << "5: Heap sort\n";
+  cout << "0: Exit\n";
+
+  int selector;
+
+  do
+  {
+
+    cout << "Input your choice:";
+    cin >> selector;
+
+    switch (selector)
+    {
+    case 1:
+      bubbleSort();
+      break;
+    case 2:
+      quickSort();
+      break;
+
+    default:
+      break;
+    }
+
+    return 0;
+  } while (selector != 0);
 }
