@@ -60,7 +60,7 @@ class App {
     //   res.header("Access-Control-Allow-Origin", "*");
     //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
     //   next();
-    // });kk
+    // });
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
