@@ -1,36 +1,25 @@
 import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
-import { SECRET_KEY } from '@config';
+import JWT, { sign } from 'jsonwebtoken';
+import { ALGORITHM, SECRET_KEY, SALT_ROUNDS } from '@config';
 import DB from '@databases';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateAccountDto } from '@dtos/accounts.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
-import { User } from '@interfaces/users.interface';
+import { Account } from '@interfaces/accounts.interface';
 import { isEmpty } from '@utils/util';
 
 class AuthService {
-  public users = DB.Users;
 
-  public async signup(userData: CreateUserDto): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
+  public account = DB.Accounts;
 
-    const findUser: User = await this.users.findOne({ where: { email: userData.email } });
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+  public async login(accountData: CreateAccountDto): Promise<{ cookie: string; findUser: Account }> {
+    if (isEmpty(accountData)) throw new HttpException(400, "This account was not exist");
 
-    const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = await this.users.create({ ...userData, password: hashedPassword });
+    const findUser: Account = await this.account.findOne({ where: { email: accountData.email } });
+    if (!findUser) throw new HttpException(409, `This email ${accountData.email} was not found`);
 
-    return createUserData;
-  }
-
-  public async login(userData: CreateUserDto): Promise<{ cookie: string; findUser: User }> {
-    if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
-
-    const findUser: User = await this.users.findOne({ where: { email: userData.email } });
-    if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);
-
-    const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, "Password not matching");
+    const isPasswordMatching: boolean = await compare(accountData.password, findUser.password);
+    if (!isPasswordMatching) throw new HttpException(409, "Password is incorrect");
 
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
@@ -38,21 +27,34 @@ class AuthService {
     return { cookie, findUser };
   }
 
-  public async logout(userData: User): Promise<User> {
-    if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
+  public async logout(accountData: Account): Promise<Account> {
+    if (isEmpty(accountData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: User = await this.users.findOne({ where: { email: userData.email, password: userData.password } });
+    const findUser: Account = await this.account.findOne({ where: { email: accountData.email, password: accountData.password } });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
     return findUser;
   }
 
-  public createToken(user: User): TokenData {
-    const dataStoredInToken: DataStoredInToken = { id: user.id };
+  public async signup(accountData: CreateAccountDto): Promise<Account> {
+    if (isEmpty(accountData)) throw new HttpException(400, "Can not found this account");
+
+    const findAccount: Account = await this.account.findOne({ where: { email: accountData.email } });
+    if (findAccount) throw new HttpException(409, `This email ${accountData.email} already exists`);
+
+    const hashedPassword = await hash(accountData.password, SALT_ROUNDS);
+    const createUserData: Account = await this.account.create({ ...accountData, password: hashedPassword });
+
+    return createUserData;
+  }
+
+  public createToken(account: Account): TokenData {
+    const dataStoredInToken: DataStoredInToken = { id: account.id };
+    const algorithm: string = ALGORITHM;
     const secretKey: string = SECRET_KEY;
     const expiresIn: number = 60 * 60;
 
-    return { expiresIn, token: sign(dataStoredInToken, secretKey, { expiresIn }) };
+    return { expiresIn, token: JWT.sign(dataStoredInToken, secretKey, {algorithm: 'ES256', expiresIn: expiresIn }) };
   }
 
   public createCookie(tokenData: TokenData): string {

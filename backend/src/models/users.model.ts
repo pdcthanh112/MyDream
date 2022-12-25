@@ -4,7 +4,7 @@ import { User } from '@interfaces/users.interface';
 export type UserCreationAttributes = Optional<User, 'id' | 'email' | 'password'>;
 
 export class UserModel extends Model<User, UserCreationAttributes> implements User {
-  public id: number;
+  public id: string;
   public email: string;
   public password: string;
 
@@ -16,9 +16,10 @@ export default function (sequelize: Sequelize): typeof UserModel {
   UserModel.init(
     {
       id: {
-        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        unique: true,
       },
       email: {
         allowNull: false,

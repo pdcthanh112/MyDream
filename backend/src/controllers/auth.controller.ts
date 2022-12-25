@@ -1,27 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
-import { RequestWithUser } from '@interfaces/auth.interface';
+import { CreateAccountDto } from '@/dtos/accounts.dto';
+import { Account } from '@interfaces/accounts.interface';
+import { RequestWithAccount } from '@interfaces/auth.interface';
 import AuthService from '@services/auth.service';
 
 class AuthController {
   public authService = new AuthService();
 
-  public signUp = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.authService.signup(userData);
-
-      res.status(201).json({ data: signUpUserData, message: 'signup' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const { cookie, findUser } = await this.authService.login(userData);
+      const accountData: CreateAccountDto = req.body;
+      const { cookie, findUser } = await this.authService.login(accountData);
 
       res.setHeader('Set-Cookie', [cookie]);
       res.status(200).json({ data: findUser, message: 'login' });
@@ -30,13 +19,24 @@ class AuthController {
     }
   };
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public logOut = async (req: RequestWithAccount, res: Response, next: NextFunction) => {
     try {
-      const userData: User = req.user;
-      const logOutUserData: User = await this.authService.logout(userData);
+      const accountData: Account = req.account;
+      const logOutAccountData: Account = await this.authService.logout(accountData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutUserData, message: 'logout' });
+      res.status(200).json({ data: logOutAccountData, message: 'logout' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public signUp = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const accountData: CreateAccountDto = req.body;
+      const signUpAccountData: Account = await this.authService.signup(accountData);
+
+      res.status(201).json({ data: signUpAccountData, message: 'signup' });
     } catch (error) {
       next(error);
     }
