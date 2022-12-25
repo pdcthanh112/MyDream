@@ -8,6 +8,8 @@ class AuthController {
   public authService = new AuthService();
 
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('asdfsdadf');
+    
     try {
       const accountData: CreateAccountDto = req.body;
       const { cookie, findUser } = await this.authService.login(accountData);

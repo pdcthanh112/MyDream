@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
-import { RequestHandler } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { HttpException } from '@exceptions/HttpException';
 
 const validationMiddleware = (
@@ -10,7 +10,7 @@ const validationMiddleware = (
   whitelist = true,
   forbidNonWhitelisted = true,
 ): RequestHandler => {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     validate(plainToClass(type, req[value]), { skipMissingProperties, whitelist, forbidNonWhitelisted }).then((errors: ValidationError[]) => {
       if (errors.length > 0) {
         const message = errors.map((error: ValidationError) => Object.values(error.constraints)).join(', ');

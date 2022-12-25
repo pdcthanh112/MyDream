@@ -2,7 +2,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
@@ -76,8 +76,8 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
-    routes.forEach(route => {
-      this.app.use(route.path, route.router);
+    routes.forEach(route => {      
+      this.app.use('/', route.router);
     });
   }
 
@@ -106,7 +106,6 @@ export default App;
 
 validateEnv();
 
-// const app = new App([new IndexRoute()]);
-const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute()]);
+const app = new App([new IndexRoute(), new AuthRoute(), new UsersRoute()]);
 
 app.listen();
