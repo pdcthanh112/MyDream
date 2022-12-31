@@ -1,13 +1,14 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { Account } from '@interfaces/accounts.interface';
 
-export type AccountCreationAttributes = Optional<Account, 'id' | 'email' | 'password'>;
+export type CreationAttributes = Optional<Account, 'id' | 'email' | 'password'>;
 
-export class AccountModel extends Model<Account, AccountCreationAttributes> implements Account {
+export class AccountModel extends Model<Account, CreationAttributes> implements Account {
   public id: string;
   public email: string;
   public password: string;
-  notificationToken: string;
+  public role: number;
+  public notificationToken: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -25,9 +26,12 @@ export default function (sequelize: Sequelize): typeof AccountModel {
       email: {
         allowNull: false,
         type: DataTypes.STRING(45), 
-
       },
       password: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+      role: {
         allowNull: false,
         type: DataTypes.STRING(255),
       },
