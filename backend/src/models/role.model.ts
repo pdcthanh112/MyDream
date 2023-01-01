@@ -19,7 +19,7 @@ export default function (sequelize: Sequelize): typeof RoleModel {
       },
       role: {
         allowNull: false,
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(45),
       },
     },
     {

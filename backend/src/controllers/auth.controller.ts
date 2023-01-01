@@ -7,15 +7,13 @@ import AuthService from '@services/auth.service';
 class AuthController {
   public authService = new AuthService();
 
-  public logIn = async (req: Request, res: Response, next: NextFunction) => {
-    console.log('asdfsdadf');
-    
+  public logIn = async (req: Request, res: Response, next: NextFunction) => {   
     try {
-      const accountData: CreateAccountDto = req.body;
-      const { cookie, findUser } = await this.authService.login(accountData);
+      const {email, password} = req.body;
+      const { cookie, userResponse } = await this.authService.login(email, password);
 
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: findUser, message: 'login' });
+      res.status(200).json({ data: userResponse, message: 'Login successfully' });
     } catch (error) {
       next(error);
     }
@@ -27,7 +25,7 @@ class AuthController {
       const logOutAccountData: Account = await this.authService.logout(accountData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutAccountData, message: 'logout' });
+      res.status(200).json({ data: logOutAccountData, message: 'Logout  successfully' });
     } catch (error) {
       next(error);
     }
@@ -38,7 +36,7 @@ class AuthController {
       const accountData: CreateAccountDto = req.body;
       const signUpAccountData: Account = await this.authService.signup(accountData);
 
-      res.status(201).json({ data: signUpAccountData, message: 'signup' });
+      res.status(201).json({ data: signUpAccountData, message: 'Register successfully' });
     } catch (error) {
       next(error);
     }

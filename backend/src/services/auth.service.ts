@@ -1,5 +1,5 @@
-import { compare, hash } from 'bcrypt';
-import JWT, { sign } from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
 import { ALGORITHM, SECRET_KEY, SALT_ROUNDS } from '@config';
 import DB from '@databases';
 import { CreateAccountDto } from '@dtos/accounts.dto';
@@ -12,19 +12,24 @@ class AuthService {
 
   public account = DB.Accounts;
 
-  public async login(accountData: CreateAccountDto): Promise<{ cookie: string; findUser: Account }> {
-    if (isEmpty(accountData)) throw new HttpException(400, "This account was not exist");
+  public async login(email: string, password: string): Promise<{ cookie: string; userResponse: Object }> {
 
-    const findUser: Account = await this.account.findOne({ where: { email: accountData.email } });
-    if (!findUser) throw new HttpException(409, `This email ${accountData.email} was not found`);
+    const findUser: Account = await this.account.findOne({ where: { email: email } });
+    if (!findUser) throw new HttpException(409, 'This email does not exist');
 
-    const isPasswordMatching: boolean = await compare(accountData.password, findUser.password);
+    const isPasswordMatching: boolean = await bcrypt.compare(password, findUser.password);
     if (!isPasswordMatching) throw new HttpException(409, "Password is incorrect");
 
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
 
-    return { cookie, findUser };
+    const userResponse = {
+      email: findUser.email,
+      role: findUser.role,
+      notificationToken: findUser.notificationToken
+    }    
+
+    return { cookie, userResponse };
   }
 
   public async logout(accountData: Account): Promise<Account> {
@@ -42,7 +47,7 @@ class AuthService {
     const findAccount: Account = await this.account.findOne({ where: { email: accountData.email } });
     if (findAccount) throw new HttpException(409, `This email ${accountData.email} already exists`);
 
-    const hashedPassword = await hash(accountData.password, SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(accountData.password, SALT_ROUNDS);
     const createUserData: Account = await this.account.create({ ...accountData, password: hashedPassword });
 
     return createUserData;
@@ -54,7 +59,7 @@ class AuthService {
     const secretKey: string = SECRET_KEY;
     const expiresIn: number = 60 * 60;
 
-    return { expiresIn, token: JWT.sign(dataStoredInToken, secretKey, {algorithm: 'ES256', expiresIn: expiresIn }) };
+    return { expiresIn, token: JWT.sign(dataStoredInToken, secretKey, { algorithm: 'ES256', expiresIn: expiresIn }) };
   }
 
   public createCookie(tokenData: TokenData): string {

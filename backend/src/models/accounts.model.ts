@@ -33,10 +33,10 @@ export default function (sequelize: Sequelize): typeof AccountModel {
       },
       role: {
         allowNull: false,
-        type: DataTypes.STRING(255),
+        type: DataTypes.INTEGER,
       },
       notificationToken: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING(255),
       },
     },
