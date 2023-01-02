@@ -5,3 +5,22 @@ export interface Account {
   role: number;
   notificationToken: string;
 }
+
+export interface ResponseUserData {
+  accountId: string;
+  email: string;
+  role: number;
+  notificationToken: string;
+  userData: {
+    employeeId: string;
+    employeeCode: string;
+    surName: string;
+    middleName: string;
+    givenName: string;
+    dateOfBirth: string;
+    department: number;
+    position: number;
+    phoneNumber: string;
+    address: string;
+  }
+}
