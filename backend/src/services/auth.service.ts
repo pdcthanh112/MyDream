@@ -1,16 +1,15 @@
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
-import { ALGORITHM, SECRET_KEY, SALT_ROUNDS } from '@config';
+import { ALGORITHM, SECRET_KEY, SALT_ROUNDS, TOKEN_EXPIRES_IN } from '@config';
 import DB from '@databases';
 import { CreateAccountDto } from '@dtos/accounts.dto';
 import { HttpException } from '@exceptions/HttpException';
-import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { Account, ResponseUserData } from '@interfaces/accounts.interface';
 import { isEmpty } from '@utils/util';
 
 class AuthService {
 
-  public async login(email: string, password: string): Promise<{ cookie: string; responseData: ResponseUserData }> {
+  public async login(email: string, password: string): Promise<{ cookie: string; token: string }> {
 
     const findAccount: Account = await DB.Accounts.findOne({ where: { email: email } });
     if (!findAccount) throw new HttpException(409, 'This email does not exist');
@@ -18,32 +17,32 @@ class AuthService {
     const isPasswordMatching: boolean = await bcrypt.compare(password, findAccount.password);
     if (!isPasswordMatching) throw new HttpException(409, 'Password is incorrect');
 
-    const findUser: any = await DB.Accounts.sequelize.query(`SELECT accounts.id AS accountId, email, role, notification_token, employees.id AS employeeId, employee_code AS employeeCode, sur_name as surName, middle_name as middleName, given_name as givenName, date_of_birth as dateOfBirth, department_id as department, position_id as position, phone_number as phoneNumber, address FROM accounts JOIN employees WHERE accounts.email = '${email}' LIMIT 1`)
-
-    const responseData: ResponseUserData = {
-      accountId: findUser.accountId,
-      email: findUser.email,
-      role: findUser.role,
-      notificationToken: findUser.notificationToken,
-      userData: {
-        employeeId: findUser.employeeId,
-        employeeCode: findUser.employeeCode,
-        surName: findUser.surName,
-        middleName: findUser.middleName,
-        givenName: findUser.givenName,
-        dateOfBirth: findUser.dateOfBirth,
-        department: findUser.department,
-        position: findUser.position,
-        phoneNumber: findUser.phoneNumber,
-        address: findUser.address
-      }
-    }   
+    const findUser: any = await DB.Accounts.sequelize.query(`SELECT accounts.id AS accountId, email, role, notification_token AS notificationToken, employees.id AS employeeId, employee_code AS employeeCode, sur_name as surName, middle_name as middleName, given_name as givenName, date_of_birth as dateOfBirth, department_id as department, position_id as position, phone_number as phoneNumber, address FROM accounts JOIN employees ON accounts.id = employees.account_id WHERE accounts.email = '${email}' LIMIT 1`)
+    const findUserObj = Object.assign({}, ...findUser);
     
-    console.log('RRRRRRRRR', findUser);
-    const tokenData = this.createToken(responseData);
-    const cookie = this.createCookie(tokenData);
+    const responseData: ResponseUserData = {
+      accountId: findUserObj[0].accountId,
+      email: findUserObj[0].email,
+      role: findUserObj[0].role,
+      notificationToken: findUserObj[0].notificationToken,
+      userData: {
+        employeeId: findUserObj[0].employeeId,
+        employeeCode: findUserObj[0].employeeCode,
+        surName: findUserObj[0].surName,
+        middleName: findUserObj[0].middleName,
+        givenName: findUserObj[0].givenName,
+        dateOfBirth: findUserObj[0].dateOfBirth,
+        department: findUserObj[0].department,
+        position: findUserObj[0].position,
+        phoneNumber: findUserObj[0].phoneNumber,
+        address: findUserObj[0].address
+      }
+    }
 
-    return { cookie, responseData };
+    const token = this.createToken(responseData);
+    const cookie = this.createCookie(token);
+
+    return { cookie, token };
   }
 
   public async logout(accountData: Account): Promise<Account> {
@@ -67,17 +66,17 @@ class AuthService {
     return createUserData;
   }
 
-  public createToken(userData: ResponseUserData): TokenData {
-    const dataStoredInToken: DataStoredInToken = { id: userData.accountId };
+  public createToken(userData: ResponseUserData): string {
+    const dataStoredInToken: ResponseUserData =  userData
     const algorithm: string = ALGORITHM;
     const secretKey: string = SECRET_KEY;
-    const expiresIn: number = 60 * 60;
+console.log(userData);
 
-    return { expiresIn, token: JWT.sign(dataStoredInToken, secretKey, { expiresIn: expiresIn }) };
+    return JWT.sign(dataStoredInToken, secretKey, { expiresIn: Number(TOKEN_EXPIRES_IN) });
   }
 
-  public createCookie(tokenData: TokenData): string {
-    return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
+  public createCookie(tokenData: string): string {
+    return `Authorization=${tokenData}; HttpOnly; Max-Age=${TOKEN_EXPIRES_IN};`;
   }
 }
 

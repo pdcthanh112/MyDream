@@ -25,7 +25,7 @@ export default function (sequelize: Sequelize): typeof AccountModel {
       },
       email: {
         allowNull: false,
-        type: DataTypes.STRING(45), 
+        type: DataTypes.STRING(45),
       },
       password: {
         allowNull: false,
