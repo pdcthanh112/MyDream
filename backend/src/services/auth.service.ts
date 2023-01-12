@@ -71,11 +71,11 @@ class AuthService {
     const dataStoredInToken: ResponseUserData =  userData
     const algorithm: string = ALGORITHM;
 
-    const accessToken = JWT.sign(dataStoredInToken, ACCESS_TOKEN_SECRET_KEY, { expiresIn: ACCESS_TOKEN_EXPIRES_IN });
-  
-    const refreshToken = JWT.sign(dataStoredInToken, REFRESH_TOKEN_SECRET_KEY, { expiresIn: REFRESH_TOKEN_EXPIRES_IN });
+    const accessToken = JWT.sign(dataStoredInToken, ACCESS_TOKEN_SECRET_KEY, { expiresIn: Number(ACCESS_TOKEN_EXPIRES_IN) });
+   
+    const refreshToken = JWT.sign(dataStoredInToken, REFRESH_TOKEN_SECRET_KEY, { expiresIn: Number(REFRESH_TOKEN_EXPIRES_IN) });
 
-    return {accessToken, refreshToken, expiresIn: Number(ACCESS_TOKEN_EXPIRES_IN)}
+    return {accessToken, refreshToken}
   }
 
   public createCookie(tokenData: LoginResponse): string {
