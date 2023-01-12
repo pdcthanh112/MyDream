@@ -7,7 +7,7 @@ import { LOG_DIR } from '../config/index';
 
 // logs dir
 
-const logDir: string = join(__dirname, LOG_DIR);
+const logDir: string = join(__dirname, '../logs');
 
 if (!existsSync(logDir)) {
   mkdirSync(logDir);

@@ -1,15 +1,16 @@
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
-import { ALGORITHM, SECRET_KEY, SALT_ROUNDS, TOKEN_EXPIRES_IN } from '@config';
+import { ALGORITHM, ACCESS_TOKEN_SECRET_KEY,REFRESH_TOKEN_SECRET_KEY, SALT_ROUNDS, ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from '@config';
 import DB from '@databases';
 import { CreateAccountDto } from '@dtos/accounts.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { Account, ResponseUserData } from '@interfaces/accounts.interface';
 import { isEmpty } from '@utils/util';
+import { LoginResponse } from '@/interfaces/auth.interface';
 
 class AuthService {
 
-  public async login(email: string, password: string): Promise<{ cookie: string; token: string }> {
+  public async login(email: string, password: string): Promise<{ cookie: string; token: LoginResponse }> {
 
     const findAccount: Account = await DB.Accounts.findOne({ where: { email: email } });
     if (!findAccount) throw new HttpException(409, 'This email does not exist');
@@ -66,17 +67,19 @@ class AuthService {
     return createUserData;
   }
 
-  public createToken(userData: ResponseUserData): string {
+  public createToken(userData: ResponseUserData): LoginResponse {
     const dataStoredInToken: ResponseUserData =  userData
     const algorithm: string = ALGORITHM;
-    const secretKey: string = SECRET_KEY;
-console.log(userData);
 
-    return JWT.sign(dataStoredInToken, secretKey, { expiresIn: Number(TOKEN_EXPIRES_IN) });
+    const accessToken = JWT.sign(dataStoredInToken, ACCESS_TOKEN_SECRET_KEY, { expiresIn: ACCESS_TOKEN_EXPIRES_IN });
+  
+    const refreshToken = JWT.sign(dataStoredInToken, REFRESH_TOKEN_SECRET_KEY, { expiresIn: REFRESH_TOKEN_EXPIRES_IN });
+
+    return {accessToken, refreshToken, expiresIn: Number(ACCESS_TOKEN_EXPIRES_IN)}
   }
 
-  public createCookie(tokenData: string): string {
-    return `Authorization=${tokenData}; HttpOnly; Max-Age=${TOKEN_EXPIRES_IN};`;
+  public createCookie(tokenData: LoginResponse): string {
+    return `Authorization=${tokenData}; HttpOnly; Max-Age=${ACCESS_TOKEN_EXPIRES_IN};`;
   }
 }
 

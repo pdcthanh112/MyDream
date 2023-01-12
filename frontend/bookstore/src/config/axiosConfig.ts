@@ -10,14 +10,14 @@ const axiosConfig = axios.create({
 
 axiosConfig.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    if (config.headers) {
-      if (!config.headers.Authorization) {
-        const token = store.getState().auth.login.currentUser?.token;
-        if (token) {
-          config.headers['Authorization'] = `Bearer ${token}`;
-        }
-      }
-    }
+    // if (config.headers) {
+    //   if (!config.headers.Authorization) {
+    //     const token = store.getState().auth.login.currentUser?.token;
+    //     if (token) {
+    //       config.headers['Authorization'] = `Bearer ${token}`;
+    //     }
+    //   }
+    // }
     return config;
   },
   (error) => {
