@@ -2,11 +2,11 @@ import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
 import { ALGORITHM, ACCESS_TOKEN_SECRET_KEY,REFRESH_TOKEN_SECRET_KEY, SALT_ROUNDS, ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from '@config';
 import DB from '@databases';
+import { LoginResponse } from '@/interfaces/auth.interface';
 import { CreateAccountDto } from '@dtos/accounts.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { Account, ResponseUserData } from '@interfaces/accounts.interface';
 import { isEmpty } from '@utils/util';
-import { LoginResponse } from '@/interfaces/auth.interface';
 
 class AuthService {
 
