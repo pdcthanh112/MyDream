@@ -9,6 +9,7 @@ export class AccountModel extends Model<Account, CreationAttributes> implements 
   public password: string;
   public role: number;
   public notificationToken: string;
+  public status: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -38,6 +39,10 @@ export default function (sequelize: Sequelize): typeof AccountModel {
       notificationToken: {
         allowNull: true,
         type: DataTypes.STRING(255),
+      },
+      status: {
+        allowNull: true,
+        type: DataTypes.STRING(10),
       },
     },
     {

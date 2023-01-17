@@ -4,39 +4,39 @@ import { ALGORITHM, ACCESS_TOKEN_SECRET_KEY,REFRESH_TOKEN_SECRET_KEY, SALT_ROUND
 import DB from '@databases';
 import { LoginResponse } from '@/interfaces/auth.interface';
 import { CreateAccountDto } from '@dtos/accounts.dto';
-import { HttpException } from '@exceptions/HttpException';
 import { Account, ResponseUserData } from '@interfaces/accounts.interface';
 import { isEmpty } from '@utils/util';
-
+import { HttpException } from '@exceptions/HttpException';
+import { StatusCodes } from 'http-status-codes';
 class AuthService {
 
   public async login(email: string, password: string): Promise<{ cookie: string; token: LoginResponse }> {
 
     const findAccount: Account = await DB.Accounts.findOne({ where: { email: email } });
-    if (!findAccount) throw new HttpException(409, 'This email does not exist');
+    if (!findAccount) throw new HttpException(StatusCodes.NOT_FOUND, 'This email does not exist');
 
     const isPasswordMatching: boolean = await bcrypt.compare(password, findAccount.password);
-    if (!isPasswordMatching) throw new HttpException(409, 'Password is incorrect');
+    if (!isPasswordMatching) throw new HttpException(StatusCodes.NOT_FOUND, 'Password is incorrect');
 
     const findUser: any = await DB.Accounts.sequelize.query(`SELECT accounts.id AS accountId, email, role, notification_token AS notificationToken, employees.id AS employeeId, employee_code AS employeeCode, sur_name as surName, middle_name as middleName, given_name as givenName, date_of_birth as dateOfBirth, department_id as department, position_id as position, phone_number as phoneNumber, address FROM accounts JOIN employees ON accounts.id = employees.account_id WHERE accounts.email = '${email}' LIMIT 1`)
-    const findUserObj = Object.assign({}, ...findUser);
+    const findUserObj = Object.assign({}, ...findUser)[0];
     
     const responseData: ResponseUserData = {
-      accountId: findUserObj[0].accountId,
-      email: findUserObj[0].email,
-      role: findUserObj[0].role,
-      notificationToken: findUserObj[0].notificationToken,
+      accountId: findUserObj.accountId,
+      email: findUserObj.email,
+      role: findUserObj.role,
+      notificationToken: findUserObj.notificationToken,
       userData: {
-        employeeId: findUserObj[0].employeeId,
-        employeeCode: findUserObj[0].employeeCode,
-        surName: findUserObj[0].surName,
-        middleName: findUserObj[0].middleName,
-        givenName: findUserObj[0].givenName,
-        dateOfBirth: findUserObj[0].dateOfBirth,
-        department: findUserObj[0].department,
-        position: findUserObj[0].position,
-        phoneNumber: findUserObj[0].phoneNumber,
-        address: findUserObj[0].address
+        employeeId: findUserObj.employeeId,
+        employeeCode: findUserObj.employeeCode,
+        surName: findUserObj.surName,
+        middleName: findUserObj.middleName,
+        givenName: findUserObj.givenName,
+        dateOfBirth: findUserObj.dateOfBirth,
+        department: findUserObj.department,
+        position: findUserObj.position,
+        phoneNumber: findUserObj.phoneNumber,
+        address: findUserObj.address
       }
     }
 

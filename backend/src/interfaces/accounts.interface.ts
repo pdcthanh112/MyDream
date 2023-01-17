@@ -4,6 +4,7 @@ export interface Account {
   password: string;
   role: number;
   notificationToken: string;
+  status: string;
 }
 
 export interface ResponseUserData {

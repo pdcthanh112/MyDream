@@ -14,4 +14,6 @@ export class CreateAccountDto {
   public role: number;
 
   public notificationToken: string;
+
+  public status: string;
 }
