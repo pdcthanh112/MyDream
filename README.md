@@ -12,7 +12,7 @@ Use Typescript's Express framework with MySQL and MongoDB to create APIs for my 
 ### [Frontend](https://github.com/pdcthanh112/MyDream/tree/main/frontend)
 
 #### [Admin](https://github.com/pdcthanh112/MyDream/tree/main/frontend/admin)
-Using Angular framework, Responsible for the management of the application
+Using Angular framework, responsible for the management of the application
 
 #### [Ecommerce](https://github.com/pdcthanh112/MyDream/tree/main/frontend/ecommerce)
 Using React with Vite, get design ideas from amazon.com, responsible for the company's e-commerce segment, with main functions such as viewing goods, shopping cart, ordering, online payment, tracking delivery
@@ -25,3 +25,5 @@ Using React's NextJS technology to be SEO friendly, responsible for posting the 
 
 ### [Mobile](https://github.com/pdcthanh112/MyDream/tree/main/mobile)
 Using Flutter (learning...)
+
+Detailed description will be described in the README section of each app...
