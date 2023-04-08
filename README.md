@@ -26,4 +26,7 @@ Using React's NextJS technology to be SEO friendly, responsible for posting the 
 ### [Mobile](https://github.com/pdcthanh112/MyDream/tree/main/mobile)
 Using Flutter (learning...)
 
+
 Detailed description will be described in the README section of each app...
+
+I use Jenkins to implement CI/CD workflow for this application
