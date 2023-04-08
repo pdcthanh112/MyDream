@@ -1,21 +1,21 @@
 ## Welcome to my personal project - MyDream
 I use this project to apply and practice what I have learned
 
-This software let me conceptualize, design and implementation, get an idea for a company that specializes in merchandise
+This software let me conceptualize, design and implementation, get an idea for a company that specializes in merchandise.
 
 Technologies used in this software:
 
 ### [Backend](https://github.com/pdcthanh112/MyDream/tree/main/backend)
 
-Use Typescript's Express framework with MySQL and MongoDB to create APIs for my app
+Use Typescript's Express framework with MySQL and MongoDB to create APIs for my app.
 
 ### [Frontend](https://github.com/pdcthanh112/MyDream/tree/main/frontend)
 
 #### [Admin](https://github.com/pdcthanh112/MyDream/tree/main/frontend/admin)
-Using Angular framework, responsible for the management of the application
+Using Angular framework, responsible for the management of the application.
 
 #### [Ecommerce](https://github.com/pdcthanh112/MyDream/tree/main/frontend/ecommerce)
-Using React with Vite, get design ideas from amazon.com, responsible for the company's e-commerce segment, with main functions such as viewing goods, shopping cart, ordering, online payment, tracking delivery
+Using React with Vite, get design ideas from amazon.com, responsible for the company's e-commerce segment, with main functions such as viewing goods, shopping cart, ordering, online payment, tracking delivery.
 
 #### [Management](https://github.com/pdcthanh112/MyDream/tree/main/frontend/management)
 This is an internal website for the company's employees, with functions such as tracking, employee management, recruitment, timekeeping, salary calculation.
