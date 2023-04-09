@@ -2,8 +2,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": false,
-
-  "appService.defaultWebAppToDeploy": "/subscriptions/309856f0-11fa-465e-a46e-5eb31ba9c159/AppServices/subscriptions/309856f0-11fa-465e-a46e-5eb31ba9c159/resourceGroups/congthanh-project/providers/Microsoft.Web/sites/congthanh-project",
-  "appService.deploySubpath": "backend"
+  "editor.formatOnSave": false
 }

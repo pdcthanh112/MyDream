@@ -1,10 +1,10 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { User } from '@interfaces/users.interface';
 
-export type CreationAttributes = Optional<User, 'id' | 'email' | 'password'>;
+export type UserCreationAttributes = Optional<User, 'id' | 'email' | 'password'>;
 
-export class UserModel extends Model<User, CreationAttributes> implements User {
-  public id: string;
+export class UserModel extends Model<User, UserCreationAttributes> implements User {
+  public id: number;
   public email: string;
   public password: string;
 
@@ -16,10 +16,9 @@ export default function (sequelize: Sequelize): typeof UserModel {
   UserModel.init(
     {
       id: {
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        unique: true,
+        type: DataTypes.INTEGER,
       },
       email: {
         allowNull: false,
@@ -31,7 +30,7 @@ export default function (sequelize: Sequelize): typeof UserModel {
       },
     },
     {
-      tableName: 'customers',
+      tableName: 'users',
       sequelize,
     },
   );

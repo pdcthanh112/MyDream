@@ -1,6 +1,6 @@
+import 'reflect-metadata';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -9,17 +9,12 @@ import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
-import DB from '@databases';
+import { DB } from '@database';
 import { Routes } from '@interfaces/routes.interface';
-import errorMiddleware from '@middlewares/error.middleware';
+import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
-import AuthRoute from '@routes/auth.route';
-import IndexRoute from '@routes/index.route';
-import UsersRoute from '@routes/users.route';
-import validateEnv from '@utils/validateEnv';
-
-class App {
+export class App {
   public app: express.Application;
   public env: string;
   public port: string | number;
@@ -27,7 +22,7 @@ class App {
   constructor(routes: Routes[]) {
     this.app = express();
     this.env = NODE_ENV || 'development';
-    this.port = PORT || 8000;
+    this.port = PORT || 3000;
 
     this.connectToDatabase();
     this.initializeMiddlewares();
@@ -56,27 +51,16 @@ class App {
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
-    // this.app.all("/", function (req, res, next) {
-    //   res.header("Access-Control-Allow-Origin", "*");
-    //   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    //   next();
-    // });
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
-
-    //parse request data content type application/x-www-form-rulencoded
-    this.app.use(bodyParser.urlencoded({ extended: false }));
-
-    //parse request data content type application/json
-    this.app.use(bodyParser.json());
   }
 
   private initializeRoutes(routes: Routes[]) {
-    routes.forEach(route => {            
+    routes.forEach(route => {
       this.app.use('/', route.router);
     });
   }
@@ -98,14 +82,6 @@ class App {
   }
 
   private initializeErrorHandling() {
-    this.app.use(errorMiddleware);
+    this.app.use(ErrorMiddleware);
   }
 }
-
-export default App;
-
-validateEnv();
-
-const app = new App([new IndexRoute(), new AuthRoute(), new UsersRoute()]);
-
-app.listen();

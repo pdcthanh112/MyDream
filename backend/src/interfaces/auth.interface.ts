@@ -1,9 +1,15 @@
 import { Request } from 'express';
-import { Account } from './accounts.interface';
-export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+import { User } from '@interfaces/users.interface';
+
+export interface DataStoredInToken {
+  id: number;
 }
-export interface RequestWithAccount extends Request {
-  account: Account;
+
+export interface TokenData {
+  token: string;
+  expiresIn: number;
+}
+
+export interface RequestWithUser extends Request {
+  user: User;
 }

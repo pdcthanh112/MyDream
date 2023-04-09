@@ -1,46 +1,45 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateAccountDto } from '@/dtos/accounts.dto';
-import { Account } from '@interfaces/accounts.interface';
-import { RequestWithAccount } from '@interfaces/auth.interface';
-import AuthService from '@services/auth.service';
+import { Container } from 'typedi';
+import { CreateUserDto } from '@dtos/users.dto';
+import { User } from '@interfaces/users.interface';
+import { RequestWithUser } from '@interfaces/auth.interface';
+import { AuthService } from '@services/auth.service';
 
-class AuthController {
-  public authService = new AuthService();
-
-  public logIn = async (req: Request, res: Response, next: NextFunction) => {   
-    try {
-      const {email, password} = req.body;
-      const { cookie, token } = await this.authService.login(email, password);
-
-      res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: token, message: 'Login successfully' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public logOut = async (req: RequestWithAccount, res: Response, next: NextFunction) => {
-    try {
-      const accountData: Account = req.account;
-      const logOutAccountData: Account = await this.authService.logout(accountData);
-
-      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutAccountData, message: 'Logout  successfully' });
-    } catch (error) {
-      next(error);
-    }
-  };
+export class AuthController {
+  public auth = Container.get(AuthService);
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const accountData: CreateAccountDto = req.body;
-      const signUpAccountData: Account = await this.authService.signup(accountData);
+      const userData: CreateUserDto = req.body;
+      const signUpUserData: User = await this.auth.signup(userData);
 
-      res.status(201).json({ data: signUpAccountData, message: 'Register successfully' });
+      res.status(201).json({ data: signUpUserData, message: 'signup' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public logIn = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userData: CreateUserDto = req.body;
+      const { cookie, findUser } = await this.auth.login(userData);
+
+      res.setHeader('Set-Cookie', [cookie]);
+      res.status(200).json({ data: findUser, message: 'login' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const userData: User = req.user;
+      const logOutUserData: User = await this.auth.logout(userData);
+
+      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
+      res.status(200).json({ data: logOutUserData, message: 'logout' });
     } catch (error) {
       next(error);
     }
   };
 }
-
-export default AuthController;
