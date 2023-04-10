@@ -9,7 +9,7 @@ import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
-import { DB } from '@database';
+import { DB as MYSQL_DATABASE } from '@database/mysql';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
@@ -45,7 +45,7 @@ export class App {
   }
 
   private connectToDatabase() {
-    DB.sequelize.sync({ force: false });
+    MYSQL_DATABASE.sequelize.sync({ force: false });
   }
 
   private initializeMiddlewares() {
