@@ -7,11 +7,11 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import { mongodbConnection } from '@/database/mongodb';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
-import { DB as MYSQL_DATABASE } from '@/database/mysql';
+import { mysqlConnection } from '@/database/mysql';
+import { mongodbConnection } from '@/database/mongodb';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
@@ -42,8 +42,7 @@ const options = {
 };
 
 // Connect to MySQL Database
-MYSQL_DATABASE.sequelize
-  .sync({ force: false })
+mysqlConnection.authenticate()
   .then(() => {
     logger.info('Connect to MySQL Database successfully');
   })

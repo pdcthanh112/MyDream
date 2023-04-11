@@ -3,7 +3,7 @@ import { NODE_ENV, MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DAT
 import UserModel from '@models/users.model';
 import { logger } from '@utils/logger';
 
-const sequelize = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {
+export const mysqlConnection = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {
   dialect: 'mysql',
   host: MYSQL_HOST,
   port: Number(MYSQL_PORT),
@@ -25,10 +25,8 @@ const sequelize = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASS
   benchmark: true,
 });
 
-sequelize.authenticate();
-
-export const DB = {
-  Users: UserModel(sequelize),
-  sequelize, // connection instance (RAW queries)
-  Sequelize, // library
-};
+// export const DB = {
+//   Users: UserModel(sequelize),
+//   sequelize, // connection instance (RAW queries)
+//   Sequelize, // library
+// };
