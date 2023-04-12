@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { Category } from '@interfaces/ecommerce/category.interface';
+import { Goods } from '@interfaces/ecommerce/goods.interface';
 
-export class CategoryModel extends Model<Category> implements Category {
+export class GoodsModel extends Model<Goods> implements Goods {
   public id: number;
   public name: string;
   public enValue: string;
@@ -11,8 +11,8 @@ export class CategoryModel extends Model<Category> implements Category {
   public readonly updatedAt!: Date;
 }
 
-export default function (sequelize: Sequelize): typeof CategoryModel {
-  CategoryModel.init(
+export default function (sequelize: Sequelize): typeof GoodsModel {
+  GoodsModel.init(
     {
       id: DataTypes.INTEGER,
       name: DataTypes.STRING,
@@ -20,10 +20,10 @@ export default function (sequelize: Sequelize): typeof CategoryModel {
       viValue: DataTypes.STRING,
     },
     {
-      tableName: 'Categories',
+      tableName: 'Goods',
       sequelize,
     },
   );
 
-  return CategoryModel;
+  return GoodsModel;
 }

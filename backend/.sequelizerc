@@ -1,9 +1,11 @@
-const path = require('path');
+import { resolve } from 'path';
 
-module.exports = {
-  'config': path.resolve('./src/database/mysql', 'dbConfig.json'),
+export default {
+  'config': resolve('./src/database/mysql', 'dbConfig.json'),
   // 'config': path.resolve('./src/config/dbConfig', 'dbConfig.json'),
-  'migrations-path': path.resolve('./src/database/mysql', 'migrations'),
-  'models-path': path.resolve('./src', 'models'),
-  'seeders-path': path.resolve('./src/database/mysql', 'seeders')
+  'migrations-path': resolve('./src/database/mysql', 'migrations'),
+  'models-path': resolve('./src', 'models'),
+  'seeders-path': resolve('./src/database/mysql', 'seeders')
 }
+
+//npx sequelize-cli db:migrate

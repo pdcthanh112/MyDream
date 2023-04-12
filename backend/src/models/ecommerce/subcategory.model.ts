@@ -1,29 +1,31 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import { Category } from '@interfaces/ecommerce/category.interface';
+import { Subcategory } from '@interfaces/ecommerce/subcategory.interface';
 
-export class CategoryModel extends Model<Category> implements Category {
+export class SubcategoryModel extends Model<Subcategory> implements Subcategory {
   public id: number;
   public name: string;
   public enValue: string;
   public viValue: string;
+  public category: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export default function (sequelize: Sequelize): typeof CategoryModel {
-  CategoryModel.init(
+export default function (sequelize: Sequelize): typeof SubcategoryModel {
+    SubcategoryModel.init(
     {
       id: DataTypes.INTEGER,
       name: DataTypes.STRING,
       enValue: DataTypes.STRING,
       viValue: DataTypes.STRING,
+      category: DataTypes.INTEGER
     },
     {
-      tableName: 'Categories',
+      tableName: 'Sub_Categories',
       sequelize,
     },
   );
 
-  return CategoryModel;
+  return SubcategoryModel;
 }

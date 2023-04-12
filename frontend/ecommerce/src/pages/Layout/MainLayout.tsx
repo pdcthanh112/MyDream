@@ -1,16 +1,16 @@
-import Header from '../../component/Header'
-import Content from '../../component/Content'
-import Footer from '../../component/Footer'
+import AppHeader from '../../component/AppHeader'
+import AppContent from '../../component/AppContent'
+import AppFooter from '../../component/AppFooter'
 
 export const MainLayout = () => {
   return (
     <div>
     <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-      <Header />
+      <AppHeader />
       <div className="flex-grow-1 bg-[#FBF9F6]">
-        <Content />
+        <AppContent />
       </div>
-      <Footer />
+      <AppFooter />
     </div>
   </div>
   )
