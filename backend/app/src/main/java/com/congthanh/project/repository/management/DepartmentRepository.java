@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
 
-
 }

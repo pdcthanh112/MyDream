@@ -11,11 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
-public class CategoryDTO implements Serializable {
+public class GoodsDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int id;
-    private String name;
-    private String enValue;
-    private String viValue;
+    private String id;
 }

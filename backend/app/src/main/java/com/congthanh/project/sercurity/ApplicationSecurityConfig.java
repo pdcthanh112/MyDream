@@ -1,7 +1,7 @@
 package com.congthanh.project.sercurity;
 
-import com.congthanh.project.auth.ApplicationUserService;
-import com.congthanh.project.jwt.JwtConfig;
+//import com.congthanh.project.auth.ApplicationUserService;
+//import com.congthanh.project.jwt.JwtConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig {
 
-    private final ApplicationUserService applicationUserService;
-    private JwtConfig jwtConfig;
+//    private final ApplicationUserService applicationUserService;
+//    private JwtConfig jwtConfig;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests()
