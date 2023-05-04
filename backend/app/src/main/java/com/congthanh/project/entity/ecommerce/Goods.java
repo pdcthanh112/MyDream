@@ -22,6 +22,27 @@ public class Goods implements Serializable {
     private String id;
 
     private String name;
+
+    private String enValue;
+
+    private String vnValue;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category", nullable = false)
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory", nullable = false)
+    private Subcategory subcategory;
+
     private int quantity;
+
     private float price;
+
+    private int sold;
+
+    private String image;
+
+    @Column(columnDefinition = "text")
+    private String description;
 }

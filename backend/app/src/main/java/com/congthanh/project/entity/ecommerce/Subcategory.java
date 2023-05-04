@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,5 +25,10 @@ public class Subcategory implements Serializable {
     private String name;
     private String enValue;
     private String viValue;
-    private int category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category", nullable = false)
+    private Category category;
+
+    @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
+    private Set<Goods> goods;
 }
