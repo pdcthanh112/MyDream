@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import { NODE_ENV, MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } from '@config';
-import UserModel from '@models/users.model';
+//import AccountModel from '@/models/account.model';
 import { logger } from '@utils/logger';
 
 export const mysqlConnection = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {

@@ -1,4 +1,4 @@
-package com.congthanh.project.dto.management;
+package com.congthanh.project.dto.ecommerce;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountDTO implements Serializable {
+public class SubcategoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String accountId;
-
+    private int id;
+    private String name;
+    private String enValue;
+    private String viValue;
+    private int category;
 }

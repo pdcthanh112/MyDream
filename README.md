@@ -7,7 +7,7 @@ Technologies used in this software:
 
 ## [Backend](https://github.com/pdcthanh112/MyDream/tree/main/backend)
 
-Use Typescript's Express framework with MySQL and MongoDB to create APIs for my app.
+Use Spring Framework + MySQL and MongoDB to create APIs for my app and Typescript's Express framework + MongoDB for authentication.
 
 ## [Frontend](https://github.com/pdcthanh112/MyDream/tree/main/frontend)
 

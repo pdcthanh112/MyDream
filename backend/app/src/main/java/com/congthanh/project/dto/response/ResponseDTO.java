@@ -1,4 +1,4 @@
-package com.congthanh.project.dto;
+package com.congthanh.project.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -23,4 +23,7 @@ public class Account implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String accountId;
+
+    @Column(nullable = false, unique = true)
+    private String empAccount;
 }
