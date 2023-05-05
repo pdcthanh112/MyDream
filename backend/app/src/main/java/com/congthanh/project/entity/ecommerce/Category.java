@@ -26,7 +26,10 @@ public class Category implements Serializable {
 
     private String enValue;
 
-    private String vnValue;
+    @Column(columnDefinition = "nvarchar")
+    private String viValue;
+
+    private String status;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Subcategory> subcategories;

@@ -1,32 +1,28 @@
-//package com.congthanh.project.controller.management;
-//
-//import com.congthanh.project.service.management.DepartmentService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequestMapping
-//@CrossOrigin("*")
-//@RequiredArgsConstructor
-//public class DepartmentController {
-//
-//    private final DepartmentService departmentService;
-//
-//    @GetMapping("getAll")
-//    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
-//    public ResponseEntity<ResponseDTO> getAllDepartments(
-//            @RequestParam(defaultValue = "0") int pageNo,
-//            @RequestParam(defaultValue = "10") int pageSize,
-//            @RequestParam(defaultValue = "") String name) {
-//        ResponseDTO<ResponseWithTotalPage> response = new ResponseDTO();
-//        ResponseWithTotalPage<DepartmentResponse> list = departmentService.getAllDepartments(pageNo, pageSize, name);
-//        response.setData(list);
-//        response.setMessage(DepartmentSuccessMessage.GET_ALL_DEPARTMENT);
-//        response.setStatus(ResponseStatusDTO.SUCCESS);
-//        return ResponseEntity.ok().body(response);
-//    }
+package com.congthanh.project.controller.management;
+
+import com.congthanh.project.dto.management.DepartmentDTO;
+import com.congthanh.project.service.management.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/management/department")
+@CrossOrigin("*")
+public class DepartmentController {
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @GetMapping("getAll")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
+    public ResponseEntity<List<DepartmentDTO>> getAllDepartment(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        List<DepartmentDTO> response = departmentService.getAllDepartment();
+        return ResponseEntity.ok().body(response);
+    }
 //
 //    @GetMapping("getById/{id}")
 //    @PreAuthorize(RolePreAuthorize.ROLE_ADMIN_EMPLOYEE)
@@ -105,4 +101,4 @@
 //        return ResponseEntity.ok().body(responseDTO);
 //    }
 //
-//}
+}

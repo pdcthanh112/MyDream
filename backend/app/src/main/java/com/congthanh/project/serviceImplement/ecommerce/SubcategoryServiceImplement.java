@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubcategoryServiceImplement implements SubcategoryService {
@@ -41,5 +42,23 @@ public class SubcategoryServiceImplement implements SubcategoryService {
             throw new RuntimeException("List empty exception");
         }
         return result;
+    }
+
+    @Override
+    public Subcategory createSubcategory(SubcategoryDTO subcategoryDTO) {
+        Optional<Subcategory> existSubcategory = subcategoryRepository.findSubcategoryByName(subcategoryDTO.getName());
+        if (existSubcategory.isPresent()) {
+            throw new RuntimeException("Sub ton tai");
+        } else {
+            Subcategory subcategory = Subcategory.builder()
+                    .name(subcategoryDTO.getName())
+                    .enValue(subcategoryDTO.getEnValue())
+                    .viValue(subcategoryDTO.getViValue())
+                    .category(subcategoryDTO.getCategory())
+                    .build();
+            Subcategory response = subcategoryRepository.save(subcategory);
+            return response;
+        }
+
     }
 }

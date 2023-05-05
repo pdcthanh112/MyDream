@@ -18,4 +18,5 @@ public class CategoryDTO implements Serializable {
     private String name;
     private String enValue;
     private String viValue;
+    private String status;
 }

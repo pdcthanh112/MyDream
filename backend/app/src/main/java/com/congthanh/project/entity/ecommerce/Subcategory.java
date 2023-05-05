@@ -23,11 +23,19 @@ public class Subcategory implements Serializable {
     private int id;
 
     private String name;
+
     private String enValue;
+
+    @Column(columnDefinition = "nvarchar")
     private String viValue;
+
+    private String status;
+
+    private int category;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category", nullable = false)
-    private Category category;
+    private Category categories;
 
     @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
     private Set<Goods> goods;

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImplement implements CategoryService {
@@ -41,5 +42,21 @@ public class CategoryServiceImplement implements CategoryService {
             throw new RuntimeException("List empty exception");
         }
         return result;
+    }
+
+    @Override
+    public Category createCategory(CategoryDTO categoryDTO) {
+        Optional<Category> existCategory = categoryRepository.findCategoryByName(categoryDTO.getName());
+        if(existCategory.isPresent()) {
+            throw new RuntimeException("Category ton tai");
+        } else {
+            Category category = Category.builder()
+                    .name(categoryDTO.getName())
+                    .enValue(categoryDTO.getEnValue())
+                    .viValue(categoryDTO.getViValue())
+                    .build();
+            Category response = categoryRepository.save(category);
+            return response;
+        }
     }
 }

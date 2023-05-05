@@ -25,6 +25,7 @@ public class Goods implements Serializable {
 
     private String enValue;
 
+    @Column(columnDefinition = "nvarchar")
     private String vnValue;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,6 +43,8 @@ public class Goods implements Serializable {
     private int sold;
 
     private String image;
+
+    private String status;
 
     @Column(columnDefinition = "text")
     private String description;

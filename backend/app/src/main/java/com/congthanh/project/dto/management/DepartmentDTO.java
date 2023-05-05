@@ -16,4 +16,5 @@ public class DepartmentDTO implements Serializable {
 
     private int id;
     private String name;
+    private String status;
 }
