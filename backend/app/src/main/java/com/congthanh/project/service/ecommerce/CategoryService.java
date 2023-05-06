@@ -9,4 +9,8 @@ public interface CategoryService {
     public ResponseWithTotalPage<CategoryDTO> getAllCategory(int pageNo, int pageSize);
 
     public Category createCategory(CategoryDTO categoryDTO);
+
+    public Category updateCategory(CategoryDTO categoryDTO);
+
+    public boolean deleteCategory(int id);
 }

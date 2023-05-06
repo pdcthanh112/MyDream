@@ -19,5 +19,5 @@ public class SubcategoryDTO implements Serializable {
     private String enValue;
     private String viValue;
     private int category;
-    private String status;
+
 }

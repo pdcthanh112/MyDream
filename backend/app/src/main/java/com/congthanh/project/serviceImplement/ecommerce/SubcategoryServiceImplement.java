@@ -1,5 +1,6 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
+import com.congthanh.project.constant.common.Status;
 import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Subcategory;
@@ -46,7 +47,7 @@ public class SubcategoryServiceImplement implements SubcategoryService {
 
     @Override
     public Subcategory createSubcategory(SubcategoryDTO subcategoryDTO) {
-        Optional<Subcategory> existSubcategory = subcategoryRepository.findSubcategoryByName(subcategoryDTO.getName());
+        Optional<Subcategory> existSubcategory = subcategoryRepository.findByName(subcategoryDTO.getName());
         if (existSubcategory.isPresent()) {
             throw new RuntimeException("Sub ton tai");
         } else {
@@ -58,6 +59,30 @@ public class SubcategoryServiceImplement implements SubcategoryService {
                     .build();
             Subcategory response = subcategoryRepository.save(subcategory);
             return response;
+        }
+    }
+
+    @Override
+    public Subcategory updateSubcategory(SubcategoryDTO subcategoryDTO) {
+        Subcategory subcategory = subcategoryRepository.findById(subcategoryDTO.getId()).orElseThrow(() -> new RuntimeException("Subcategory not found"));
+
+        subcategory.setName(subcategoryDTO.getName());
+        subcategory.setEnValue(subcategoryDTO.getEnValue());
+        subcategory.setViValue(subcategoryDTO.getViValue());
+        subcategory.setCategory(subcategoryDTO.getCategory());
+
+        subcategoryRepository.save(subcategory);
+        return subcategory;
+    }
+
+    @Override
+    public boolean deleteSubcategory(int id) {
+        Subcategory subcategory = subcategoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Subcategory not found"));
+        if (subcategory.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+            throw new RuntimeException("Category have deleted before");
+        } else {
+            boolean result = subcategoryRepository.deleteSubcategory(id);
+            return result;
         }
 
     }

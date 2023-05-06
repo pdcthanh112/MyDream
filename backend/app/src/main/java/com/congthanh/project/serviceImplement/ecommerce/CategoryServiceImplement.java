@@ -1,5 +1,6 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
+import com.congthanh.project.constant.common.Status;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
@@ -46,17 +47,41 @@ public class CategoryServiceImplement implements CategoryService {
 
     @Override
     public Category createCategory(CategoryDTO categoryDTO) {
-        Optional<Category> existCategory = categoryRepository.findCategoryByName(categoryDTO.getName());
-        if(existCategory.isPresent()) {
+        Optional<Category> existCategory = categoryRepository.findByName(categoryDTO.getName());
+        if (existCategory.isPresent()) {
             throw new RuntimeException("Category ton tai");
         } else {
             Category category = Category.builder()
                     .name(categoryDTO.getName())
                     .enValue(categoryDTO.getEnValue())
                     .viValue(categoryDTO.getViValue())
+                    .status(Status.STATUS_ACTIVE)
                     .build();
             Category response = categoryRepository.save(category);
             return response;
+        }
+    }
+
+    @Override
+    public Category updateCategory(CategoryDTO categoryDTO) {
+        Category category = categoryRepository.findById(categoryDTO.getId()).orElseThrow(() -> new RuntimeException("Category not found"));
+
+        category.setName(categoryDTO.getName());
+        category.setEnValue(categoryDTO.getEnValue());
+        category.setViValue((categoryDTO.getViValue()));
+
+        categoryRepository.save(category);
+        return category;
+    }
+
+    @Override
+    public boolean deleteCategory(int id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
+        if (category.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+            throw new RuntimeException("Category have deleted before");
+        } else {
+            boolean result = categoryRepository.deleteCategory(id);
+            return result;
         }
     }
 }

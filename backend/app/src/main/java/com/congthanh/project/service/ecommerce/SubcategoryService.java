@@ -5,7 +5,12 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 
 public interface SubcategoryService {
+
     public ResponseWithTotalPage<SubcategoryDTO> getAllSubcategory(int pageNo, int pageSize);
 
     public Subcategory createSubcategory(SubcategoryDTO subcategoryDTO);
+
+    public Subcategory updateSubcategory(SubcategoryDTO subcategoryDTO);
+
+    public boolean deleteSubcategory(int id);
 }

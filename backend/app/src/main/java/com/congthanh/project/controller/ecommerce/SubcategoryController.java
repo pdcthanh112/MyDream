@@ -31,4 +31,15 @@ public class SubcategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Created successfully");
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<String> updateSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
+        Subcategory subcategory = subcategoryService.updateSubcategory(subcategoryDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteSubcategory(@RequestParam("id") int id) {
+        boolean result = subcategoryService.deleteSubcategory(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
+    }
 }
