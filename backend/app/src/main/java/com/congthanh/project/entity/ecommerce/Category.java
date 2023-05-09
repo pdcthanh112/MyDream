@@ -11,10 +11,10 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "category")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "category")
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
