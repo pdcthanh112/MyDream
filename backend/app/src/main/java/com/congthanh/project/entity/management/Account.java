@@ -26,4 +26,6 @@ public class Account implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String empAccount;
+
+    private String role;
 }

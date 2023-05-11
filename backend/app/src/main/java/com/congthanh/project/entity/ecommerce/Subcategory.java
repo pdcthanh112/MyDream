@@ -34,7 +34,7 @@ public class Subcategory implements Serializable {
     private int category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false)
+    @JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
     private Category categories;
 
     @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
