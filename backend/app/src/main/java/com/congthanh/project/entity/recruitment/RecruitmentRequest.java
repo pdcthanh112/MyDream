@@ -20,6 +20,7 @@ public class RecruitmentRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "numeric")
     private Long id;
 
     private String name;

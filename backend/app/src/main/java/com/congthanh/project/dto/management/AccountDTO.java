@@ -16,4 +16,5 @@ public class AccountDTO implements Serializable {
 
     private Long id;
     private String accountId;
+    private String email;
 }

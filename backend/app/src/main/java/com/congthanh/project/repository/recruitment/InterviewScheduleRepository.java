@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface InterviewScheduleRepository extends JpaRepository<Long, InterviewSchedule> {
+public interface InterviewScheduleRepository extends JpaRepository<InterviewSchedule, Long> {
 }

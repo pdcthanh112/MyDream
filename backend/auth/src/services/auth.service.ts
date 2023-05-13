@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { SECRET_KEY } from '@config';
 import { DB } from '@database';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto } from '@/dtos/account.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@/interfaces/account.interface';

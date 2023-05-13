@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 
@@ -25,7 +26,7 @@ public class Goods implements Serializable {
 
     private String enValue;
 
-    @Column(columnDefinition = "nvarchar")
+    @Nationalized
     private String vnValue;
 
     @ManyToOne(fetch = FetchType.LAZY)

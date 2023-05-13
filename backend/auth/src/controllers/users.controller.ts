@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto } from '@/dtos/account.dto';
 import { User } from '@/interfaces/account.interface';
 import { UserService } from '@services/users.service';
 

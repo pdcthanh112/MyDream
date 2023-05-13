@@ -19,6 +19,7 @@ public class InterviewSession implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "numeric")
     private Long id;
 
     private String candidateId;

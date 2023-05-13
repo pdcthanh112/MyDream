@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { DB } from '@database';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto } from '@/dtos/account.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { User } from '@/interfaces/account.interface';
 

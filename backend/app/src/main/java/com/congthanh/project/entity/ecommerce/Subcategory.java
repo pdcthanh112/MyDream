@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class Subcategory implements Serializable {
 
     private String enValue;
 
-    @Column(columnDefinition = "nvarchar")
+    @Nationalized
     private String viValue;
 
     private String status;

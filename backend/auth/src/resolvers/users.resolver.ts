@@ -1,5 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
-import { CreateUserDto, UpdateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, UpdateUserDto } from '@/dtos/account.dto';
 import { UserRepository } from '@repositories/users.repository';
 import { User } from '@typedefs/users.type';
 

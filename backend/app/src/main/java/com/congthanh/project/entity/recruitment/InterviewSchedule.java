@@ -21,6 +21,7 @@ public class InterviewSchedule implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "numeric")
     private Long id;
 
     private String candidateId;

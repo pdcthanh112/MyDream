@@ -13,18 +13,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "account", indexes = @Index(columnList = "accountId"))
+@Table(name = "account", indexes = @Index(columnList = "account_id"))
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "numeric")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "account_id", nullable = false, unique = true)
     private String accountId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "emp_account", nullable = false, unique = true)
     private String empAccount;
 
     private String role;
