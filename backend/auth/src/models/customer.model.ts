@@ -1,38 +1,39 @@
-import { model, Schema, Document } from 'mongoose';
+import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { Customer } from '@interfaces/account.interface';
 
-const CustomerSchema: Schema = new Schema({
-  email: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  accountId: {
-    type: String,
-    required: true,
-  },
-  empAccount: {
-    type: String,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  salary: {
-    type: String,
-    required: true,
-  },
+//export type UserCreationAttributes = Optional<Customer | 'id' | 'email' | 'password'>;
 
+export class CustomerModel extends Model<Customer> implements Customer{
+  public id: number;
+  public email: string;
+  public password: string;
 
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
 
-});
+export default function (sequelize: Sequelize): typeof CustomerModel {
+  CustomerModel.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      email: {
+        allowNull: false,
+        type: DataTypes.STRING(45),
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+    },
+    {
+      tableName: 'Customer',
+      sequelize,
+    },
+  );
 
-export const AccountModel = model<Customer & Document>('Account', CustomerSchema);
+  return CustomerModel;
+}
