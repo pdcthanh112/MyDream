@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize';
 import request from 'supertest';
 import { App } from '@/app';
 import { CreateUserDto } from '@/dtos/account.dto';
-import { UserRoute } from '@routes/users.route';
+import { UserRoute } from '@/routes/ecommerce/users.route';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));

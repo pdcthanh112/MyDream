@@ -52,7 +52,8 @@ mysqlConnection.authenticate()
 
 // Connect to MongoDB Database
 mongoose
-  .connect(mongodbConnection.url)
+  .connect('mongodb+srv://pdcthanh112:vvhtFdU9MXlCNlpw@mydream.gwxdmti.mongodb.net/')
+  // .connect(mongodbConnection.url)
   .then(() => {
     logger.info('Connect to MongoDB successfully');
   })

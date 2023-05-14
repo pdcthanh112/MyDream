@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
 import { NODE_ENV, MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } from '@config/index';
 import { logger } from '@utils/logger';
-import EmployeeModel from '@/models/employee.model';
-import CandidateModel from '@/models/candidate.model';
-import CustomerModel from '@/models/customer.model';
+import EmployeeModel from '@models/employee.model';
+import CandidateModel from '@models/candidate.model';
+import CustomerModel from '@models/customer.model';
 
 export const mysqlConnection = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {
   dialect: 'mysql',
