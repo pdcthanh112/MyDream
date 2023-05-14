@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@/dtos/account.dto';
-import { User } from '@/interfaces/account.interface';
+import { EmployeeLoginDto } from '@/dtos/account.dto';
+import { Employee } from '@/interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@services/management/auth.service';
 
 export class AuthController {
   public auth = Container.get(AuthService);
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.auth.signup(userData);
+      const userData: EmployeeLoginDto = req.body;
+      const signUpEmployeeData: Employee = await this.auth.signup(userData);
 
-      res.status(201).json({ data: signUpUserData, message: 'signup' });
+      res.status(201).json({ data: signUpEmployeeData, message: 'signup' });
     } catch (error) {
       next(error);
     }
@@ -21,11 +21,11 @@ export class AuthController {
 
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const { cookie, findUser } = await this.auth.login(userData);
+      const employeeData: EmployeeLoginDto = req.body;
+      const { cookie, findEmployee } = await this.auth.login(employeeData);
 
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: findUser, message: 'login' });
+      res.status(200).json({ data: findEmployee, message: 'login' });
     } catch (error) {
       next(error);
     }
@@ -33,8 +33,8 @@ export class AuthController {
 
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
-      const userData: User = req.user;
-      const logOutUserData: User = await this.auth.logout(userData);
+      const userData: Employee = req.user;
+      const logOutUserData: Employee = await this.auth.logout(userData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
       res.status(200).json({ data: logOutUserData, message: 'logout' });

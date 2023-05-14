@@ -8,22 +8,40 @@ export interface Account {
 
 export interface Customer {
   id?: number;
-  account?: string;
-  empAccount?: string; 
+  accountId: string; 
+  name: string;
   email: string;
-  password: string;
+  password?: string;
+  phone: string;
+  address: string;
+  dob: Date;
+  gender: string;
+  image: string;
 }
 export interface Employee {
   id?: number;
-  account?: string;
-  empAccount?: string; 
+  accountId: string;
+  empAccount: string; 
+  name: string;
   email: string;
-  password: string;
+  password?: string;
+  phone: string;
+  address: string;
+  department: string;
+  dob: Date;
+  gender: string;
+  image: string;
+  salary: number
 }
 export interface Candidate {
   id?: number;
-  account?: string;
-  empAccount?: string; 
+  accountId: string; 
+  name: string;
   email: string;
-  password: string;
+  password?: string;
+  phone: string;
+  address: string;
+  dob: Date;
+  gender: string;
+  image: string;
 }
