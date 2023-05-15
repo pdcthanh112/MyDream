@@ -33,8 +33,8 @@
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"]
-    }
+    },
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/databases/mysql/dbConfig.json"],
   "exclude": ["node_modules", "src/http", "src/logs"]
 }

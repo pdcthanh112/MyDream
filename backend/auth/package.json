@@ -14,7 +14,8 @@
     "lint:fix": "npm run lint -- --fix",
     "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only prod",
     "deploy:dev": "pm2 start ecosystem.config.js --only dev",
-    "migration": "npx sequelize-cli db:migrate"
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
   "dependencies": {
     "apollo-server-express": "^3.12.0",
@@ -37,6 +38,7 @@
     "mysql2": "^2.3.3",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
+    "path": "^0.12.7",
     "redis": "^4.6.5",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.21.3",
