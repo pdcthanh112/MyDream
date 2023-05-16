@@ -22,69 +22,69 @@ export class EmployeeModel extends Model<Employee> implements Employee{
   public readonly updatedAt!: Date;
 }
 
-// export default function (sequelize: Sequelize): typeof EmployeeModel {
-//   EmployeeModel.init(
-//     {
-//       id: {
-//         type: DataTypes.UUID,
-//         defaultValue: DataTypes.UUIDV4,
-//         primaryKey: true,
-//       },
-//       email: {
-//         allowNull: false,
-//         type: DataTypes.STRING(45),
-//       },
-//       password: {
-//         allowNull: false,
-//         type: DataTypes.STRING(255),
-//       },
-//       accountId: {
-//         allowNull: false,
-//         unique: true,
-//         type: DataTypes.STRING(45),
-//       },
-//       empAccount: {
-//         allowNull: false,
-//         unique: true,
-//         type: DataTypes.STRING(45),
-//       },
-//       name: {
-//         allowNull: false,
-//         type: DataTypes.STRING(45),
-//       },
-//       phone: {
-//         allowNull: false,
-//         type: DataTypes.STRING(20),
-//       },
-//       address: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//       },
-//       department: {
-//         allowNull: false,
-//         type: DataTypes.STRING(45),
-//       },
-//       dob: {
-//         type: DataTypes.DATEONLY,
-//       },
-//       gender: {
-//         allowNull: false,
-//         type: DataTypes.STRING(10),
-//       },
-//       image: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//       },
-//       salary: {
-//         allowNull: false,
-//         type: DataTypes.NUMBER,
-//       }
-//     },
-//     {
-//       tableName: 'Employee',
-//       sequelize,
-//     },
-//   );
+export default function (sequelize: Sequelize): typeof EmployeeModel {
+  EmployeeModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      email: {
+        allowNull: false,
+        type: DataTypes.STRING(45),
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+      accountId: {
+        allowNull: false,
+        unique: true,
+        type: DataTypes.UUID,
+      },
+      empAccount: {
+        allowNull: false,
+        unique: true,
+        type: DataTypes.STRING(45),
+      },
+      name: {
+        allowNull: false,
+        type: DataTypes.STRING(45),
+      },
+      phone: {
+        allowNull: false,
+        type: DataTypes.STRING(20),
+      },
+      address: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      department: {
+        allowNull: false,
+        type: DataTypes.STRING(45),
+      },
+      dob: {
+        type: DataTypes.DATEONLY,
+      },
+      gender: {
+        allowNull: false,
+        type: DataTypes.STRING(10),
+      },
+      image: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      salary: {
+        allowNull: false,
+        type: DataTypes.DOUBLE,
+      }
+    },
+    {
+      tableName: 'Employee',
+      sequelize,
+    },
+  );
 
-//   return EmployeeModel;
-// }
+  return EmployeeModel;
+}

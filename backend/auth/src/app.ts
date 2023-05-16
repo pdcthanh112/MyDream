@@ -45,10 +45,12 @@ const options = {
 mysqlConnection.authenticate()
   .then(() => {
     logger.info('Connect to MySQL Database successfully');
+    mysqlConnection.sync({force: false});
   })
   .catch(error => {
     logger.error('Error connecting to MySQL:', error);
   });
+ 
 
 // Connect to MongoDB Database
 mongoose
