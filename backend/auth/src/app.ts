@@ -15,6 +15,8 @@ import { mongodbConnection } from '@databases/mongodb';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+import { AuthRoute } from './routes/management/auth.route';
+import { EmployeeRoute } from './routes/management/employee.route';
 
 const app = express();
 const env = NODE_ENV || 'development';
@@ -30,6 +32,35 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(ErrorMiddleware);
 
+// Connect to MySQL Database
+mysqlConnection
+  .authenticate()
+  .then(() => {
+    logger.info('Connect to MySQL Database successfully');
+    mysqlConnection.sync({ force: false });
+  })
+  .catch(error => {
+    logger.error('Error connecting to MySQL:', error);
+  });
+
+// Connect to MongoDB Database
+mongoose
+  .connect(mongodbConnection.url)
+  //.connect('mongodb+srv://pdcthanh112:vvhtFdU9MXlCNlpw@mydream.gwxdmti.mongodb.net/')
+  .then(() => {
+    logger.info('Connect to MongoDB successfully');
+  })
+  .catch(error => {
+    logger.error('Error connecting to MongoDB:', error);
+  });
+
+//Define app router
+const routes: any = [new AuthRoute];
+console.log("=====================================", routes)
+routes.forEach(route => {
+  app.use('/', route.router);
+});
+
 const options = {
   swaggerDefinition: {
     info: {
@@ -40,28 +71,6 @@ const options = {
   },
   apis: ['swagger.yaml'],
 };
-
-// Connect to MySQL Database
-mysqlConnection.authenticate()
-  .then(() => {
-    logger.info('Connect to MySQL Database successfully');
-    mysqlConnection.sync({force: false});
-  })
-  .catch(error => {
-    logger.error('Error connecting to MySQL:', error);
-  });
- 
-
-// Connect to MongoDB Database
-mongoose
-  .connect('mongodb+srv://pdcthanh112:vvhtFdU9MXlCNlpw@mydream.gwxdmti.mongodb.net/')
-  // .connect(mongodbConnection.url)
-  .then(() => {
-    logger.info('Connect to MongoDB successfully');
-  })
-  .catch(error => {
-    logger.error('Error connecting to MongoDB:', error);
-  });
 
 const specs = swaggerJSDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
