@@ -5,7 +5,7 @@ import { Employee } from '@/interfaces/account.interface';
 import { EmployeeService } from '@/services/management/employee.service';
 
 export class EmployeeController {
-  public service = Container.get(EmployeeService);
+  private service = Container.get(EmployeeService);
 
   public getAllEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {

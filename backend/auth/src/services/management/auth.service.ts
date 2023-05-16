@@ -34,15 +34,15 @@ export class AuthService {
     return { cookie, findEmployee };
   }
 
-  public async signup(userData: EmployeeLoginDto): Promise<Employee> {
-    const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: userData.email } });
-    if (findEmployee) throw new HttpException(409, `This email ${userData.email} already exists`);
+  // public async signup(userData: EmployeeLoginDto): Promise<Employee> {
+  //   const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: userData.email } });
+  //   if (findEmployee) throw new HttpException(409, `This email ${userData.email} already exists`);
 
-    const hashedPassword = await hash(userData.password, 10);
-    const createUserData: Employee = await MYSQL_DB.Employee.create({ ...userData, password: hashedPassword });
+  //   const hashedPassword = await hash(userData.password, 10);
+  //   const createUserData: Employee = await MYSQL_DB.Employee.create({ ...userData, password: hashedPassword });
 
-    return createUserData;
-  }
+  //   return createUserData;
+  // }
 
   public async logout(employeeData: Employee): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });

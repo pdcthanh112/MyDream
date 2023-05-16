@@ -31,9 +31,10 @@ export class CreateEmployeeDto {
 
   public address: string;
   public department: string;
-  public dob: Date;
+  public dob?: Date;
   public gender: string;
-  public image: string;
+  public image?: string;
+  
   @IsNumber()
   public salary: number
 

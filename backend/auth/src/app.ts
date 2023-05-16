@@ -55,7 +55,7 @@ mongoose
   });
 
 //Define app router
-const routes: any = [new AuthRoute];
+const routes: any = [new AuthRoute, new EmployeeRoute];
 routes.forEach(route => {
   app.use('/', route.router);
 });
