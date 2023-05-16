@@ -56,7 +56,6 @@ mongoose
 
 //Define app router
 const routes: any = [new AuthRoute];
-console.log("=====================================", routes)
 routes.forEach(route => {
   app.use('/', route.router);
 });
