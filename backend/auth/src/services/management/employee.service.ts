@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { MYSQL_DB } from '@databases/mysql';
-import { EmployeeLoginDto, CreateEmployeeDto } from '@/dtos/account.dto';
+import { EmployeeLoginDto, CreateEmployeeDto, UpdateEmployeeDto } from '@/dtos/employee.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { Employee } from '@/interfaces/account.interface';
 import generateAccountAlias from '@utils/helper';
@@ -25,25 +25,30 @@ export class EmployeeService {
   public async createEmployee(employeeData: CreateEmployeeDto): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
     if (findEmployee) throw new HttpException(409, `This email ${employeeData.email} already exists`);
-    let alias = generateAccountAlias(employeeData.name);
-    const getListAlias: any = await MYSQL_DB.mysqlConnection.query("SELECT count(emp_account) FROM employee WHERE emp_account = ?", {replacements: [alias], type:QueryTypes.SELECT, raw: false,})
-    if(getListAlias > 0) alias = `${alias}${getListAlias}`
+    let empAccount = generateAccountAlias(employeeData.name);
+    const countEmpAccount: any = await MYSQL_DB.mysqlConnection.query('SELECT count(emp_account) as result FROM employee WHERE emp_account LIKE ?% AND emp_account NOT LIKE ?[A-Za-z]', {
+      replacements: [empAccount, empAccount],
+      type: QueryTypes.SELECT, 
+      raw: true,
+      plain: true,
+    });
 
+    if (countEmpAccount.result > 0) empAccount = `${empAccount}${countEmpAccount.result + 1}`;
+    
     const hashedPassword = await hash(employeeData.password, 10);
 
     employeeData.accountId = uuidv4();
-    employeeData.empAccount = alias;
+    employeeData.empAccount = empAccount;
     employeeData.password = hashedPassword;
-    const createEmployeeData: Employee = await MYSQL_DB.Employee.create({ ...employeeData});
+    const createEmployeeData: Employee = await MYSQL_DB.Employee.create({ ...employeeData });
     return createEmployeeData;
   }
 
-  public async updateEmployee(employeeId: number, employeeData: EmployeeLoginDto): Promise<Employee> {
+  public async updateEmployee(employeeId: number, employeeData: UpdateEmployeeDto): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findByPk(employeeId);
-    if (!findEmployee) throw new HttpException(409, "Employee doesn't exist");
+    if (!findEmployee) throw new HttpException(404, "Employee doesn't exist");
 
-    const hashedPassword = await hash(employeeData.password, 10);
-    await MYSQL_DB.Employee.update({ ...employeeData, password: hashedPassword }, { where: { id: employeeId } });
+    await MYSQL_DB.Employee.update({ ...employeeData}, { where: { id: employeeId } });
 
     const updateEmployee: Employee = await MYSQL_DB.Employee.findByPk(employeeId);
     return updateEmployee;

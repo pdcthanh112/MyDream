@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { EmployeeLoginDto } from '@/dtos/account.dto';
+import { EmployeeLoginDto } from '@/dtos/employee.dto';
 import { Employee } from '@/interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/management/auth.service';

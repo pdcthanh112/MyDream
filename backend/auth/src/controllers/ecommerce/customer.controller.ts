@@ -1,62 +1,62 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@/dtos/account.dto';
-import { User } from '@/interfaces/account.interface';
-import { UserService } from '@/services/management/users.service';
+import { CreateCustomerDto, UpdateCustomerDto } from '@/dtos/customer.dto';
+import { Customer } from '@/interfaces/account.interface';
+import { CustomerService } from '@services/ecommerce/customer.service';
 
-export class UserController {
-  public user = Container.get(UserService);
+export class CustomerController {
+  public service = Container.get(CustomerService);
 
-  public getUsers = async (req: Request, res: Response, next: NextFunction) => {
+  public getAllCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllUsersData: User[] = await this.user.findAllUser();
+      const findAllCustomersData: Customer[] = await this.service.findAllCustomer();
 
-      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+      res.status(200).json({ data: findAllCustomersData, message: 'findAll' });
     } catch (error) {
       next(error);
     }
   };
 
-  public getUserById = async (req: Request, res: Response, next: NextFunction) => {
+  public getCustomerById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const findOneUserData: User = await this.user.findUserById(userId);
+      const findOneCustomerData: Customer = await this.service.findCustomerById(userId);
 
-      res.status(200).json({ data: findOneUserData, message: 'findOne' });
+      res.status(200).json({ data: findOneCustomerData, message: 'findOne' });
     } catch (error) {
       next(error);
     }
   };
 
-  public createUser = async (req: Request, res: Response, next: NextFunction) => {
+  public createCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const createUserData: User = await this.user.createUser(userData);
+      const userData: CreateCustomerDto = req.body;
+      const createCustomerData: Customer = await this.service.createCustomer(userData);
 
-      res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ data: createCustomerData, message: 'created' });
     } catch (error) {
       next(error);
     }
   };
 
-  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId = Number(req.params.id);
-      const userData: CreateUserDto = req.body;
-      const updateUserData: User = await this.user.updateUser(userId, userData);
-
-      res.status(200).json({ data: updateUserData, message: 'updated' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+  public updateCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const deleteUserData: User = await this.user.deleteUser(userId);
+      const userData: UpdateCustomerDto = req.body;
+      const updateCustomerData: Customer = await this.service.updateCustomer(userId, userData);
 
-      res.status(200).json({ data: deleteUserData, message: 'deleted' });
+      res.status(200).json({ data: updateCustomerData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteCustomer = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = Number(req.params.id);
+      const deleteCustomerData: Customer = await this.service.deleteCustomer(userId);
+
+      res.status(200).json({ data: deleteCustomerData, message: 'deleted' });
     } catch (error) {
       next(error);
     }

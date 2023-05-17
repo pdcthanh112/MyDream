@@ -3,13 +3,13 @@ import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { SECRET_KEY } from '@/config';
 import { MYSQL_DB } from '@databases/mysql';
-import { EmployeeLoginDto } from '@/dtos/account.dto';
+import { CandidateLoginDto } from '@/dtos/candidate.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
-import { Employee } from '@/interfaces/account.interface';
+import { Candidate } from '@/interfaces/account.interface';
 
-const createToken = (employee: Employee): TokenData => {
-  const dataStoredInToken: DataStoredInToken = { id: employee.id };
+const createToken = (candidate: Candidate): TokenData => {
+  const dataStoredInToken: DataStoredInToken = { id: candidate.id };
   const expiresIn: number = 60 * 60;
 
   return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
@@ -21,32 +21,32 @@ const createCookie = (tokenData: TokenData): string => {
 
 @Service()
 export class AuthService {
-  public async signup(userData: EmployeeLoginDto): Promise<Employee> {
-    const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: userData.email } });
-    if (findEmployee) throw new HttpException(409, `This email ${userData.email} already exists`);
+  public async signup(userData: CandidateLoginDto): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findOne({ where: { email: userData.email } });
+    if (findCandidate) throw new HttpException(409, `This email ${userData.email} already exists`);
 
     const hashedPassword = await hash(userData.password, 10);
-    const createUserData: Employee = await MYSQL_DB.Employee.create({ ...userData, password: hashedPassword });
+    const createUserData: Candidate = await MYSQL_DB.Candidate.create({ ...userData, password: hashedPassword });
 
     return createUserData;
   }
 
-  public async login(employeeData: EmployeeLoginDto): Promise<{ cookie: string; findEmployee: Employee }> {
-    const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
-    if (!findEmployee) throw new HttpException(409, `This email ${employeeData.email} was not found`);
+  public async login(candidateData: CandidateLoginDto): Promise<{ cookie: string; findCandidate: Candidate }> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findOne({ where: { email: candidateData.email } });
+    if (!findCandidate) throw new HttpException(409, `This email ${candidateData.email} was not found`);
 
-    const isPasswordMatching: boolean = await compare(employeeData.password, findEmployee.password);
+    const isPasswordMatching: boolean = await compare(candidateData.password, findCandidate.password);
     if (!isPasswordMatching) throw new HttpException(409, 'Password not matching');
 
-    const tokenData = createToken(findEmployee);
+    const tokenData = createToken(findCandidate);
     const cookie = createCookie(tokenData);
 
-    return { cookie, findEmployee };
+    return { cookie, findCandidate };
   }
 
-  public async logout(employeeData: Employee): Promise<Employee> {
-    const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
-    if (findEmployee) throw new HttpException(409, `This email ${employeeData.email} already exists`);
-    return findEmployee;
+  public async logout(candidateData: Candidate): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findOne({ where: { email: candidateData.email } });
+    if (findCandidate) throw new HttpException(409, `This email ${candidateData.email} already exists`);
+    return findCandidate;
   }
 }

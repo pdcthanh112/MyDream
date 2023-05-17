@@ -1,62 +1,62 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateUserDto } from '@/dtos/account.dto';
-import { User } from '@/interfaces/account.interface';
-import { UserService } from '@/services/management/users.service';
+import { CreateCandidateDto } from '@/dtos/candidate.dto';
+import { Candidate } from '@/interfaces/account.interface';
+import { CandidateService } from '@services/recruitment/candidate.service';
 
-export class UserController {
-  public user = Container.get(UserService);
+export class CandidateController {
+  public service = Container.get(CandidateService);
 
-  public getUsers = async (req: Request, res: Response, next: NextFunction) => {
+  public getAllCandidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllUsersData: User[] = await this.user.findAllUser();
+      const findAllCandidatesData: Candidate[] = await this.service.findAllCandidate();
 
-      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+      res.status(200).json({ data: findAllCandidatesData, message: 'findAll' });
     } catch (error) {
       next(error);
     }
   };
 
-  public getUserById = async (req: Request, res: Response, next: NextFunction) => {
+  public getCandidateById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const findOneUserData: User = await this.user.findUserById(userId);
+      const findOneCandidateData: Candidate = await this.service.findCandidateById(userId);
 
-      res.status(200).json({ data: findOneUserData, message: 'findOne' });
+      res.status(200).json({ data: findOneCandidateData, message: 'findOne' });
     } catch (error) {
       next(error);
     }
   };
 
-  public createUser = async (req: Request, res: Response, next: NextFunction) => {
+  public createCandidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const createUserData: User = await this.user.createUser(userData);
+      const userData: CreateCandidateDto = req.body;
+      const createCandidateData: Candidate = await this.service.createCandidate(userData);
 
-      res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ data: createCandidateData, message: 'created' });
     } catch (error) {
       next(error);
     }
   };
 
-  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId = Number(req.params.id);
-      const userData: CreateUserDto = req.body;
-      const updateUserData: User = await this.user.updateUser(userId, userData);
-
-      res.status(200).json({ data: updateUserData, message: 'updated' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+  public updateCandidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const deleteUserData: User = await this.user.deleteUser(userId);
+      const userData: CreateCandidateDto = req.body;
+      const updateCandidateData: Candidate = await this.service.updateCandidate(userId, userData);
 
-      res.status(200).json({ data: deleteUserData, message: 'deleted' });
+      res.status(200).json({ data: updateCandidateData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteCandidate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = Number(req.params.id);
+      const deleteCandidateData: Candidate = await this.service.deleteCandidate(userId);
+
+      res.status(200).json({ data: deleteCandidateData, message: 'deleted' });
     } catch (error) {
       next(error);
     }

@@ -1,50 +1,50 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
-import { DB } from '@databases/mysql';
-import { CreateUserDto } from '@/dtos/account.dto';
+import { MYSQL_DB } from '@databases/mysql';
+import { CreateCandidateDto } from '@/dtos/candidate.dto';
 import { HttpException } from '@/exceptions/httpException';
-import { User } from '@/interfaces/account.interface';
+import { Candidate } from '@/interfaces/account.interface';
 
 @Service()
-export class UserService {
-  public async findAllUser(): Promise<User[]> {
-    const allUser: User[] = await DB.Users.findAll();
-    return allUser;
+export class CandidateService {
+  public async findAllCandidate(): Promise<Candidate[]> {
+    const allCandidate: Candidate[] = await MYSQL_DB.Candidate.findAll();
+    return allCandidate;
   }
 
-  public async findUserById(userId: number): Promise<User> {
-    const findUser: User = await DB.Users.findByPk(userId);
-    if (!findUser) throw new HttpException(409, "User doesn't exist");
+  public async findCandidateById(userId: number): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findByPk(userId);
+    if (!findCandidate) throw new HttpException(409, "Candidate doesn't exist");
 
-    return findUser;
+    return findCandidate;
   }
 
-  public async createUser(userData: CreateUserDto): Promise<User> {
-    const findUser: User = await DB.Users.findOne({ where: { email: userData.email } });
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+  public async createCandidate(userData: CreateCandidateDto): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findOne({ where: { email: userData.email } });
+    if (findCandidate) throw new HttpException(409, `This email ${userData.email} already exists`);
 
     const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = await DB.Users.create({ ...userData, password: hashedPassword });
-    return createUserData;
+    const createCandidateData: Candidate = await MYSQL_DB.Candidate.create({ ...userData, password: hashedPassword });
+    return createCandidateData;
   }
 
-  public async updateUser(userId: number, userData: CreateUserDto): Promise<User> {
-    const findUser: User = await DB.Users.findByPk(userId);
-    if (!findUser) throw new HttpException(409, "User doesn't exist");
+  public async updateCandidate(userId: number, userData: CreateCandidateDto): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findByPk(userId);
+    if (!findCandidate) throw new HttpException(409, "Candidate doesn't exist");
 
     const hashedPassword = await hash(userData.password, 10);
-    await DB.Users.update({ ...userData, password: hashedPassword }, { where: { id: userId } });
+    await MYSQL_DB.Candidate.update({ ...userData, password: hashedPassword }, { where: { id: userId } });
 
-    const updateUser: User = await DB.Users.findByPk(userId);
-    return updateUser;
+    const updateCandidate: Candidate = await MYSQL_DB.Candidate.findByPk(userId);
+    return updateCandidate;
   }
 
-  public async deleteUser(userId: number): Promise<User> {
-    const findUser: User = await DB.Users.findByPk(userId);
-    if (!findUser) throw new HttpException(409, "User doesn't exist");
+  public async deleteCandidate(userId: number): Promise<Candidate> {
+    const findCandidate: Candidate = await MYSQL_DB.Candidate.findByPk(userId);
+    if (!findCandidate) throw new HttpException(409, "Candidate doesn't exist");
 
-    await DB.Users.destroy({ where: { id: userId } });
+    await MYSQL_DB.Candidate.destroy({ where: { id: userId } });
 
-    return findUser;
+    return findCandidate;
   }
 }
