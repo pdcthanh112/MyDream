@@ -72,7 +72,7 @@ export default function (sequelize: Sequelize): typeof EmployeeModel {
         type: DataTypes.STRING(10),
       },
       image: {
-        allowNull: false,
+        //allowNull: false,
         type: DataTypes.STRING,
       },
       salary: {

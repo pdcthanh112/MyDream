@@ -26,8 +26,8 @@ export class EmployeeService {
     const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
     if (findEmployee) throw new HttpException(409, `This email ${employeeData.email} already exists`);
     let empAccount = generateAccountAlias(employeeData.name);
-    const countEmpAccount: any = await MYSQL_DB.mysqlConnection.query('SELECT count(emp_account) as result FROM employee WHERE emp_account LIKE ?% AND emp_account NOT LIKE ?[A-Za-z]', {
-      replacements: [empAccount, empAccount],
+    const countEmpAccount: any = await MYSQL_DB.mysqlConnection.query('SELECT count(emp_account) as result FROM employee WHERE emp_account LIKE ? AND emp_account NOT LIKE ?', {
+      replacements: [`${empAccount}%`, `${empAccount}[A-Za-z]`],
       type: QueryTypes.SELECT, 
       raw: true,
       plain: true,

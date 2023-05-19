@@ -30,7 +30,7 @@ export interface Employee {
   department: string;
   dob: Date;
   gender: string;
-  image: string;
+  image?: string;
   salary: number
 }
 export interface Candidate {

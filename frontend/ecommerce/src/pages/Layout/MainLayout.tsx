@@ -1,17 +1,20 @@
-import AppHeader from '../../component/AppHeader'
-import AppContent from '../../component/AppContent'
-import AppFooter from '../../component/AppFooter'
+//import AppHeader from "@components/AppHeader";
+import AppHeader from "../../components/AppHeader";
+// import AppContent from "@components/AppContent";
+// import AppFooter from "@components/AppFooter";
+// import AppSidebar from "@components/AppSidebar";
 
-export const MainLayout = () => {
+const MainLayout = () => {
   return (
     <div>
-    <div className="wrapper d-flex flex-column min-vh-100 bg-light">
       <AppHeader />
-      <div className="flex-grow-1 bg-[#FBF9F6]">
+      {/* <div className="flex-grow-1 bg-[#FBF9F6]">
+        <AppSidebar />
         <AppContent />
       </div>
-      <AppFooter />
+      <AppFooter /> */}
     </div>
-  </div>
-  )
-}
+  );
+};
+
+export default MainLayout;

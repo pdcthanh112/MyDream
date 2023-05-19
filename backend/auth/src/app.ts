@@ -20,7 +20,7 @@ import { EmployeeRoute } from './routes/management/employee.route';
 
 const app = express();
 const env = NODE_ENV || 'development';
-const port = PORT || 3000;
+const port = PORT || 8000;
 
 app.use(morgan(LOG_FORMAT, { stream }));
 app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
