@@ -22,11 +22,12 @@ const App = () => {
       <Suspense fallback={loading}>
         <Routes>
           <Route path="*" element={<MainLayout />}>
-            <Route path="/login" element={<Login />} />
+          
             {/* <Route path="/register" element={<Register />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route exact path="/500" name="Page 500" element={<Page500 />} /> */}
           </Route>
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </HashRouter>

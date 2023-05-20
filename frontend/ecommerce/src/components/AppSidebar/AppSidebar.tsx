@@ -3,7 +3,7 @@ import './AppSidebar.scss'
 
 const AppSidebar = () => {
   return (
-    <div>AppSidebar</div>
+    <div className='w-[20%] bg-slate-500'>AppSidebar</div>
   )
 }
 
