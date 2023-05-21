@@ -1,11 +1,11 @@
 import "./AppHeader.scss";
-import AppLogo from "@assets/images/app-logo.png";
+import AppLogo from "@assets/images/app-logo-removebg.png";
 
 const AppHeader = () => {
   return (
-    <div className="inline-flex w-full">
-      <img src={AppLogo} alt="App Logo" width={'150rem'} height={'auton'}/>
-      <div className="text-red-600">Header</div>
+    <div className="flex justify-between">
+      <a href="/"><img src={AppLogo} alt="App Logo" width={'150rem'} height={'auton'}/></a>
+      <div className="auth-container"><a href="/login">login</a></div>
     </div>
   );
 };

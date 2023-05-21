@@ -6,16 +6,13 @@ import AppSidebar from "@components/AppSidebar";
 import styled from "styled-components";
 
 const MainLayout = () => {
-  
   const Header = styled.div`
-    width: "100vw";
-    height: "5vh";
+    background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
   const Body = styled.div`
     width: 100vw;
-    height: 100vh;
-    background-color: "#FBF9F6";
+    min-height: 80vh;
     display: inline-flex;
   `;
 

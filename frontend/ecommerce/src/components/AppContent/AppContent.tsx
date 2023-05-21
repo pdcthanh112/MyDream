@@ -1,9 +1,19 @@
-import './AppContent.scss'
+import React, { Suspense } from "react";
+import "./AppContent.scss";
+import { Navigate, Route, Routes } from "react-router-dom";
+import routes from "routes";
 
 const AppContent = () => {
   return (
-    <div className='bg-red-600'>Content</div>
-  )
-}
+    <Suspense>
+      <Routes>
+        {routes.map((route, id) => {
+          return route.element && <Route key={id} path={route.path} element={<route.element />} />;
+        })}
+        {/* <Route path="/" element={<Navigate to="dashboard" replace />} /> */}
+      </Routes>
+    </Suspense>
+  );
+};
 
-export default AppContent
+export default React.memo(AppContent);
