@@ -10,7 +10,7 @@ const AppContent = () => {
         {routes.map((route, id) => {
           return route.element && <Route key={id} path={route.path} element={<route.element />} />;
         })}
-        {/* <Route path="/" element={<Navigate to="dashboard" replace />} /> */}
+        <Route path="/" element={<Navigate to="dashboard" replace />} />
       </Routes>
     </Suspense>
   );
