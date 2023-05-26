@@ -23,18 +23,19 @@ public class CategoryController {
     @GetMapping("/getAll")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @PermitAll
-    public ResponseEntity<List<CategoryDTO>> getAllCategory(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+    public ResponseEntity<ResponseWithTotalPage<CategoryDTO>> getAllCategory(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         ResponseWithTotalPage<CategoryDTO> response = categoryService.getAllCategory(pageNo, pageSize);
-        return ResponseEntity.ok().body((List<CategoryDTO>) response);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/create")
+    @PermitAll
     public ResponseEntity<String> createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = categoryService.createCategory(categoryDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Created successfully");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<String> updateCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = categoryService.updateCategory(categoryDTO);
         return ResponseEntity.status(HttpStatus.OK).body("Update successfully");

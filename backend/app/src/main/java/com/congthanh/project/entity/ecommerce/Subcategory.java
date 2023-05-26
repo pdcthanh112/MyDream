@@ -1,11 +1,11 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -25,19 +25,16 @@ public class Subcategory implements Serializable {
 
     private String name;
 
-    private String enValue;
-
-    @Nationalized
-    private String viValue;
-
     private String status;
 
     private int category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
+    @JsonIgnore
     private Category categories;
 
     @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Goods> goods;
 }

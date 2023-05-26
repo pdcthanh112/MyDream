@@ -53,8 +53,6 @@ public class CategoryServiceImplement implements CategoryService {
         } else {
             Category category = Category.builder()
                     .name(categoryDTO.getName())
-                    .enValue(categoryDTO.getEnValue())
-                    .viValue(categoryDTO.getViValue())
                     .status(Status.STATUS_ACTIVE)
                     .build();
             Category response = categoryRepository.save(category);
@@ -67,8 +65,6 @@ public class CategoryServiceImplement implements CategoryService {
         Category category = categoryRepository.findById(categoryDTO.getId()).orElseThrow(() -> new RuntimeException("Category not found"));
 
         category.setName(categoryDTO.getName());
-        category.setEnValue(categoryDTO.getEnValue());
-        category.setViValue((categoryDTO.getViValue()));
 
         categoryRepository.save(category);
         return category;

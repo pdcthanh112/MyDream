@@ -1,5 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,16 +27,13 @@ public class Category implements Serializable {
 
     private String name;
 
-    private String enValue;
-
-    @Nationalized
-    private String viValue;
-
     private String status;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Subcategory> subcategories;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Goods> goods;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Goods> goods;
 }

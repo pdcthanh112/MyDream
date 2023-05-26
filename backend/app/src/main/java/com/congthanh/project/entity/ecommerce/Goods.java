@@ -1,11 +1,11 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 
@@ -24,29 +24,33 @@ public class Goods implements Serializable {
 
     private String name;
 
-    private String enValue;
+    private int category;
 
-    @Nationalized
-    private String vnValue;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory", nullable = false)
-    private Subcategory subcategory;
+    private int subcategory;
 
     private int quantity;
 
     private float price;
 
+    private String production;
+
     private int sold;
 
     private String image;
 
-    private String status;
-
     @Column(columnDefinition = "text")
     private String description;
+
+    private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
+    @JsonIgnore
+    private Category categories;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory", nullable = false, insertable = false, updatable = false)
+    @JsonIgnore
+    private Subcategory subcategories;
+
 }

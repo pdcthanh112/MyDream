@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ecommerce/subcategory")
+@RequestMapping("/ecommerce/sub-category")
 public class SubcategoryController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class SubcategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Created successfully");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<String> updateSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
         Subcategory subcategory = subcategoryService.updateSubcategory(subcategoryDTO);
         return ResponseEntity.status(HttpStatus.OK).body("Update successfully");

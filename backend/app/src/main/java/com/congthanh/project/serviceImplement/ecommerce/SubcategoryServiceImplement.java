@@ -53,9 +53,8 @@ public class SubcategoryServiceImplement implements SubcategoryService {
         } else {
             Subcategory subcategory = Subcategory.builder()
                     .name(subcategoryDTO.getName())
-                    .enValue(subcategoryDTO.getEnValue())
-                    .viValue(subcategoryDTO.getViValue())
                     .category(subcategoryDTO.getCategory())
+                    .status(Status.STATUS_ACTIVE)
                     .build();
             Subcategory response = subcategoryRepository.save(subcategory);
             return response;
@@ -67,8 +66,6 @@ public class SubcategoryServiceImplement implements SubcategoryService {
         Subcategory subcategory = subcategoryRepository.findById(subcategoryDTO.getId()).orElseThrow(() -> new RuntimeException("Subcategory not found"));
 
         subcategory.setName(subcategoryDTO.getName());
-        subcategory.setEnValue(subcategoryDTO.getEnValue());
-        subcategory.setViValue(subcategoryDTO.getViValue());
         subcategory.setCategory(subcategoryDTO.getCategory());
 
         subcategoryRepository.save(subcategory);
