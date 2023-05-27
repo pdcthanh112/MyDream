@@ -1,3 +1,3 @@
-import GoodsDetail from "./GoodsDetail";
+import GoodsDetail from "./[GoodsId]";
 
 export default GoodsDetail

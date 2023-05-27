@@ -6,7 +6,9 @@ module.exports = {
   // },
    rewrites: async() => {
     return [
-        { source: '/Goods/GoodsDetail', destination: '/goods-detail' }
+      { source: '/goods-detail/:id', destination: '/Goods/GoodsDetail/:id' }
+      // { source: '/goods-detail/[id]', destination: '/Goods/GoodsDetail/[id]' }
+        // { source: '/Goods/GoodsDetail', destination: '/goods-detail' }
     ];
   },
 //   redirects: async () => {
