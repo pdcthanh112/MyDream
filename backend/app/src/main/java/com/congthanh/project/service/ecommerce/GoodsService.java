@@ -8,6 +8,8 @@ public interface GoodsService {
 
     public ResponseWithTotalPage<GoodsDTO> getAllGoods(int pageNo, int pageSize);
 
+    public GoodsDTO getGoodsById(String id);
+
     public Goods createGoods(GoodsDTO goodsDTO);
 
     public Goods updateGoods(GoodsDTO goodsDTO);

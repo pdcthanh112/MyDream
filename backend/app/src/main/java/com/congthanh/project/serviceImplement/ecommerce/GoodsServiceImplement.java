@@ -46,6 +46,13 @@ public class GoodsServiceImplement implements GoodsService {
     }
 
     @Override
+    public GoodsDTO getGoodsById(String id) {
+        Goods goods = goodsRepository.findById(id).orElseThrow(() -> new RuntimeException("Goods not found"));
+        GoodsDTO result = modelMapper.map(goods, GoodsDTO.class);
+        return result;
+    }
+
+    @Override
     public Goods createGoods(GoodsDTO goodsDTO) {
         Optional<Goods> existGoods = goodsRepository.findByName(goodsDTO.getName());
         if (existGoods.isPresent()) {

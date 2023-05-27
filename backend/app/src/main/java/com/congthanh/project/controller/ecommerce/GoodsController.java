@@ -17,11 +17,17 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-
     @GetMapping("/getAll")
     @PermitAll
     public ResponseEntity<ResponseWithTotalPage<GoodsDTO>> getAllGoods(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         ResponseWithTotalPage<GoodsDTO> response = goodsService.getAllGoods(pageNo, pageSize);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/{id}")
+    @PermitAll
+    public ResponseEntity<GoodsDTO> getGoodsById(@PathVariable("id") String id) {
+        GoodsDTO response = goodsService.getGoodsById(id);
         return ResponseEntity.ok().body(response);
     }
 
