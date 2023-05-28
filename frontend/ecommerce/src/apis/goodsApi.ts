@@ -10,10 +10,14 @@ export const getAllGoods = async (pageNo: number, pageSize: number) => {
 };
 
 export const getGoodsById = async (goodsId: string) => {
+
+  
   return await axiosConfig
+    // .get(`http://localhost:5000/ecommerce/goods/15b025fc-84e0-4f91-b921-f706bdebc63b`)
     .get(`goods/${goodsId}`)
-    .then((response) => response.data)
+    .then((response) =>   console.log('RRRRRRRRRRRR',response))
     .catch((error) => {
-      throw error;
+      // throw error;
+      console.log('MMMM',error)
     });
 };

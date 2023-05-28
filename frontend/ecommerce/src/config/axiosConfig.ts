@@ -1,8 +1,10 @@
 import axios from "axios";
 import { store } from "@redux/store";
+import { REACT_APP_API_URL } from "@config/index";
 
 const axiosConfig = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'localhost:5000/ecommerce/',
+  // baseURL: REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
