@@ -17,5 +17,5 @@ export default function GoodsDetail() {
 
   const [goodsDetail, setGoodsDetail] = useState({});
 
-  return <div>{GoodsId}</div>;
+  return <div>{data.name}</div>;
 }
