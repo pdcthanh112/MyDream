@@ -6,7 +6,7 @@ import com.congthanh.project.entity.ecommerce.Goods;
 
 public interface GoodsService {
 
-    public ResponseWithTotalPage<GoodsDTO> getAllGoods(int pageNo, int pageSize);
+    public Object getAllGoods(Integer pageNo, Integer pageSize);
 
     public GoodsDTO getGoodsById(String id);
 

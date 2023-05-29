@@ -27,22 +27,32 @@ public class GoodsServiceImplement implements GoodsService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseWithTotalPage<GoodsDTO> getAllGoods(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Goods> pageResult = goodsRepository.findAll(pageable);
-        ResponseWithTotalPage<GoodsDTO> result = new ResponseWithTotalPage<>();
-        List<GoodsDTO> list = new ArrayList<>();
-        if (pageResult.hasContent()) {
-            for (Goods goods : pageResult.getContent()) {
-                GoodsDTO goodsDTO = modelMapper.map(goods, GoodsDTO.class);
-                list.add(goodsDTO);
+    public Object getAllGoods(Integer pageNo, Integer pageSize) {
+        if(pageNo != null & pageSize != null) {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Goods> pageResult = goodsRepository.findAll(pageable);
+            ResponseWithTotalPage<GoodsDTO> result = new ResponseWithTotalPage<>();
+            List<GoodsDTO> list = new ArrayList<>();
+            if (pageResult.hasContent()) {
+                for (Goods goods : pageResult.getContent()) {
+                    GoodsDTO goodsDTO = modelMapper.map(goods, GoodsDTO.class);
+                    list.add(goodsDTO);
+                }
+                result.setResponseList(list);
+                result.setTotalPage(pageResult.getTotalPages());
+            } else {
+                throw new RuntimeException("List empty exception");
             }
-            result.setResponseList(list);
-            result.setTotalPage(pageResult.getTotalPages());
-        } else {
-            throw new RuntimeException("List empty exception");
+            return result;
+        }else {
+            List<Goods> list = goodsRepository.findAll();
+            List<GoodsDTO> result = new ArrayList<>();
+            for (Goods item: list) {
+                GoodsDTO goodsDTO = modelMapper.map(item, GoodsDTO.class);
+                result.add(goodsDTO);
+            }
+            return result;
         }
-        return result;
     }
 
     @Override

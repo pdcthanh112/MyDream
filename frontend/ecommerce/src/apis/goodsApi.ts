@@ -9,7 +9,7 @@ export const getAllGoods = async (pageNo: number, pageSize: number) => {
     });
 };
 
-export const getGoodsById = async (goodsId: string) => {
+export const getGoodsById = async (goodsId: any) => {
   return await axiosConfig
     .get(`goods/${goodsId}`)
     .then((response) =>  response.data)

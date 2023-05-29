@@ -1,21 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getGoodsById } from '@apis/goodsApi';
+import Skeleton from 'react-loading-skeleton';
 
 export default function GoodsDetail() {
   const router = useRouter();
-  // const { GoodsId } = router.query;
-  const { query: { GoodsId } } = useRouter();
-  // const {data, isLoading} = useQuery({['goods', GoodsId], () => getGoodsById('15b025fc-84e0-4f91-b921-f706bdebc63b').then(res => {
-  //   console.log('resssssssssssssssssss', res);
-  // })});
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ['goods'],
-    queryFn: async() => await getGoodsById('15b025fc-84e0-4f91-b921-f706bdebc63b'),
-  })
+  const { GoodsId } = router.query;
 
-  const [goodsDetail, setGoodsDetail] = useState({});
+  const { data: goods, isLoading } = useQuery(
+    ['goods', GoodsId],
+    async () => await getGoodsById(GoodsId).then((result) => result)
+  );
 
-  return <div>{data.name}</div>;
+  return (
+  <React.Fragment>
+    {isLoading ? <Skeleton/> :  <div>{goods.name}</div>}
+   
+    </React.Fragment>
+    );
 }

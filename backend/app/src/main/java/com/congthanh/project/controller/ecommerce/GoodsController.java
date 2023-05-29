@@ -19,8 +19,8 @@ public class GoodsController {
 
     @GetMapping("/getAll")
     @PermitAll
-    public ResponseEntity<ResponseWithTotalPage<GoodsDTO>> getAllGoods(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
-        ResponseWithTotalPage<GoodsDTO> response = goodsService.getAllGoods(pageNo, pageSize);
+    public Object getAllGoods(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+        Object response = goodsService.getAllGoods(pageNo, pageSize);
         return ResponseEntity.ok().body(response);
     }
 

@@ -6,7 +6,7 @@ import com.congthanh.project.entity.ecommerce.Category;
 
 public interface CategoryService {
 
-    public ResponseWithTotalPage<CategoryDTO> getAllCategory(int pageNo, int pageSize);
+    public Object getAllCategory(Integer pageNo, Integer pageSize);
 
     public Category createCategory(CategoryDTO categoryDTO);
 

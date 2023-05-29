@@ -27,22 +27,27 @@ public class CategoryServiceImplement implements CategoryService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseWithTotalPage<CategoryDTO> getAllCategory(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Category> pageResult = categoryRepository.findAll(pageable);
-        ResponseWithTotalPage<CategoryDTO> result = new ResponseWithTotalPage<>();
-        List<CategoryDTO> list = new ArrayList<>();
-        if (pageResult.hasContent()) {
-            for (Category category : pageResult.getContent()) {
-                CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
-                list.add(categoryDTO);
+    public Object getAllCategory(Integer pageNo, Integer pageSize) {
+        if(pageNo != null && pageSize != null) {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Category> pageResult = categoryRepository.findAll(pageable);
+            ResponseWithTotalPage<CategoryDTO> result = new ResponseWithTotalPage<>();
+            List<CategoryDTO> list = new ArrayList<>();
+            if (pageResult.hasContent()) {
+                for (Category category : pageResult.getContent()) {
+                    CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+                    list.add(categoryDTO);
+                }
+                result.setResponseList(list);
+                result.setTotalPage(pageResult.getTotalPages());
+            } else {
+                throw new RuntimeException("List empty exception");
             }
-            result.setResponseList(list);
-            result.setTotalPage(pageResult.getTotalPages());
+            return result;
         } else {
-            throw new RuntimeException("List empty exception");
+            List<Category> categoryList = categoryRepository.findAll();
+            return categoryList;
         }
-        return result;
     }
 
     @Override

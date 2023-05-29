@@ -1,10 +1,13 @@
-import MainLayout from '@pages/Layout/MainLayout'
+import type { AppProps } from 'next/app';
+import Layout from './layout';
 
-export default function Home() {
+export default function App({ Component, pageProps }: AppProps) {
+  console.log('fasfsafshfsahfsljjTESTTTTTTTTTTTTTTTT');
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     {/* <MainLayout/> */}
-     fdsasdfds
-    </main>
-  )
+  
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+  
+  );
 }

@@ -23,8 +23,8 @@ public class CategoryController {
     @GetMapping("/getAll")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @PermitAll
-    public ResponseEntity<ResponseWithTotalPage<CategoryDTO>> getAllCategory(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
-        ResponseWithTotalPage<CategoryDTO> response = categoryService.getAllCategory(pageNo, pageSize);
+    public Object getAllCategory(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+        Object response = categoryService.getAllCategory(pageNo, pageSize);
         return ResponseEntity.ok().body(response);
     }
 

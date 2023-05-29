@@ -1,13 +1,20 @@
-import "./AppHeader.module.scss";
-import AppLogo from "@assets/images/app-logo-removebg.png";
+import Image from 'next/image';
+import './AppHeader.module.scss';
+import AppLogo from '@assets/images/app-logo-removebg.png';
 
-const AppHeader = () => {
+export default function AppHeader() {
   return (
     <div className="flex justify-between">
-      <a href="/"><img src={AppLogo} alt="App Logo" width={'150rem'} height={'auton'}/></a>
-      <div className="auth-container"><a href="/login">login</a></div>
+      <a href="/">
+        <Image
+          src={AppLogo}
+          alt="App Logo"
+          style={{ width: '5rem', height: 'auto' }}
+        />
+      </a>
+      <div className="auth-container">
+        <a href="/login" className='text-red-600'>login</a>
+      </div>
     </div>
   );
-};
-
-export default AppHeader;
+}
