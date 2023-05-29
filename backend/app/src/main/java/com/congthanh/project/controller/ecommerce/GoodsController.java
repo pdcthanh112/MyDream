@@ -19,7 +19,7 @@ public class GoodsController {
 
     @GetMapping("/getAll")
     @PermitAll
-    public Object getAllGoods(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+    public ResponseEntity<Object> getAllGoods(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
         Object response = goodsService.getAllGoods(pageNo, pageSize);
         return ResponseEntity.ok().body(response);
     }

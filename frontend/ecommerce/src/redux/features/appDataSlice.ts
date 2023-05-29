@@ -4,18 +4,14 @@ const appDataSlice = createSlice({
   name: "appData",
   initialState: {
     data: {
-      jobTitle: null,
-      position: null,
-      industry: null,
-      province: null,
+      category: null,
+      subcategory: null,
     },
   },
   reducers: {
     setAppData: (state, action) => {
-      state.data.jobTitle = action.payload.jobTitle;
-      state.data.position = action.payload.position;
-      state.data.industry = action.payload.industry;
-      state.data.province = action.payload.province;
+      state.data.category = action.payload.category;
+      state.data.subcategory = action.payload.subcategory;
     },
   },
 });

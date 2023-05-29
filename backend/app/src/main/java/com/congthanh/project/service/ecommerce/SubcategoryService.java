@@ -6,7 +6,7 @@ import com.congthanh.project.entity.ecommerce.Subcategory;
 
 public interface SubcategoryService {
 
-    public ResponseWithTotalPage<SubcategoryDTO> getAllSubcategory(int pageNo, int pageSize);
+    public Object getAllSubcategory(Integer pageNo, Integer pageSize);
 
     public Subcategory createSubcategory(SubcategoryDTO subcategoryDTO);
 

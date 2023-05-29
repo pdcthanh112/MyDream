@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ecommerce/sub-category")
+@RequestMapping("/ecommerce/subcategory")
 public class SubcategoryController {
 
     @Autowired
@@ -20,9 +20,9 @@ public class SubcategoryController {
     @GetMapping("getAll")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @PermitAll
-    public ResponseEntity<String> getAllCategory(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
-        ResponseWithTotalPage response = subcategoryService.getAllSubcategory(pageNo, pageSize);
-        return ResponseEntity.ok().body(response.toString());
+    public ResponseEntity<Object> getAllSubcategory(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+        Object response = subcategoryService.getAllSubcategory(pageNo, pageSize);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/create")

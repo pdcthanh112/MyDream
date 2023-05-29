@@ -1,11 +1,14 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.constant.common.Status;
+import com.congthanh.project.dto.ecommerce.GoodsDTO;
 import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
+import com.congthanh.project.entity.ecommerce.Goods;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.SubcategoryService;
+import io.swagger.models.auth.In;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,22 +30,32 @@ public class SubcategoryServiceImplement implements SubcategoryService {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseWithTotalPage<SubcategoryDTO> getAllSubcategory(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Subcategory> pageResult = subcategoryRepository.findAll(pageable);
-        ResponseWithTotalPage<SubcategoryDTO> result = new ResponseWithTotalPage<>();
-        List<SubcategoryDTO> list = new ArrayList<>();
-        if (pageResult.hasContent()) {
-            for (Subcategory subcategory : pageResult.getContent()) {
-                SubcategoryDTO subcategoryDTO = modelMapper.map(subcategory, SubcategoryDTO.class);
-                list.add(subcategoryDTO);
+    public Object getAllSubcategory(Integer pageNo, Integer pageSize) {
+        if(pageNo != null && pageSize != null) {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Subcategory> pageResult = subcategoryRepository.findAll(pageable);
+            ResponseWithTotalPage<SubcategoryDTO> result = new ResponseWithTotalPage<>();
+            List<SubcategoryDTO> list = new ArrayList<>();
+            if (pageResult.hasContent()) {
+                for (Subcategory subcategory : pageResult.getContent()) {
+                    SubcategoryDTO subcategoryDTO = modelMapper.map(subcategory, SubcategoryDTO.class);
+                    list.add(subcategoryDTO);
+                }
+                result.setResponseList(list);
+                result.setTotalPage(pageResult.getTotalPages());
+            } else {
+                throw new RuntimeException("List empty exception");
             }
-            result.setResponseList(list);
-            result.setTotalPage(pageResult.getTotalPages());
+            return result;
         } else {
-            throw new RuntimeException("List empty exception");
+            List<Subcategory> list = subcategoryRepository.findAll();
+            List<SubcategoryDTO> result = new ArrayList<>();
+            for (Subcategory item: list) {
+                SubcategoryDTO subcategoryDTO = modelMapper.map(item, SubcategoryDTO.class);
+                result.add(subcategoryDTO);
+            }
+            return result;
         }
-        return result;
     }
 
     @Override

@@ -6,6 +6,7 @@ import "./AppContent.module.scss";
 const AppContent = () => {
   return (
     <Suspense>
+      content
       {/* <Routes>
         {routes.map((route, id) => {
           return route.element && <Route key={id} path={route.path} element={<route.element />} />;
