@@ -1,7 +1,5 @@
 package com.congthanh.project.dto.ecommerce;
 
-import com.congthanh.project.entity.ecommerce.Category;
-import com.congthanh.project.entity.ecommerce.Subcategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GoodsDTO implements Serializable {
+public class ProductDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
 

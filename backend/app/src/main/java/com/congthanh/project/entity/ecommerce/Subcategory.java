@@ -36,5 +36,5 @@ public class Subcategory implements Serializable {
 
     @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Goods> goods;
+    private Set<Product> product;
 }

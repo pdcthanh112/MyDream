@@ -32,7 +32,7 @@ public class ApplicationSecurityConfig {
                         "/webjars/**",
                         "/swagger-ui.html",
                         "/management/**", "/management/category/**",
-                        "/ecommerce/**", "/management/goods/**"
+                        "/ecommerce/**", "/management/product/**"
                 )
                 .permitAll()
                 .anyRequest().authenticated();

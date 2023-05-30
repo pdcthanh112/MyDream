@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  // reactStrictMode: true,
+  reactStrictMode: true,
   compiler: {
     // styledComponents: true,
     // emotion: true
@@ -8,7 +8,7 @@ module.exports = {
   rewrites: async () => {
     return [
       { source: '/home', destination: '/Home' },
-      { source: '/goods-detail/:id', destination: '/Goods/GoodsDetail/:id' },
+      { source: '/product-detail/:id', destination: '/Product/ProductDetail/:id' },
       // { source: '/goods-detail/[id]', destination: '/Goods/GoodsDetail/[id]' }
       // { source: '/Goods/GoodsDetail', destination: '/goods-detail' }
     ];
@@ -28,7 +28,9 @@ module.exports = {
   },
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
-
     return config;
   },
+  // images: {
+  //   loaderFile: './src/assets/',
+  // },
 };
