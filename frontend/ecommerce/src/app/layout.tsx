@@ -7,10 +7,11 @@ import AppHeader from '@components/AppHeader';
 import AppContent from '@components/AppContent';
 import AppFooter from '@components/AppFooter';
 import AppSidebar from '@components/AppSidebar';
+import AppNavbar from '@components/AppNavbar';
 import MetaComponent from '@components/MetaComponent';
 
 import styled from 'styled-components';
-import AppNavbar from '@components/AppNavbar';
+import { AppProps } from 'next/app';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
   description: 'Ecommerce Website of CongThanh-project',
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ Component, pageProps, router }: AppProps) {
+  // export default function Layout({ children }: { children: React.ReactNode }) {
   const Header = styled.div`
     background-image: linear-gradient(
       to right,
@@ -37,12 +39,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const Footer = styled.div`
     width: '100vw';
   `;
-
+  console.log('layoutttttttttttttttttttttttttttttttt');
   return (
     <html lang="en">
+      <MetaComponent />
       <body className={inter.className}>
         <React.Fragment>
-          <MetaComponent />
           <Header>
             <AppHeader />
           </Header>
@@ -50,9 +52,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <AppNavbar />
 
           <Body>
-            <AppSidebar />
-            <AppContent />
-            {/* <AppContent>{children}</AppContent> */}
+            {/* <AppSidebar /> */}
+            <AppContent Component={Component} pageProps={pageProps} router={router} />
           </Body>
 
           <Footer>

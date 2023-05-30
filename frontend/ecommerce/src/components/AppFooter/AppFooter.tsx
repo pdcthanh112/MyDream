@@ -78,7 +78,6 @@ export default function Footer() {
           <li>React</li>
           <li>NextJS</li>
           <li>Angular</li>
-          <li>Vue</li>
           <li>Flutter</li>
           <li>AWS</li>
           <li>Firebase</li>

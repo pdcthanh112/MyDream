@@ -1,19 +1,10 @@
-import React, { Suspense } from "react";
-import "./AppContent.module.scss";
-// import { Navigate, Route, Routes } from "react-router-dom";
-// import routes from "routes";
+import React from 'react';
+import './AppContent.module.scss';
+import { AppProps } from 'next/app';
 
-const AppContent = () => {
-  return (
-    <Suspense>
-      content
-      {/* <Routes>
-        {routes.map((route, id) => {
-          return route.element && <Route key={id} path={route.path} element={<route.element />} />;
-        })}
-        <Route path="/" element={<Navigate to="dashboard" replace />} />
-      </Routes> */}
-    </Suspense>
+const AppContent = ({ Component, pageProps, router }: AppProps) => {
+  return ( 
+    <Component {...pageProps} {...router}/>
   );
 };
 

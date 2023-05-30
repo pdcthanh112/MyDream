@@ -1,22 +1,24 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   // reactStrictMode: true,
-  // compiler: {
-  //     styledComponents: true,
-  // },
+  compiler: {
+    // styledComponents: true,
+    // emotion: true
+  },
   rewrites: async () => {
     return [
-      { source: '/goods-detail/:id', destination: '/Goods/GoodsDetail/:id' }
+      { source: '/home', destination: '/Home' },
+      { source: '/goods-detail/:id', destination: '/Goods/GoodsDetail/:id' },
       // { source: '/goods-detail/[id]', destination: '/Goods/GoodsDetail/[id]' }
       // { source: '/Goods/GoodsDetail', destination: '/goods-detail' }
     ];
   },
-  //   redirects: async () => {
-  //     return [
-  //       { source: '/old-page', destination: '/new-page', permanent: true },
-  //       { source: '/legacy', destination: '/new-home', permanent: false },
-  //     ];
-  //   },
+  redirects: async () => {
+    return [
+      { source: '/', destination: '/home', permanent: true },
+      // { source: '/legacy', destination: '/new-home', permanent: false },
+    ];
+  },
   //   i18n: {
   //     locales: ['en', 'fr', 'de'],
   //     defaultLocale: 'en',

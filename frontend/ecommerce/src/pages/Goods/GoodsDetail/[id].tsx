@@ -6,17 +6,17 @@ import Skeleton from 'react-loading-skeleton';
 
 export default function GoodsDetail() {
   const router = useRouter();
-  const { GoodsId } = router.query;
+  const { id } = router.query;
 
   const { data: goods, isLoading } = useQuery(
-    ['goods', GoodsId],
-    async () => await getGoodsById(GoodsId).then((result) => result)
+    ['goods', id],
+    async () => await getGoodsById(id).then((result) => result)
   );
 
   return (
   <React.Fragment>
-    {isLoading ? <Skeleton/> :  <div>{goods.name}</div>}
-   
+    {/* {isLoading ? <Skeleton/> :  <div>{goods.name}</div>} */}
+   GOODDDDDDDDDDDDDDDDDDD
     </React.Fragment>
     );
 }

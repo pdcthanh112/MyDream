@@ -1,5 +1,5 @@
 import React from 'react';
-import '../app/globals.css'
+import '../app/globals.css';
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 
@@ -7,12 +7,10 @@ import { store, persistor } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import "react-loading-skeleton/dist/skeleton.css";
+import 'react-loading-skeleton/dist/skeleton.css';
 import App from 'app/page';
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
-// export default function MyApp({ Component, pageProps }: AppProps) {
-  
   const queryClient = new QueryClient();
 
   return (
@@ -20,7 +18,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <QueryClientProvider client={queryClient}>
-           <App pageProps={pageProps} Component={Component} router={router}/>
+            <App pageProps={pageProps} Component={Component} router={router} />
           </QueryClientProvider>
         </PersistGate>
       </Provider>
