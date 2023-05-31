@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,10 +25,6 @@ public class Product implements Serializable {
 
     private String name;
 
-    private int category;
-
-    private int subcategory;
-
     private int quantity;
 
     private float price;
@@ -38,19 +35,21 @@ public class Product implements Serializable {
 
     private String image;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Rating> rating;
+
     @Column(columnDefinition = "text")
     private String description;
 
     private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false, insertable = false, updatable = false)
-    @JsonIgnore
-    private Category categories;
+    @JoinColumn(name = "category", nullable = false)
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory", nullable = false, insertable = false, updatable = false)
-    @JsonIgnore
-    private Subcategory subcategories;
+    @JoinColumn(name = "subcategory", nullable = false)
+    private Subcategory subcategory;
 
 }

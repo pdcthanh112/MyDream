@@ -1,0 +1,19 @@
+package com.congthanh.project.dto.ecommerce;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class RatingDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private int vote;
+    private float value;
+    private String product;
+}

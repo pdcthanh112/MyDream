@@ -27,6 +27,7 @@
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
       "@hooks/*": ["hooks/*"],
+      "@model/*": ["model/*"],
       "@pages/*": ["pages/*"],
       "@redux/*": ["redux/*"],
       "@utils/*": ["utils/*"],

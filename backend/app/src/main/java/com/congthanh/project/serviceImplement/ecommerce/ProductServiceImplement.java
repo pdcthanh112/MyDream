@@ -70,8 +70,8 @@ public class ProductServiceImplement implements ProductService {
         } else {
             Product product = Product.builder()
                     .name(productDTO.getName())
-                    .category(productDTO.getCategory())
-                    .subcategory(productDTO.getSubcategory())
+                    //.category(productDTO.getCategory())
+                    //.subcategory(productDTO.getSubcategory())
                     .quantity(productDTO.getQuantity())
                     .price(productDTO.getPrice())
                     .production(productDTO.getProduction())
@@ -90,8 +90,8 @@ public class ProductServiceImplement implements ProductService {
         Product product = productRepository.findById(productDTO.getId()).orElseThrow(() -> new RuntimeException("Product not found"));
 
         product.setName(productDTO.getName());
-        product.setCategory(productDTO.getCategory());
-        product.setSubcategory(productDTO.getSubcategory());
+       // product.setCategory(productDTO.getCategory());
+       // product.setSubcategory(productDTO.getSubcategory());
         product.setQuantity(productDTO.getQuantity());
         product.setPrice(productDTO.getPrice());
         product.setProduction(productDTO.getProduction());

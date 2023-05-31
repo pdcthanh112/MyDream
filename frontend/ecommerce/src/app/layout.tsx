@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ Component, pageProps, router }: AppProps) {
-  // export default function Layout({ children }: { children: React.ReactNode }) {
+
   const Header = styled.div`
     background-image: linear-gradient(
       to right,
@@ -39,7 +39,7 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
   const Footer = styled.div`
     width: '100vw';
   `;
-  console.log('layoutttttttttttttttttttttttttttttttt');
+
   return (
     <html lang="en">
       <MetaComponent />

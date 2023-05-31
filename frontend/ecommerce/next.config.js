@@ -1,16 +1,14 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
+  //reactStrictMode: true,
   compiler: {
-    // styledComponents: true,
+    styledComponents: true,
     // emotion: true
   },
   rewrites: async () => {
     return [
-      { source: '/home', destination: '/Home' },
+      { source: '/home', destination: '/Home/Home' },
       { source: '/product-detail/:id', destination: '/Product/ProductDetail/:id' },
-      // { source: '/goods-detail/[id]', destination: '/Goods/GoodsDetail/[id]' }
-      // { source: '/Goods/GoodsDetail', destination: '/goods-detail' }
     ];
   },
   redirects: async () => {
