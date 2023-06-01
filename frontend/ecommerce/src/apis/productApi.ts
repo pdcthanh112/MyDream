@@ -1,8 +1,8 @@
 import axiosConfig from '@config/axiosConfig';
 
-export const getAllProduct = async (pageNo?: number, pageSize?: number) => {
-  const url = pageNo !== undefined && pageSize !== undefined
-  ? `product/getAll?pageNo=${pageNo}&pageSize=${pageSize}`
+export const getAllProduct = async (page?: number, pageSize?: number) => {
+  const url = page !== undefined && pageSize !== undefined
+  ? `product/getAll?page=${page}&pageSize=${pageSize}`
   : 'product/getAll';
   return await axiosConfig
     .get(url)
