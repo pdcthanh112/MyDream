@@ -27,9 +27,9 @@ public class ProductServiceImplement implements ProductService {
     private ModelMapper modelMapper;
 
     @Override
-    public Object getAllProduct(Integer pageNo, Integer pageSize) {
-        if(pageNo != null & pageSize != null) {
-            Pageable pageable = PageRequest.of(pageNo, pageSize);
+    public Object getAllProduct(Integer page, Integer limit) {
+        if(page != null & limit != null) {
+            Pageable pageable = PageRequest.of(page, limit);
             Page<Product> pageResult = productRepository.findAll(pageable);
             ResponseWithTotalPage<ProductDTO> result = new ResponseWithTotalPage<>();
             List<ProductDTO> list = new ArrayList<>();

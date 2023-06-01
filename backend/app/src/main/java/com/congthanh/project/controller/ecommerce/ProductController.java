@@ -18,8 +18,8 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @PermitAll
-    public ResponseEntity<Object> getAllProduct(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
-        Object response = productService.getAllProduct(pageNo, pageSize);
+    public ResponseEntity<Object> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+        Object response = productService.getAllProduct(page, limit);
         return ResponseEntity.ok().body(response);
     }
 

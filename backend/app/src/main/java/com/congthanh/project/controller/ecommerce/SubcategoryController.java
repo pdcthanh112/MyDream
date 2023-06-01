@@ -20,8 +20,8 @@ public class SubcategoryController {
     @GetMapping("getAll")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @PermitAll
-    public ResponseEntity<Object> getAllSubcategory(@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
-        Object response = subcategoryService.getAllSubcategory(pageNo, pageSize);
+    public ResponseEntity<Object> getAllSubcategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+        Object response = subcategoryService.getAllSubcategory(page, limit);
         return ResponseEntity.ok().body(response);
     }
 
