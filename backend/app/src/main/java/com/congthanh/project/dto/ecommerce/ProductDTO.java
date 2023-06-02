@@ -5,21 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ProductDTO  {
+
     private String id;
 
     private String name;
 
-    private int category;
+    private String category;
 
-    private int subcategory;
+    private String subcategory;
 
     private int quantity;
 
@@ -34,5 +34,9 @@ public class ProductDTO implements Serializable {
     private String status;
 
     private String description;
+
+    private int ratingVote;
+
+    private float ratingValue;
 
 }

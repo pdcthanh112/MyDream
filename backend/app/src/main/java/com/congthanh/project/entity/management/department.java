@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 
 @Entity
 @Data
@@ -14,8 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Table(name = "department")
-public class Department implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Department   {
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -1,29 +1,15 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getStorage} from 'firebase/storage'
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCkoPCp9nfBwtr_Ocvpsd7F51IZxOvEt-g",
-  authDomain: "ats-storage-44e44.firebaseapp.com",
-  projectId: "ats-storage-44e44",
-  storageBucket: "ats-storage-44e44.appspot.com",
-  messagingSenderId: "568976035447",
-  appId: "1:568976035447:web:8671bf01d9df2775ae4072",
-  measurementId: "G-WCJMKVER8N"
+  apiKey: "AIzaSyCt_DDyVvOOKBvfux9mLa5icTISruKznCA",
+  authDomain: "congthanh-project.firebaseapp.com",
+  projectId: "congthanh-project",
+  storageBucket: "congthanh-project.appspot.com",
+  messagingSenderId: "1085433653419",
+  appId: "1:1085433653419:web:4e998619aed7b8f8142fee",
+  measurementId: "G-Q2XZTSFQQP"
 };
 
-
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const storage = getStorage(app)
-
-export const firebaseNotificationConfig = {
-  apiKey: "AIzaSyCkoPCp9nfBwtr_Ocvpsd7F51IZxOvEt-g",
-  authDomain: "ats-storage-44e44.firebaseapp.com",
-  projectId: "ats-storage-44e44",
-  storageBucket: "ats-storage-44e44.appspot.com",
-  messagingSenderId: "568976035447",
-  appId: "1:568976035447:web:8671bf01d9df2775ae4072",
-  measurementId: "G-WCJMKVER8N",
-};
+const analytics = getAnalytics(app);

@@ -30,25 +30,51 @@ public class ProductServiceImplement implements ProductService {
     public Object getAllProduct(Integer page, Integer limit) {
         if(page != null & limit != null) {
             Pageable pageable = PageRequest.of(page, limit);
-            Page<Product> pageResult = productRepository.findAll(pageable);
-            ResponseWithTotalPage<ProductDTO> result = new ResponseWithTotalPage<>();
-            List<ProductDTO> list = new ArrayList<>();
-            if (pageResult.hasContent()) {
-                for (Product product : pageResult.getContent()) {
-                    ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+            Page<Product> result = productRepository.findAll(pageable);
+            ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+            if (result.hasContent()) {
+                List<ProductDTO> list = new ArrayList<>();
+                for (Product product : result.getContent()) {
+                    ProductDTO productDTO = ProductDTO.builder()
+                            .id(product.getId())
+                            .name(product.getName())
+                            .category(product.getCategory().getName())
+                            .subcategory(product.getSubcategory().getName())
+                            .quantity(product.getQuantity())
+                            .price(product.getPrice())
+                            .ratingVote(product.getRating() != null ? product.getRating().getVote() : 0)
+                            .ratingValue(product.getRating() != null ? product.getRating().getValue() : 0)
+                            .production(product.getProduction())
+                            .image(product.getImage())
+                            .description(product.getDescription())
+                            .sold(product.getSold())
+                            .build();
                     list.add(productDTO);
                 }
-                result.setResponseList(list);
-                result.setTotalPage(pageResult.getTotalPages());
+                response.setResponseList(list);
+                response.setTotalPage(result.getTotalPages());
             } else {
                 throw new RuntimeException("List empty exception");
             }
-            return result;
+            return response;
         }else {
             List<Product> list = productRepository.findAll();
             List<ProductDTO> result = new ArrayList<>();
-            for (Product item: list) {
-                ProductDTO productDTO = modelMapper.map(item, ProductDTO.class);
+            for (Product product: list) {
+                ProductDTO productDTO = ProductDTO.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .category(product.getCategory().getName())
+                        .subcategory(product.getSubcategory().getName())
+                        .quantity(product.getQuantity())
+                        .price(product.getPrice())
+                        .ratingVote(product.getRating() != null ? product.getRating().getVote() : 0)
+                        .ratingValue(product.getRating() != null ? product.getRating().getValue() : 0)
+                        .production(product.getProduction())
+                        .image(product.getImage())
+                        .description(product.getDescription())
+                        .sold(product.getSold())
+                        .build();
                 result.add(productDTO);
             }
             return result;

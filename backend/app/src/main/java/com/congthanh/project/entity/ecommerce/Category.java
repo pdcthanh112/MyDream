@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +17,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "category")
-public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Category {
+  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

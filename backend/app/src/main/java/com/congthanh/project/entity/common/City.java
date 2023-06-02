@@ -9,15 +9,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class City implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class City   {
+  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

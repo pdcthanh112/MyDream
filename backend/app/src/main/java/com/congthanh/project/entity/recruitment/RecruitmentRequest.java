@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.sql.Date;
 
 @Entity
@@ -15,8 +15,8 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 @Table(name = "recruitment_request")
-public class RecruitmentRequest implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class RecruitmentRequest   {
+  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

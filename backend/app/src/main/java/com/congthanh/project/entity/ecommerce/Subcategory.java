@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.util.Set;
 
 @Entity
@@ -16,8 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "subcategory")
-public class Subcategory implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Subcategory   {
+  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

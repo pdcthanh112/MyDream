@@ -1,14 +1,10 @@
 package com.congthanh.project.entity.ecommerce;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
@@ -16,8 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "product")
-public class Product implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,9 +30,9 @@ public class Product implements Serializable {
 
     private String image;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Rating> rating;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rating", referencedColumnName = "id", unique = true)
+    private Rating rating;
 
     @Column(columnDefinition = "text")
     private String description;

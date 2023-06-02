@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -16,8 +16,8 @@ import java.sql.Time;
 @AllArgsConstructor
 @Builder
 @Table(name = "interview_schedule")
-public class InterviewSchedule implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class InterviewSchedule   {
+  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

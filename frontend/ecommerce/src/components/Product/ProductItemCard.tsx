@@ -16,10 +16,10 @@ export default function ProductItemCard({ product }: any) {
         />
         <h4>{product.name}</h4>
         <p>{product.description}</p>
-        <div>
+        <div className='mb-5'>
           <NumericFormat value={product.price} prefix="$" />
         </div>
-        <button>Add to Cart</button>
+      <button className='mt-auto button'>Add to Cart</button>
       </Card>
   );
 }
