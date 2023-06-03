@@ -1,32 +1,30 @@
 package com.congthanh.project.entity.ecommerce;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "cart")
-public class Cart   {
-  
+@Table(name = "cart_item")
+public class CartItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private float totalMoney;
+    private int quantity;
 
-    private String customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product", nullable = false)
+    private Product product;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<CartItem> cartItems;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart", nullable = false)
+    private Cart cart;
 }

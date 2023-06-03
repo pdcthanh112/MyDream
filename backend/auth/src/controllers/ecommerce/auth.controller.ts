@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateCustomerDto, CustomerLoginDto } from '@/dtos/customer.dto';
-import { Customer } from '@/interfaces/account.interface';
+import { CreateCustomerDto, CustomerLoginDto } from '@dtos/customer.dto';
+import { Customer } from '@interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/ecommerce/auth.service';
 
