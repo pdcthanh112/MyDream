@@ -1,6 +1,6 @@
 package com.congthanh.project.serviceImplement.management;
 
-import com.congthanh.project.constant.common.Status;
+import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.management.DepartmentDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.management.Department;
@@ -8,6 +8,9 @@ import com.congthanh.project.repository.management.DepartmentRepository;
 import com.congthanh.project.service.management.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,14 +27,36 @@ public class DepartmentServiceImplement implements DepartmentService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<DepartmentDTO> getAllDepartment() {
-        List<Department> list = departmentRepository.findAll();
-        List<DepartmentDTO> result = new ArrayList<>();
-        for (Department department : list) {
-            DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
-            result.add(departmentDTO);
+    public Object getAllDepartment(Integer page, Integer limit) {
+        if (page != null && limit != null) {
+            Pageable pageable = PageRequest.of(page, limit);
+            Page<Department> result = departmentRepository.findAll(pageable);
+            ResponseWithTotalPage<DepartmentDTO> response = new ResponseWithTotalPage<>();
+            if (result.hasContent()) {
+                List<DepartmentDTO> list = new ArrayList<>();
+                for (Department department : result.getContent()) {
+                    DepartmentDTO departmentDTO = DepartmentDTO.builder()
+                            .id(department.getId())
+                            .name(department.getName())
+                            .phone(department.getPhone())
+                            .build();
+                    list.add(departmentDTO);
+                }
+                response.setResponseList(list);
+                response.setTotalPage(result.getTotalPages());
+            } else {
+                throw new RuntimeException("List empty exception");
+            }
+            return response;
+        } else {
+            List<Department> list = departmentRepository.findAll();
+            List<DepartmentDTO> result = new ArrayList<>();
+            for (Department department : list) {
+                DepartmentDTO departmentDTO = modelMapper.map(department, DepartmentDTO.class);
+                result.add(departmentDTO);
+            }
+            return result;
         }
-        return result;
     }
 
     @Override
@@ -42,12 +67,12 @@ public class DepartmentServiceImplement implements DepartmentService {
         } else {
             Department department = Department.builder()
                     .name(departmentDTO.getName())
-                    .status(Status.STATUS_ACTIVE)
+                    .phone(departmentDTO.getPhone())
+                    .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Department response = departmentRepository.save(department);
             return response;
         }
-
     }
 
     @Override
@@ -62,7 +87,7 @@ public class DepartmentServiceImplement implements DepartmentService {
     @Override
     public boolean deleteDepartment(int id) {
         Department department = departmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Department not found"));
-        if (department.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+        if (department.getStatus().equalsIgnoreCase(StateStatus.STATUS_DELETED)) {
             throw new RuntimeException("Department have deleted before");
         } else {
             boolean result = departmentRepository.deleteDepartment(id);

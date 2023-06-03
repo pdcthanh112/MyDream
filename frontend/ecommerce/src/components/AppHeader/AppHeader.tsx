@@ -3,7 +3,8 @@ import './AppHeader.module.scss';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {signIn, signOut, useSession} from 'next-auth/client'   2:01:56
+// import signIn from 'next-auth'   
+// import {signIn, signOut, useSession} from 'next-auth'    2:01:33
 
 export default function AppHeader() {
   return (
@@ -26,7 +27,9 @@ export default function AppHeader() {
           <SearchIcon className="!w-16 !h-16 p-4" />
         </div>
 
-        <div onClick={signIn} className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
+        <div 
+        // onClick={() => signIn}
+         className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
           <div className="cursor-pointer hover:underline">
             <p>Hello, CongThanh</p>
             <p className="font-extrabold md:text-sm">Account & Infor</p>

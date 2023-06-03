@@ -1,6 +1,6 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
-import com.congthanh.project.constant.common.Status;
+import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Subcategory;
@@ -64,7 +64,7 @@ public class SubcategoryServiceImplement implements SubcategoryService {
             Subcategory subcategory = Subcategory.builder()
                     .name(subcategoryDTO.getName())
                     //.category(subcategoryDTO.getCategory())
-                    .status(Status.STATUS_ACTIVE)
+                    .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Subcategory response = subcategoryRepository.save(subcategory);
             return response;
@@ -85,7 +85,7 @@ public class SubcategoryServiceImplement implements SubcategoryService {
     @Override
     public boolean deleteSubcategory(int id) {
         Subcategory subcategory = subcategoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Subcategory not found"));
-        if (subcategory.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+        if (subcategory.getStatus().equalsIgnoreCase(StateStatus.STATUS_DELETED)) {
             throw new RuntimeException("Category have deleted before");
         } else {
             boolean result = subcategoryRepository.deleteSubcategory(id);

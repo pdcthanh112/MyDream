@@ -13,7 +13,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 public class RecruitmentRequestDTO   {
-  
 
     private Long id;
 
@@ -30,4 +29,5 @@ public class RecruitmentRequestDTO   {
     private String requirement;
 
     private String benefit;
+
 }

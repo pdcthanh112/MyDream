@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountDTO   {
+public class PositionDTO {
 
-    private Long id;
+    private int id;
 
-    private String accountId;
+    private String name;
 
-    private String email;
+    private String department;
 
+    private String status;
 }

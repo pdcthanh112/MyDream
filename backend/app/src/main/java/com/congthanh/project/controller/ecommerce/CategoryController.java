@@ -1,6 +1,8 @@
 package com.congthanh.project.controller.ecommerce;
 
+import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
+import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.service.ecommerce.CategoryService;
@@ -23,16 +25,24 @@ public class CategoryController {
     @GetMapping("/getAll")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @PermitAll
-    public ResponseEntity<Object> getAllCategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object response = categoryService.getAllCategory(page, limit);
+    public ResponseEntity<Response<Object>> getAllCategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+        Object data = categoryService.getAllCategory(page, limit);
+        Response<Object> response = new Response<>();
+        response.setData(data);
+        response.setMessage("Get all successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/create")
     @PermitAll
-    public ResponseEntity<String> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Response> createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = categoryService.createCategory(categoryDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created successfully");
+        Response<Object> response = new Response<>();
+        response.setData(category);
+        response.setMessage("Create successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update")

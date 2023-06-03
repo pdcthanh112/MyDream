@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +16,5 @@ public class InterviewScheduleDTO {
     private String candidateId;
 
     private String status;
+
 }

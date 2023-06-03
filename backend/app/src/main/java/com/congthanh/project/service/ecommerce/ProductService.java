@@ -5,7 +5,7 @@ import com.congthanh.project.entity.ecommerce.Product;
 
 public interface ProductService {
 
-    public Object getAllProduct(Integer pageNo, Integer pageSize);
+    public Object getAllProduct(Integer page, Integer limit);
 
     public ProductDTO getProductById(String id);
 

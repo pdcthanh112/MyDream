@@ -1,6 +1,8 @@
 package com.congthanh.project.controller.ecommerce;
 
+import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
+import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.service.ecommerce.ProductService;
 import jakarta.annotation.security.PermitAll;
@@ -18,8 +20,12 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @PermitAll
-    public ResponseEntity<Object> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object response = productService.getAllProduct(page, limit);
+    public ResponseEntity<Response<Object>> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+        Response<Object> response = new Response();
+        Object data = productService.getAllProduct(page, limit);
+        response.setData(data);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Get all successfully");
         return ResponseEntity.ok().body(response);
     }
 
@@ -32,20 +38,24 @@ public class ProductController {
 
     @PostMapping("/create")
     @PermitAll
-    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<Response> createProduct(@RequestBody ProductDTO productDTO) {
+        Response<Product> response = new Response<>();
         Product product = productService.createProduct(productDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created successfully");
+        response.setData(product);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/update")
     public ResponseEntity<String> updateProduct(@RequestBody ProductDTO productDTO) {
         Product product = productService.updateProduct(productDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
+        return ResponseEntity.ok().body("Update successfully");
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProduct(@RequestParam("id") String id) {
         boolean result = productService.deleteProduct(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
+        return ResponseEntity.ok().body("Delete successfully");
     }
 }

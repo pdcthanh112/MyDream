@@ -1,6 +1,6 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
-import com.congthanh.project.constant.common.Status;
+import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
@@ -28,7 +28,7 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public Object getAllProduct(Integer page, Integer limit) {
-        if(page != null & limit != null) {
+        if (page != null & limit != null) {
             Pageable pageable = PageRequest.of(page, limit);
             Page<Product> result = productRepository.findAll(pageable);
             ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
@@ -57,10 +57,10 @@ public class ProductServiceImplement implements ProductService {
                 throw new RuntimeException("List empty exception");
             }
             return response;
-        }else {
+        } else {
             List<Product> list = productRepository.findAll();
             List<ProductDTO> result = new ArrayList<>();
-            for (Product product: list) {
+            for (Product product : list) {
                 ProductDTO productDTO = ProductDTO.builder()
                         .id(product.getId())
                         .name(product.getName())
@@ -96,15 +96,15 @@ public class ProductServiceImplement implements ProductService {
         } else {
             Product product = Product.builder()
                     .name(productDTO.getName())
-                    //.category(productDTO.getCategory())
-                    //.subcategory(productDTO.getSubcategory())
+//                    .category(productDTO.getCategory())
+//                    .subcategory(productDTO.getSubcategory())
                     .quantity(productDTO.getQuantity())
                     .price(productDTO.getPrice())
                     .production(productDTO.getProduction())
                     .sold(0)
                     .image(productDTO.getImage())
                     .description(productDTO.getDescription())
-                    .status(Status.STATUS_ACTIVE)
+                    .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Product response = productRepository.save(product);
             return response;
@@ -116,8 +116,8 @@ public class ProductServiceImplement implements ProductService {
         Product product = productRepository.findById(productDTO.getId()).orElseThrow(() -> new RuntimeException("Product not found"));
 
         product.setName(productDTO.getName());
-       // product.setCategory(productDTO.getCategory());
-       // product.setSubcategory(productDTO.getSubcategory());
+        // product.setCategory(productDTO.getCategory());
+        // product.setSubcategory(productDTO.getSubcategory());
         product.setQuantity(productDTO.getQuantity());
         product.setPrice(productDTO.getPrice());
         product.setProduction(productDTO.getProduction());
@@ -132,7 +132,7 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public boolean deleteProduct(String id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        if (product.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+        if (product.getStatus().equalsIgnoreCase(StateStatus.STATUS_DELETED)) {
             throw new RuntimeException("Product have deleted before");
         } else {
             boolean result = productRepository.deleteProduct(id);

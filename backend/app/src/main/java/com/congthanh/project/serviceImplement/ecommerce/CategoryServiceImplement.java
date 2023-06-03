@@ -1,6 +1,6 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
-import com.congthanh.project.constant.common.Status;
+import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
@@ -63,7 +63,7 @@ public class CategoryServiceImplement implements CategoryService {
         } else {
             Category category = Category.builder()
                     .name(categoryDTO.getName())
-                    .status(Status.STATUS_ACTIVE)
+                    .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Category response = categoryRepository.save(category);
             return response;
@@ -83,7 +83,7 @@ public class CategoryServiceImplement implements CategoryService {
     @Override
     public boolean deleteCategory(int id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
-        if (category.getStatus().equalsIgnoreCase(Status.STATUS_DELETED)) {
+        if (category.getStatus().equalsIgnoreCase(StateStatus.STATUS_DELETED)) {
             throw new RuntimeException("Category have deleted before");
         } else {
             boolean result = categoryRepository.deleteCategory(id);

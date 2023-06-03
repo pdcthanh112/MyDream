@@ -1,4 +1,4 @@
-package com.congthanh.project.dto.management;
+package com.congthanh.project.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountDTO   {
-
-    private Long id;
-
-    private String accountId;
-
-    private String email;
-
+public class Response<T> {
+    private String message;
+    private T data;
+    private String status;
 }
