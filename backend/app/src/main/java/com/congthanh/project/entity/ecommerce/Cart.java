@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -21,9 +22,13 @@ public class Cart   {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private float totalMoney;
-
     private String customerId;
+
+    private String status;
+
+    private Timestamp createdDate;
+
+    private Timestamp checkoutDate;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

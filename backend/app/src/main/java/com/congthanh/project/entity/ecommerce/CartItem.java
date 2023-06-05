@@ -18,11 +18,11 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private int quantity;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product", nullable = false)
     private Product product;
+
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart", nullable = false)

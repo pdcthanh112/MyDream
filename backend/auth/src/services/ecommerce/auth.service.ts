@@ -3,10 +3,11 @@ import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { SECRET_KEY } from '@/config';
 import { MYSQL_DB } from '@databases/mysql';
-import { CustomerLoginDto } from '@/dtos/customer.dto';
-import { HttpException } from '@/exceptions/httpException';
+import { CustomerLoginDTO, CustomerSignupDTO } from '@dtos/customer.dto';
+import { HttpException } from '@exceptions/httpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
-import { Customer } from '@/interfaces/account.interface';
+import { Customer } from '@interfaces/account.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 const createToken = (customer: Customer): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: customer.id };
@@ -22,7 +23,7 @@ const createCookie = (tokenData: TokenData): string => {
 @Service()
 export class AuthService {
 
-  public async login(customerData: CustomerLoginDto): Promise<{ cookie: string; findCustomer: Customer }> {
+  public async login(customerData: CustomerLoginDTO): Promise<{ cookie: string; findCustomer: Customer }> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
     if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} was not found`);
 
@@ -35,12 +36,15 @@ export class AuthService {
     return { cookie, findCustomer };
   }
 
-  public async signup(customerData: CustomerLoginDto): Promise<Customer> {
+  public async signup(customerData: CustomerSignupDTO): Promise<Customer> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
     if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`);
 
     const hashedPassword = await hash(customerData.password, 10);
-    const createCustomerData: Customer = await MYSQL_DB.Customer.create({ ...customerData, password: hashedPassword });
+
+    customerData.accountId = uuidv4();
+    customerData.password = hashedPassword
+    const createCustomerData: Customer = await MYSQL_DB.Customer.create({ ...customerData});
 
     return createCustomerData;
   }

@@ -76,11 +76,10 @@ public class PositionServiceImplement implements PositionService {
         if (existPosition.isPresent()) {
             throw new RuntimeException("Position ton tai");
         } else {
-//            Optional<Department> department = departmentRepository.findById(Integer.parseInt(positionDTO.getDepartment()));
-            Department department = departmentRepository.checkExist(Integer.parseInt(positionDTO.getDepartment()));
+            Optional<Department> department = departmentRepository.findById(Integer.parseInt(positionDTO.getDepartment()));
             Position position = Position.builder()
                     .name(positionDTO.getName())
-                    .department(department)
+                    .department(department.get())
                     .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Position response = positionRepository.save(position);

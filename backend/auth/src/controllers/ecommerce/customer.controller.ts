@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateCustomerDto, UpdateCustomerDto } from '@/dtos/customer.dto';
-import { Customer } from '@/interfaces/account.interface';
+import { CustomerSignupDTO, UpdateCustomerDTO } from '@dtos/customer.dto';
+import { Customer } from '@interfaces/account.interface';
 import { CustomerService } from '@services/ecommerce/customer.service';
 
 export class CustomerController {
@@ -30,7 +30,7 @@ export class CustomerController {
 
   public createCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateCustomerDto = req.body;
+      const userData: CustomerSignupDTO = req.body;
       const createCustomerData: Customer = await this.service.createCustomer(userData);
 
       res.status(201).json({ data: createCustomerData, message: 'created' });
@@ -42,7 +42,7 @@ export class CustomerController {
   public updateCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const userData: UpdateCustomerDto = req.body;
+      const userData: UpdateCustomerDTO = req.body;
       const updateCustomerData: Customer = await this.service.updateCustomer(userId, userData);
 
       res.status(200).json({ data: updateCustomerData, message: 'updated' });

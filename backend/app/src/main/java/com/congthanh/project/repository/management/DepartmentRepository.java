@@ -21,7 +21,4 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     @Query(nativeQuery = true, value = "UPDATE mydream.department SET status = 'Deteted' WHERE id = ?1")
     boolean deleteDepartment(int id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM department WHERE id = ?1")
-    Department checkExist(int id);
-
 }

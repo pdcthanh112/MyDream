@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { MYSQL_DB } from '@databases/mysql';
-import { EmployeeLoginDto, CreateEmployeeDto, UpdateEmployeeDto } from '@/dtos/employee.dto';
-import { HttpException } from '@/exceptions/httpException';
-import { Employee } from '@/interfaces/account.interface';
+import { EmployeeLoginDTO, CreateEmployeeDTO, UpdateEmployeeDTO } from '@dtos/employee.dto';
+import { HttpException } from '@exceptions/httpException';
+import { Employee } from '@interfaces/account.interface';
 import generateAccountAlias from '@utils/helper';
 import { QueryTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +22,7 @@ export class EmployeeService {
     return result;
   }
 
-  public async createEmployee(employeeData: CreateEmployeeDto): Promise<Employee> {
+  public async createEmployee(employeeData: CreateEmployeeDTO): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
     if (findEmployee) throw new HttpException(409, `This email ${employeeData.email} already exists`);
     let empAccount = generateAccountAlias(employeeData.name);
@@ -44,7 +44,7 @@ export class EmployeeService {
     return createEmployeeData;
   }
 
-  public async updateEmployee(employeeId: number, employeeData: UpdateEmployeeDto): Promise<Employee> {
+  public async updateEmployee(employeeId: number, employeeData: UpdateEmployeeDTO): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findByPk(employeeId);
     if (!findEmployee) throw new HttpException(404, "Employee doesn't exist");
 
@@ -54,7 +54,7 @@ export class EmployeeService {
     return updateEmployee;
   }
 
-  public async changePasswordEmployee(employeeId: number, employeeData: EmployeeLoginDto): Promise<Employee> {
+  public async changePasswordEmployee(employeeId: number, employeeData: EmployeeLoginDTO): Promise<Employee> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findByPk(employeeId);
     if (!findEmployee) throw new HttpException(409, "Employee doesn't exist");
 

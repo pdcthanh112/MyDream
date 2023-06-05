@@ -3,8 +3,12 @@ package com.congthanh.project.serviceImplement.ecommerce;
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
+import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.entity.ecommerce.Subcategory;
+import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
+import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,12 @@ public class ProductServiceImplement implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private SubcategoryRepository subcategoryRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -94,10 +104,12 @@ public class ProductServiceImplement implements ProductService {
         if (existProduct.isPresent()) {
             throw new RuntimeException("Product ton tai");
         } else {
+            Optional<Category> category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory()));
+            Optional<Subcategory> subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory()));
             Product product = Product.builder()
                     .name(productDTO.getName())
-//                    .category(productDTO.getCategory())
-//                    .subcategory(productDTO.getSubcategory())
+                    .category(category.get())
+                    .subcategory(subcategory.get())
                     .quantity(productDTO.getQuantity())
                     .price(productDTO.getPrice())
                     .production(productDTO.getProduction())

@@ -1,6 +1,6 @@
 import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsPhoneNumber, IsNumber } from 'class-validator';
 
-export class CustomerLoginDto {
+export class CustomerLoginDTO {
   @IsEmail()
   public email: string;
 
@@ -11,14 +11,13 @@ export class CustomerLoginDto {
   public password: string;
 }
 
-export class CreateCustomerDto {
-  accountId: string;
-  empAccount: string; 
-
-  public name: string;
-
+export class CustomerSignupDTO {
   @IsEmail()
   public email: string;
+
+  accountId?: string;
+
+  public name: string;
 
   @IsString()
   @IsNotEmpty()
@@ -30,16 +29,12 @@ export class CreateCustomerDto {
   public phone: string;
 
   public address: string;
-  public department: string;
   public dob?: Date;
   public gender: string;
   public image?: string;
-  
-  @IsNumber()
-  public salary: number
 
 }
-export class UpdateCustomerDto {
+export class UpdateCustomerDTO {
   public name: string;
 
   @IsPhoneNumber()

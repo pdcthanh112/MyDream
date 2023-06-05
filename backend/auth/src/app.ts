@@ -12,11 +12,11 @@ import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config/index';
 import { mysqlConnection } from '@databases/mysql';
 import { mongodbConnection } from '@databases/mongodb';
-import { Routes } from '@interfaces/routes.interface';
+// import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-import { AuthRoute } from './routes/management/auth.route';
-import { EmployeeRoute } from './routes/management/employee.route';
+import {EmployeeRoute} from "@routes/employee.route"
+import { CustomerRoute } from '@routes/customer.route';
 
 const app = express();
 const env = NODE_ENV || 'development';
@@ -55,7 +55,7 @@ mongoose
   });
 
 //Define app router
-const routes: any = [new AuthRoute, new EmployeeRoute];
+const routes: any = [new EmployeeRoute, new CustomerRoute];
 routes.forEach(route => {
   app.use('/', route.router);
 });

@@ -9,7 +9,6 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    // "module": "commonjs",
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
@@ -36,5 +35,5 @@
     },
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/databases/mysql/dbConfig.json"],
-  "exclude": ["node_modules", "src/http", "src/logs"]
+  "exclude": ["node_modules", "src/http", "src/logs"],
 }

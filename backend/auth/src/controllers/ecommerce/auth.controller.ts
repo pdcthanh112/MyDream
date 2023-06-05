@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateCustomerDto, CustomerLoginDto } from '@dtos/customer.dto';
+import { CustomerSignupDTO, CustomerLoginDTO } from '@dtos/customer.dto';
 import { Customer } from '@interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/ecommerce/auth.service';
@@ -10,7 +10,7 @@ export class AuthController {
 
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const customerData: CustomerLoginDto = req.body;
+      const customerData: CustomerLoginDTO = req.body;
       const { cookie, findCustomer } = await this.service.login(customerData);
 
       res.setHeader('Set-Cookie', [cookie]);
@@ -19,9 +19,10 @@ export class AuthController {
       next(error);
     }
   };
+
   public signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const customerData: CreateCustomerDto = req.body;
+      const customerData: CustomerSignupDTO = req.body;
       const signUpCustomerData: Customer = await this.service.signup(customerData);
 
       res.status(201).json({ data: signUpCustomerData, message: 'signup' });
@@ -29,7 +30,6 @@ export class AuthController {
       next(error);
     }
   };
-
 
   public logout = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
