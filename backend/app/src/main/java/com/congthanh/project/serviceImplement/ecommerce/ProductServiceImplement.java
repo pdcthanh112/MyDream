@@ -2,9 +2,11 @@ package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
+import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.entity.ecommerce.Rating;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
@@ -52,8 +54,7 @@ public class ProductServiceImplement implements ProductService {
                             .subcategory(product.getSubcategory().getName())
                             .quantity(product.getQuantity())
                             .price(product.getPrice())
-                            .ratingVote(product.getRating() != null ? product.getRating().getVote() : 0)
-                            .ratingValue(product.getRating() != null ? product.getRating().getValue() : 0)
+                            .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
                             .production(product.getProduction())
                             .image(product.getImage())
                             .description(product.getDescription())
@@ -78,8 +79,7 @@ public class ProductServiceImplement implements ProductService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .ratingVote(product.getRating() != null ? product.getRating().getVote() : 0)
-                        .ratingValue(product.getRating() != null ? product.getRating().getValue() : 0)
+                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
                         .production(product.getProduction())
                         .image(product.getImage())
                         .description(product.getDescription())
@@ -94,28 +94,41 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public ProductDTO getProductById(String id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        ProductDTO result = modelMapper.map(product, ProductDTO.class);
-        return result;
+        ProductDTO response = ProductDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .category(product.getCategory().getName())
+                .subcategory(product.getSubcategory().getName())
+                .quantity(product.getQuantity())
+                .price(product.getPrice())
+                .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                .production(product.getProduction())
+                .image(product.getImage())
+                .description(product.getDescription())
+                .sold(product.getSold())
+                .build();
+        return response;
     }
 
     @Override
     public Product createProduct(ProductDTO productDTO) {
         Optional<Product> existProduct = productRepository.findByName(productDTO.getName());
         if (existProduct.isPresent()) {
-            throw new RuntimeException("Product ton tai");
+            throw new RuntimeException("Product ton taiii");
         } else {
-            Optional<Category> category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory()));
-            Optional<Subcategory> subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory()));
+            Category category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory())).orElseThrow(() -> new RuntimeException(" not found"));
+            Subcategory subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory())).orElseThrow(() -> new RuntimeException(" not found"));
             Product product = Product.builder()
                     .name(productDTO.getName())
-                    .category(category.get())
-                    .subcategory(subcategory.get())
+                    .category(category)
+                    .subcategory(subcategory)
                     .quantity(productDTO.getQuantity())
                     .price(productDTO.getPrice())
                     .production(productDTO.getProduction())
                     .sold(0)
                     .image(productDTO.getImage())
                     .description(productDTO.getDescription())
+                    .rating(Rating.builder().vote(0).value(0).build())
                     .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Product response = productRepository.save(product);

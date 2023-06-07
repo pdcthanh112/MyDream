@@ -31,7 +31,7 @@ public class Cart   {
     private Timestamp checkoutDate;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+//    @JsonIgnore
     private Set<CartItem> cartItems;
 
 }

@@ -32,5 +32,6 @@ public class Subcategory   {
     private Category category;
 
     @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Product> product;
 }

@@ -25,4 +25,18 @@ public class CartItemController {
         response.setMessage("Add to cart successfully");
         return ResponseEntity.ok().body(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<String>> deleteItem(@PathVariable String itemId) {
+        boolean result = cartItemService.deleteCartItem(itemId);
+        if(result) {
+            Response<String> response = new Response<>();
+            response.setData(null);
+            response.setStatus(ResponseStatus.STATUS_SUCCESS);
+            response.setMessage("Delete successfully");
+            return ResponseEntity.ok().body(response);
+        } else {
+            throw new RuntimeException("Loi");
+        }
+    }
 }

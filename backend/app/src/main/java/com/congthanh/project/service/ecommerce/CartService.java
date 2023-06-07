@@ -8,13 +8,16 @@ import java.util.List;
 
 public interface CartService {
 
-    @Query(nativeQuery = true, name = "SELECT * FROM CartItem W")
-    public List<CartDTO> getAllActiveCartByCustomerId(String customerId);
+    public Cart getCartById(String id);
+
+    public List<Cart> getAllCartByCustomerId(String customerId);
 
     public Cart createCart(CartDTO cartDTO);
 
     public Cart updateCart(CartDTO cartDTO);
 
     public boolean checkout(String cartId);
+
+    public boolean deleteCart(String cartId);
 
 }

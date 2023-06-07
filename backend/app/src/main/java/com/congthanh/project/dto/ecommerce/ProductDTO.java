@@ -33,8 +33,6 @@ public class ProductDTO  {
 
     private String description;
 
-    private int ratingVote;
-
-    private float ratingValue;
+    private RatingDTO rating;
 
 }

@@ -3,21 +3,24 @@ import './AppHeader.module.scss';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useRouter } from 'next/router';
 // import signIn from 'next-auth'   
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
 
 export default function AppHeader() {
+  const router = useRouter()
   return (
     <header>
       <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
-        <a href="/">
+        
           <Image
             src={AppLogo}
             alt="App Logo"
             style={{ width: '5rem', height: 'auto' }}
             className="cursor-pointer"
+            onClick={() => router.push('/')}
           />
-        </a>
+        
 
         <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500">
           <input
@@ -34,7 +37,7 @@ export default function AppHeader() {
             <p>Hello, CongThanh</p>
             <p className="font-extrabold md:text-sm">Account & Infor</p>
           </div>
-          <div className="cursor-pointer hover:underline flex items-center">
+          <div className="cursor-pointer hover:underline flex items-center" onClick={() => router.push("/checkout")}>
             <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold'>4</span>
             <ShoppingCartIcon className="h-10" />
             <p className="hidden md:inline font-extrabold md:text-sm">Cart</p>

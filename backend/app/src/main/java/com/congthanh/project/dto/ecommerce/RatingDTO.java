@@ -14,5 +14,4 @@ public class RatingDTO   {
     private int id;
     private int vote;
     private float value;
-    private String product;
 }

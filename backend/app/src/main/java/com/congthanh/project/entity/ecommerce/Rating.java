@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "rating")
 public class Rating   {
-  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +21,8 @@ public class Rating   {
     private int vote;
     private float value;
 
-    @OneToOne(mappedBy = "rating")
+    @OneToOne(mappedBy = "rating", cascade = CascadeType.ALL)
     @JsonIgnore
     private Product product;
+
 }

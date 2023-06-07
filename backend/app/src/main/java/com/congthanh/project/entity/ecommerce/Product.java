@@ -41,7 +41,7 @@ public class Product {
 
     private String image;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rating", referencedColumnName = "id", unique = true)
     private Rating rating;
 

@@ -19,13 +19,23 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/getAll/{id}")
-    public ResponseEntity<Response<List<CartDTO>>> getAllCartByCustomerId(String customerId) {
-        List<CartDTO> result = cartService.getAllActiveCartByCustomerId(customerId);
-        Response<List<CartDTO>> response = new Response<>();
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<Cart>> getCartById(@PathVariable String id) {
+        Cart result = cartService.getCartById(id);
+        Response<Cart> response = new Response<>();
         response.setData(result);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get xong");
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/getByCustomer")
+    public ResponseEntity<Response<List<Cart>>> getAllCartByCustomerId(@RequestParam String customerId) {
+        List<Cart> result = cartService.getAllCartByCustomerId(customerId);
+        Response<List<Cart>> response = new Response<>();
+        response.setData(result != null ? result : null);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage(result != null ? "Get xong" : "List emply");
         return ResponseEntity.ok().body(response);
     }
 
@@ -39,5 +49,12 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<String>> deleteCart(@PathVariable String id) {
+        Response<String> response = new Response<>();
+        response.setData(null);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Delete successfully");
+        return ResponseEntity.ok().body(response);
+    }
 }

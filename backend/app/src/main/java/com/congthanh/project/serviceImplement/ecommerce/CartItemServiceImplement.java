@@ -11,8 +11,6 @@ import com.congthanh.project.service.ecommerce.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CartItemServiceImplement implements CartItemService {
 
@@ -27,15 +25,13 @@ public class CartItemServiceImplement implements CartItemService {
 
     @Override
     public CartItem addToCart(String productId, int quantity, String cartId) {
-        System.out.println("===============================================");
-        Optional<Cart> cart = cartRepository.findById(cartId);
-        System.out.println("carttttttttttttttttttttt"+ cart.get());
-        Optional<Product> product = productRepository.findById(productId);
-        System.out.println("producttttttttttttttttttttttttt"+ product.get());
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException(" not found"));
+//        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("not found"));
         CartItem cartItem = CartItem.builder()
-                .product(product.get())
+//                .product(product)
+                .product(Product.builder().id(productId).build())
                 .quantity(quantity)
-                .cart(cart.get())
+                .cart(cart)
                 .build();
         CartItem result = cartItemRepository.save(cartItem);
         return result;
