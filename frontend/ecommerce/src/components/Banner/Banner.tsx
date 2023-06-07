@@ -10,7 +10,7 @@ import Daisy5 from '@assets/images/daisy5.jpg';
 export default function Banner() {
   return (
     <div className="relative">
-      <div className='absolute w-full h-32 bg-gradient-to-t from-gray-100 to-transparent bottom-0 z-20'/>
+      <div className='absolute w-full bg-gradient-to-t from-gray-100 to-transparent bottom-0 z-20'/>
       <Carousel 
         autoPlay
         infiniteLoop
@@ -24,7 +24,7 @@ export default function Banner() {
             src={Daisy1}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1200, height: 500 }}
+            style={{ width: 1500, height: 500 }}
           />
         </div>
         <div>
@@ -32,7 +32,7 @@ export default function Banner() {
             src={Daisy2}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1200, height: 500 }}
+            style={{ width: 1500, height: 500 }}
           />
         </div>
         <div>
@@ -40,7 +40,7 @@ export default function Banner() {
             src={Daisy3}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1200, height: 500 }}
+            style={{ width: 1500, height: 500 }}
           />
         </div>
         <div>
@@ -48,7 +48,7 @@ export default function Banner() {
             src={Daisy4}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1200, height: 500 }}
+            style={{ width: 1500, height: 500 }}
           />
         </div>
         <div>
@@ -56,7 +56,7 @@ export default function Banner() {
             src={Daisy5}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1200, height: 500 }}
+            style={{ width: 1500, height: 500 }}
           />
         </div>
       </Carousel>

@@ -1,4 +1,6 @@
-export interface Product {
+import { Rating } from "./RatingModel";
+
+export interface ProductType {
   id: string;
   name: string;
   category: number;
@@ -9,4 +11,6 @@ export interface Product {
   production: string;
   sold: number;
   image: string;
+  rating: Rating;
+  status: string;
 }

@@ -1,6 +1,9 @@
 package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
+import com.congthanh.project.dto.ecommerce.CartItemDTO;
+import com.congthanh.project.dto.ecommerce.ProductDTO;
+import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.service.ecommerce.CartItemService;
@@ -16,20 +19,39 @@ public class CartItemController {
     private CartItemService cartItemService;
 
     @PostMapping("/addToCart")
-    public ResponseEntity<Response<CartItem>> addToCart(@RequestParam String productId, @RequestParam int quantity, @RequestParam String cartId) {
-        System.out.println(productId + "++++++++++++++++++++" + quantity + "+++++++++++++++++++++++++++++++++" + cartId);
+    public ResponseEntity<Response<CartItemDTO>> addItemToCart(@RequestParam String productId, @RequestParam int quantity, @RequestParam String cartId) {
         CartItem cartItem = cartItemService.addToCart(productId, quantity, cartId);
-        Response<CartItem> response = new Response<>();
-        response.setData(cartItem);
+        CartItemDTO result = CartItemDTO.builder()
+                .id(cartItem.getId())
+                .product(ProductDTO.builder()
+                        .id(cartItem.getProduct().getId())
+                        .name(cartItem.getProduct().getName())
+                        .category(cartItem.getProduct().getCategory().getName())
+                        .subcategory(cartItem.getProduct().getSubcategory().getName())
+                        .quantity(cartItem.getProduct().getQuantity())
+                        .price(cartItem.getProduct().getPrice())
+                        .production(cartItem.getProduct().getProduction())
+                        .sold(cartItem.getProduct().getSold())
+                        .image(cartItem.getProduct().getImage())
+                        .description(cartItem.getProduct().getDescription())
+                        .rating(RatingDTO.builder().vote(cartItem.getProduct().getRating().getVote()).value(cartItem.getProduct().getRating().getValue()).build())
+                        .status(cartItem.getProduct().getStatus())
+                        .build())
+                .quantity(cartItem.getQuantity())
+                .cartId(cartItem.getCart().getId())
+                .build();
+        Response<CartItemDTO> response = new Response<>();
+        response.setData(result);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Add to cart successfully");
         return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response<String>> deleteItem(@PathVariable String itemId) {
-        boolean result = cartItemService.deleteCartItem(itemId);
-        if(result) {
+    public ResponseEntity<Response<String>> deleteCartItem(@PathVariable String id) {
+        System.out.println("==============================================" + id);
+        boolean result = cartItemService.deleteCartItem(id);
+        if (result) {
             Response<String> response = new Response<>();
             response.setData(null);
             response.setStatus(ResponseStatus.STATUS_SUCCESS);

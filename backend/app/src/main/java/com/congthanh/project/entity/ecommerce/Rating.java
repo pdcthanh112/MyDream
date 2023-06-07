@@ -13,12 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Table(name = "rating")
-public class Rating   {
+public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int vote;
+
     private float value;
 
     @OneToOne(mappedBy = "rating", cascade = CascadeType.ALL)

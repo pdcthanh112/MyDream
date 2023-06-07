@@ -5,6 +5,7 @@ import DeleteIcon from '@assets/icons/delete-icon.png';
 import { deleteCartItem as deleteCartItemApi } from '@apis/cartItemApi';
 import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 interface CartItemProps {
   item: CartItemType;
 }
@@ -15,9 +16,9 @@ export default function CartItem({ item }: CartItemProps) {
 
   const { isLoading, mutate: deleteCartItem } = useMutation({
     mutationKey: ['listCart'],
-    mutationFn: (cartId: string) => deleteCartItemApi(cartId),
+    mutationFn: async (cartId: string) => await deleteCartItemApi(cartId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['listRecruitmentPlan']);
+      queryClient.invalidateQueries(['listCart']);
     },
   });
 
@@ -25,7 +26,9 @@ export default function CartItem({ item }: CartItemProps) {
     await confirm({
       title: 'Delete item',
       description: 'Are you sure to delete this item?',
-    }).then(() => {});
+    }).then(() => {
+      deleteCartItem(itemId);
+    });
   };
 
   return (
@@ -39,7 +42,7 @@ export default function CartItem({ item }: CartItemProps) {
         <div className="w-[60%] ml-3">{item.product.name}</div>
         <div className="w-[10%]">{item.quantity}</div>
         <div className="w-[20%]">
-          Total: ${item.quantity * item.product.price}
+          Total: ${(item.quantity * item.product.price).toFixed(1)}
         </div>
         <div className="w-[10%]">
           <Image
@@ -47,7 +50,7 @@ export default function CartItem({ item }: CartItemProps) {
             alt="Delete Icon"
             title="Delete item"
             width={30}
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer opacity-50 hover:opacity-100"
             onClick={() => handleDeleteCartItem(item.id)}
           />
         </div>

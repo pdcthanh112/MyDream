@@ -29,10 +29,10 @@ public class ProductDTO  {
 
     private String image;
 
-    private String status;
-
     private String description;
 
     private RatingDTO rating;
+
+    private String status;
 
 }

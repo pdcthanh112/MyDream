@@ -1,4 +1,4 @@
-import { PaginationParams } from "../Request";
+import { PaginationParams } from "./Request";
 
 export interface ListResponse<T> {
   data: T[];

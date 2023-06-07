@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductById } from '@apis/productApi';
@@ -10,13 +10,18 @@ export default function ProductDetail() {
 
   const { data: product, isLoading } = useQuery(
     ['product', id],
-    async () => await getProductById(id).then((result) => result)
+    async () => await getProductById(id).then((result) => result.data)
   );
 
   return (
-  <React.Fragment>
-    {/* {isLoading ? <Skeleton/> :  <div>{product.name}</div>} */}
-   GOODDDDDDDDDDDDDDDDDDD
-    </React.Fragment>
-    );
+    <div className="w-[80%] mx-auto">
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <>
+          <div className='bg-white mt-3'>{product.name}</div>
+        </>
+      )}
+    </div>
+  );
 }

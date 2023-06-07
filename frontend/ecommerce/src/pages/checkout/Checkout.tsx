@@ -17,7 +17,6 @@ export default function Checkout() {
         (response) => response.data
       )
   );
-  console.log(listCart);
 
   return (
     <main className="w-[90%] mx-auto">
@@ -38,7 +37,7 @@ export default function Checkout() {
             </Card>
             <Card className="md:w-[20%] ml-4 p-4 relative">
               <h1 className='font-semibold text-xl'>Checkout</h1>
-              <div className='flex justify-between px-3'><span>Subtotal:</span> <span>{subtotal}</span></div>
+              <div className='flex justify-between px-3'><span>Subtotal:</span> <span>{subtotal.toFixed(1)}</span></div>
               <Button className='absolute bottom-4 w-[88%]'>Checkout</Button>
             </Card>
           </div>

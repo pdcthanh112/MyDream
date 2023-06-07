@@ -42,7 +42,7 @@ public class Product {
     private String image;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rating", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "rating", nullable = false)
     private Rating rating;
 
     @Column(columnDefinition = "text")

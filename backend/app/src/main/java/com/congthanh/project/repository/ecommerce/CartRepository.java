@@ -21,5 +21,4 @@ public interface CartRepository extends JpaRepository<Cart, String> {
     @Query(nativeQuery = true, value = "UPDATE cart SET status = 'PAID' WHERE id = ?1")
     boolean checkoutCart(String cartId);
 
-    void deleteById(String cartId);
 }

@@ -25,16 +25,20 @@ public class CartItemServiceImplement implements CartItemService {
 
     @Override
     public CartItem addToCart(String productId, int quantity, String cartId) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException(" not found"));
-//        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("not found"));
-        CartItem cartItem = CartItem.builder()
-//                .product(product)
-                .product(Product.builder().id(productId).build())
-                .quantity(quantity)
-                .cart(cart)
-                .build();
-        CartItem result = cartItemRepository.save(cartItem);
-        return result;
+        CartItem checkExistProduct = cartItemRepository.checkExistProductFromCart(cartId, productId);
+        if (checkExistProduct == null) {
+            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException(" not found"));
+            Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("not found"));
+            CartItem cartItem = CartItem.builder()
+                    .product(product)
+                    .quantity(quantity)
+                    .cart(cart)
+                    .build();
+            return cartItemRepository.save(cartItem);
+        } else {
+            checkExistProduct.setQuantity(checkExistProduct.getQuantity() + quantity);
+            return cartItemRepository.save(checkExistProduct);
+        }
     }
 
     @Override
@@ -48,8 +52,10 @@ public class CartItemServiceImplement implements CartItemService {
 
     @Override
     public boolean deleteCartItem(String cartItemId) {
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++" + cartItemId);
         try {
             cartItemRepository.deleteById(cartItemId);
+//            cartItemRepository.deleteCartItemById(cartItemId);
             return true;
         } catch (Exception e) {
             return false;

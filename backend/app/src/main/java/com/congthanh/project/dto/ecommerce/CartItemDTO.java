@@ -15,7 +15,7 @@ public class CartItemDTO {
 
     private int quantity;
 
-    private String product;
+    private ProductDTO product;
 
     private String cartId;
 }

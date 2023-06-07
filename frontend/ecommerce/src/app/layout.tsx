@@ -42,7 +42,6 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
 
   return (
     <html lang="en">
-      <MetaComponent />
       <body className={inter.className}>
         <React.Fragment>
           <Header>

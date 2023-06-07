@@ -1,25 +1,30 @@
 import Banner from '@components/Banner';
-import ProductFeed from '@components/Product/ProductFeed';
+
 import { getAllProduct } from '@apis/productApi';
-import { Product } from '@model/ProductModel';
+import { ProductType } from '@model/ProductModel';
 import type { GetServerSideProps } from 'next';
+import ProductFeed from '@pages/Product/ProductFeed';
 
-export default function Home({ product }: any) {
+interface ListProductProps {
+  listProduct: ProductType[]
+}
 
+export default function Home({ listProduct }: ListProductProps) {
+ 
   return (
     <main className="max-w-screen-2xl mx-auto">
       <Banner />
-      <ProductFeed product={product} />
+      <ProductFeed listProduct={listProduct} />
     </main>
   );
 }
 
-// export async function getServerSideProps(): GetServerSideProps {
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const product: Product[] = await getAllProduct().then((res) => res);
+  const listProduct: ProductType[] = await getAllProduct()
+  .then(response => response.data);
   return {
     props: {
-      product,
+      listProduct,
     },
   };
 };
