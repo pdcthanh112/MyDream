@@ -18,7 +18,6 @@ import java.util.Set;
 @Builder
 @Table(name = "category")
 public class Category {
-  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

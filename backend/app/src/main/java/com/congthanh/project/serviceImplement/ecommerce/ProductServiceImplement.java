@@ -167,4 +167,66 @@ public class ProductServiceImplement implements ProductService {
             return result;
         }
     }
+
+    @Override
+    public ResponseWithTotalPage<ProductDTO> getProductByCategory(int categoryId, int page, int limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<Product> result = productRepository.findByCategoryId(categoryId, pageable);
+        ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+        if (result.hasContent()) {
+            List<ProductDTO> list = new ArrayList<>();
+            for (Product product : result.getContent()) {
+                ProductDTO productDTO = ProductDTO.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .category(product.getCategory().getName())
+                        .subcategory(product.getSubcategory().getName())
+                        .quantity(product.getQuantity())
+                        .price(product.getPrice())
+                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .production(product.getProduction())
+                        .image(product.getImage())
+                        .description(product.getDescription())
+                        .sold(product.getSold())
+                        .build();
+                list.add(productDTO);
+            }
+            response.setResponseList(list);
+            response.setTotalPage(result.getTotalPages());
+        } else {
+            throw new RuntimeException("List empty exception");
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseWithTotalPage<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        Page<Product> result = productRepository.findBySubcategoryId(subcategoryId, pageable);
+        ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+        if (result.hasContent()) {
+            List<ProductDTO> list = new ArrayList<>();
+            for (Product product : result.getContent()) {
+                ProductDTO productDTO = ProductDTO.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .category(product.getCategory().getName())
+                        .subcategory(product.getSubcategory().getName())
+                        .quantity(product.getQuantity())
+                        .price(product.getPrice())
+                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .production(product.getProduction())
+                        .image(product.getImage())
+                        .description(product.getDescription())
+                        .sold(product.getSold())
+                        .build();
+                list.add(productDTO);
+            }
+            response.setResponseList(list);
+            response.setTotalPage(result.getTotalPages());
+        } else {
+            throw new RuntimeException("List empty exception");
+        }
+        return response;
+    }
 }
