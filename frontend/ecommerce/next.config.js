@@ -7,8 +7,8 @@ module.exports = {
   },
   rewrites: async () => {
     return [
-      { source: '/home', destination: '/Home/Home' },
-      { source: '/product-detail/:id', destination: '/Product/ProductDetail/:id' },
+      // { source: '/home', destination: '/home/Home' },
+      { source: '/product-detail/:id', destination: '/product/ProductDetail/:id' },
     ];
   },
   redirects: async () => {

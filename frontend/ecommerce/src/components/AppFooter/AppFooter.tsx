@@ -85,19 +85,19 @@ export default function Footer() {
       </div>
       <div className="w-[30%]">
         <div className="flex py-2">
-          <Image src={LocationIcon} alt="Location icon" style={{width:"1.8rem", height:"auto"}} />
+          <Image src={LocationIcon} alt="Location icon" style={{width:"1.65rem", height:"auto"}} />
           <TextStyle className="ml-2">285 CMT8 Street, Ward 12, District 10, Ho Chi Minh City</TextStyle>
         </div>
         <div className="flex py-2">
-          <Image src={PhoneIcon} alt="Phone icon" style={{width:"1.8rem", height:"auto"}} />
+          <Image src={PhoneIcon} alt="Phone icon" style={{width:"1.65rem", height:"auto"}} />
           <TextStyle className="ml-2">0382-722-849</TextStyle>
         </div>
         <div className="flex py-2">
-          <Image src={WebsiteIcon} alt="Website icon" style={{width:"1.8rem", height:"auto"}} />
+          <Image src={WebsiteIcon} alt="Website icon" style={{width:"1.65rem", height:"auto"}} />
           <TextStyle className="ml-2">mydream.com.vn</TextStyle>
         </div>
         <div className="flex py-2">
-          <Image src={EmailIcon} alt="Email icon" style={{width:"1.8rem", height:"auto"}} />
+          <Image src={EmailIcon} alt="Email icon" style={{width:"1.65rem", height:"auto"}} />
           <TextStyle className="ml-2">pdcthanh112.dev@gmail.com</TextStyle>
         </div>
       </div>

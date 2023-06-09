@@ -2,7 +2,7 @@ import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
 import { ProductType } from '@model/ProductModel';
 import type { GetServerSideProps } from 'next';
-import ProductFeed from '@pages/Product/ProductFeed';
+import ProductFeed from '@pages/product/ProductFeed';
 
 interface ListProductProps {
   listProduct: ProductType[]

@@ -71,8 +71,8 @@ public class ProductController {
     }
 
     @GetMapping("/getBySubcategory")
-    public ResponseEntity<Response<ResponseWithTotalPage<ProductDTO>>> getProductBySubcategory(@RequestParam int subcategoryId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
-        ResponseWithTotalPage<ProductDTO> data = productService.getProductBySubcategory(subcategoryId, page, limit);
+    public ResponseEntity<Response<ResponseWithTotalPage<ProductDTO>>> getProductBySubcategory(@RequestParam int subcategory, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
+        ResponseWithTotalPage<ProductDTO> data = productService.getProductBySubcategory(subcategory, page, limit);
         Response<ResponseWithTotalPage<ProductDTO>> response = new Response<>();
         response.setData(data);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);

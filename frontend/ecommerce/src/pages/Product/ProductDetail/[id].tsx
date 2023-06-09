@@ -17,10 +17,10 @@ export default function ProductDetail() {
 
   const [quantity, setQuantity] = useState<number>(1);
 
-  const { data: product, isLoading } = useQuery(
-    ['product', id],
-    async () => await getProductById(id).then((result) => result.data)
-  );
+  const { data: product, isLoading } = useQuery({
+    queryKey: ['product', id],
+    queryFn: async () => await getProductById(id).then((result) => result.data)
+  });
 
 const addProductToCart = async () => {
   await addToCart(product.id, quantity, "8d4f19b5-491a-4d3c-a7e3-13aea1eb4986").then(() => {})
@@ -80,7 +80,7 @@ const addProductToCart = async () => {
                   />
                   <span className="ml-1">Add to Cart</span>
                 </Button>
-                <Button className="bg-[#3cff00] border-[#3cff00] border-2 text-[#ffffff] ml-3" disable={(product.quantity-product.sold) <= 0}>
+                <Button className="bg-[#3cff00] border-[#3cff00] border-2 text-[#fff] ml-3" disable={(product.quantity-product.sold) <= 0}>
                   <span className="ml-1">Buy now</span>
                 </Button>
               </div>
@@ -94,7 +94,7 @@ const addProductToCart = async () => {
               <div className='col-span-1'>Subcategory</div>
               <div className='col-span-3'>{product.subcategory}</div>
               <div className='col-span-1'>In stock</div>
-              <div className='col-span-3'>{(product.quantity-product.sold) > 0 ? <p>{product.quantity-product.sold} available</p> : <p>0</p> }</div>
+              <div className='col-span-3'>{(product.quantity-product.sold) > 0 ? <p>{product.quantity-product.sold}</p> : <p>0</p> }</div>
             </div>
           </div>
           <div className='bg-white mt-10 p-5'>

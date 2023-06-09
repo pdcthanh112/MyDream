@@ -18,7 +18,8 @@ export default function ProductItemCard({ product }: ProductProps) {
     <Card
       key={product.id}
       title={product.name}
-      className="relative flex flex-col mx-2 mb-2 bg-white z-30 p-3 text-sm hover:cursor-pointer"
+      className=" bg-white z-30 p-3 text-sm hover:cursor-pointer"
+      // className="relative flex flex-col mx-2 mb-2 bg-white z-30 p-3 text-sm hover:cursor-pointer"
       onClick={() => router.push(`/product-detail/${product.id}`)}
     >
       <Image src={product.image || Daisy} width={220} alt="Product image" />
@@ -41,7 +42,7 @@ export default function ProductItemCard({ product }: ProductProps) {
       </div>
 
       <span className="italic ml-2">Sold: {product.sold}</span>
-      <Button className="mt-auto button">Add to Cart</Button>
+      <Button className="w-full bg-yellow-400">Add to Cart</Button>
     </Card>
   );
 }

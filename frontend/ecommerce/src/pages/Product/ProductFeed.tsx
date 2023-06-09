@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ProductType } from '@model/ProductModel';
-import ProductItemCard from './ProductItemCard';
+
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy2.jpg';
 import { PaginationParams } from '@model/Request';
+import ProductItemCard from './ProductItemCard';
 
 interface ListProductProps {
   listProduct: ProductType[];
@@ -17,7 +18,7 @@ export default function ProductFeed({ listProduct }: ListProductProps) {
   // });
 
   return (
-    <div className="grid grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:-mt-52 mx-auto w-[80%]">
+    <div className="grid gap-4 grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:-mt-52 mx-auto w-[80%]">
       {listProduct?.slice(0, 15).map((item: ProductType) => (
         <ProductItemCard key={item.id} product={item} />
       ))}

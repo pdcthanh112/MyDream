@@ -15,10 +15,10 @@ import { AppProps } from 'next/app';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Ecommerce',
-  description: 'Ecommerce Website of CongThanh-project',
-};
+// export const metadata: Metadata = {
+//   title: 'Ecommerce',
+//   description: 'Ecommerce Website of CongThanh-project',
+// };
 
 export default function Layout({ Component, pageProps, router }: AppProps) {
 
