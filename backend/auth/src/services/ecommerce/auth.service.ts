@@ -1,7 +1,7 @@
 import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 import { Service } from 'typedi';
-import { SECRET_KEY } from '@/config';
+import { SECRET_KEY } from '@config/index';
 import { MYSQL_DB } from '@databases/mysql';
 import { CustomerLoginDTO, CustomerSignupDTO } from '@dtos/customer.dto';
 import { HttpException } from '@exceptions/httpException';
@@ -13,7 +13,8 @@ const createToken = (customer: Customer): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: customer.id };
   const expiresIn: number = 60 * 60;
 
-  return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
+  const token:string = JWT.sign(dataStoredInToken, SECRET_KEY,{ expiresIn })
+  return { expiresIn, token };
 };
 
 const createCookie = (tokenData: TokenData): string => {
@@ -23,7 +24,7 @@ const createCookie = (tokenData: TokenData): string => {
 @Service()
 export class AuthService {
 
-  public async login(customerData: CustomerLoginDTO): Promise<{ cookie: string; findCustomer: Customer }> {
+  public async login(customerData: CustomerLoginDTO): Promise<{ cookie: string; findCustomer: Customer, tokenData: any }> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
     if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} was not found`);
 
@@ -33,7 +34,7 @@ export class AuthService {
     const tokenData = createToken(findCustomer);
     const cookie = createCookie(tokenData);
 
-    return { cookie, findCustomer };
+    return { cookie, findCustomer, tokenData };
   }
 
   public async signup(customerData: CustomerSignupDTO): Promise<Customer> {

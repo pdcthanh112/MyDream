@@ -37,7 +37,7 @@ export default function ProductBySubcategory() {
             count={pagination.totalPage}
             shape="rounded"
             variant="outlined"
-            onChange={(event:any, page:number) => {
+            onChange={(event:React.ChangeEvent<any>, page:number) => {
               setPagination({ ...pagination, page: page });
             }}
           />
