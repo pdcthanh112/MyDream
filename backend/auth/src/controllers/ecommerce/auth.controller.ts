@@ -14,7 +14,7 @@ export class AuthController {
       const { cookie, findCustomer, tokenData } = await this.service.login(customerData);
 
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: {customerData:findCustomer, tokenData}, message: 'login successfully', status: "SUCCESS" });
+      res.status(200).json({ data: {userData:findCustomer, tokenData}, message: 'login successfully', status: "SUCCESS" });
     } catch (error) {
       next(error);
     }

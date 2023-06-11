@@ -16,7 +16,7 @@ export interface Customer {
   address: string;
   dob: Date;
   gender: string;
-  image: string;
+  image?: string;
 }
 export interface Employee {
   id?: number;
@@ -43,5 +43,5 @@ export interface Candidate {
   address: string;
   dob: Date;
   gender: string;
-  image: string;
+  image?: string;
 }
