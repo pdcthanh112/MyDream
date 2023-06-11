@@ -29,7 +29,7 @@ export default function Footer() {
   `;
 
   return (
-    <div className="inline-flex px-5 py-3 bg-[rgba(20,177,231,.1)]">
+    <footer className="inline-flex px-5 py-3 bg-[rgba(20,177,231,.1)]">
       <div className="w-[40%]">
         <TextStyle className="px-16">
           DreamHigh is a Cong Thanh&apos;s personal project, including an e-commerce site, official website, employee management page and administrator&apos;s site.
@@ -101,6 +101,6 @@ export default function Footer() {
           <TextStyle className="ml-2">pdcthanh112.dev@gmail.com</TextStyle>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
