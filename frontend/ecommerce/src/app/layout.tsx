@@ -31,13 +31,13 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
   `;
 
   const Body = styled.div`
-    width: 100vw;
+    width: 100%;
     min-height: 80vh;
     display: inline-flex;
   `;
 
   const Footer = styled.div`
-    width: '100vw';
+    width: '100%';
   `;
 
   return (

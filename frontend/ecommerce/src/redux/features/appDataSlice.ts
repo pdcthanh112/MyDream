@@ -8,8 +8,9 @@ const appDataSlice = createSlice({
   },
   reducers: {
     setAppData: (state, action) => {
-      state.category = action.payload.category;
-      state.subcategory = action.payload.subcategory;
+      console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR', action.payload)
+      state.category = action.payload.category.data;
+      state.subcategory = action.payload.subcategory.data;
     },
   },
 });

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
@@ -22,4 +23,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Modifying
     @Query(nativeQuery = true, value = "UPDATE mydream.product SET status = 'Deleted' WHERE id = ?1 ")
     boolean deleteProduct(String id);
+
+    @Query(nativeQuery = true, value = "SELECT product.id, product.name, category.id as category,\n" +
+            " subcategory.name as subcategory, price, quantity, description,\n" +
+            "image, sold, production, rating.vote as ratingVote, rating.value as rating, product.status as status\n" +
+            "FROM product JOIN category on product.category = category.id\n" +
+            "\t\t\tJOIN subcategory on product.subcategory = subcategory.id\n" +
+            "\t\t\tJOIN rating on product.rating = rating.id\n" +
+            "WHERE CONCAT(product.name, category.name, subcategory.name) ILIKE ?1")
+    public List<Product> searchProduct(String keyword);
 }

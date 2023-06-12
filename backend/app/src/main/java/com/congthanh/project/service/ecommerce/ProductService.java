@@ -5,6 +5,8 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface ProductService {
 
     public Object getAllProduct(Integer page, Integer limit);
@@ -20,4 +22,6 @@ public interface ProductService {
     public ResponseWithTotalPage<ProductDTO> getProductByCategory(int categoryId, int page, int limit);
 
     public ResponseWithTotalPage<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit);
+
+    public List<ProductDTO> searchProduct(String keyword);
 }

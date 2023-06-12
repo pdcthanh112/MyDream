@@ -2,9 +2,8 @@
 import type { AppProps } from 'next/app';
 import Layout from './layout';
 import { getAppData } from '@apis/appApi';
-import { useDispatch } from 'react-redux';
 import { setAppData } from '@redux/features/appDataSlice';
-
+import { useAppDispatch, store} from '@redux/store';
 export default function App({ Component, pageProps, router }: AppProps) {
 
   return (
@@ -13,10 +12,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
 }
 
 export const getStaticProps = async () => {
-  const dispatch = useDispatch();
+  //const dispatch = useAppDispatch();
+ 
   const data = await getAppData().then(response => {
     if(response) {
-      dispatch(setAppData(data));
+      store.dispatch(setAppData(response));
     }
   });
 };

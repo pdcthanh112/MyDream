@@ -15,6 +15,6 @@ public class SubcategoryDTO   {
 
     private String name;
 
-    private int category;
+    private CategoryDTO category;
 
 }

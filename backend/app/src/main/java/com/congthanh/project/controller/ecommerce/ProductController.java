@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ecommerce/product")
 public class ProductController {
@@ -75,6 +77,16 @@ public class ProductController {
         ResponseWithTotalPage<ProductDTO> data = productService.getProductBySubcategory(subcategory, page, limit);
         Response<ResponseWithTotalPage<ProductDTO>> response = new Response<>();
         response.setData(data);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Get successfully");
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Response<List<ProductDTO>>> searchProduct(@RequestParam String search) {
+        List<ProductDTO> result = productService.searchProduct(search);
+        Response<List<ProductDTO>> response = new Response<>();
+        response.setData(result);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get successfully");
         return ResponseEntity.ok().body(response);

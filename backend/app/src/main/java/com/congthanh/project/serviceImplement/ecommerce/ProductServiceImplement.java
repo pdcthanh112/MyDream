@@ -229,4 +229,33 @@ public class ProductServiceImplement implements ProductService {
         }
         return response;
     }
+
+    @Override
+    public List<ProductDTO> searchProduct(String keyword) {
+        List<Product> data = productRepository.searchProduct("%"+keyword+"%");
+        System.out.println("CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" + data);
+
+        if(data.size() > 0) {
+            List<ProductDTO> result = new ArrayList<>();
+            for (Product product: data) {
+                ProductDTO productDTO = ProductDTO.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .category(product.getCategory().getName())
+                        .subcategory(product.getSubcategory().getName())
+                        .quantity(product.getQuantity())
+                        .price(product.getPrice())
+                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .production(product.getProduction())
+                        .image(product.getImage())
+                        .description(product.getDescription())
+                        .sold(product.getSold())
+                        .build();
+                result.add(productDTO);
+            }
+            return result;
+        } else {
+            return null;
+        }
+    }
 }

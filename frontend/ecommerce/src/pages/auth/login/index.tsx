@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Link from 'next/link';
 import { login } from '@redux/features/authSlice';
-import { LoginForm } from '@model/AuthModel';
+import { LoginForm } from '@model/CustomerModel';
 import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
@@ -31,7 +31,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useRouter();
 
-  const { loading, userInfo, tokenData, error, success } = useSelector((state: RootState) => state.auth.login);
+  const { loading } = useSelector((state: RootState) => state.auth.login);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -97,7 +97,7 @@ export default function Login() {
           <BarLoader
             color="#00FF00"
             loading={loading}
-            width={442}
+            width={440}
             // aria-label="Loading Spinner"
             // data-testid="loader"
           />
@@ -122,7 +122,7 @@ export default function Login() {
           <Image src={LoginFacebook} alt={''} width={182} className="ml-6" />
         </div>
         <div className="flex justify-center mt-10 text-sm">
-          <span>You don't have an account?</span>
+          <span>You don&apos;t have an account?</span>
           <Link href={'/auth/signup'} className="hover:text-yellow-600">
             &nbsp;Register now
           </Link>

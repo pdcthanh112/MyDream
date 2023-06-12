@@ -26,12 +26,12 @@ export default function Checkout() {
         {listCart?.map((item: Cart) => {
           let subtotal:number = 0
           return (
-          <div className="md:flex mb-5 ">
+          <div key={item.id} className="md:flex mb-5 ">
             <Card className="md:w-[80%] px-4 py-2">
               {item.cartItems.map((cartItem: CartItemType) => {
                 subtotal += cartItem.product.price * cartItem.quantity;
                 return (
-                <CartItem item={cartItem} />
+                <CartItem key={cartItem.id} item={cartItem} />
                 )
               })}    
             </Card>
