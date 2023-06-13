@@ -1,5 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,7 +43,8 @@ public class Product {
     private String image;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rating", nullable = false)
+    @JoinColumn(name = "rating", nullable = false, referencedColumnName = "id")
+    @JsonBackReference
     private Rating rating;
 
     @Column(columnDefinition = "text")

@@ -1,5 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class Rating {
 
     private float value;
 
-    @OneToOne(mappedBy = "rating", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "rating", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Product product;
 
