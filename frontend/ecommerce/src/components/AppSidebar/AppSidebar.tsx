@@ -1,23 +1,68 @@
+import { useEffect, useState } from 'react';
 import './AppSidebar.scss';
-import { RootState, store } from '@redux/store';
-import { useSelector } from 'react-redux';
+import {useRouter} from 'next/router'
+import { Avatar, Icon } from '@mui/material';
+import { useAppSelector } from '@redux/store';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 const AppSidebar = () => {
 
-  // const data = useSelector((state: RootState) => state.appData);
-  // const data = store.getState().appData
+  const router = useRouter();
+  const currentUser = useAppSelector((state) => state.auth.login.currentUser);
+  const data = useAppSelector((state) => state.appData);
 
-  // const [isOpen, setIsOpen] = useState(false);
+  const [showSubSidebar, setShowSubSidebar] = useState(false);
+  const [category, setCategory] = useState(0);
+  const [listSubcategory, setListSubcategory] = useState([]);
 
-  // const handleToggle = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const handleShowSubSidebar = (categoryId: number) => {
+    setCategory(categoryId);
+    setShowSubSidebar(true);
+  };
+
+  useEffect(() => {
+    const result = data.subcategory.filter((item) => item.category.id === category);
+    setListSubcategory(result);
+  }, [category]);
+
   return (
-    <>
-    sidebar
-      {/* { data.category?.map((item:any) => (
-        <div className='px-4 py-3 hover:bg-green-600 hover:text-green-800'>{item.name}</div>
-      ))} */}
-   </>
+    <div className="w-96 h-full bg-white border border-black overflow-y-scroll">
+      <div className="bg-green-500 flex px-10 py-3 items-center">
+        <Avatar src={currentUser.userData.image || AccountCircleIcon} />
+        <span className="text-white font-semibold text-xl ml-3">Hello, {currentUser.userData.name.split(' ')[0] || <>signin</>}</span>
+      </div>
+      <div className="border-b border-gray-400">
+        <h3 className="font-semibold text-lg pl-6">Category</h3>
+        {data.category?.map((item: any) => (
+          <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => handleShowSubSidebar(item.id)}>
+            <span>{item.name}</span>
+            <Icon component={ArrowForwardIosIcon} />
+          </div>
+        ))}
+      </div>
+      <div className="border-b border-gray-400">
+        <h3 className="font-semibold text-lg pl-6">Help & Settings</h3>
+        <div className="hover:bg-gray-100 px-6 py-2">Your account</div>
+        <div className="hover:bg-gray-100 px-6 py-2">Customer Service</div>
+      </div>
+
+      {showSubSidebar && (
+        <div className="bg-white w-96 h-full top-0 absolute">
+          <div className='px-3 py-2 hover:cursor-pointer hover:bg-gray-100 border-b border-b-gray-300' onClick={() => setShowSubSidebar(false)}>
+            <Icon component={ArrowBackIcon} />
+            <span className='ml-2'>Back</span>
+          </div>
+          {listSubcategory.map((item) => (
+            <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => router.push(`product/${item.id}`)}>
+              <span>{item.name}</span>
+              <Icon component={ArrowForwardIosIcon} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -4,9 +4,8 @@ import Image from 'next/image';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
-import { Card, Modal } from '@mui/material';
+import { Card } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
@@ -17,7 +16,7 @@ import { logout } from '@redux/features/authSlice';
 export default function AppHeader() {
   const currentUser = useAppSelector((state) => state.auth.login.currentUser);
   const appData = useAppSelector((state) => state.appData);
-  console.log('HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', appData.category);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   return (
@@ -34,7 +33,7 @@ export default function AppHeader() {
               </span>
 
               <Card className="text-[#a4a4a4] text-sm hidden absolute transform translate-x-[36%] translate-y-[56%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-                {appData.category.data.map((item: any) => (
+                {appData.category?.map((item: any) => (
                   <div key={item.id} className='leading-6 px-2 hover:bg-gray-100'>{item.name}</div>
                 ))}
               </Card>

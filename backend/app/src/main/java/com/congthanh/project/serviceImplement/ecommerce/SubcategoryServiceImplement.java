@@ -6,6 +6,7 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.SubcategoryService;
+import jakarta.persistence.Tuple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -91,6 +92,19 @@ public class SubcategoryServiceImplement implements SubcategoryService {
             boolean result = subcategoryRepository.deleteSubcategory(id);
             return result;
         }
+    }
 
+    @Override
+    public List<SubcategoryDTO> getSubcategoryByCategoryId(int id) {
+        List<Tuple> data = subcategoryRepository.findByCategoryId(id);
+        List<SubcategoryDTO> result = new ArrayList<>();
+        for (Tuple item: data) {
+            SubcategoryDTO subcategoryDTO = SubcategoryDTO.builder()
+                    .id(item.get("id", Integer.class))
+                    .name(item.get("name", String.class))
+                    .build();
+            result.add(subcategoryDTO);
+        }
+        return result;
     }
 }

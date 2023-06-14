@@ -12,4 +12,5 @@ public interface CategoryService {
     public Category updateCategory(CategoryDTO categoryDTO);
 
     public boolean deleteCategory(int id);
+
 }

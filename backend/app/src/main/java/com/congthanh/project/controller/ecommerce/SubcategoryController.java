@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ecommerce/subcategory")
 public class SubcategoryController {
@@ -51,5 +53,15 @@ public class SubcategoryController {
     public ResponseEntity<String> deleteSubcategory(@RequestParam("id") int id) {
         boolean result = subcategoryService.deleteSubcategory(id);
         return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
+    }
+
+    @GetMapping("/getByCategory")
+    public ResponseEntity<Response<List<SubcategoryDTO>>> getSubcategoryByCategoryId(@RequestParam int id) {
+        List<SubcategoryDTO> data =  subcategoryService.getSubcategoryByCategoryId(id);
+        Response<List<SubcategoryDTO>> response = new Response<>();
+        response.setData(data);
+        response.setMessage("get successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
     }
 }
