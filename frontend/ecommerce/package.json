@@ -30,6 +30,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "firebase": "^9.22.1",
+    "framer-motion": "^10.12.16",
     "material-ui-confirm": "^3.0.9",
     "next": "13.4.4",
     "prettier": "^2.8.8",

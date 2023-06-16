@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AppSidebar from '@components/AppSidebar';
 import { Icon } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { motion } from 'framer-motion';
 
 export default function AppNavbar() {
   const [showSidebar, setShowSidebar] = useState(false);

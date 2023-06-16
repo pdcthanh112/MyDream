@@ -1,4 +1,5 @@
 import axiosConfig from '@config/axiosConfig';
+import { SignupForm } from '@model/CustomerModel';
 import axios from 'axios';
 
 export const login = async (email: string, password: string) => {
@@ -10,12 +11,13 @@ export const login = async (email: string, password: string) => {
     });
 };
 
-export const signup = async (data: any) => {
+export const signup = async (data: SignupForm) => {
   return await axios.post('http://localhost:8000/ecommerce/auth/signup', {
     email: data.email,
     name: data.name,
     password: data.password,
-    gender: data.gender,
+    address: data.address,
     phone: data.phone,
+    gender: data.gender,
   });
 };

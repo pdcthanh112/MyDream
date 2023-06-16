@@ -7,6 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { AppData, Category, Subcategory } from '@model/AppDataModel';
+import { motion } from 'framer-motion';
 
 const AppSidebar = () => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const AppSidebar = () => {
   }, [category]);
 
   return (
-    <div className="w-96 h-full bg-white border border-black overflow-y-scroll">
+    <motion.div initial={{ x: -500, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{duration: 0.3}} className="w-96 h-full bg-white border border-black overflow-y-scroll">
       <div className="bg-green-500 flex px-10 py-3 items-center">
         <Avatar src={currentUser.userData.image || AccountCircleIcon} />
         <span className="text-white font-semibold text-xl ml-3">Hello, {currentUser.userData.name.split(' ')[0] || <>signin</>}</span>
@@ -49,7 +50,7 @@ const AppSidebar = () => {
       </div>
 
       {showSubSidebar && (
-        <div className="bg-white w-96 h-full top-0 absolute">
+        <motion.div initial={{ x: -500, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{duration: 0.3}} className="bg-white w-96 h-full top-0 absolute">
           <div className="px-3 py-2 hover:cursor-pointer hover:bg-gray-100 border-b border-b-gray-300" onClick={() => setShowSubSidebar(false)}>
             <Icon component={ArrowBackIcon} />
             <span className="ml-2">Back</span>
@@ -60,9 +61,9 @@ const AppSidebar = () => {
               <Icon component={ArrowForwardIosIcon} />
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

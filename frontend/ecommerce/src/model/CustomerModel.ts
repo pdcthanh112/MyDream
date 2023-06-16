@@ -8,8 +8,10 @@ export interface SignupForm {
   email: string;
   name: string;
   password: string;
+  confirm?: string;
   phone: string;
   address: string;
-  gender: 'MALE' | 'FEMALE' | 'OTHER';
+  dob?: Date;
+  gender: string;
   image?: string;
 }

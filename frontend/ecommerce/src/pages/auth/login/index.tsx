@@ -19,14 +19,6 @@ import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
 
-const InputField = styled.div`
-  border: 1px solid #b6b6b6;
-  padding: 0.65rem 1.8rem 0.65rem 0.8rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-  position: relative;
-`;
-
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useRouter();
@@ -43,6 +35,14 @@ export default function Login() {
       }
     });
   };
+
+  const InputField = styled.div`
+  border: 1px solid #b6b6b6;
+  padding: 0.65rem 1.8rem 0.65rem 0.8rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  position: relative;
+`;
 
   return (
     <div className="relative">
@@ -72,8 +72,6 @@ export default function Login() {
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
                   required: 'Password is require',
-                  minLength: 8,
-                  maxLength: 32,
                 })}
                 placeholder="Enter your password"
                 className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.password ? 'bg-red-100' : ''}`}
@@ -98,8 +96,6 @@ export default function Login() {
             color="#00FF00"
             loading={loading}
             width={440}
-            // aria-label="Loading Spinner"
-            // data-testid="loader"
           />
         </form>
         <div className="relative flex justify-center mt-3">
