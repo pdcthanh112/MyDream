@@ -16,25 +16,25 @@ export default function AppNavbar() {
   ];
   return (
     <>
-    <div className="flex items-center bg-blue-300 text-white space-x-6 p-2 pl-6">
-      <p className="hover:cursor-pointer" onClick={() => setShowSidebar(!showSidebar)}>
-        <MenuIcon className="h-6 mr-1" />
-        All
-      </p>
-      {navbarItems.map((item, id) => (
-        <Link key={id} href={item.path}>
-          <p className="hover:cursor-pointer focus:underline">{item.name}</p>
-        </Link>
-      ))}
-    </div>
-    {showSidebar && (
-      <div className="w-full h-screen text-black fixed top-0 left-0 bg-slate-500 bg-opacity-50 z-50">
-        <div className="w-full h-full relative flex">
-          <AppSidebar />
-          <Icon component={CloseIcon} className='hover:cursor-pointer' onClick={() => setShowSidebar(false)} />
-        </div>
+      <div className="flex items-center bg-blue-300 text-white space-x-6 p-2 pl-6">
+        <p className="hover:cursor-pointer" onClick={() => setShowSidebar(!showSidebar)}>
+          <MenuIcon className="h-6 mr-1" />
+          All
+        </p>
+        {navbarItems.map((item, id) => (
+          <Link key={id} href={item.path}>
+            <p className="hover:cursor-pointer focus:underline">{item.name}</p>
+          </Link>
+        ))}
       </div>
-    )}
+      {showSidebar && (
+        <div className="w-full h-screen text-black fixed top-0 left-0 bg-slate-500 bg-opacity-50 z-50">
+          <div className="w-full h-full relative flex">
+            <AppSidebar />
+            <Icon component={CloseIcon} className="hover:cursor-pointer" onClick={() => setShowSidebar(false)} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

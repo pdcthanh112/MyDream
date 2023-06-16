@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:amazon_clone_tutorial/constants/error_handling.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/constants/error_handling.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/constants/utils.dart';
+import 'package:mobile/features/auth/screens/auth_screen.dart';
+import 'package:mobile/models/order.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +17,7 @@ class AccountServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/api/orders/me'), headers: {
+      http.Response res = await http.get(Uri.parse('$uri/api/orders/me'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -46,8 +45,7 @@ class AccountServices {
 
   void logOut(BuildContext context) async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       await sharedPreferences.setString('x-auth-token', '');
       Navigator.pushNamedAndRemoveUntil(
         context,

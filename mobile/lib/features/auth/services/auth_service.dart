@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
-import 'package:amazon_clone_tutorial/constants/error_handling.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/models/user.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/common/widgets/bottom_bar.dart';
+import 'package:mobile/constants/error_handling.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/constants/utils.dart';
+import 'package:mobile/models/user.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -104,10 +104,7 @@ class AuthService {
 
       var tokenRes = await http.post(
         Uri.parse('$uri/tokenIsValid'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': token!
-        },
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': token!},
       );
 
       var response = jsonDecode(tokenRes.body);
@@ -115,10 +112,7 @@ class AuthService {
       if (response == true) {
         http.Response userRes = await http.get(
           Uri.parse('$uri/'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token
-          },
+          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': token},
         );
 
         var userProvider = Provider.of<UserProvider>(context, listen: false);

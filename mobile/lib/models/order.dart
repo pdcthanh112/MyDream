@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:mobile/models/product.dart';
 
 class Order {
   final String id;
@@ -38,8 +38,7 @@ class Order {
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
       id: map['_id'] ?? '',
-      products: List<Product>.from(
-          map['products']?.map((x) => Product.fromMap(x['product']))),
+      products: List<Product>.from(map['products']?.map((x) => Product.fromMap(x['product']))),
       quantity: List<int>.from(
         map['products']?.map(
           (x) => x['quantity'],

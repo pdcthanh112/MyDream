@@ -1,7 +1,7 @@
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/features/admin/models/sales.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
-import 'package:amazon_clone_tutorial/features/admin/widgets/category_products_chart.dart';
+import 'package:mobile/common/widgets/loader.dart';
+import 'package:mobile/features/admin/models/sales.dart';
+import 'package:mobile/features/admin/services/admin_services.dart';
+import 'package:mobile/features/admin/widgets/category_products_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 

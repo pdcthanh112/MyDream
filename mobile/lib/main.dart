@@ -1,10 +1,10 @@
-import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
-import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone_tutorial/features/auth/services/auth_service.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
-import 'package:amazon_clone_tutorial/router.dart';
+import 'package:mobile/common/widgets/bottom_bar.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/features/admin/screens/admin_screen.dart';
+import 'package:mobile/features/auth/screens/auth_screen.dart';
+import 'package:mobile/features/auth/services/auth_service.dart';
+import 'package:mobile/providers/user_provider.dart';
+import 'package:mobile/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Amazon Clone',
+      title: 'CongThanh Ecommerce',
       theme: ThemeData(
         scaffoldBackgroundColor: GlobalVariables.backgroundColor,
         colorScheme: const ColorScheme.light(

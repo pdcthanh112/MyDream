@@ -1,11 +1,11 @@
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/address/services/address_services.dart';
+import 'package:mobile/constants/utils.dart';
+import 'package:mobile/features/address/services/address_services.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/common/widgets/custom_textfield.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/providers/user_provider.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
@@ -52,12 +52,8 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   void onApplePayResult(res) {
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
-      addressServices.saveUserAddress(
-          context: context, address: addressToBeUsed);
+    if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+      addressServices.saveUserAddress(context: context, address: addressToBeUsed);
     }
     addressServices.placeOrder(
       context: context,
@@ -67,12 +63,8 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   void onGooglePayResult(res) {
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
-      addressServices.saveUserAddress(
-          context: context, address: addressToBeUsed);
+    if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+      addressServices.saveUserAddress(context: context, address: addressToBeUsed);
     }
     addressServices.placeOrder(
       context: context,
@@ -84,15 +76,11 @@ class _AddressScreenState extends State<AddressScreen> {
   void payPressed(String addressFromProvider) {
     addressToBeUsed = "";
 
-    bool isForm = flatBuildingController.text.isNotEmpty ||
-        areaController.text.isNotEmpty ||
-        pincodeController.text.isNotEmpty ||
-        cityController.text.isNotEmpty;
+    bool isForm = flatBuildingController.text.isNotEmpty || areaController.text.isNotEmpty || pincodeController.text.isNotEmpty || cityController.text.isNotEmpty;
 
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
-        addressToBeUsed =
-            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
+        addressToBeUsed = '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
       } else {
         throw Exception('Please enter all the values!');
       }

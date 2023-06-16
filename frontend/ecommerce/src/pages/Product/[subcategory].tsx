@@ -9,7 +9,7 @@ import Pagination from '@components/Pagination';
 export default function ProductBySubcategory() {
   const router = useRouter();
   const subcategory = router.query.subcategory;
-  
+
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -18,31 +18,37 @@ export default function ProductBySubcategory() {
 
   const { data: listProduct, isLoading } = useQuery({
     queryKey: ['todos', subcategory, pagination],
-    queryFn: async () => 
+    queryFn: async () =>
       await getProductBySubcategory(subcategory, pagination.page - 1, pagination.limit).then((result) => {
         setPagination({ ...pagination, totalPage: result.data.totalPage });
         return result.data.responseList;
-      }),   
+      }),
   });
 
   return (
     <>
-      {isLoading ? (
-        <div>loading</div>
+      {listProduct ? (
+        <>
+          {isLoading ? (
+            <div>loading</div>
+          ) : (
+            <div className="w-[90%] mx-auto">
+              <ShowListProduct listProduct={listProduct} />
+              <div className="">
+                <Pagination
+                  count={pagination.totalPage}
+                  shape="rounded"
+                  variant="outlined"
+                  onChange={(event: React.ChangeEvent<any>, page: number) => {
+                    setPagination({ ...pagination, page: page });
+                  }}
+                />
+              </div>
+            </div>
+          )}
+        </>
       ) : (
-        <div className="w-[90%] mx-auto">
-          <ShowListProduct listProduct={listProduct} />
-          <div className=''>
-          <Pagination
-            count={pagination.totalPage}
-            shape="rounded"
-            variant="outlined"
-            onChange={(event:React.ChangeEvent<any>, page:number) => {
-              setPagination({ ...pagination, page: page });
-            }}
-          />
-          </div>
-        </div>
+        <div>list null</div>
       )}
     </>
   );

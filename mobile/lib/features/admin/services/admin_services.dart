@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:amazon_clone_tutorial/constants/error_handling.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/models/sales.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/constants/error_handling.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/constants/utils.dart';
+import 'package:mobile/features/admin/models/sales.dart';
+import 'package:mobile/models/order.dart';
+import 'package:mobile/models/product.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -71,8 +71,7 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-products'), headers: {
+      http.Response res = await http.get(Uri.parse('$uri/admin/get-products'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -133,8 +132,7 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
+      http.Response res = await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -196,8 +194,7 @@ class AdminServices {
     List<Sales> sales = [];
     int totalEarning = 0;
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/analytics'), headers: {
+      http.Response res = await http.get(Uri.parse('$uri/admin/analytics'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });

@@ -1,13 +1,13 @@
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
-import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/common/widgets/custom_button.dart';
+import 'package:mobile/common/widgets/stars.dart';
+import 'package:mobile/features/product_details/services/product_details_services.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/features/search/screens/search_screen.dart';
+import 'package:mobile/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  final ProductDetailsServices productDetailsServices =
-      ProductDetailsServices();
+  final ProductDetailsServices productDetailsServices = ProductDetailsServices();
   double avgRating = 0;
   double myRating = 0;
 
@@ -35,8 +34,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     double totalRating = 0;
     for (int i = 0; i < widget.product.rating!.length; i++) {
       totalRating += widget.product.rating![i].rating;
-      if (widget.product.rating![i].userId ==
-          Provider.of<UserProvider>(context, listen: false).user.id) {
+      if (widget.product.rating![i].userId == Provider.of<UserProvider>(context, listen: false).user.id) {
         myRating = widget.product.rating![i].rating;
       }
     }

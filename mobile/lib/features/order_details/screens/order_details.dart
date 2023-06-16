@@ -1,9 +1,9 @@
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/common/widgets/custom_button.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/features/admin/services/admin_services.dart';
+import 'package:mobile/features/search/screens/search_screen.dart';
+import 'package:mobile/models/order.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -150,8 +150,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Order Date:      ${DateFormat().format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          widget.order.orderedAt),
+                      DateTime.fromMillisecondsSinceEpoch(widget.order.orderedAt),
                     )}'),
                     Text('Order ID:          ${widget.order.id}'),
                     Text('Order Total:      \$${widget.order.totalPrice}'),
@@ -240,9 +239,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         'Your order is yet to be delivered',
                       ),
                       isActive: currentStep > 0,
-                      state: currentStep > 0
-                          ? StepState.complete
-                          : StepState.indexed,
+                      state: currentStep > 0 ? StepState.complete : StepState.indexed,
                     ),
                     Step(
                       title: const Text('Completed'),
@@ -250,9 +247,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         'Your order has been delivered, you are yet to sign.',
                       ),
                       isActive: currentStep > 1,
-                      state: currentStep > 1
-                          ? StepState.complete
-                          : StepState.indexed,
+                      state: currentStep > 1 ? StepState.complete : StepState.indexed,
                     ),
                     Step(
                       title: const Text('Received'),
@@ -260,9 +255,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         'Your order has been delivered and signed by you.',
                       ),
                       isActive: currentStep > 2,
-                      state: currentStep > 2
-                          ? StepState.complete
-                          : StepState.indexed,
+                      state: currentStep > 2 ? StepState.complete : StepState.indexed,
                     ),
                     Step(
                       title: const Text('Delivered'),
@@ -270,9 +263,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         'Your order has been delivered and signed by you!',
                       ),
                       isActive: currentStep >= 3,
-                      state: currentStep >= 3
-                          ? StepState.complete
-                          : StepState.indexed,
+                      state: currentStep >= 3 ? StepState.complete : StepState.indexed,
                     ),
                   ],
                 ),

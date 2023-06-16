@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
+import 'package:mobile/common/widgets/custom_button.dart';
+import 'package:mobile/common/widgets/custom_textfield.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/constants/utils.dart';
+import 'package:mobile/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +37,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     quantityController.dispose();
   }
 
-  List<String> productCategories = [
-    'Mobiles',
-    'Essentials',
-    'Appliances',
-    'Books',
-    'Fashion'
-  ];
+  List<String> productCategories = ['Mobiles', 'Essentials', 'Appliances', 'Books', 'Fashion'];
 
   void sellProduct() {
     if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {

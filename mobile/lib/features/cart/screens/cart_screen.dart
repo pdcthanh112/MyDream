@@ -1,11 +1,11 @@
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
-import 'package:amazon_clone_tutorial/features/cart/widgets/cart_product.dart';
-import 'package:amazon_clone_tutorial/features/cart/widgets/cart_subtotal.dart';
-import 'package:amazon_clone_tutorial/features/home/widgets/address_box.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:mobile/common/widgets/custom_button.dart';
+import 'package:mobile/constants/global_variables.dart';
+import 'package:mobile/features/address/screens/address_screen.dart';
+import 'package:mobile/features/cart/widgets/cart_product.dart';
+import 'package:mobile/features/cart/widgets/cart_subtotal.dart';
+import 'package:mobile/features/home/widgets/address_box.dart';
+import 'package:mobile/features/search/screens/search_screen.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +33,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
     int sum = 0;
-    user.cart
-        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
-        .toList();
+    user.cart.map((e) => sum += e['quantity'] * e['product']['price'] as int).toList();
 
     return Scaffold(
       appBar: PreferredSize(

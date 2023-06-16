@@ -1,8 +1,8 @@
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
-import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
+import 'package:mobile/common/widgets/loader.dart';
+import 'package:mobile/features/account/widgets/single_product.dart';
+import 'package:mobile/features/admin/services/admin_services.dart';
+import 'package:mobile/features/order_details/screens/order_details.dart';
+import 'package:mobile/models/order.dart';
 import 'package:flutter/material.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -33,8 +33,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ? const Loader()
         : GridView.builder(
             itemCount: orders!.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             itemBuilder: (context, index) {
               final orderData = orders![index];
               return GestureDetector(
