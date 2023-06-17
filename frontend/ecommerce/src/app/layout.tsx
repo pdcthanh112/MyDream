@@ -8,26 +8,21 @@ import AppContent from '@components/AppContent';
 import AppFooter from '@components/AppFooter';
 import AppSidebar from '@components/AppSidebar';
 import AppNavbar from '@components/AppNavbar';
-import MetaComponent from '@components/MetaComponent';
+import { Meta } from '@components/Metadata';
 
 import styled from 'styled-components';
 import { AppProps } from 'next/app';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// export const metadata: Metadata = {
-//   title: 'Ecommerce',
-//   description: 'Ecommerce Website of CongThanh-project',
-// };
+export const metadata: Metadata = {
+  title: 'Ecommerce',
+  description: 'Ecommerce Website of CongThanh-project',
+};
 
 export default function Layout({ Component, pageProps, router }: AppProps) {
-
   const Header = styled.div`
-    background-image: linear-gradient(
-      to right,
-      rgb(4, 171, 255),
-      rgb(171, 235, 255)
-    );
+    background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
   const Body = styled.div`
@@ -44,6 +39,7 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
     <html lang="en">
       <body className={inter.className}>
         <React.Fragment>
+          <Meta />
           <Header>
             <AppHeader />
           </Header>

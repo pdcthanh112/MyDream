@@ -3,7 +3,6 @@ import './AppHeader.scss';
 import Image from 'next/image';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import { Card } from '@mui/material';
 import { useRouter } from 'next/router';

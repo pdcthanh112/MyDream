@@ -5,6 +5,7 @@ import com.congthanh.project.entity.ecommerce.Wishlist;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.repository.ecommerce.WishlistRepository;
 import com.congthanh.project.service.ecommerce.WishlistService;
+import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +18,20 @@ public class WishlistServiceImplement implements WishlistService {
     @Autowired
     private WishlistRepository wishlistRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
-
     @Override
     public boolean addProductToWishlist(String customerId, String productId) {
-        Wishlist wishlist = wishlistRepository.findByCustomer(customerId);
-        if (wishlist == null) {
-            Wishlist newWishlist = Wishlist.builder()
+        Tuple wishlist = wishlistRepository.checkExistWishlist(customerId);
+        if (wishlist != null) {
+            int result = wishlistRepository.addProductToWishlist(wishlist.get("id", Integer.class), productId);
+            return result > 0;
+        } else {
+            Wishlist createWishlist = Wishlist.builder()
                     .customer(customerId)
                     .build();
-            wishlist = wishlistRepository.save(newWishlist);
+            Wishlist newWishlist = wishlistRepository.save(createWishlist);
+            int  result = wishlistRepository.addProductToWishlist(newWishlist.getId(), productId);
+            return result > 0;
         }
-        List<Product> listProduct = wishlistRepository.findProductByCustomer(customerId);
-        System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK"+ listProduct);
-//        listProduct.add(productRepository.findById(productId).orElseThrow());
-//        wishlistRepository.save(Wishlist.builder().customer(customerId).product((Set<Product>) listProduct).build());
-        return true;
     }
 
     @Override
