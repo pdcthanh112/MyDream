@@ -5,16 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RatingDTO   {
-  
+public class WishlistDTO {
+
     private int id;
 
-    private int vote;
+    private String customer;
 
-    private float value;
+    private List<ProductDTO> product;
 
 }

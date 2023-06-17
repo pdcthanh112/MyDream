@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
 import { logout } from '@redux/features/authSlice';
+import CartIcon from '@assets/icons/cart-icon.png'
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
 
@@ -85,10 +86,10 @@ export default function AppHeader() {
               </Card>
             </div>
 
-            <div className="cursor-pointer hover:underline flex items-center" onClick={() => router.push('/checkout')}>
-              <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
-              <ShoppingCartIcon className="h-10" />
-              <p className="hidden md:inline font-extrabold md:text-sm">Cart</p>
+            <div className="flex items-start justify-center hover:cursor-pointer relative" onClick={() => router.push('/checkout')}>
+              <Image src={CartIcon} alt={''} width={32}/>
+              <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p> 
+              <span className="absolute -top-1 right-4 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
             </div>
           </div>
         </div>

@@ -55,4 +55,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<CartItem> cartItems;
+
+    @ManyToMany(mappedBy = "product")
+    @JsonIgnore
+    private Set<Wishlist> wishlist;
 }
