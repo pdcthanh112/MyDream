@@ -1,11 +1,11 @@
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
-import { ProductType } from '@model/ProductModel';
+import { Product } from '@model/ProductModel';
 import type { GetServerSideProps } from 'next';
 import ProductFeed from '@pages/product/ProductFeed';
 
 interface ListProductProps {
-  listProduct: ProductType[]
+  listProduct: Product[]
 }
 
 export default function Home({ listProduct }: ListProductProps) {
@@ -19,7 +19,7 @@ export default function Home({ listProduct }: ListProductProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const listProduct: ProductType[] = await getAllProduct()
+  const listProduct: Product[] = await getAllProduct()
   .then(response => response.data);
   return {
     props: {

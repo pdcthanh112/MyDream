@@ -1,4 +1,4 @@
-import { ProductType } from '@model/ProductModel';
+import { Product } from '@model/ProductModel';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
@@ -8,26 +8,43 @@ import { roundNumber } from '@utils/helper';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SourceIcon from '@mui/icons-material/Source';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { addToWishlist } from '@apis/wishlistApi';
+import { useAppSelector } from '@redux/store';
+import { addToCart } from '@apis/cartItemApi';
+import AuthModal from '@components/AuthModal';
+import { Customer } from '@model/CustomerModel';
 
 interface ProductProps {
-  product: ProductType;
+  product: Product;
 }
 
 export default function ProductItemCard({ product }: ProductProps) {
+  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+
   const router = useRouter();
 
+  const handleAddToCart = (productId: string) => {
+    if (currentUser) {
+      addToCart('CART_ID', 1, productId);
+    } else {
+      <AuthModal />;
+    }
+  };
+
+  const handleAddToWishlist = (productId: string) => {
+    if (currentUser) {
+      addToWishlist(currentUser.userData.accountId, productId);
+    } else {
+      <AuthModal />;
+    }
+  };
+
   return (
-    <Card
-      key={product.id}
-      title={product.name}
-      className=" bg-white z-30 p-3 text-sm hover:cursor-pointer"
-      // className="relative flex flex-col mx-2 mb-2 bg-white z-30 p-3 text-sm hover:cursor-pointer"
-      
-    >
+    <Card key={product.id} title={product.name} className=" bg-white z-30 p-3 text-sm hover:cursor-pointer">
       <div className="w-full h-auto flex items-center justify-center relative group">
         <Image src={product.image || Daisy} width={220} alt="Product image" />
         <ul className="w-full h-36 bg-gray-100 absolute -bottom-36 flex flex-col items-end justify-center gap-2 font-semibold px-2 border-l border-r group-hover:bottom-0 duration-700">
-          <li className="productLi">
+          <li className="productLi" onClick={() => handleAddToCart(product.id)}>
             Add to Cart
             <Icon component={ShoppingCartIcon} />
           </li>
@@ -35,7 +52,7 @@ export default function ProductItemCard({ product }: ProductProps) {
             View detail
             <Icon component={SourceIcon} />
           </li>
-          <li className="productLi">
+          <li className="productLi" onClick={() => handleAddToWishlist(product.id)}>
             Add to Wishlist
             <Icon component={FavoriteIcon} />
           </li>
@@ -51,13 +68,11 @@ export default function ProductItemCard({ product }: ProductProps) {
 
         <div className="flex justify-between">
           <span className="flex items-center">
-            <Rating precision={0.1} value={3.6} size="small" readOnly />
+            <Rating precision={0.1} value={product.rating.value} size="small" readOnly />
             <span className="ml-1">{product.rating.value}</span>
           </span>
 
-          <span className="mr-1">
-            {roundNumber(product.rating.vote)} rating
-          </span>
+          <span className="mr-1">{roundNumber(product.rating.vote)} rating</span>
         </div>
 
         <span className="italic ml-2">Sold: {product.sold}</span>

@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as authApi from '@apis/customerApi';
 import { LoginForm } from '@model/CustomerModel';
 
-
-export const login = createAsyncThunk('auth/login', async (data:LoginForm, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (data: LoginForm, thunkAPI) => {
   try {
     const response = await authApi.login(data.email, data.password);
     return response.data;
@@ -12,7 +11,7 @@ export const login = createAsyncThunk('auth/login', async (data:LoginForm, thunk
   }
 });
 
-export const signup = createAsyncThunk('auth/register', async ({ data }:any, thunkAPI) => {
+export const signup = createAsyncThunk('auth/register', async ({ data }: any, thunkAPI) => {
   try {
     const response = await authApi.signup(data);
     return response.data;
@@ -21,7 +20,7 @@ export const signup = createAsyncThunk('auth/register', async ({ data }:any, thu
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async ( _, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     // const response = await authApi.signup(data);
     // return response.data;
@@ -31,18 +30,12 @@ export const logout = createAsyncThunk('auth/logout', async ( _, thunkAPI) => {
   }
 });
 
-
-
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     login: {
       loading: false,
       currentUser: null,
-      // currentUser: {
-      //   userData: {} || null,
-      //   tokenData: {} || null
-      // } || null,
       error: false,
       success: false,
     },
@@ -72,7 +65,7 @@ const authSlice = createSlice({
       state.login.success = true;
       state.login.error = false;
       state.login.currentUser = action.payload.data;
-    }); 
+    });
     builder.addCase(login.rejected, (state, action) => {
       state.login.error = true;
     });
@@ -84,10 +77,10 @@ const authSlice = createSlice({
       state.login.loading = false;
       state.login.success = true;
       state.login.error = false;
-      state.login.currentUser = null
+      state.login.currentUser = null;
       // state.login.currentUser.userData = {};
       // state.login.currentUser.tokenData = {};
-    }); 
+    });
     builder.addCase(logout.rejected, (state, action) => {
       state.login.error = true;
     });

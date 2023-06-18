@@ -57,7 +57,7 @@ export default function Signup() {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-10">
-            <InputComponent title="Email" error={formState.errors.email}>
+            <InputComponent title="Email" error={formState.errors.email?.message}>
               <InputField>
                 <input
                   type="email"
@@ -70,7 +70,7 @@ export default function Signup() {
               </InputField>
             </InputComponent>
 
-            <InputComponent title="Name">
+            <InputComponent title="Name" error={formState.errors.name?.message}>
               <InputField>
                 <input
                   type="text"
@@ -85,7 +85,7 @@ export default function Signup() {
           </div>
 
           <div className="grid grid-cols-2 gap-10">
-            <InputComponent title="Password">
+            <InputComponent title="Password" error={formState.errors.password?.message}>
               <InputField>
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -128,7 +128,7 @@ export default function Signup() {
           </div>
 
           <div className="grid grid-cols-11 gap-10">
-            <InputComponent title="Phone" className="col-span-4">
+            <InputComponent title="Phone" className="col-span-4" error={formState.errors.phone?.message}>
               <InputField>
                 <input
                   type="text"
@@ -141,7 +141,7 @@ export default function Signup() {
               </InputField>
             </InputComponent>
 
-            <InputComponent title="Gender" className="col-span-3">
+            <InputComponent title="Gender" className="col-span-3" error={formState.errors.gender?.message}>
               {/* <InputField> */}
               <Autocomplete
                 options={genderData()}
@@ -156,7 +156,7 @@ export default function Signup() {
               />
               {/* </InputField> */}
             </InputComponent>
-            <InputComponent title="Date of birth" className="col-span-4">
+            <InputComponent title="Date of birth" className="col-span-4" error={formState.errors.gender?.message}>
               <InputField>
                 <input
                   type="date"
@@ -167,7 +167,7 @@ export default function Signup() {
               </InputField>
             </InputComponent>
           </div>
-          <InputComponent title="Address">
+          <InputComponent title="Address" error={formState.errors.address?.message}>
             <InputField>
               <input
                 type="text"

@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import React from 'react';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -37,7 +37,7 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
   `;
 
   const Footer = styled.div`
-    width: '100vw';
+    width: '100%';
   `;
 
   return (

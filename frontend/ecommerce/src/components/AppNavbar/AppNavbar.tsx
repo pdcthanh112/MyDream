@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AppSidebar from '@components/AppSidebar';
 import { Icon } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { motion } from 'framer-motion';
 
 export default function AppNavbar() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -32,7 +31,7 @@ export default function AppNavbar() {
         <div className="w-full h-screen text-black fixed top-0 left-0 bg-slate-500 bg-opacity-50 z-50">
           <div className="w-full h-full relative flex">
             <AppSidebar />
-            <Icon component={CloseIcon} className="hover:cursor-pointer" onClick={() => setShowSidebar(false)} />
+            <Icon component={CloseIcon} fontSize='large' className="hover:cursor-pointer" onClick={() => setShowSidebar(false)} />
           </div>
         </div>
       )}
