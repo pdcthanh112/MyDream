@@ -1,4 +1,4 @@
-import { CartItemType } from "./CartItemModel";
+import { CartItem } from "./CartItemModel";
 
 export interface Cart {
   id: string;
@@ -6,5 +6,5 @@ export interface Cart {
   status: string;
   createdDate: Date;
   checkoutDate: Date;
-  cartItems: CartItemType[];
+  cartItems: CartItem[];
 }

@@ -1,6 +1,6 @@
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
-import { Product } from '@model/ProductModel';
+import { Product } from 'models/ProductModel';
 import type { GetServerSideProps } from 'next';
 import ProductFeed from '@pages/product/ProductFeed';
 

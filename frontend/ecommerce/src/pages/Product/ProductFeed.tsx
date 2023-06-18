@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Product } from '@model/ProductModel';
+import { Product } from 'models/ProductModel';
 
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy2.jpg';
-import { PaginationParams } from '@model/Request';
+import { PaginationParams } from 'models/Request';
 import ProductItemCard from './ProductItemCard';
 
 interface ListProductProps {

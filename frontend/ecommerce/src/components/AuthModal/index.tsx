@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Modal, Box, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginForm, SignupForm } from '@model/CustomerModel';
+import { LoginForm, SignupForm } from 'models/CustomerModel';
 import { useAppDispatch } from '@redux/store';
 import { login } from '@redux/features/authSlice';
 import VisibilityIcon from '@mui/icons-material/Visibility';

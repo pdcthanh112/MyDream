@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface CartItemRepository extends JpaRepository<CartItem, String> {
+
+    Optional<CartItem> findById(String id);
 
     @Query(nativeQuery = true, value = "SELECT * FROM cart_item WHERE cart = ?1")
     List<CartItem> getAllCartItemByCartId(String cartId);

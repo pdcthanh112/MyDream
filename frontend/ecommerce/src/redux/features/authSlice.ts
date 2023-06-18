@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as authApi from '@apis/customerApi';
-import { LoginForm } from '@model/CustomerModel';
+import { LoginForm } from 'models/CustomerModel';
 
 export const login = createAsyncThunk('auth/login', async (data: LoginForm, thunkAPI) => {
   try {

@@ -42,10 +42,9 @@ public class CartItemServiceImplement implements CartItemService {
     }
 
     @Override
-    public CartItem updateCartItem(CartItemDTO cartItemDTO) {
-        CartItem cartItem = CartItem.builder()
-                .quantity(cartItemDTO.getQuantity())
-                .build();
+    public CartItem updateCartItem(String cartItemId, int quantity) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
+        cartItem.setQuantity(quantity);
         CartItem result = cartItemRepository.save(cartItem);
         return result;
     }

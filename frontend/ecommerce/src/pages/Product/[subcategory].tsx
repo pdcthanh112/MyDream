@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductBySubcategory } from '@apis/productApi';
-import { PaginationParams } from '@model/Request';
+import { PaginationParams } from 'models/Request';
 import ShowListProduct from './ShowListProduct';
 import Pagination from '@components/Pagination';
 

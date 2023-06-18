@@ -6,8 +6,8 @@ import { useAppSelector } from '@redux/store';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Customer } from '@model/CustomerModel';
-import { AppData, Category, Subcategory } from '@model/AppDataModel';
+import { Customer } from 'models/CustomerModel';
+import { AppData, Category, Subcategory } from 'models/AppDataModel';
 import { motion } from 'framer-motion';
 
 const AppSidebar = () => {

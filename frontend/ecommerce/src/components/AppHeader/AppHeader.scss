@@ -1,11 +1,10 @@
-// .cart-container {
-//   // .cart-info {
-//   //   width: 30rem;
-//   // }
-//   &:hover {
-//     .cart-info {     
-//       // display: block;
-//       z-index: 100;
-//     }
-//   }
-// }
+.sub-item-link {
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #3399FF;
+  }
+}

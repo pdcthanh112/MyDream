@@ -3,8 +3,8 @@ import { store } from "@redux/store";
 import { REACT_APP_API_URL } from "@config/index";
 
 const axiosConfig = axios.create({
-  // baseURL: REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: REACT_APP_API_URL,
+//   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,9 +26,9 @@ axiosConfig.interceptors.request.use(
 );
 
 axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-});
+    return response;
+  }, function (error) {
+    return Promise.reject(error);
+  });
 
 export default axiosConfig;

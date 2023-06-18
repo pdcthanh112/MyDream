@@ -1,4 +1,4 @@
-import { Product } from '@model/ProductModel';
+import { Product } from 'models/ProductModel';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
@@ -12,7 +12,7 @@ import { addToWishlist } from '@apis/wishlistApi';
 import { useAppSelector } from '@redux/store';
 import { addToCart } from '@apis/cartItemApi';
 import AuthModal from '@components/AuthModal';
-import { Customer } from '@model/CustomerModel';
+import { Customer } from 'models/CustomerModel';
 
 interface ProductProps {
   product: Product;

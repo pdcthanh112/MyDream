@@ -1,7 +1,7 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
-import com.congthanh.project.dto.ecommerce.CartDTO;
+import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.repository.ecommerce.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.CartRepository;
@@ -38,37 +38,30 @@ public class CartServiceImplement implements CartService {
     }
 
     @Override
-    public List<Cart> getAllCartByCustomerId(String customerId) {
-        List<Cart> response = new ArrayList<>();
+    public List<CartDTO> getAllCartByCustomerId(String customerId) {
+        List<CartDTO> response = new ArrayList<>();
         List<Cart> listCart = cartRepository.findCartByCustomerId(customerId);
         if (listCart.size() > 0) {
             for (Cart cart : listCart) {
-                Cart cartTmp = new Cart();
+                CartDTO cartTmp = new CartDTO();
                 cartTmp.setId(cart.getId());
                 cartTmp.setCustomerId(cart.getCustomerId());
                 cartTmp.setStatus(cart.getStatus());
                 cartTmp.setCreatedDate(cart.getCreatedDate());
                 List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
                 if (listCartItem.size() > 0) {
-                    Set<CartItem> cartItems = new HashSet<>();
+                    Set<CartItemDTO> cartItems = new HashSet<>();
                     for (CartItem cartItemItem : listCartItem) {
-                        CartItem cartItemTmp = new CartItem();
+                        CartItemDTO cartItemTmp = new CartItemDTO();
                         cartItemTmp.setId(cartItemItem.getId());
                         cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                        cartItemTmp.setProduct(Product.builder()
+                        cartItemTmp.setCartId(cart.getId());
+                        cartItemTmp.setProduct(ProductDTO.builder()
                                 .id(cartItemItem.getProduct().getId())
                                 .name(cartItemItem.getProduct().getName())
-                                .category(Category.builder()
-                                        .id(cartItemItem.getProduct().getCategory().getId())
-                                        .name(cartItemItem.getProduct().getCategory().getName())
-                                        .status(cartItemItem.getProduct().getCategory().getStatus())
-                                        .build())
+                                .category(cartItemItem.getProduct().getCategory().getName())
 //                                        .category(cartItemItem.getProduct().getCategory())
-                                                .subcategory(Subcategory.builder()
-                                                        .id(cartItemItem.getProduct().getSubcategory().getId())
-                                                        .name(cartItemItem.getProduct().getSubcategory().getName())
-                                                        .status(cartItemItem.getProduct().getSubcategory().getStatus())
-                                                        .build())
+                                .subcategory(cartItemItem.getProduct().getSubcategory().getName())
 //                                        .subcategory(cartItemItem.getProduct().getSubcategory())
                                 .quantity(cartItemItem.getProduct().getQuantity())
                                 .price(cartItemItem.getProduct().getPrice())
@@ -76,7 +69,7 @@ public class CartServiceImplement implements CartService {
                                 .sold(cartItemItem.getProduct().getSold())
                                 .image(cartItemItem.getProduct().getImage())
                                 .description(cartItemItem.getProduct().getDescription())
-                                .rating(Rating.builder()
+                                .rating(RatingDTO.builder()
                                         .vote(cartItemItem.getProduct().getRating().getVote())
                                         .value(cartItemItem.getProduct().getRating().getValue())
                                         .build())

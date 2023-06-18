@@ -47,6 +47,16 @@ public class CartItemController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Response<CartItem>> updateCartItem(@RequestParam String cartItemId, @RequestParam int quantity) {
+        CartItem cartItem = cartItemService.updateCartItem(cartItemId, quantity);
+        Response<CartItem> response = new Response<>();
+        response.setData(cartItem);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Update successfully");
+        return ResponseEntity.ok().body(response);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<String>> deleteCartItem(@PathVariable String id) {
         System.out.println("==============================================" + id);

@@ -1,4 +1,4 @@
-import { Product } from '@model/ProductModel';
+import { Product } from 'models/ProductModel';
 import ProductItemCard from './ProductItemCard';
 
 interface ShowListProductProps {

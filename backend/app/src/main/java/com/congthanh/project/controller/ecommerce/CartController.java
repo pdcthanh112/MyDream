@@ -30,9 +30,9 @@ public class CartController {
     }
 
     @GetMapping("/getByCustomer")
-    public ResponseEntity<Response<List<Cart>>> getAllCartByCustomerId(@RequestParam String customerId) {
-        List<Cart> result = cartService.getAllCartByCustomerId(customerId);
-        Response<List<Cart>> response = new Response<>();
+    public ResponseEntity<Response<List<CartDTO>>> getAllCartByCustomerId(@RequestParam String customerId) {
+        List<CartDTO> result = cartService.getAllCartByCustomerId(customerId);
+        Response<List<CartDTO>> response = new Response<>();
         response.setData(result != null ? result : null);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage(result != null ? "Get xong" : "List emply");

@@ -10,7 +10,7 @@ public interface CartService {
 
     public Cart getCartById(String id);
 
-    public List<Cart> getAllCartByCustomerId(String customerId);
+    public List<CartDTO> getAllCartByCustomerId(String customerId);
 
     public Cart createCart(CartDTO cartDTO);
 

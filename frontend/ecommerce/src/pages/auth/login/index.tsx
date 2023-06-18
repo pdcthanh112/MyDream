@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Link from 'next/link';
 import { login } from '@redux/features/authSlice';
-import { LoginForm } from '@model/CustomerModel';
+import { LoginForm } from 'models/CustomerModel';
 import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';

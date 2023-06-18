@@ -5,7 +5,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 const MainLayout = React.lazy(() => import("@pages/Layout/MainLayout"));
 
 // Pages
-const Login = React.lazy(() => import("@pages/Login"));
+const Login = React.lazy(() => import("@pages/auth/login"));
 // const Register = React.lazy(() => import("./views/pages/register/Register"));
 // const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 // const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));

@@ -15,7 +15,7 @@ export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
 
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState(1);
 
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', id],

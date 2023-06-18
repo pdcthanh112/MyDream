@@ -1,79 +1,91 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import * as authApi from '@apis/employeeApi';
+import { LoginForm } from '@models/EmployeeModel';
+
+export const login = createAsyncThunk('auth/login', async (data: LoginForm, thunkAPI) => {
+  try {
+    const response = await authApi.login(data.email, data.password);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const signup = createAsyncThunk('auth/register', async ({ data }: any, thunkAPI) => {
+  try {
+    const response = await authApi.signup(data);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    // const response = await authApi.signup(data);
+    // return response.data;
+    return null;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     login: {
+      loading: false,
       currentUser: null,
-      isFetching: false,
       error: false,
+      success: false,
+    },
+    signup: {
+      loading: false,
+      userData: {},
+      error: '',
+      success: false,
     },
     logout: {
-      isFetching: false,
+      loading: false,
       error: false,
     },
     edit: {
-      isFetching: false,
+      loading: false,
       error: false,
     },
   },
-  reducers: {
-    //LOGIN
-    loginStart: (state, action) => {
-      state.login.isFetching = true;
-    },
-    loginSuccess: (state, action) => {
-      state.login.isFetching = false;
-      state.login.currentUser = action.payload;
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(login.pending, (state, action) => {
+      // return { ...state, state.login.loading = true}
+      state.login.loading = true;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.login.loading = false;
+      state.login.success = true;
       state.login.error = false;
-    },
-    loginFailed: (state, action) => {
-      state.login.isFetching = false;
+      state.login.currentUser = action.payload.data;
+    });
+    builder.addCase(login.rejected, (state, action) => {
       state.login.error = true;
-    },
-    //LOGOUT
-    logoutStart: (state, action) => {
-      //state.logout.isFetching = true;
-    },
-    logoutSuccess: (state, action) => {
-      // state.logout.isFetching = false;
-      // state.logout.error = false;
+    });
+    builder.addCase(logout.pending, (state, action) => {
+      // return { ...state, state.login.loading = true}
+      state.login.loading = true;
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.login.loading = false;
+      state.login.success = true;
+      state.login.error = false;
       state.login.currentUser = null;
-    },
-    logoutFailed: (state, action) => {
-      // state.logout.isFetching = false;
-      // state.logout.error = true;
-    },
-  //EDIT
-  editStart: (state, action) => {
-    //state.login.isFetching = true;
-  },
-  editSuccess: (state, action) => {
-    //state.login.isFetching = false;
-    // state.login.currentUser.candidate.address = action.payload.address;
-    // state.login.currentUser.candidate.dob = action.payload.dob;
-    // state.login.currentUser.candidate.gender = action.payload.gender;
-    // state.login.currentUser.candidate.image = action.payload.image;
-    // state.login.currentUser.candidate.name = action.payload.name;
-    // state.login.currentUser.candidate.phone = action.payload.phone;
-    //state.login.error = false;
-  },
-  editFailed: (state, action) => {
-    //state.login.isFetching = false;
-    //.login.error = true;
-  },
+      // state.login.currentUser.userData = {};
+      // state.login.currentUser.tokenData = {};
+    });
+    builder.addCase(logout.rejected, (state, action) => {
+      state.login.error = true;
+    });
   },
 });
 
-export const {
-  loginStart,
-  loginSuccess,
-  loginFailed,
-  logoutStart,
-  logoutSuccess,
-  logoutFailed,
-  editStart,
-  editSuccess,
-  editFailed,
-} = authSlice.actions;
+// export const { loginStart, loginSuccess, loginFailed, logoutStart, logoutSuccess, logoutFailed, editStart, editSuccess, editFailed } = authSlice.actions;
 export default authSlice.reducer;

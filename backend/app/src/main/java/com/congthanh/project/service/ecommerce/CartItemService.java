@@ -8,7 +8,7 @@ public interface CartItemService {
 
     public CartItem addToCart(String productId, int quantity, String cartId);
 
-    public CartItem updateCartItem(CartItemDTO cartItemDTO);
+    public CartItem updateCartItem(String cartItemId, int quantity);
 
     public boolean deleteCartItem(String cartItemId);
 }
