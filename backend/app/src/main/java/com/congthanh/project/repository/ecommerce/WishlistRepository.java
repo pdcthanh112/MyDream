@@ -1,6 +1,5 @@
 package com.congthanh.project.repository.ecommerce;
 
-import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Wishlist;
 import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
@@ -15,10 +14,14 @@ import java.util.List;
 @Transactional
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
 
-    Wishlist findByCustomer(String customerId);
-
-     Object findProductByCustomer(String customerId);
-//    public List<Product> findProductByCustomer(String customerId);
+    @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, sold, product.status, category.name as category, subcategory.name as subcategory, production, rating.vote as vote, rating.value as value\n" +
+            "FROM wishlist JOIN wishlist_product ON wishlist.id = wishlist_product.wishlist_id\n" +
+            "JOIN product ON wishlist_product.product_id = product.id\n" +
+            "JOIN category ON product.category = category.id\n" +
+            "JOIN subcategory ON product.subcategory = subcategory.id\n" +
+            "JOIN rating ON product.rating = rating.id\n" +
+            "WHERE wishlist.customer = ?1")
+    List<Tuple> findWishlistByCustomer(String customerId);
 
     @Query(nativeQuery = true, value = "SELECT id, customer FROM wishlist WHERE customer = ?1")
     Tuple checkExistWishlist(String customerId);

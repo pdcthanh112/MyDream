@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +20,7 @@ public class CartItemDTO {
     private ProductDTO product;
 
     private String cartId;
+
+    private Timestamp createdDate;
 
 }

@@ -31,11 +31,11 @@ public class CartController {
 
     @GetMapping("/getByCustomer")
     public ResponseEntity<Response<List<CartDTO>>> getAllCartByCustomerId(@RequestParam String customerId) {
-        List<CartDTO> result = cartService.getAllCartByCustomerId(customerId);
+        List<CartDTO> result = cartService.getActiveCartByCustomerId(customerId);
         Response<List<CartDTO>> response = new Response<>();
         response.setData(result != null ? result : null);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage(result != null ? "Get xong" : "List emply");
+        response.setMessage(result != null ? "Get xong" : "Cart emply");
         return ResponseEntity.ok().body(response);
     }
 

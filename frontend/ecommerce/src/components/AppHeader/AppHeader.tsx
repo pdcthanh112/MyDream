@@ -1,8 +1,6 @@
 import './AppHeader.scss';
 import Image from 'next/image';
-import AppLogo from '@assets/images/app-logo-removebg.png';
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@redux/store';
@@ -12,7 +10,9 @@ import CartIcon from '@assets/icons/cart-icon.png';
 import { Customer } from 'models/CustomerModel';
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
+import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 export default function AppHeader() {
@@ -27,9 +27,9 @@ export default function AppHeader() {
       <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
         <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer" onClick={() => router.push('/')} />
 
-        <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer ">
+        <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
           <span className="bg-gray-300 h-[2.5rem] w-16 rounded-l-md flex justify-center items-center relative group">
-            <span className="">
+            <span>
               All
               <ArrowDropDownOutlinedIcon />
             </span>
@@ -57,7 +57,7 @@ export default function AppHeader() {
                 <>
                   <div className="flex justify-between bg-sky-100 px-5 py-3 rounded-md">
                     <span className="flex items-center">
-                      <Avatar src={currentUser.userData.image || DefaultImage} />
+                      <Avatar src={currentUser.userData.image || String(DefaultImage)} />
                       <span className="font-medium text-lg ml-3">{currentUser.userData.name}</span>
                     </span>
                     <span className="flex items-center hover:cursor-pointer hover:underline hover:text-yellow-600" onClick={() => router.push('/manage')}>
@@ -97,10 +97,14 @@ export default function AppHeader() {
             </Card>
           </div>
 
-          <div className="flex items-start justify-center hover:cursor-pointer relative" onClick={() => router.push('/checkout')}>
+          <div className="flex items-start justify-center hover:cursor-pointer relative group" onClick={() => router.push('/cart')}>
             <Image src={CartIcon} alt={''} width={32} />
             <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p>
             <span className="absolute -top-1 right-4 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
+
+            <Card className="text-[#a4a4a4] text-sm hidden absolute transform -translate-x-[35%] translate-y-[12%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+              <span>Create new cart</span>
+            </Card>
           </div>
         </div>
       </div>

@@ -6,9 +6,9 @@ import com.congthanh.project.entity.ecommerce.CartItem;
 
 public interface CartItemService {
 
-    public CartItem addToCart(String productId, int quantity, String cartId);
+    CartItem addToCart(String productId, int quantity, String cartId);
 
-    public CartItem updateCartItem(String cartItemId, int quantity);
+    CartItemDTO updateCartItem(String cartItemId, int quantity);
 
-    public boolean deleteCartItem(String cartItemId);
+    boolean deleteCartItem(String cartItemId);
 }

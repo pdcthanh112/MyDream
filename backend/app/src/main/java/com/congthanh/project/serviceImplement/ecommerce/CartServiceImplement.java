@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 
@@ -38,9 +39,9 @@ public class CartServiceImplement implements CartService {
     }
 
     @Override
-    public List<CartDTO> getAllCartByCustomerId(String customerId) {
+    public List<CartDTO> getActiveCartByCustomerId(String customerId) {
         List<CartDTO> response = new ArrayList<>();
-        List<Cart> listCart = cartRepository.findCartByCustomerId(customerId);
+        List<Cart> listCart = cartRepository.findActiveCartByCustomerId(customerId);
         if (listCart.size() > 0) {
             for (Cart cart : listCart) {
                 CartDTO cartTmp = new CartDTO();
@@ -60,9 +61,7 @@ public class CartServiceImplement implements CartService {
                                 .id(cartItemItem.getProduct().getId())
                                 .name(cartItemItem.getProduct().getName())
                                 .category(cartItemItem.getProduct().getCategory().getName())
-//                                        .category(cartItemItem.getProduct().getCategory())
                                 .subcategory(cartItemItem.getProduct().getSubcategory().getName())
-//                                        .subcategory(cartItemItem.getProduct().getSubcategory())
                                 .quantity(cartItemItem.getProduct().getQuantity())
                                 .price(cartItemItem.getProduct().getPrice())
                                 .production(cartItemItem.getProduct().getProduction())
@@ -75,7 +74,6 @@ public class CartServiceImplement implements CartService {
                                         .build())
                                 .status(cartItemItem.getProduct().getStatus())
                                 .build());
-//                        cartItemTmp.setProduct(cartItemItem.getProduct());
                         cartItems.add(cartItemTmp);
                     }
                     cartTmp.setCartItems(cartItems);
@@ -92,7 +90,7 @@ public class CartServiceImplement implements CartService {
     public Cart createCart(CartDTO cartDTO) {
         Cart cart = Cart.builder()
                 .customerId(cartDTO.getCustomerId())
-                .createdDate(Timestamp.valueOf(LocalDateTime.now()))
+                .createdDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"))))
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();
         Cart response = cartRepository.save(cart);

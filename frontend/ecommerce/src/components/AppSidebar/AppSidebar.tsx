@@ -62,7 +62,7 @@ const AppSidebar = () => {
             <span className="ml-2">Back</span>
           </div>
           {listSubcategory.map((item: Subcategory) => (
-            <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => router.push(`product/${item.id}`)}>
+            <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => router.push(`/product/${item.id}`)}>
               <span>{item.name}</span>
               <Icon component={ArrowForwardIosIcon} />
             </div>

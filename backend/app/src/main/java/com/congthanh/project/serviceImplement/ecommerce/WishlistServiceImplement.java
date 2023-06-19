@@ -1,14 +1,19 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
+import com.congthanh.project.dto.ecommerce.ProductDTO;
+import com.congthanh.project.dto.ecommerce.RatingDTO;
+import com.congthanh.project.dto.ecommerce.WishlistDTO;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Wishlist;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.repository.ecommerce.WishlistRepository;
 import com.congthanh.project.service.ecommerce.WishlistService;
+import io.swagger.models.auth.In;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +34,7 @@ public class WishlistServiceImplement implements WishlistService {
                     .customer(customerId)
                     .build();
             Wishlist newWishlist = wishlistRepository.save(createWishlist);
-            int  result = wishlistRepository.addProductToWishlist(newWishlist.getId(), productId);
+            int result = wishlistRepository.addProductToWishlist(newWishlist.getId(), productId);
             return result > 0;
         }
     }
@@ -37,5 +42,36 @@ public class WishlistServiceImplement implements WishlistService {
     @Override
     public boolean removeProductToWishlist(String customerId, String productId) {
         return false;
+    }
+
+    @Override
+    public WishlistDTO getWishlistByCustomer(String customerId) {
+        WishlistDTO result = new WishlistDTO();
+        List<Tuple> data = wishlistRepository.findWishlistByCustomer(customerId);
+        result.setId(data.get(0).get("wishlistId", Integer.class));
+        result.setCustomer(data.get(0).get("customer", String.class));
+        Set<ProductDTO> listProduct = new HashSet<>();
+        for (Tuple item : data) {
+            ProductDTO productDTO = ProductDTO.builder()
+                    .id(item.get("productId", String.class))
+                    .name(item.get("name", String.class))
+                    .category(item.get("category", String.class))
+                    .subcategory(item.get("subcategory", String.class))
+                    .quantity(item.get("quantity", Integer.class))
+                    .price(item.get("price", Float.class))
+                    .sold(item.get("sold", Integer.class))
+                    .production(item.get("production", String.class))
+                    .image(item.get("image", String.class))
+                    .description(item.get("description", String.class))
+                    .rating(RatingDTO.builder()
+                            .vote(item.get("vote", Integer.class))
+                            .value(item.get("value", Float.class))
+                            .build())
+                    .status(item.get("status", String.class))
+                    .build();
+            listProduct.add(productDTO);
+        }
+        result.setProduct(listProduct);
+        return result;
     }
 }

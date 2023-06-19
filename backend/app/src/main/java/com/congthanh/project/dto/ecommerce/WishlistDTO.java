@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +17,6 @@ public class WishlistDTO {
 
     private String customer;
 
-    private List<ProductDTO> product;
+    private Set<ProductDTO> product;
 
 }

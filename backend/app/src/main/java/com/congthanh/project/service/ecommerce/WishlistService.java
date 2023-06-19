@@ -1,8 +1,13 @@
 package com.congthanh.project.service.ecommerce;
 
+import com.congthanh.project.dto.ecommerce.WishlistDTO;
+
 public interface WishlistService {
 
-    public boolean addProductToWishlist(String customerId, String productId);
+    boolean addProductToWishlist(String customerId, String productId);
 
-    public boolean removeProductToWishlist(String customerId, String productId);
+    boolean removeProductToWishlist(String customerId, String productId);
+
+    WishlistDTO getWishlistByCustomer(String customerId);
+
 }

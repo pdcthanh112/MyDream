@@ -15,8 +15,8 @@ public interface CartRepository extends JpaRepository<Cart, String> {
 
     Optional<Cart> findById(String id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = 'Active'")
-    List<Cart> findCartByCustomerId(String customerId);
+    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = 'Active' ORDER BY createddate desc")
+    List<Cart> findActiveCartByCustomerId(String customerId);
 
     @Query(nativeQuery = true, value = "UPDATE cart SET status = 'PAID' WHERE id = ?1")
     boolean checkoutCart(String cartId);
