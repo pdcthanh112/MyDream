@@ -14,6 +14,7 @@ import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import Cartmodal from '@components/CartModal';
 
 export default function AppHeader() {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
@@ -72,6 +73,7 @@ export default function AppHeader() {
                         <li className="sub-item-link">Create new cart</li>
                         <li className="sub-item-link">View your cart</li>
                         <li className="sub-item-link">Checkout</li>
+                        <li className="sub-item-link" onClick={() => router.push('/wishlist')}>Wishlist</li>
                       </ul>
                     </div>
                     <div className="w-1/2 border-l-2 border-l-gray-100 pl-4">
@@ -97,13 +99,14 @@ export default function AppHeader() {
             </Card>
           </div>
 
-          <div className="flex items-start justify-center hover:cursor-pointer relative group" onClick={() => router.push('/cart')}>
-            <Image src={CartIcon} alt={''} width={32} />
+          <div className="flex items-start justify-center hover:cursor-pointer relative group">
+            <Image src={CartIcon} alt={''} width={32} onClick={() => router.push('/cart')}/>
             <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p>
             <span className="absolute -top-1 right-4 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
 
-            <Card className="text-[#a4a4a4] text-sm hidden absolute transform -translate-x-[35%] translate-y-[12%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-              <span>Create new cart</span>
+            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[20rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+              <Cartmodal/>
+
             </Card>
           </div>
         </div>

@@ -46,6 +46,7 @@ public class CartServiceImplement implements CartService {
             for (Cart cart : listCart) {
                 CartDTO cartTmp = new CartDTO();
                 cartTmp.setId(cart.getId());
+                cartTmp.setName(cart.getName());
                 cartTmp.setCustomerId(cart.getCustomerId());
                 cartTmp.setStatus(cart.getStatus());
                 cartTmp.setCreatedDate(cart.getCreatedDate());
@@ -79,6 +80,7 @@ public class CartServiceImplement implements CartService {
                     cartTmp.setCartItems(cartItems);
                 }
                 response.add(cartTmp);
+                System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"+response);
             }
         } else {
             return null;
@@ -89,6 +91,7 @@ public class CartServiceImplement implements CartService {
     @Override
     public Cart createCart(CartDTO cartDTO) {
         Cart cart = Cart.builder()
+                .name(cartDTO.getName())
                 .customerId(cartDTO.getCustomerId())
                 .createdDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"))))
                 .status(StateStatus.STATUS_ACTIVE)

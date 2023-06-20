@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const appDataSlice = createSlice({
   name: 'appData',
   initialState: {  
-    category: null,
-    subcategory: null,
+    category: [],
+    subcategory: [],
   },
   reducers: {
     setAppData: (state, action) => {

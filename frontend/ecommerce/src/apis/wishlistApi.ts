@@ -8,3 +8,12 @@ export const addToWishlist = async (customerId: string, productId: string) => {
       throw error;
     });
 };
+
+export const getWishlistByCustomer = async (customerId: string) => {
+  return await axiosConfig
+    .get(`wishlist/getByCustomer?customerId=${customerId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

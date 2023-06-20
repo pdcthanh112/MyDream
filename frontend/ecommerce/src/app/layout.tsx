@@ -1,24 +1,25 @@
 'use client';
 import React from 'react';
 import { Metadata } from 'next';
+import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
+import { Meta } from '@components/Metadata';
 
 import AppHeader from '@components/AppHeader';
 import AppContent from '@components/AppContent';
 import AppFooter from '@components/AppFooter';
-import AppSidebar from '@components/AppSidebar';
 import AppNavbar from '@components/AppNavbar';
-import { Meta } from '@components/Metadata';
-
 import styled from 'styled-components';
-import { AppProps } from 'next/app';
 
-const inter = Inter({ subsets: ['latin'] });
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: 'Ecommerce',
   description: 'Ecommerce Website of CongThanh-project',
 };
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Layout({ Component, pageProps, router }: AppProps) {
   const Header = styled.div`
@@ -54,6 +55,19 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
           <Footer>
             <AppFooter />
           </Footer>
+
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </React.Fragment>
       </body>
     </html>

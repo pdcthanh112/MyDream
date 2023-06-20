@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as authApi from '@apis/customerApi';
-import { LoginForm } from 'models/CustomerModel';
+import { Customer, LoginForm } from 'models/CustomerModel';
 
 export const login = createAsyncThunk('auth/login', async (data: LoginForm, thunkAPI) => {
   try {
@@ -30,6 +30,29 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
+interface IAuthState {
+  login: {
+    loading: boolean;
+    currentUser: any;
+    error: boolean;
+    success: boolean;
+  };
+  signup: {
+    loading: boolean;
+    userData: {};
+    error: '';
+    success: boolean;
+  };
+  logout: {
+    loading: boolean;
+    error: boolean;
+  };
+  edit: {
+    loading: boolean;
+    error: boolean;
+  };
+}
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -53,7 +76,7 @@ const authSlice = createSlice({
       loading: false,
       error: false,
     },
-  },
+  } as IAuthState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state, action) => {

@@ -1,5 +1,6 @@
 package com.congthanh.project.repository.ecommerce;
 
+import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.entity.ecommerce.Cart;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ public interface CartRepository extends JpaRepository<Cart, String> {
 
     Optional<Cart> findById(String id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = 'Active' ORDER BY createddate desc")
+    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = '" + StateStatus.STATUS_ACTIVE + "' ORDER BY createddate desc")
     List<Cart> findActiveCartByCustomerId(String customerId);
 
     @Query(nativeQuery = true, value = "UPDATE cart SET status = 'PAID' WHERE id = ?1")

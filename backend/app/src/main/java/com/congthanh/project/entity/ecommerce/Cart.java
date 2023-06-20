@@ -22,6 +22,8 @@ public class Cart   {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String name;
+
     private String customerId;
 
     private String status;

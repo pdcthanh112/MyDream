@@ -16,6 +16,8 @@ public class CartDTO {
 
     private String id;
 
+    private String name;
+
     private Timestamp createdDate;
 
     private Timestamp checkoutDate;

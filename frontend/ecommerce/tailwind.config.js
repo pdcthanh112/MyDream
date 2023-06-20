@@ -8,9 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        app_maincolor: {
-          light: '#99b3ff'
-        }
+        status_active: {
+          text: '#1BC5BD', 
+          background: '#C9F7F5', 
+        },
+        status_inactive: {
+          text: '#F64E60', 
+          background: '#FFE2E5', 
+        },
       }
       // backgroundImage: {
       //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
