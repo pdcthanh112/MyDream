@@ -1,14 +1,10 @@
 package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.dto.ecommerce.WishlistDTO;
-import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Wishlist;
-import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.repository.ecommerce.WishlistRepository;
 import com.congthanh.project.service.ecommerce.WishlistService;
-import io.swagger.models.auth.In;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,10 +59,8 @@ public class WishlistServiceImplement implements WishlistService {
                     .production(item.get("production", String.class))
                     .image(item.get("image", String.class))
                     .description(item.get("description", String.class))
-                    .rating(RatingDTO.builder()
-                            .vote(item.get("vote", Integer.class))
-                            .value(item.get("value", Float.class))
-                            .build())
+                    .ratingVote(item.get("ratingVote", Integer.class))
+                    .ratingValue(item.get("ratingValue", Float.class))
                     .status(item.get("status", String.class))
                     .build();
             listProduct.add(productDTO);

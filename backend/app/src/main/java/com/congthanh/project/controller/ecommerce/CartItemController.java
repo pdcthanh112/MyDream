@@ -3,7 +3,6 @@ package com.congthanh.project.controller.ecommerce;
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CartItemDTO;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.service.ecommerce.CartItemService;
@@ -34,7 +33,8 @@ public class CartItemController {
                         .sold(cartItem.getProduct().getSold())
                         .image(cartItem.getProduct().getImage())
                         .description(cartItem.getProduct().getDescription())
-                        .rating(RatingDTO.builder().vote(cartItem.getProduct().getRating().getVote()).value(cartItem.getProduct().getRating().getValue()).build())
+                        .ratingVote(cartItem.getProduct().getRatingVote())
+                        .ratingValue(cartItem.getProduct().getRatingValue())
                         .status(cartItem.getProduct().getStatus())
                         .build())
                 .quantity(cartItem.getQuantity())

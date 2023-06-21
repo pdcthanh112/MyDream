@@ -26,7 +26,7 @@ export default function AppHeader() {
   return (
     <header>
       <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
-        <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer" onClick={() => router.push('/')} />
+        <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-6" onClick={() => router.push('/')} />
 
         <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
           <span className="bg-gray-300 h-[2.5rem] w-16 rounded-l-md flex justify-center items-center relative group">
@@ -69,16 +69,17 @@ export default function AppHeader() {
                   <div className="flex">
                     <div className="w-1/2">
                       <h3 className="font-semibold text-base">Your shopping</h3>
-                      <ul className="leading-6">
-                        <li className="sub-item-link">Create new cart</li>
-                        <li className="sub-item-link">View your cart</li>
+                      <menu className="leading-6">
+                        <li className="sub-item-link" onClick={() => router.push('/cart')}>View your cart</li>
                         <li className="sub-item-link">Checkout</li>
-                        <li className="sub-item-link" onClick={() => router.push('/wishlist')}>Wishlist</li>
-                      </ul>
+                        <li className="sub-item-link" onClick={() => router.push('/wishlist')}>
+                          Wishlist
+                        </li>
+                      </menu>
                     </div>
                     <div className="w-1/2 border-l-2 border-l-gray-100 pl-4">
                       <h3 className="font-semibold text-base">Your account</h3>
-                      <ul className="leading-6">
+                      <menu className="leading-6">
                         <li className="sub-item-link" onClick={() => router.push('/account')}>
                           Account
                         </li>
@@ -86,7 +87,7 @@ export default function AppHeader() {
                         <li className="sub-item-link">Recommendations</li>
                         <li className="sub-item-link">Browsing History</li>
                         <li className="sub-item-link">Watchlist</li>
-                      </ul>
+                      </menu>
                       <Button className="bg-yellow-400 w-52 rounded-xl" onClick={() => dispatch(logout())}>
                         Logout
                       </Button>
@@ -99,14 +100,13 @@ export default function AppHeader() {
             </Card>
           </div>
 
-          <div className="flex items-start justify-center hover:cursor-pointer relative group">
-            <Image src={CartIcon} alt={''} width={32} onClick={() => router.push('/cart')}/>
+          <div className="flex items-start justify-center relative group">
+            <Image src={CartIcon} alt={''} width={32} onClick={() => router.push('/cart')} className='hover:cursor-pointer'/>
             <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p>
             <span className="absolute -top-1 right-4 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
 
-            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[20rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-              <Cartmodal/>
-
+            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+              <Cartmodal />
             </Card>
           </div>
         </div>

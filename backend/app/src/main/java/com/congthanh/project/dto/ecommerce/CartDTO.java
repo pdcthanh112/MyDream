@@ -20,8 +20,6 @@ public class CartDTO {
 
     private Timestamp createdDate;
 
-    private Timestamp checkoutDate;
-
     private String customerId;
 
     private String status;

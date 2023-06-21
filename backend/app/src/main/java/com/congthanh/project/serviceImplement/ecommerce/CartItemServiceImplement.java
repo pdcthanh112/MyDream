@@ -2,7 +2,6 @@ package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.CartItemDTO;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.entity.ecommerce.Product;
@@ -63,10 +62,8 @@ public class CartItemServiceImplement implements CartItemService {
                         .subcategory(result.getProduct().getSubcategory().getName())
                         .quantity(result.getProduct().getQuantity())
                         .price(result.getProduct().getPrice())
-                        .rating(RatingDTO.builder()
-                                .vote(result.getProduct().getRating().getVote())
-                                .value(result.getProduct().getRating().getValue())
-                                .build())
+                        .ratingVote(result.getProduct().getRatingVote())
+                        .ratingValue(result.getProduct().getRatingValue())
                         .production(result.getProduct().getProduction())
                         .image(result.getProduct().getImage())
                         .description(result.getProduct().getDescription())

@@ -68,11 +68,11 @@ export default function ProductItemCard({ product }: ProductProps) {
 
         <div className="flex justify-between">
           <span className="flex items-center">
-            <Rating precision={0.1} value={product.rating.value} size="small" readOnly />
-            <span className="ml-1">{product.rating.value}</span>
+            <Rating precision={0.1} value={product.ratingValue} size="small" readOnly />
+            <span className="ml-1">{product.ratingValue.toFixed(1)}</span>
           </span>
 
-          <span className="mr-1">{roundNumber(product.rating.vote)} rating</span>
+          <span className="mr-1">{roundNumber(product.ratingVote)} rating</span>
         </div>
 
         <span className="italic ml-2">Sold: {product.sold}</span>

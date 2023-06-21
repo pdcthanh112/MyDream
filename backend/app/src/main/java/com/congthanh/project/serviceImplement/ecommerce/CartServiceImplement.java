@@ -29,10 +29,12 @@ public class CartServiceImplement implements CartService {
     private ProductRepository productRepository;
 
     @Override
-    public Cart getCartById(String id) {
-        Optional<Cart> result = cartRepository.findById(id);
-        if (result.isPresent()) {
-            return result.get();
+    public CartDTO getCartById(String id) {
+        CartDTO result = new CartDTO();
+        Optional<Cart> data = cartRepository.findById(id);
+        System.out.println("CHECKKKKKKKKKKKKKKKKKKkk"+ data.get().getCartItems().size());
+        if (data.isPresent()) {
+            return result;
         } else {
             throw new RuntimeException("Cart NOT FOUND");
         }
@@ -69,10 +71,8 @@ public class CartServiceImplement implements CartService {
                                 .sold(cartItemItem.getProduct().getSold())
                                 .image(cartItemItem.getProduct().getImage())
                                 .description(cartItemItem.getProduct().getDescription())
-                                .rating(RatingDTO.builder()
-                                        .vote(cartItemItem.getProduct().getRating().getVote())
-                                        .value(cartItemItem.getProduct().getRating().getValue())
-                                        .build())
+                                .ratingVote(cartItemItem.getProduct().getRatingVote())
+                                .ratingValue(cartItemItem.getProduct().getRatingValue())
                                 .status(cartItemItem.getProduct().getStatus())
                                 .build());
                         cartItems.add(cartItemTmp);
@@ -80,7 +80,6 @@ public class CartServiceImplement implements CartService {
                     cartTmp.setCartItems(cartItems);
                 }
                 response.add(cartTmp);
-                System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"+response);
             }
         } else {
             return null;

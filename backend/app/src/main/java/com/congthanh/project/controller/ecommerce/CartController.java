@@ -20,9 +20,9 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response<Cart>> getCartById(@PathVariable String id) {
-        Cart result = cartService.getCartById(id);
-        Response<Cart> response = new Response<>();
+    public ResponseEntity<Response<CartDTO>> getCartById(@PathVariable String id) {
+        CartDTO result = cartService.getCartById(id);
+        Response<CartDTO> response = new Response<>();
         response.setData(result);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get xong");

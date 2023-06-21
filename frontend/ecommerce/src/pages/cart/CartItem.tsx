@@ -47,8 +47,8 @@ export default function CartItem({ item }: CartItemProps) {
 
       <div className="w-[40%] ml-3">{item.product.name}</div>
       {/* <div className="w-[10%]">{item.quantity}</div> */}
-      <div className="flex w-[30%]">
-        <span className="flex items-center mr-5">Quantity</span>
+      <div className="flex items-center w-[30%]">
+        <span className="hidden lg:flex mr-5">Quantity</span>
         <div className="border-[#cccccc] border-2 flex col-span-3">
           <button
             className="bg-[#f3f3f3] px-3 py-2"
@@ -77,7 +77,10 @@ export default function CartItem({ item }: CartItemProps) {
           </button>
         </div>
       </div>
-      <div className="w-[20%]">Total: ${(item.quantity * item.product.price).toFixed(2)}</div>
+      <div className="w-[20%] flex">
+        <span className='hidden lg:flex'>Total:&nbsp;</span>
+        <span>${(item.quantity * item.product.price).toFixed(2)}</span>
+      </div>
       <div className="w-[5%]">
         <Image
           src={DeleteIcon}

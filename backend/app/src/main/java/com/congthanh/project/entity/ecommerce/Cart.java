@@ -1,6 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,12 +28,14 @@ public class Cart   {
 
     private String status;
 
+    @Column(name = "created_date")
     private Timestamp createdDate;
 
-    private Timestamp checkoutDate;
-
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonIgnore
     private Set<CartItem> cartItems;
+
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Checkout checkout;
 
 }

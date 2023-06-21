@@ -2,11 +2,9 @@ package com.congthanh.project.serviceImplement.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.dto.ecommerce.RatingDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
-import com.congthanh.project.entity.ecommerce.Rating;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
@@ -54,7 +52,8 @@ public class ProductServiceImplement implements ProductService {
                             .subcategory(product.getSubcategory().getName())
                             .quantity(product.getQuantity())
                             .price(product.getPrice())
-                            .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                            .ratingVote(product.getRatingVote())
+                            .ratingValue(product.getRatingValue())
                             .production(product.getProduction())
                             .image(product.getImage())
                             .description(product.getDescription())
@@ -79,10 +78,8 @@ public class ProductServiceImplement implements ProductService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .rating(RatingDTO.builder()
-                                .vote(product.getRating().getVote())
-                                .value(product.getRating().getValue())
-                                .build())
+                        .ratingVote(product.getRatingVote())
+                        .ratingValue(product.getRatingValue())
                         .production(product.getProduction())
                         .image(product.getImage())
                         .description(product.getDescription())
@@ -97,6 +94,7 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public ProductDTO getProductById(String id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        System.out.println("PRODUCTTTTTTTTTTTTTTTTTTTTT"+ product);
         ProductDTO response = ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -104,7 +102,8 @@ public class ProductServiceImplement implements ProductService {
                 .subcategory(product.getSubcategory().getName())
                 .quantity(product.getQuantity())
                 .price(product.getPrice())
-                .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                .ratingVote(product.getRatingVote())
+                .ratingValue(product.getRatingValue())
                 .production(product.getProduction())
                 .image(product.getImage())
                 .description(product.getDescription())
@@ -131,7 +130,8 @@ public class ProductServiceImplement implements ProductService {
                     .sold(0)
                     .image(productDTO.getImage())
                     .description(productDTO.getDescription())
-                    .rating(Rating.builder().vote(0).value(0).build())
+                    .ratingVote(0)
+                    .ratingValue(0)
                     .status(StateStatus.STATUS_ACTIVE)
                     .build();
             Product response = productRepository.save(product);
@@ -183,7 +183,8 @@ public class ProductServiceImplement implements ProductService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .ratingVote(product.getRatingVote())
+                        .ratingValue(product.getRatingValue())
                         .production(product.getProduction())
                         .image(product.getImage())
                         .description(product.getDescription())
@@ -214,7 +215,8 @@ public class ProductServiceImplement implements ProductService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .ratingVote(product.getRatingVote())
+                        .ratingValue(product.getRatingValue())
                         .production(product.getProduction())
                         .image(product.getImage())
                         .description(product.getDescription())
@@ -245,7 +247,8 @@ public class ProductServiceImplement implements ProductService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .rating(RatingDTO.builder().vote(product.getRating().getVote()).value(product.getRating().getValue()).build())
+                        .ratingVote(product.getRatingVote())
+                        .ratingValue(product.getRatingValue())
                         .production(product.getProduction())
                         .image(product.getImage())
                         .description(product.getDescription())

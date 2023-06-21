@@ -8,16 +8,16 @@ import java.util.List;
 
 public interface CartService {
 
-    public Cart getCartById(String id);
+    CartDTO getCartById(String id);
 
-    public List<CartDTO> getActiveCartByCustomerId(String customerId);
+    List<CartDTO> getActiveCartByCustomerId(String customerId);
 
-    public Cart createCart(CartDTO cartDTO);
+    Cart createCart(CartDTO cartDTO);
 
-    public Cart updateCart(CartDTO cartDTO);
+    Cart updateCart(CartDTO cartDTO);
 
-    public boolean checkout(String cartId);
+    boolean checkout(String cartId);
 
-    public boolean deleteCart(String cartId);
+    boolean deleteCart(String cartId);
 
 }

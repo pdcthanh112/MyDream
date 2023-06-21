@@ -44,15 +44,15 @@ const addProductToCart = async () => {
               <h1 className="font-medium text-2xl">{product.name}</h1>
               <div className="flex justify-between">
                 <div className="flex items-center">
-                  <span className="mr-1">{product.rating.value}</span>
+                  <span className="mr-1">{product.ratingValue}</span>
                   <Rating
-                    value={product.rating.value}
+                    value={product.ratingValue}
                     precision={0.1}
                     size="small"
                     readOnly
                   />
                   <span className="opacity-80 mx-2">|</span>
-                  <span>{roundNumber(product.rating.vote)} rating</span>
+                  <span>{roundNumber(product.ratingVote)} rating</span>
                   <span className="opacity-80 mx-2">|</span>
                   <span>Sold: {product.sold}</span>
                 </div>

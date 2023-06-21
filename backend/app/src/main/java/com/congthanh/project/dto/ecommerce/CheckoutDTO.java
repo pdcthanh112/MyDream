@@ -5,16 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RatingDTO   {
-  
+public class CheckoutDTO {
+
     private int id;
 
-    private int vote;
+    private float total;
 
-    private float value;
+    private String address;
 
+    private String phone;
+
+    private String paymentMethod;
+
+    private Timestamp checkoutDate;
+
+    private CartDTO cart;
 }

@@ -30,6 +30,7 @@ public class CartItem {
     @JoinColumn(name = "cart", nullable = false)
     private Cart cart;
 
+    @Column(name = "created_date")
     private Timestamp createdDate;
 
 }

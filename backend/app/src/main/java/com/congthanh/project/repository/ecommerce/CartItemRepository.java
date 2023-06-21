@@ -16,10 +16,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, String> {
 
     Optional<CartItem> findById(String id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM cart_item WHERE cart = ?1 ORDER BY createddate desc")
+    @Query(nativeQuery = true, value = "SELECT * FROM cart_item WHERE cart = ?1 ORDER BY created_date desc")
     List<CartItem> getAllCartItemByCartId(String cartId);
 
-    @Query(nativeQuery = true, value = "SELECT cart_item.id, quantity, cart, product FROM cart_item JOIN cart ON cart_item.cart = cart.id WHERE cart = ?1 AND product = ?2 AND cart.status = '" + StateStatus.STATUS_ACTIVE + "'")
+    @Query(nativeQuery = true, value = "SELECT cart_item.id, quantity, cart, product, cart_item.created_date as createddate FROM cart_item JOIN cart ON cart_item.cart = cart.id WHERE cart = ?1 AND product = ?2 AND cart.status = '" + StateStatus.STATUS_ACTIVE + "'")
     CartItem checkExistProductFromCart(String cartId, String productId);
 
 
