@@ -1,5 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -58,5 +59,6 @@ public class Product {
 
     @ManyToMany(mappedBy = "product")
     @JsonIgnore
+    @JsonBackReference
     private Set<Wishlist> wishlist;
 }

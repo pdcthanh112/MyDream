@@ -10,7 +10,6 @@ import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,9 +31,6 @@ public class ProductServiceImplement implements ProductService {
 
     @Autowired
     private SubcategoryRepository subcategoryRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Override
     public Object getAllProduct(Integer page, Integer limit) {
@@ -94,7 +90,6 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public ProductDTO getProductById(String id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        System.out.println("PRODUCTTTTTTTTTTTTTTTTTTTTT"+ product);
         ProductDTO response = ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -108,6 +103,7 @@ public class ProductServiceImplement implements ProductService {
                 .image(product.getImage())
                 .description(product.getDescription())
                 .sold(product.getSold())
+                .status(product.getStatus())
                 .build();
         return response;
     }
