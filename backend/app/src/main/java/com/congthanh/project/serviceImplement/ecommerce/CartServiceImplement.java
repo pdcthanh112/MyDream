@@ -30,14 +30,15 @@ public class CartServiceImplement implements CartService {
 
     @Override
     public CartDTO getCartById(String id) {
-        CartDTO result = new CartDTO();
-        Optional<Cart> data = cartRepository.findById(id);
-        System.out.println("CHECKKKKKKKKKKKKKKKKKKkk"+ data.get().getCartItems().size());
-        if (data.isPresent()) {
-            return result;
-        } else {
-            throw new RuntimeException("Cart NOT FOUND");
-        }
+        Cart data = cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart NOT FOUND"));
+        System.out.println("CHECKKKKKKKKKKKKKKKKKKkk" + data.getName());
+
+        CartDTO result = CartDTO.builder()
+                .id(data.getId())
+                .name(data.getName())
+                .build();
+        return result;
+
     }
 
     @Override

@@ -249,7 +249,7 @@ export default function Checkout() {
                     <Autocomplete
                       options={[
                         <div key={2} className="flex items-center">
-                          <span>COD&nbsp;</span>
+                          <span>COD Cash on Dilivery&nbsp;</span>
                           <span className="hidden md:flex">
                             <Image src={PaymentCOD} alt={''} width={33} />
                           </span>
