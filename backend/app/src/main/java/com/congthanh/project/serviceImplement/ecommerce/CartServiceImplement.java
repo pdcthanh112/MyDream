@@ -30,15 +30,43 @@ public class CartServiceImplement implements CartService {
 
     @Override
     public CartDTO getCartById(String id) {
-        Cart data = cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart NOT FOUND"));
-        System.out.println("CHECKKKKKKKKKKKKKKKKKKkk" + data.getName());
+        Cart cart = cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart NOT FOUND"));
 
-        CartDTO result = CartDTO.builder()
-                .id(data.getId())
-                .name(data.getName())
-                .build();
+        CartDTO result = new CartDTO();
+        result.setId(cart.getId());
+        result.setName(cart.getName());
+        result.setCustomerId(cart.getCustomerId());
+        result.setCreatedDate(cart.getCreatedDate());
+        result.setStatus(cart.getStatus());
+
+        List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
+        if (listCartItem.size() > 0) {
+            Set<CartItemDTO> cartItems = new HashSet<>();
+            for (CartItem cartItemItem : listCartItem) {
+                CartItemDTO cartItemTmp = new CartItemDTO();
+                cartItemTmp.setId(cartItemItem.getId());
+                cartItemTmp.setQuantity(cartItemItem.getQuantity());
+                cartItemTmp.setCartId(cart.getId());
+                cartItemTmp.setProduct(ProductDTO.builder()
+                        .id(cartItemItem.getProduct().getId())
+                        .name(cartItemItem.getProduct().getName())
+                        .category(cartItemItem.getProduct().getCategory().getName())
+                        .subcategory(cartItemItem.getProduct().getSubcategory().getName())
+                        .quantity(cartItemItem.getProduct().getQuantity())
+                        .price(cartItemItem.getProduct().getPrice())
+                        .production(cartItemItem.getProduct().getProduction())
+                        .sold(cartItemItem.getProduct().getSold())
+                        .image(cartItemItem.getProduct().getImage())
+                        .description(cartItemItem.getProduct().getDescription())
+                        .ratingVote(cartItemItem.getProduct().getRatingVote())
+                        .ratingValue(cartItemItem.getProduct().getRatingValue())
+                        .status(cartItemItem.getProduct().getStatus())
+                        .build());
+                cartItems.add(cartItemTmp);
+            }
+            result.setCartItems(cartItems);
+        }
         return result;
-
     }
 
     @Override

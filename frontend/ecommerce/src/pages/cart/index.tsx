@@ -52,7 +52,7 @@ export default function Cart() {
                     <div className="flex justify-between px-3 absolute bottom-16 border-t-2 border-t-gray-400 w-[85%]">
                       <span>Subtotal:</span> <span>{sumPrice}</span>
                     </div>
-                    <Button className="absolute bottom-4 w-[88%] bg-yellow-400" onClick={() => router.push(`/checkout/${cart.id}`)}>
+                    <Button className="absolute bottom-4 w-[88%] bg-yellow-400" onClick={() => router.push(`/checkout/${JSON.stringify(cart)}`)}>
                       Checkout
                     </Button>
                   </>

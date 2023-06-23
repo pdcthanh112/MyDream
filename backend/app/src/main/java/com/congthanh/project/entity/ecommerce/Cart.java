@@ -1,6 +1,7 @@
 package com.congthanh.project.entity.ecommerce;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class Cart   {
 
     @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
+    @JsonIgnore
     private Checkout checkout;
 
 }

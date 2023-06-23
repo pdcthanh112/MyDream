@@ -13,9 +13,9 @@ export const createNewCart = async (data: CreateCartForm) => {
     });
 };
 
-export const getCartById = async (customerId: string) => {
+export const getCartById = async (id: string) => {
   return await axiosConfig
-    .get(`cart/getByCustomer?customerId=${customerId}`)
+    .get(`cart/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       throw error;
