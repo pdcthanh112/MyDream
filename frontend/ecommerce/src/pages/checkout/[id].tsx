@@ -1,14 +1,14 @@
 import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getCartByCustomerId } from '@apis/cartApi';
+import { getCartById } from '@apis/cartApi';
 import { useAppSelector } from '@redux/store';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { CheckoutForm } from 'models/CheckoutModel';
 import Button from '@components/Button';
 import { Autocomplete, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
-import { paymentMethod } from '@utils/constants/dropdownData';
+import { PatternFormat } from 'react-number-format';
 import Image from 'next/image';
 import PaymentCOD from '@assets/icons/payment-cod.png';
 import PaymentVISA from '@assets/icons/payment-visa.png';
@@ -42,7 +42,7 @@ export default function Checkout() {
 
   const [pickPaymentMethod, setPickPaymentMethod] = useState('COD');
 
-  const { data: cart, isLoading } = useQuery(['cart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
+  const { data: cart, isLoading } = useQuery(['cart'], async () => await getCartById(currentUser.userData.accountId).then((response) => response.data));
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<CheckoutForm>();
   const onSubmit: SubmitHandler<CheckoutForm> = (data) => {
@@ -65,35 +65,29 @@ export default function Checkout() {
     {
       label: (
         <div className="flex items-center">
-          <span>COD&nbsp;</span>
-          <span className="hidden md:flex">
-            <Image src={PaymentCOD} alt={''} width={33} />
-          </span>
+          VISA&nbsp;
+          <Image src={PaymentVISA} alt={''} width={33} />
         </div>
       ),
-      value: 'value1',
+      value: 'VISA',
     },
     {
       label: (
         <div className="flex items-center">
-          <span>COD&nbsp;</span>
-          <span className="hidden md:flex">
-            <Image src={PaymentCOD} alt={''} width={33} />
-          </span>
+          Mastercard&nbsp;
+          <Image src={PaymentCOD} alt={''} width={33} />
         </div>
       ),
-      value: 'value1',
+      value: 'Mastercard',
     },
     {
       label: (
         <div className="flex items-center">
-          <span>COD&nbsp;</span>
-          <span className="hidden md:flex">
-            <Image src={PaymentCOD} alt={''} width={33} />
-          </span>
+          American Express&nbsp;
+          <Image src={PaymentAmex} alt={''} width={33} />
         </div>
       ),
-      value: 'value1',
+      value: 'Amex',
     },
   ];
 
@@ -245,37 +239,31 @@ export default function Checkout() {
 
               {pickPaymentMethod !== 'COD' && (
                 <div className="col-span-7">
-                  <InputComponent title="Select card type" className="col-span-4" error={formState.errors.paymentMethod?.message}>
-                    <Autocomplete
-                      options={[
-                        <div key={2} className="flex items-center">
-                          <span>COD Cash on Dilivery&nbsp;</span>
-                          <span className="hidden md:flex">
-                            <Image src={PaymentCOD} alt={''} width={33} />
-                          </span>
-                        </div>,
-                      ]}
-                      // options={cardType()}
-                      size={'small'}
-                      renderInput={(params) => <TextField {...params} label="" />}
-                      onInputChange={(event, value) => {
-                        setValue('paymentMethod', value);
-                      }}
-                    />
-                  </InputComponent>
-                  <InputComponent title="Payment method" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+                  <InputComponent title="Select card type" className="col-span-7" error={formState.errors.paymentMethod?.message}>
                     <Autocomplete
                       options={cardTypeOptions}
                       getOptionLabel={(option) => option.value}
-                      renderOption={(option) => option}
-                
-                      size={'small'}
-                      renderInput={(params) => <TextField {...params} label="Payment method" />}
-                      onInputChange={(event, value) => {
-                        setValue('paymentMethod', value);
-                      }}
+                      renderOption={(props, option) => (
+                        <li {...props}>
+                          <div className="flex items-center">{option.label}</div>
+                        </li>
+                      )}
+                      renderInput={(params) => <TextField {...params} label="Card Type" />}
                     />
                   </InputComponent>
+
+                  <div className="flex justify-between">
+                    <InputComponent title={'Card number'} className='w-[60%]'>
+                      <InputField>
+                        <PatternFormat format="#### #### #### ####" allowEmptyFormatting mask="_" className="focus:outline-none" />
+                      </InputField>
+                    </InputComponent>
+                    <InputComponent title={'Expired date'} className='w-[30%]'>
+                      <InputField>
+                        <PatternFormat format="##/##" allowEmptyFormatting mask="_" className="focus:outline-none" style={{width: 50}}/>
+                      </InputField>
+                    </InputComponent>
+                  </div>
                 </div>
               )}
             </div>

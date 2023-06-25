@@ -4,6 +4,5 @@ export const genderData = () => [
   { title: 'Other', value: 'OTHER' },
 ];
 
-export const paymentMethod = () => ['COD', 'Credit card', 'Debit cart', 'Paypal', 'Momo'];
 
 
