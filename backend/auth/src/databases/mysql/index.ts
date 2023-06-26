@@ -4,6 +4,7 @@ import { logger } from '@utils/logger';
 import EmployeeModel from '@models/employee.model';
 import CandidateModel from '@models/candidate.model';
 import CustomerModel from '@models/customer.model';
+import LoginErrorModel from '@models/loginError.model';
 
 export const mysqlConnection = new Sequelize.Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {
   dialect: 'mysql',
@@ -31,6 +32,7 @@ export const MYSQL_DB = {
   Employee: EmployeeModel(mysqlConnection),
   Customer: CustomerModel(mysqlConnection),
   Candidate: CandidateModel(mysqlConnection),
+  LoginError: LoginErrorModel(mysqlConnection),
   mysqlConnection, // connection instance (RAW queries)
   Sequelize, // library
 };

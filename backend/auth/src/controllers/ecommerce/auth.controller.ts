@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 import { CustomerSignupDTO, CustomerLoginDTO } from '@dtos/customer.dto';
 import { Customer } from '@interfaces/account.interface';
-import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/ecommerce/auth.service';
+import { RequestWithUser } from '@interfaces/auth.interface';
 
 export class AuthController {
   public service = Container.get(AuthService);

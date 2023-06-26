@@ -17,6 +17,7 @@ export class EmployeeModel extends Model<Employee> implements Employee{
   public gender: string;
   public image: string;
   public salary: number;
+  public refreshToken?: string
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -72,12 +73,14 @@ export default function (sequelize: Sequelize): typeof EmployeeModel {
         type: DataTypes.STRING(10),
       },
       image: {
-        //allowNull: false,
         type: DataTypes.STRING,
       },
       salary: {
         allowNull: false,
         type: DataTypes.DOUBLE,
+      },
+      refreshToken: {
+        type: DataTypes.STRING,
       }
     },
     {

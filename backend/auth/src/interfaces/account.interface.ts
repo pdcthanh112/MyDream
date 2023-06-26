@@ -31,7 +31,8 @@ export interface Employee {
   dob: Date;
   gender: string;
   image?: string;
-  salary: number
+  salary: number;
+  refreshToken?: string;
 }
 export interface Candidate {
   id?: number;
