@@ -9,6 +9,7 @@ import com.congthanh.project.repository.ecommerce.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.CartRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.service.ecommerce.CartItemService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class CartItemServiceImplement implements CartItemService {
                     .cart(cart)
                     .createdDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"))))
                     .build();
-            return cartItemRepository.save(cartItem);
+            return  cartItemRepository.save(cartItem);
         } else {
             checkExistProduct.setQuantity(checkExistProduct.getQuantity() + quantity);
             return cartItemRepository.save(checkExistProduct);
@@ -77,7 +78,6 @@ public class CartItemServiceImplement implements CartItemService {
 
     @Override
     public boolean deleteCartItem(String cartItemId) {
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++" + cartItemId);
         try {
             cartItemRepository.deleteById(cartItemId);
 //            cartItemRepository.deleteCartItemById(cartItemId);

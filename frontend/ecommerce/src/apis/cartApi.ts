@@ -13,7 +13,7 @@ export const createNewCart = async (data: CreateCartForm) => {
     });
 };
 
-export const getCartById = async (id: string) => {
+export const getCartById = async (id: any) => {
   return await axiosConfig
     .get(`cart/${id}`)
     .then((response) => response.data)

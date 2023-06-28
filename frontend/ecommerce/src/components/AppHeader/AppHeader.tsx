@@ -75,6 +75,9 @@ export default function AppHeader() {
                         <li className="sub-item-link" onClick={() => router.push('/wishlist')}>
                           Wishlist
                         </li>
+                        <li className="sub-item-link" onClick={() => router.push('/history')}>
+                          History
+                        </li>
                       </menu>
                     </div>
                     <div className="w-1/2 border-l-2 border-l-gray-100 pl-4">

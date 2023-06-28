@@ -1,3 +1,5 @@
+import { Cart } from "./CartModel";
+
 export interface CheckoutForm {
   id?: string;
   address: string;
@@ -5,5 +7,5 @@ export interface CheckoutForm {
   total: number;
   paymentMethod: string;
   checkoutDate: Date;
-  cartId: string;
+  cart: Cart | string;
 }

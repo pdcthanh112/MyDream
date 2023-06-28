@@ -26,4 +26,5 @@ public class CheckoutDTO {
     private Timestamp checkoutDate;
 
     private CartDTO cart;
+
 }

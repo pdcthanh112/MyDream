@@ -47,6 +47,7 @@ public class CartServiceImplement implements CartService {
                 cartItemTmp.setId(cartItemItem.getId());
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
                 cartItemTmp.setCartId(cart.getId());
+                cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
                 cartItemTmp.setProduct(ProductDTO.builder()
                         .id(cartItemItem.getProduct().getId())
                         .name(cartItemItem.getProduct().getName())

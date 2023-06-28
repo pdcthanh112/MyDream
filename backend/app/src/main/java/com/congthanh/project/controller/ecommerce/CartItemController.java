@@ -39,6 +39,7 @@ public class CartItemController {
                         .build())
                 .quantity(cartItem.getQuantity())
                 .cartId(cartItem.getCart().getId())
+                .createdDate(cartItem.getCreatedDate())
                 .build();
         Response<CartItemDTO> response = new Response<>();
         response.setData(result);

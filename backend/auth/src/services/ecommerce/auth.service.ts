@@ -72,7 +72,6 @@ export class AuthService {
         }
       }
     }
-    throw new HttpException(411, `AAAAAAAAAAAAAAAAAAAAA`);
   }
 
   public async signup(customerData: CustomerSignupDTO): Promise<Customer> {

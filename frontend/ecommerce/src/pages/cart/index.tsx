@@ -23,7 +23,7 @@ export default function Cart() {
           let sumPrice: number = 0;
           return (
             <div key={cart.id} className="md:flex mb-5 ">
-              <Card className="md:w-[80%] min-h-[10vh] px-4 py-2">
+              <Card className="md:w-[80%] min-h-[10vh] px-4 py-5">
                 <div className="font-medium text-lg">{cart.name}</div>
                 {cart.cartItems?.length > 0 ? (
                   <>
@@ -50,7 +50,7 @@ export default function Cart() {
                       </div>
                     </div>
                     <div className="flex justify-between px-3 absolute bottom-16 border-t-2 border-t-gray-400 w-[85%]">
-                      <span>Subtotal:</span> <span>{sumPrice}</span>
+                      <span>Subtotal:</span> <span>{sumPrice.toFixed(2)}</span>
                     </div>
                     <Button className="absolute bottom-4 w-[88%] bg-yellow-400" onClick={() => router.push(`/checkout/${cart.id}`)}>
                       Checkout
