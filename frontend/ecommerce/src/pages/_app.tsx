@@ -10,6 +10,8 @@ import { ConfirmProvider } from 'material-ui-confirm';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import App from 'app/page';
+import { getAppData } from '@apis/appApi';
+import { setAppData } from '@redux/features/appDataSlice';
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   const queryClient = new QueryClient();
@@ -34,3 +36,11 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
     </GoogleOAuthProvider>
   );
 }
+
+export const getStaticProps = async () => {
+  const data = await getAppData().then(response => {
+    if(response) {
+      store.dispatch(setAppData(response));
+    }
+  });
+};

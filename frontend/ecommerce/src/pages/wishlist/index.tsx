@@ -71,7 +71,7 @@ export default function Wishlist() {
                         <Image
                           src={DeleteIcon}
                           alt="Delete Icon"
-                          title="Delete item"
+                          title="Remove item"
                           width={20}
                           className="hover:cursor-pointer opacity-50 hover:opacity-100"
                           // onClick={() => handleDeleteCartItem(item.id)}

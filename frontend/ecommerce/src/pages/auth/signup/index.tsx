@@ -7,6 +7,7 @@ import { genderData } from '@utils/constants/dropdownData';
 import Button from '@components/Button';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Link from 'next/link';
 
 interface InputComponentProps {
   title: string;
@@ -51,9 +52,9 @@ export default function Signup() {
         <h1 className="flex justify-center text-2xl font-semibold">Register</h1>
         <div className="flex justify-end">
           <span>You already have account?&nbsp;</span>
-          <a href="/auth/login" className="hover:text-yellow-600 hover:cursor-pointer hover:underline">
+          <Link href="/auth/login" className="hover:text-yellow-600 hover:cursor-pointer hover:underline">
             Login
-          </a>
+          </Link>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-10">

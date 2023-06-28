@@ -16,13 +16,13 @@ export default function History() {
       ) : (
         <div className='mx-auto my-3'>
           <menu className='flex bg-white h-fit px-4 py-3'>
-            <li>All</li>
-            <li>Waiting to Pay</li>
-            <li>Shipping</li>
-            <li>Receiving</li>
-            <li>Completed</li>
-            <li>Canceled</li>
-            <li>Return/Refund</li>
+            <li className='px-10 py-3'>All</li>
+            <li className='px-10 py-3'>Waiting to Pay</li>
+            <li className='px-10 py-3'>Shipping</li>
+            <li className='px-10 py-3'>Receiving</li>
+            <li className='px-10 py-3'>Completed</li>
+            <li className='px-10 py-3'>Canceled</li>
+            <li className='px-10 py-3'>Return/Refund</li>
           </menu>
 
           {listCheckout.map((item: CheckoutForm) => (

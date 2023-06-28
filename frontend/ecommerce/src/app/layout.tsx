@@ -22,24 +22,24 @@ export const metadata: Metadata = {
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Layout({ Component, pageProps, router }: AppProps) {
-  const Header = styled.div`
+  const Header = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
-  const Body = styled.div`
+  const Body = styled(React.Fragment)`
     width: 100%;
     min-height: 80vh;
     display: inline-flex;
   `;
 
-  const Footer = styled.div`
+  const Footer = styled(React.Fragment)`
     width: '100%';
   `;
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <React.Fragment>
+      <React.Fragment>
           <Meta />
           <Header>
             <AppHeader />
@@ -68,7 +68,8 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
             pauseOnHover
             theme="light"
           />
-        </React.Fragment>
+        </React.Fragment>  
+     
       </body>
     </html>
   );

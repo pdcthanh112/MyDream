@@ -5,12 +5,14 @@ import DeleteIcon from '@assets/icons/delete-icon.png';
 import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartItemApi';
 import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 interface CartItemProps {
   item: CartItem;
 }
 
 export default function CartItem({ item }: CartItemProps) {
+  const router = useRouter();
   const confirm = useConfirm();
   const queryClient = useQueryClient();
 
@@ -45,7 +47,7 @@ export default function CartItem({ item }: CartItemProps) {
     <div className="flex items-center border border-gray-600 rounded my-2">
       <Image src={item.product.image || DefaultImage} alt="Product image" width={100} />
 
-      <div className="w-[40%] ml-3">{item.product.name}</div>
+      <div className="w-[40%] ml-3 hover:cursor-pointer" onClick={() => router.push(`/product-detail/${item.product.id}`)}>{item.product.name}</div>
       {/* <div className="w-[10%]">{item.quantity}</div> */}
       <div className="flex items-center w-[30%]">
         <span className="hidden lg:flex mr-5">Quantity</span>

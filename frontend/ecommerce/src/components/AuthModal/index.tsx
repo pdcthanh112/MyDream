@@ -12,6 +12,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@components/Button';
 import AppLogo from '@assets/images/app-logo.png';
+import Link from 'next/link';
 
 interface InputComponentProps {
   title: string;
@@ -123,9 +124,9 @@ export default function AuthModal() {
 
               {/* {loginError && <div className="input-error p-2 rounded">Tên đăng nhập hoặc mật khẩu không chính xác</div>} */}
 
-              <a href="/auth/forget-password" className="flex justify-end hover:underline" title="Forgot password">
+              <Link href="/auth/forget-password" className="flex justify-end hover:underline" title="Forgot password">
                 Forgot password
-              </a>
+              </Link>
 
               {/* <GoogleButton onClick={() => handleGoogleSignIn()} /> */}
               <div className="mt-4">
@@ -135,9 +136,9 @@ export default function AuthModal() {
             </form>
             <div className="my-3 font-medium">
               <span>You don&apos;t have an account </span>
-              <a href="/auth/signup" style={{ color: '#116835' }}>
+              <Link href="/auth/signup" style={{ color: '#116835' }}>
                 Register
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -219,9 +220,9 @@ export default function AuthModal() {
             </form>
             <div className="my-3 font-medium">
               <span>You already have account? </span>
-              <a href="/auth/login" style={{ color: '#116835' }}>
+              <Link href="/auth/login" style={{ color: '#116835' }}>
                 Login
-              </a>
+              </Link>
             </div>
           </div>
 
