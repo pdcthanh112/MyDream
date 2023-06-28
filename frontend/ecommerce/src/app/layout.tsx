@@ -13,10 +13,10 @@ import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const metadata: Metadata = {
-  title: 'Ecommerce',
-  description: 'Ecommerce Website of CongThanh-project',
-};
+// export const metadata: Metadata = {
+//   title: 'Ecommerce',
+//   description: 'Ecommerce Website of CongThanh-project',
+// };
 
 const inter = Inter({ subsets: ['latin'] });
 
