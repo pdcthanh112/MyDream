@@ -44,6 +44,7 @@ public class WishlistServiceImplement implements WishlistService {
     public WishlistDTO getWishlistByCustomer(String customerId) {
         WishlistDTO result = new WishlistDTO();
         List<Tuple> data = wishlistRepository.findWishlistByCustomer(customerId);
+        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"+data);
         result.setId(data.get(0).get("wishlistId", Integer.class));
         result.setCustomer(data.get(0).get("customer", String.class));
         Set<ProductDTO> listProduct = new HashSet<>();
