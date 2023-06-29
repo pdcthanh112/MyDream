@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export function Layout({ Component, pageProps, router }: AppProps) {
+export default function Layout({ Component, pageProps, router }: AppProps) {
   const Header = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
