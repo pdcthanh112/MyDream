@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { Meta } from '@components/Metadata';
 

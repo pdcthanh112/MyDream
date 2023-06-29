@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app/globals.css';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';

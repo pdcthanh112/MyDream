@@ -4,7 +4,6 @@ import './AppSidebar.scss';
 import { useRouter } from 'next/router';
 import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Customer } from 'models/CustomerModel';
@@ -26,7 +25,7 @@ const AppSidebar = () => {
   };
 
   useEffect(() => {
-    const result = data.subcategory.filter((item: Subcategory) => item.category.id === category);
+    const result = data.subcategory.filter((item: Subcategory) => item.category?.id === category);
     setListSubcategory(result);
   }, [category, data.subcategory]);
 
@@ -38,7 +37,7 @@ const AppSidebar = () => {
       className="w-96 h-full bg-white border border-black overflow-y-scroll"
     >
       <div className="bg-green-500 flex px-10 py-3 items-center">
-        <Avatar src={currentUser.userData.image || AccountCircleIcon} />
+        <Avatar src={currentUser.userData.image || ""} />
         <span className="text-white font-semibold text-xl ml-3">Hello, {currentUser.userData.name.split(' ')[0] || <>signin</>}</span>
       </div>
       <div className="border-b border-gray-400">

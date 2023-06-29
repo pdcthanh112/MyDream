@@ -1,6 +1,7 @@
 // 'use client';
 import React from 'react';
 import { Metadata } from 'next';
+import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 
 import AppHeader from '@components/AppHeader';
@@ -11,7 +12,6 @@ import AppNavbar from '@components/AppNavbar';
 import MetaComponent from '@components/MetaComponent';
 
 import styled from 'styled-components';
-import { AppProps } from 'next/app';
 
 const inter = Inter({ subsets: ['latin'] });
 
