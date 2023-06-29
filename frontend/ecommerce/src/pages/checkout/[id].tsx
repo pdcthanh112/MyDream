@@ -1,3 +1,4 @@
+'use client'
 import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';

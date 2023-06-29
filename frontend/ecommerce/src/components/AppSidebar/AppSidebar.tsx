@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react';
 import './AppSidebar.scss';
 import { useRouter } from 'next/router';
@@ -27,7 +28,7 @@ const AppSidebar = () => {
   useEffect(() => {
     const result = data.subcategory.filter((item: Subcategory) => item.category.id === category);
     setListSubcategory(result);
-  }, [category]);
+  }, [category, data.subcategory]);
 
   return (
     <motion.div

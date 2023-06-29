@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';

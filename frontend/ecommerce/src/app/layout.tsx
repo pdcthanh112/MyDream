@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { Meta } from '@components/Metadata';
 
@@ -38,7 +38,6 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-      <React.Fragment>
           <Meta />
           <Header>
             <AppHeader />
@@ -66,9 +65,7 @@ export default function Layout({ Component, pageProps, router }: AppProps) {
             draggable
             pauseOnHover
             theme="light"
-          />
-        </React.Fragment>  
-     
+          />  
       </body>
     </html>
   );
