@@ -2,7 +2,7 @@ import './AppHeader.scss';
 import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import { Card, Avatar, Icon } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
 import { logout } from '@redux/features/authSlice';
