@@ -1,3 +1,4 @@
+"use client"
 import './AppHeader.scss';
 import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
