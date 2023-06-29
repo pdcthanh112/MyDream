@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductBySubcategory } from '@apis/productApi';
 import { PaginationParams } from 'models/Request';
-import ShowListProduct from './ShowListProduct';
 import Pagination from '@components/Pagination';
+import ShowListProduct from '@components/Product/ShowListProduct';
 
 export default function ProductBySubcategory() {
   const router = useRouter();
