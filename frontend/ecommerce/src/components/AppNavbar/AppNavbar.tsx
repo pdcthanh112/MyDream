@@ -1,11 +1,13 @@
-import Link from 'next/link';
+"use client";
 import { useState } from 'react';
+import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppSidebar from '@components/AppSidebar';
 import { Icon } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function AppNavbar() {
+
   const [showSidebar, setShowSidebar] = useState(false);
 
   const navbarItems = [
@@ -14,6 +16,7 @@ export default function AppNavbar() {
     { name: 'Gift Card', path: '/' },
     { name: 'Sell', path: '/' },
   ];
+  
   return (
     <>
       <div className="flex items-center bg-blue-300 text-white space-x-6 p-2 pl-6">
