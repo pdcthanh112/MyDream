@@ -1,6 +1,6 @@
 import React from 'react';
 import './AppContent.module.scss';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 
 const AppContent = ({ Component, pageProps, router }: AppProps) => {
   return ( 

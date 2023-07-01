@@ -13,7 +13,7 @@ import App from 'app/page';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
-export default function MyApp({ Component, pageProps, router }: any) {
+export default function MyApp({ Component, pageProps, router }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
