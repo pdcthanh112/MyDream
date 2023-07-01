@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { Meta } from '@components/Metadata';
 
@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Layout({ Component, pageProps, router }: AppProps) {
+export default function Layout({ Component, pageProps, router }: any) {
   const Header = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app/globals.css';
-import { AppProps } from 'next/app';
+import  type { AppProps } from 'next/app';
 
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
@@ -13,7 +13,7 @@ import App from 'app/page';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
-export default function MyApp({ Component, pageProps, router }: AppProps) {
+export default function MyApp({ Component, pageProps, router }: any) {
   const queryClient = new QueryClient();
 
   return (
