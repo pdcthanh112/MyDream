@@ -13,7 +13,8 @@ import App from 'app/page';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
-export default function MyApp({ Component, pageProps, router }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
+
   const queryClient = new QueryClient();
 
   return (
@@ -25,9 +26,9 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
               <QueryClientProvider client={queryClient}>
                 <App
                   pageProps={pageProps}
-                  Component={Component}
-                  router={router}
-                />
+                  Component={Component} 
+                  // router={router}          
+                        />
               </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
