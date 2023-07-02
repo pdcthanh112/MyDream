@@ -6,7 +6,7 @@ type Props = {
   description: string
 }
 
-export const Meta = ({ title, keywords, description }: Props) => {
+export const Metadata = ({ title, keywords, description }: Props) => {
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +19,7 @@ export const Meta = ({ title, keywords, description }: Props) => {
   )
 }
 
-Meta.defaultProps = {
+Metadata.defaultProps = {
   title: 'Ecommerce',
   keywords: 'Ecommmerce App',
   description: 'Ecommerce site of CongThanh-project App',

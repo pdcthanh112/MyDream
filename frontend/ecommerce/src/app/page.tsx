@@ -1,10 +1,24 @@
 import type { AppProps } from 'next/app';
 import Layout from './layout';
+import { NextComponentType, NextPage, NextPageContext } from 'next';
+import { ReactElement, ReactNode } from 'react';
 
-export default function App({ Component, pageProps }: any) {
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+  Component?: NextComponentType<NextPageContext, any, any>
+}
 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  // return <Layout Component={Component} pageProps={pageProps} router={router} />;
+  // const getLayout = Component.getLayout ?? (page => page);
   return (
-    <Layout pageProps={pageProps} Component={Component} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   );
 }
 
