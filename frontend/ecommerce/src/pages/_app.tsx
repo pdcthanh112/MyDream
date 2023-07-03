@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app/globals.css';
-// import App from 'app/page';
+import App from 'app/page';
 import type { AppProps } from 'next/app';
 import { NextComponentType, NextPage, NextPageContext } from 'next';
 import { ReactElement, ReactNode } from 'react';
@@ -18,8 +18,8 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
  
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
+export type AppPropsWithLayout = AppProps & {
+  Component: NextComponentType<NextPageContext, any, any> & NextPageWithLayout
 }
 
 export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
@@ -33,8 +33,7 @@ export default function MyApp({ Component, pageProps, router }: AppPropsWithLayo
           <PersistGate loading={null} persistor={persistor}>
             <ConfirmProvider>
               <QueryClientProvider client={queryClient}>
-                {/* <App Component={Component} pageProps={pageProps} router={router} /> */}
-                <Component {...pageProps} {...router}/>
+                <App Component={Component} pageProps={pageProps} router={router} />
               </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
