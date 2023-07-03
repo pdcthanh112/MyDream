@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app/globals.css';
-import { App } from 'app/page';
+import  App from 'app/page';
 import type { AppProps } from 'next/app';
 import { NextComponentType, NextPage, NextPageContext } from 'next';
 import { ReactElement, ReactNode } from 'react';

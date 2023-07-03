@@ -12,7 +12,7 @@ import { AppPropsWithLayout, NextPageWithLayout } from '@pages/_app';
 //   Component: NextComponentType<NextPageContext, any, any> & NextPageWithLayout;
 // };
 
-export  function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Layout>
       <Component {...pageProps} />
