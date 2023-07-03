@@ -1,45 +1,3 @@
-// import React from 'react';
-// import '../app/globals.css';
-// import App from 'app/page';
-// import type { AppProps } from 'next/app';
-// import { Provider } from 'react-redux';
-// import { store, persistor } from '@redux/store';
-// import { PersistGate } from 'redux-persist/integration/react';
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ConfirmProvider } from 'material-ui-confirm';
-// import 'react-loading-skeleton/dist/skeleton.css';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
-// import { getAppData } from '@apis/appApi';
-// import { setAppData } from '@redux/features/appDataSlice';
-
-// export default function MyApp({ Component, pageProps, router }: AppProps) {
-//   const queryClient = new QueryClient();
-
-//   return (
-//     <GoogleOAuthProvider clientId="1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com">
-//       <React.StrictMode>
-//         <Provider store={store}>
-//           <PersistGate loading={null} persistor={persistor}>
-//             <ConfirmProvider>
-//               <QueryClientProvider client={queryClient}>
-//                 <App Component={Component} pageProps={pageProps} router={router} />
-//               </QueryClientProvider>
-//             </ConfirmProvider>
-//           </PersistGate>
-//         </Provider>
-//       </React.StrictMode>
-//     </GoogleOAuthProvider>
-//   );
-// }
-
-// export const getStaticProps = async () => {
-//   await getAppData().then((response) => {
-//     if (response) {
-//       store.dispatch(setAppData(response));
-//     }
-//   });
-// };
-
 import React from 'react';
 import '../app/globals.css';
 import App from 'app/page';
@@ -54,9 +12,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
-const queryClient = new QueryClient();
+export default function MyApp({ Component, pageProps, router }: AppProps) {
+  const queryClient = new QueryClient();
 
-const MyApp = ({ Component, pageProps, router }: AppProps) => {
   return (
     <GoogleOAuthProvider clientId="1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com">
       <React.StrictMode>
@@ -72,9 +30,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
       </React.StrictMode>
     </GoogleOAuthProvider>
   );
-};
-
-export default MyApp;
+}
 
 export const getStaticProps = async () => {
   await getAppData().then((response) => {
@@ -83,3 +39,5 @@ export const getStaticProps = async () => {
     }
   });
 };
+
+
