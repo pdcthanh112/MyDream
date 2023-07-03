@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import Layout from './layout';
+import { Layout } from './layout';
 import { NextComponentType, NextPage, NextPageContext } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { AppPropsWithLayout, NextPageWithLayout } from '@pages/_app';
@@ -19,5 +19,3 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </Layout>
   );
 }
-
-
