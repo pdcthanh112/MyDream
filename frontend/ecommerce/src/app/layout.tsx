@@ -1,10 +1,8 @@
 import React, { ReactNode } from 'react';
-import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
 
 import AppHeader from '@components/AppHeader';
-// import AppContent from '@components/AppContent';
 import AppFooter from '@components/AppFooter';
 import AppNavbar from '@components/AppNavbar';
 import styled from 'styled-components';
@@ -14,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// export default function Layout({ Component, pageProps }: AppProps) {
 export default function Layout({ children }: { children: ReactNode }) {
   const HeaderComponent = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));

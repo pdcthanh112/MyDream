@@ -1,7 +1,9 @@
 import React from 'react';
 import '../app/globals.css';
-import App from 'app/page';
+// import App from 'app/page';
 import type { AppProps } from 'next/app';
+import { NextComponentType, NextPage, NextPageContext } from 'next';
+import { ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -12,17 +14,27 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
-export default function MyApp({ Component, pageProps, router }: AppProps) {
-  const queryClient = new QueryClient();
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+ 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
 
+export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
+  const queryClient = new QueryClient();
+  const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
+  
   return (
-    <GoogleOAuthProvider clientId="1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={clientId}>
       <React.StrictMode>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <ConfirmProvider>
               <QueryClientProvider client={queryClient}>
-                <App Component={Component} pageProps={pageProps} router={router} />
+                {/* <App Component={Component} pageProps={pageProps} router={router} /> */}
+                <Component {...pageProps} {...router}/>
               </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
@@ -39,5 +51,3 @@ export const getStaticProps = async () => {
     }
   });
 };
-
-
