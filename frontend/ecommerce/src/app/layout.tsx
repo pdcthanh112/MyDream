@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-function Layout({ children }: { children: ReactNode }): React.ReactElement {
+export function Layout({ children }: { children: ReactNode }): React.ReactElement {
   const HeaderComponent = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
@@ -62,4 +62,4 @@ function Layout({ children }: { children: ReactNode }): React.ReactElement {
 }
 
 // export const getLayout = (page: React.ReactElement): React.ReactElement => <Layout>{page}</Layout>;
-export { Layout };
+// export { Layout };
