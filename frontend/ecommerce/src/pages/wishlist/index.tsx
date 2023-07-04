@@ -12,7 +12,7 @@ import DefaultImage from '@assets/images/default-image.jpg';
 import { stateStatus } from '@utils/constants';
 import { addToCart } from '@apis/cartItemApi';
 import { toast } from 'react-toastify';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 import { ReactElement } from 'react';
 
 const Wishlist: NextPageWithLayout = () => {

@@ -5,7 +5,7 @@ import { getAllProduct } from '@apis/productApi';
 import { Product } from 'models/ProductModel';
 import type { GetServerSideProps } from 'next';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 interface ListProductProps {
   listProduct: Product[];

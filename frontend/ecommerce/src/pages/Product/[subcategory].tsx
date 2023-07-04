@@ -7,7 +7,7 @@ import { getProductBySubcategory } from '@apis/productApi';
 import { PaginationParams } from 'models/Request';
 import Pagination from '@components/Pagination';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 const ProductBySubcategory: NextPageWithLayout = () => {
   const router = useRouter();

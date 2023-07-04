@@ -2,7 +2,7 @@ import type { NextPageWithLayout } from 'app/page';
 import { getHistoryByCustomer } from '@apis/purchasingApi';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 import { CheckoutForm } from 'models/CheckoutModel';
 import { Customer } from 'models/CustomerModel';
 import { ReactElement } from 'react';

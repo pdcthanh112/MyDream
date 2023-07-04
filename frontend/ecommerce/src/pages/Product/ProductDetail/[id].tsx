@@ -12,7 +12,7 @@ import { roundNumber } from '@utils/helper';
 import Button from '@components/Button';
 import AddToCartIcon from '@assets/icons/add-to-cart-icon.png';
 import { addToCart } from '@apis/cartItemApi';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 const ProductDetail: NextPageWithLayout = () => {
   const router = useRouter();

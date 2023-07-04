@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { type ReactElement, useState } from 'react';
 import type { NextPageWithLayout } from 'app/page';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
@@ -20,7 +20,7 @@ import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 const Login: NextPageWithLayout = () => {
   const dispatch = useAppDispatch();
@@ -40,12 +40,12 @@ const Login: NextPageWithLayout = () => {
   };
 
   const InputField = styled.div`
-  border: 1px solid #b6b6b6;
-  padding: 0.65rem 1.8rem 0.65rem 0.8rem;
-  border-radius: 4px;
-  margin-top: 1rem;
-  position: relative;
-`;
+    border: 1px solid #b6b6b6;
+    padding: 0.65rem 1.8rem 0.65rem 0.8rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    position: relative;
+  `;
 
   return (
     <div className="relative">
@@ -95,11 +95,7 @@ const Login: NextPageWithLayout = () => {
             <span className="ml-2">Remember me</span>
           </div>
           <Button className="w-full bg-yellow-400 mt-5">Login</Button>
-          <BarLoader
-            color="#00FF00"
-            loading={loading}
-            width={440}
-          />
+          <BarLoader color="#00FF00" loading={loading} width={440} />
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
@@ -129,7 +125,7 @@ const Login: NextPageWithLayout = () => {
       </Card>
     </div>
   );
-}
+};
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return <RootLayout>{page}</RootLayout>;

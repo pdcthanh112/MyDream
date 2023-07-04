@@ -1,7 +1,7 @@
 'use client'
 import { type ReactElement, ReactNode, useState } from 'react';
 import type { NextPageWithLayout } from 'app/page';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from '@apis/cartApi';

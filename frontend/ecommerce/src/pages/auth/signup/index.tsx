@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, ReactNode, ReactElement } from 'react';
 import type { NextPageWithLayout } from 'app/page';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import Button from '@components/Button';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Link from 'next/link';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 interface InputComponentProps {
   title: string;
@@ -191,7 +191,7 @@ const Signup: NextPageWithLayout = () => {
       </div>
     </Card>
   );
-}
+};
 
 Signup.getLayout = function getLayout(page: ReactElement) {
   return <RootLayout>{page}</RootLayout>;

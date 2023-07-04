@@ -10,7 +10,7 @@ import Button from '@components/Button';
 import { Customer } from 'models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 
 const Cartt: NextPageWithLayout = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);

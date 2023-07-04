@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { NextPageWithLayout } from 'app/page';
-import { RootLayout } from 'app/layout';
+import RootLayout from 'app/layout';
 import Image from 'next/image';
 import I1 from '@assets/images/I1.png';
 import I2 from '@assets/images/I2.png';
