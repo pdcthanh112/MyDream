@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
-  
   const HeaderComponent = styled(React.Fragment)`
     background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
@@ -39,7 +38,9 @@ export function RootLayout({ children }: { children: ReactNode }): React.ReactEl
 
         <AppNavbar />
 
-        <BodyComponent>{children}</BodyComponent>
+        <BodyComponent>
+          <main>{children}</main>
+        </BodyComponent>
 
         <FooterComponent>
           <AppFooter />
