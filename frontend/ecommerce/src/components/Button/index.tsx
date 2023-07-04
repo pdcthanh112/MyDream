@@ -1,9 +1,4 @@
-// interface Props {
-//   children: React.ReactNode;
-//   className?: string;
-//   onClick?: () => void;
-//   props?: any;
-// }
+'use client'
 
 const Button: React.FC<any> = ({ className, children, onClick, ...props }) => {
   return (
