@@ -10,6 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
+import RootLayout from 'app/layout';
 
 export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   const queryClient = new QueryClient();
@@ -22,7 +23,10 @@ export default function MyApp({ Component, pageProps, router }: AppPropsWithLayo
           <PersistGate loading={null} persistor={persistor}>
             <ConfirmProvider>
               <QueryClientProvider client={queryClient}>
-                <App Component={Component} pageProps={pageProps} router={router} />
+                {/* <App Component={Component} pageProps={pageProps} router={router} /> */}
+                <RootLayout>
+                  <Component {...pageProps} />
+                </RootLayout>
               </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
