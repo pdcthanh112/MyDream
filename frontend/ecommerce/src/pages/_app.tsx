@@ -23,10 +23,10 @@ export default function MyApp({ Component, pageProps, router }: AppPropsWithLayo
           <PersistGate loading={null} persistor={persistor}>
             <ConfirmProvider>
               <QueryClientProvider client={queryClient}>
-                {/* <App Component={Component} pageProps={pageProps} router={router} /> */}
-                <RootLayout>
+                <App Component={Component} pageProps={pageProps} router={router} />
+                {/* <RootLayout>
                   <Component {...pageProps} />
-                </RootLayout>
+                </RootLayout> */}
               </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
