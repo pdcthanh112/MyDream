@@ -24,7 +24,7 @@ interface CardComponentProps {
 const CardComponent: React.FC<CardComponentProps> = (element) => {
   return (
     <div className="flex p-5 border border-gray-300 rounded-xl bg-white hover:bg-gray-100 hover:cursor-pointer">
-      <Image src={element.image} alt={''} style={{width: 60}} />
+      <Image src={element.image} alt={''} style={{ width: 60 }} />
       <div className="my-auto ml-5">
         <h6 className="font-medium text-lg">{element.title}</h6>
         <p className="text-xs text-[#56595] not-italic">{element.description}</p>
@@ -50,7 +50,7 @@ const Manage = () => {
       <CardComponent image={I12} title="Your Messages" description="View or respond to messages from Amazon, Sellers and Buyers " />
     </div>
   );
-}
+};
 
 Manage.getLayout = function getLayout(page: ReactElement) {
   return <RootLayout>{page}</RootLayout>;
