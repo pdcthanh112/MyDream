@@ -32,10 +32,10 @@ export default function MyApp({ Component, pageProps, router }: AppPropsWithLayo
   );
 }
 
-export const getStaticProps = async () => {
-  await getAppData().then((response) => {
-    if (response) {
-      store.dispatch(setAppData(response));
-    }
-  });
-};
+// export const getStaticProps = async () => {
+//   await getAppData().then((response) => {
+//     if (response) {
+//       store.dispatch(setAppData(response));
+//     }
+//   });
+// };
