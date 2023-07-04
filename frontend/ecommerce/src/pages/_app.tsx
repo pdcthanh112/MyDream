@@ -1,6 +1,6 @@
 import React from 'react';
 import '../app/globals.css';
-import  {App, AppPropsWithLayout } from 'app/page';
+import App, { AppPropsWithLayout } from 'app/page';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,7 +14,7 @@ import { setAppData } from '@redux/features/appDataSlice';
 export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   const queryClient = new QueryClient();
   const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
- 
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <React.StrictMode>
