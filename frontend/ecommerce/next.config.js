@@ -33,7 +33,7 @@ module.exports = {
   // images: {
   //   loaderFile: './src/assets/',
   // },
-  typescript: {
-    ignoreBuildErrors: true
-  }
+  // typescript: {
+  //   ignoreBuildErrors: true
+  // }
 };
