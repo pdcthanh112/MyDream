@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import { RootLayout } from './layout';
+import  RootLayout  from './layout';
 import { NextComponentType, NextPage, NextPageContext } from 'next';
 import { ReactElement, ReactNode } from 'react';
 
