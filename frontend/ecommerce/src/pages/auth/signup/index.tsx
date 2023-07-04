@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, ReactElement } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignupForm } from 'models/CustomerModel';
@@ -9,6 +9,7 @@ import Button from '@components/Button';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Link from 'next/link';
+import { RootLayout } from 'app/layout';
 
 interface InputComponentProps {
   title: string;
@@ -27,7 +28,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
-export default function Signup() {
+const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<SignupForm>();
@@ -190,3 +191,9 @@ export default function Signup() {
     </Card>
   );
 }
+
+Signup.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default Signup;

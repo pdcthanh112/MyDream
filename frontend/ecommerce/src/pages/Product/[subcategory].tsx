@@ -1,13 +1,14 @@
-'use client'
-import { useState } from 'react';
+'use client';
+import { type ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductBySubcategory } from '@apis/productApi';
 import { PaginationParams } from 'models/Request';
 import Pagination from '@components/Pagination';
 import ShowListProduct from '@components/Product/ShowListProduct';
+import { RootLayout } from 'app/layout';
 
-export default function ProductBySubcategory() {
+const ProductBySubcategory = () => {
   const router = useRouter();
   const subcategory = router.query.subcategory;
 
@@ -51,4 +52,10 @@ export default function ProductBySubcategory() {
       )}
     </>
   );
-}
+};
+
+ProductBySubcategory.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default ProductBySubcategory;

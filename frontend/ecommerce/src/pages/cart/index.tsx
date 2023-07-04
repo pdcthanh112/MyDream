@@ -1,3 +1,4 @@
+import type { ReactElement } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import { Cart } from 'models/CartModel';
@@ -8,8 +9,9 @@ import Button from '@components/Button';
 import { Customer } from 'models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
+import { RootLayout } from 'app/layout';
 
-export default function Cart() {
+const Cartt = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
@@ -64,4 +66,10 @@ export default function Cart() {
       </div>
     </div>
   );
-}
+};
+
+Cartt.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default Cartt;

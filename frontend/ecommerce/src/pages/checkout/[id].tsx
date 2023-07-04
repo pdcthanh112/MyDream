@@ -1,5 +1,6 @@
 'use client'
-import { ReactNode, useState } from 'react';
+import { type ReactElement, ReactNode, useState } from 'react';
+import { RootLayout } from 'app/layout';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from '@apis/cartApi';
@@ -36,7 +37,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
-export default function Checkout() {
+const Checkout = () => {
   const currentUser = useAppSelector((state) => state.auth.login.currentUser);
 
   const router = useRouter();
@@ -364,3 +365,9 @@ export default function Checkout() {
     </>
   );
 }
+
+Checkout.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default Checkout;

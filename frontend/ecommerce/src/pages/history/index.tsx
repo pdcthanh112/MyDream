@@ -1,10 +1,12 @@
 import { getHistoryByCustomer } from '@apis/purchasingApi';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
+import { RootLayout } from 'app/layout';
 import { CheckoutForm } from 'models/CheckoutModel';
 import { Customer } from 'models/CustomerModel';
+import { ReactElement } from 'react';
 
-export default function History() {
+const History = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 
   const { data: listCheckout, isLoading } = useQuery(['history'], async () => await getHistoryByCustomer(currentUser.userData.accountId).then((response) => response.data));
@@ -33,3 +35,9 @@ export default function History() {
     </>
   );
 }
+
+History.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default History;

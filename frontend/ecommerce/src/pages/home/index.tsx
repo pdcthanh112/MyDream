@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
 import { Product } from 'models/ProductModel';

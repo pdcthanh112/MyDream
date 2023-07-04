@@ -11,8 +11,10 @@ import DefaultImage from '@assets/images/default-image.jpg';
 import { stateStatus } from '@utils/constants';
 import { addToCart } from '@apis/cartItemApi';
 import { toast } from 'react-toastify';
+import { RootLayout } from 'app/layout';
+import { ReactElement } from 'react';
 
-export default function Wishlist() {
+const Wishlist = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 
   const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userData.accountId).then((response) => response.data));
@@ -92,3 +94,9 @@ export default function Wishlist() {
     </>
   );
 }
+
+Wishlist.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default Wishlist

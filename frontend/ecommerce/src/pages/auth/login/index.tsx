@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
 import { Card, Icon } from '@mui/material';
@@ -19,8 +19,9 @@ import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
+import { RootLayout } from 'app/layout';
 
-export default function Login() {
+const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useRouter();
 
@@ -128,3 +129,9 @@ export default function Login() {
     </div>
   );
 }
+
+Login.getLayout = function getLayout(page: ReactElement) {
+  return <RootLayout>{page}</RootLayout>;
+};
+
+export default Login;
