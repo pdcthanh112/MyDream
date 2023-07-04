@@ -14,7 +14,7 @@ import { setAppData } from '@redux/features/appDataSlice';
 export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   const queryClient = new QueryClient();
   const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
-
+  const getLayout = Component.getLayout ?? ((page: React.ReactNode) => page);
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <React.StrictMode>
