@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from 'app/page';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
 import { Product } from 'models/ProductModel';
@@ -10,14 +11,14 @@ interface ListProductProps {
   listProduct: Product[];
 }
 
-const Home = ({ listProduct }: ListProductProps) => {
+const Home: NextPageWithLayout<ListProductProps> = ({ listProduct }: ListProductProps) => {
   return (
-    <main className="max-w-screen-2xl mx-auto">
+    <div className="max-w-screen-2xl mx-auto">
       <Banner />
       <div className="mx-auto w-[80%]">
         <ShowListProduct listProduct={listProduct} />
       </div>
-    </main>
+    </div>
   );
 };
 

@@ -11,14 +11,15 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextComponentType<NextPageContext, any, any> & NextPageWithLayout;
 };
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({ Component, pageProps }: AppPropsWithLayout):ReactElement {
+  const getLayout = Component.getLayout ?? ((page) => page);
 
-  // return (
-  //   <RootLayout>
-  //     <Component {...pageProps} />
-  //   </RootLayout>
-  // );
-  const getLayout = Component.getLayout ?? ((page) => page)
- 
-  return getLayout(<Component {...pageProps} />)
-}
+  return <RootLayout>{getLayout(<Component {...pageProps} />)}</RootLayout>;
+  
+  // return getLayout(
+    //   <RootLayout>
+    //     <Component {...pageProps} />
+    //   </RootLayout>
+    // );
+  }
+

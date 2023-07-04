@@ -63,5 +63,5 @@ export function RootLayout({ children }: { children: ReactNode }): React.ReactEl
   );
 }
 
-export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
+// export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
 // export { Layout };

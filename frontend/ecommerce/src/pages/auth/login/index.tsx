@@ -1,5 +1,6 @@
 'use client'
 import { type ReactElement, useState } from 'react';
+import type { NextPageWithLayout } from 'app/page';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
 import { Card, Icon } from '@mui/material';
@@ -21,7 +22,7 @@ import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
 import { RootLayout } from 'app/layout';
 
-const Login = () => {
+const Login: NextPageWithLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useRouter();
 

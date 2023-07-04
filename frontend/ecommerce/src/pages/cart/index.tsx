@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from 'app/page';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import { Cart } from 'models/CartModel';
@@ -11,7 +12,7 @@ import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
 import { RootLayout } from 'app/layout';
 
-const Cartt = () => {
+const Cartt: NextPageWithLayout = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));

@@ -1,4 +1,5 @@
 import { useAppSelector } from '@redux/store';
+import type { NextPageWithLayout } from 'app/page';
 import { useQuery } from '@tanstack/react-query';
 import { Customer } from 'models/CustomerModel';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
@@ -14,7 +15,7 @@ import { toast } from 'react-toastify';
 import { RootLayout } from 'app/layout';
 import { ReactElement } from 'react';
 
-const Wishlist = () => {
+const Wishlist: NextPageWithLayout = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 
   const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userData.accountId).then((response) => response.data));
@@ -88,15 +89,14 @@ const Wishlist = () => {
               </TableBody>
             </Table>
           </TableContainer>
-
         </div>
       )}
     </>
   );
-}
+};
 
 Wishlist.getLayout = function getLayout(page: ReactElement) {
   return <RootLayout>{page}</RootLayout>;
 };
 
-export default Wishlist
+export default Wishlist;

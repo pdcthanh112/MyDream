@@ -1,5 +1,6 @@
 'use client';
 import { type ReactElement, useState } from 'react';
+import type { NextPageWithLayout } from 'app/page';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductById } from '@apis/productApi';
@@ -13,7 +14,7 @@ import AddToCartIcon from '@assets/icons/add-to-cart-icon.png';
 import { addToCart } from '@apis/cartItemApi';
 import { RootLayout } from 'app/layout';
 
-const ProductDetail = () => {
+const ProductDetail: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
 

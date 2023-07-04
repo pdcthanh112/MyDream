@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, ReactNode, ReactElement } from 'react';
+import type { NextPageWithLayout } from 'app/page';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignupForm } from 'models/CustomerModel';
@@ -28,7 +29,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
-const Signup = () => {
+const Signup: NextPageWithLayout = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<SignupForm>();
