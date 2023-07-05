@@ -11,9 +11,7 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextComponentType<NextPageContext, any, any> & NextPageWithLayout;
 };
 
-const App = ({ Component, pageProps }: AppPropsWithLayout): ReactElement => {
-  const getLayout = Component.getLayout || ((page: React.ReactNode) => page);
+export default function App({ Component, pageProps }: AppPropsWithLayout): ReactElement {
+  const getLayout = Component.getLayout ?? ((page: React.ReactNode) => page);
   return <>{getLayout(<Component {...pageProps} />)}</>;
-};
-
-export default App;
+}

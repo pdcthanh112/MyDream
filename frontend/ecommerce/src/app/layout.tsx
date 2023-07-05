@@ -1,4 +1,3 @@
-'use client'
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
@@ -15,17 +14,17 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
   const HeaderComponent = styled(React.Fragment)`
-    background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
+  background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
   const BodyComponent = styled(React.Fragment)`
-    width: 100%;
-    min-height: 80vh;
-    display: inline-flex;
+  width: 100%;
+  min-height: 80vh;
+  display: inline-flex;
   `;
 
   const FooterComponent = styled(React.Fragment)`
-    width: '100%';
+  width: '100%';
   `;
 
   return (
