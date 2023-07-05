@@ -1,4 +1,3 @@
-
 import type { AppProps } from 'next/app';
 import { NextComponentType, NextPage, NextPageContext } from 'next';
 import { ReactElement, ReactNode } from 'react';

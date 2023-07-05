@@ -6,10 +6,10 @@ import { store, persistor } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConfirmProvider } from 'material-ui-confirm';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   const queryClient = new QueryClient();

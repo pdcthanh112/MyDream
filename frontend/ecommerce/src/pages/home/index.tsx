@@ -5,7 +5,7 @@ import { getAllProduct } from '@apis/productApi';
 import { Product } from 'models/ProductModel';
 import type { GetServerSideProps } from 'next';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import RootLayout from 'app/layout';
+import { EmptyLayout } from '@components/Layout';
 
 interface ListProductProps {
   listProduct: Product[];
@@ -23,7 +23,7 @@ const Home: NextPageWithLayout<ListProductProps> = ({ listProduct }: ListProduct
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
+  return <EmptyLayout>{page}</EmptyLayout>;
 };
 
 export default Home;
