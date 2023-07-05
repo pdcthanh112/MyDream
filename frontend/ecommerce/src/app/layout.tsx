@@ -65,4 +65,4 @@ export default function RootLayout({ children }: { children: ReactNode }): React
 }
 
 export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
-// export { Layout };
+
