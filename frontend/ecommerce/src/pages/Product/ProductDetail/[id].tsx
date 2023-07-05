@@ -12,7 +12,7 @@ import { roundNumber } from '@utils/helper';
 import Button from '@components/Button';
 import AddToCartIcon from '@assets/icons/add-to-cart-icon.png';
 import { addToCart } from '@apis/cartItemApi';
-import RootLayout from 'app/layout';
+import { EmptyLayout } from '@components/Layout';
 
 const ProductDetail: NextPageWithLayout = () => {
   const router = useRouter();
@@ -103,7 +103,7 @@ const ProductDetail: NextPageWithLayout = () => {
 };
 
 ProductDetail.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
+  return <EmptyLayout>{page}</EmptyLayout>;
 };
 
 export default ProductDetail;

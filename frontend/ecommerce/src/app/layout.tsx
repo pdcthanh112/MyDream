@@ -13,18 +13,18 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
-  const HeaderComponent = styled(React.Fragment)`
+  const HeaderComponent = styled.div`
   background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
-  const BodyComponent = styled(React.Fragment)`
+  const BodyComponent = styled.div`
   width: 100%;
   min-height: 80vh;
   display: inline-flex;
   `;
 
-  const FooterComponent = styled(React.Fragment)`
-  width: '100%';
+  const FooterComponent = styled.div`
+  width: 100%;
   `;
 
   return (
@@ -63,5 +63,5 @@ export default function RootLayout({ children }: { children: ReactNode }): React
   );
 }
 
- const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
+export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
 
