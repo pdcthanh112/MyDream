@@ -12,6 +12,7 @@ export type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps, router }: AppPropsWithLayout): ReactElement {
-  const getLayout = Component.getLayout ?? ((page: React.ReactNode) => page);
-  return <RootLayout>{getLayout(<Component {...pageProps} {...router} />)}</RootLayout>;
+  // const getLayout = Component.getLayout ?? ((page: React.ReactNode) => page);
+  return <RootLayout>(<Component {...pageProps} {...router} />)</RootLayout>;
+  // return <RootLayout>{getLayout(<Component {...pageProps} {...router} />)}</RootLayout>;
 }

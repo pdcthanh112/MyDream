@@ -15,6 +15,7 @@ const inter = Inter({ subsets: ['latin'] });
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
   const HeaderComponent = styled.div`
   background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
+  width: 100%;
   `;
 
   const BodyComponent = styled.div`
@@ -63,5 +64,5 @@ export default function RootLayout({ children }: { children: ReactNode }): React
   );
 }
 
-export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
+// export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
 
