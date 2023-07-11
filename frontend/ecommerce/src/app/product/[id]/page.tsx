@@ -1,10 +1,8 @@
 'use client';
-import { type ReactElement, useState } from 'react';
-import type { NextPageWithLayout } from 'app/page';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getProductById } from '@apis/productApi';
-import Skeleton from 'react-loading-skeleton';
 import { Rating } from '@mui/material';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
@@ -12,11 +10,11 @@ import { roundNumber } from '@utils/helper';
 import Button from '@components/Button';
 import AddToCartIcon from '@assets/icons/add-to-cart-icon.png';
 import { addToCart } from '@apis/cartItemApi';
-import { EmptyLayout } from '@components/Layout';
+import { Skeleton } from '@mui/material';
 
-const ProductDetail: NextPageWithLayout = () => {
-  const router = useRouter();
-  const { id } = router.query;
+export default function ProductDetail() {
+  const param = useParams();
+  const { id } = param;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -32,7 +30,11 @@ const ProductDetail: NextPageWithLayout = () => {
   return (
     <div className="w-[80%] mx-auto">
       {isLoading ? (
-        <Skeleton />
+        <>
+          <Skeleton variant="rectangular" width={1200} height={450} sx={{ marginTop: 2 }} animation='wave'/>
+          <Skeleton variant="rectangular" width={1200} height={150} sx={{ marginTop: 2 }} animation='wave'/>
+          <Skeleton variant="rectangular" width={1200} height={300} sx={{ marginTop: 2 }} animation='wave'/>
+        </>
       ) : (
         <>
           <div className="bg-white mt-3 flex">
@@ -100,10 +102,4 @@ const ProductDetail: NextPageWithLayout = () => {
       )}
     </div>
   );
-};
-
-ProductDetail.getLayout = function getLayout(page: ReactElement) {
-  return <EmptyLayout>{page}</EmptyLayout>;
-};
-
-export default ProductDetail;
+}

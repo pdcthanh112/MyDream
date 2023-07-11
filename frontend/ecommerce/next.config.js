@@ -5,27 +5,25 @@ module.exports = {
   experimental: {
     appDir: true
   },
-  //reactStrictMode: true,
+  reactStrictMode: true,
   compiler: {
     styledComponents: true,
     // emotion: true
   },
   rewrites: async () => {
     return [
-      // { source: '/home', destination: '/home/Home' },
-      { source: '/product-detail/:id', destination: '/product/ProductDetail/:id' },
+      // { source: '/product-detail/:id', destination: '/product/product-detail/:id' },
     ];
   },
   redirects: async () => {
     return [
-      { source: '/', destination: '/home', permanent: true },
-      // { source: '/legacy', destination: '/new-home', permanent: false },
+      { source: '/', destination: '/home', permanent: false },
     ];
   },
-  //   i18n: {
-  //     locales: ['en', 'fr', 'de'],
-  //     defaultLocale: 'en',
-  //   },
+  i18n: {
+    locales: ['en', 'vi', 'de'],
+    defaultLocale: 'en',
+  },
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
   },

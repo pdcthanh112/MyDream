@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
 import Button from '@components/Button';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { roundNumber } from '@utils/helper';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SourceIcon from '@mui/icons-material/Source';

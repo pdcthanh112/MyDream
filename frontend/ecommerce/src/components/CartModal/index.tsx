@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Cart, CreateCartForm } from 'models/CartModel';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Icon } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';

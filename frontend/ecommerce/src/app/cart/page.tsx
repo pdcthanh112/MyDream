@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react';
-import type { NextPageWithLayout } from 'app/page';
+'use client'
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import { Cart } from 'models/CartModel';
@@ -9,10 +8,9 @@ import { Card } from '@mui/material';
 import Button from '@components/Button';
 import { Customer } from 'models/CustomerModel';
 import { useAppSelector } from '@redux/store';
-import { useRouter } from 'next/router';
-import RootLayout from 'app/layout';
+import { useRouter } from 'next/navigation';
 
-const Cartt: NextPageWithLayout = () => {
+export default function Cart () {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
@@ -69,8 +67,3 @@ const Cartt: NextPageWithLayout = () => {
   );
 };
 
-Cartt.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
-};
-
-export default Cartt;

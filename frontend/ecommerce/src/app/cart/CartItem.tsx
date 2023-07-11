@@ -5,7 +5,7 @@ import DeleteIcon from '@assets/icons/delete-icon.png';
 import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartItemApi';
 import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface CartItemProps {
   item: CartItem;
