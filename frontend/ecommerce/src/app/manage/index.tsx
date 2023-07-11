@@ -1,6 +1,3 @@
-import type { ReactElement } from 'react';
-import type { NextPageWithLayout } from 'app/page';
-import RootLayout from 'app/layout';
 import Image from 'next/image';
 import I1 from '@assets/images/I1.png';
 import I2 from '@assets/images/I2.png';
@@ -34,7 +31,7 @@ const CardComponent: React.FC<CardComponentProps> = (element) => {
   );
 };
 
-const Manage: NextPageWithLayout = () => {
+export default function Manage () {
   return (
     <div className="grid grid-cols-3 gap-6 px-60 py-10 bg-white">
       <CardComponent image={I1} title="Your order" description="Track, return, cancel an order, download invoice or buy again" />
@@ -53,8 +50,3 @@ const Manage: NextPageWithLayout = () => {
   );
 };
 
-Manage.getLayout = function getLayout(page: ReactElement) {
-  return <RootLayout>{page}</RootLayout>;
-};
-
-export default Manage;
