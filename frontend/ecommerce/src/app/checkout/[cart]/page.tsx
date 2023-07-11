@@ -1,6 +1,6 @@
 'use client'
 import { ReactNode, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from '@apis/cartApi';
 import { useAppSelector } from '@redux/store';
@@ -39,12 +39,12 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
 export default function Checkout () {
   const currentUser = useAppSelector((state) => state.auth.login.currentUser);
 
-  const router = useRouter();
-  const { id } = router.query;
+  const param = useParams();
+  const cartId = param?.cart;
 
   const [pickPaymentMethod, setPickPaymentMethod] = useState('COD');
 
-  const { data: cart, isLoading } = useQuery(['cart', id], async () => await getCartById(id).then((response) => response.data));
+  const { data: cart, isLoading } = useQuery(['cart', cartId], async () => await getCartById(cartId).then((response) => response.data));
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<CheckoutForm>();
   const onSubmit: SubmitHandler<CheckoutForm> = (data) => {
@@ -102,14 +102,6 @@ export default function Checkout () {
     },
   ];
 
-  if (!isLoading) {
-    const total = cart.cartItems.reduce((accumulator: number, item: any) => {
-      return accumulator + item.product.price * item.quantity;
-    }, 0);
-
-    console.log('Tổng giá trị giỏ hàng:', total);
-  }
-
   return (
     <>
       {isLoading ? (
@@ -131,7 +123,7 @@ export default function Checkout () {
                   />
                 </InputComponent>
                 <div className="grid grid-cols-12 gap-2">
-                  <InputComponent title="City" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+                  <InputComponent title="City/State" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <Autocomplete
                       options={['Ho Chi Minh']}
                       size={'small'}
@@ -141,7 +133,7 @@ export default function Checkout () {
                       }}
                     />
                   </InputComponent>
-                  <InputComponent title="City" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+                  <InputComponent title="District" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <Autocomplete
                       options={['Ho Chi Minh']}
                       size={'small'}
@@ -151,7 +143,7 @@ export default function Checkout () {
                       }}
                     />
                   </InputComponent>
-                  <InputComponent title="City" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+                  <InputComponent title="Ward" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <Autocomplete
                       options={['Ho Chi Minh']}
                       size={'small'}
@@ -333,7 +325,7 @@ export default function Checkout () {
                     $
                     {cart.cartItems.reduce((accumulator: number, item: any) => {
                       return accumulator + item.product.price * item.quantity;
-                    }, 0)}
+                    }, 0).toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -353,7 +345,7 @@ export default function Checkout () {
                     $
                     {cart.cartItems.reduce((accumulator: number, item: any) => {
                       return accumulator + item.product.price * item.quantity;
-                    }, 0)}
+                    }, 0).toFixed(2)}
                   </span>
                 </div>
               </div>
