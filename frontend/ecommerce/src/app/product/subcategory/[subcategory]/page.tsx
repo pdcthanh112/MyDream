@@ -7,11 +7,11 @@ import { PaginationParams } from 'models/Request';
 import Pagination from '@components/Pagination';
 import ShowListProduct from '@components/Product/ShowListProduct';
 import NotFound from './not-found';
-import { Skeleton } from '@mui/material';
+import ProductItemCardSkeleton from '@components/Product/ProductItemCard/ProductItemCardSkeleton';
 
 export default function ProductBySubcategory() {
   const param = useParams();
-  const { subcategory } = param;
+  const subcategory = param?.subcategory;
 
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
@@ -30,25 +30,33 @@ export default function ProductBySubcategory() {
 
   if (listProduct === null || listProduct?.length <= 0) return <NotFound />;
 
-  return (
-    <>
-      {isLoading ? (
-        <>
-          <Skeleton variant="rectangular" width={400} height={450} sx={{ marginTop: 2 }} animation="wave" />
-        </>
-      ) : (
-        <div className="w-[90%] mx-auto">
-          <ShowListProduct listProduct={listProduct} />
+  if (isLoading)
+    return (
+      <div className="w-[90%] mx-auto grid gap-4 grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+        <ProductItemCardSkeleton />
+      </div>
+    );
 
-          <Pagination
-            count={pagination.totalPage}
-            page={pagination.page}
-            onChange={(event: React.ChangeEvent<any>, page: number) => {
-              setPagination({ ...pagination, page: page });
-            }}
-          />
-        </div>
-      )}
-    </>
+  return (
+    <div className="w-[90%] mx-auto">
+      <ShowListProduct listProduct={listProduct} />
+
+      <Pagination
+        count={pagination.totalPage}
+        page={pagination.page}
+        onChange={(event: React.ChangeEvent<any>, page: number) => {
+          setPagination({ ...pagination, page: page });
+        }}
+      />
+    </div>
   );
 }

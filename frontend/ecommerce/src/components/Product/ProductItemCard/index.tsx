@@ -48,7 +48,7 @@ export default function ProductItemCard({ product }: ProductProps) {
             Add to Cart
             <Icon component={ShoppingCartIcon} />
           </li>
-          <li className="productLi" onClick={() => router.push(`/product-detail/${product.id}`)}>
+          <li className="productLi" onClick={() => router.push(`/product/${product.id}`)}>
             View detail
             <Icon component={SourceIcon} />
           </li>
