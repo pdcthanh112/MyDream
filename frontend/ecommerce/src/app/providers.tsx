@@ -17,7 +17,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <ConfirmProvider>
-              <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+              <QueryClientProvider client={queryClient}>
+                {children}
+              </QueryClientProvider>
             </ConfirmProvider>
           </PersistGate>
         </Provider>

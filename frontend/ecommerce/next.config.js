@@ -21,8 +21,8 @@ module.exports = {
     ];
   },
   i18n: {
-    locales: ['en', 'vi', 'de'],
-    defaultLocale: 'en',
+    locales: ['en-US', 'vi-VN', 'zn-CN', 'es-ES'],
+    defaultLocale: 'en-US',
   },
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,

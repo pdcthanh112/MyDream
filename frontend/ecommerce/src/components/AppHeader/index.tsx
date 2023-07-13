@@ -16,6 +16,7 @@ import DefaultImage from '@assets/images/default-image.jpg';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Cartmodal from '@components/CartModal';
+import ChangeLanguage from '@components/ChangeLanguage';
 
 export default function AppHeader() {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
@@ -48,7 +49,10 @@ export default function AppHeader() {
           <SearchIcon className="!w-14 !h-10 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-r-md" />
         </div>
 
+
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
+          <ChangeLanguage/>
+
           <div className="relative inline-block group">
             <div className="hover:cursor-pointer">
               {currentUser ? <>Hello, Thanh</> : <>Welcome</>}

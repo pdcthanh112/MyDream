@@ -1,6 +1,6 @@
 'use client';
 import React, { ReactNode } from 'react';
-import './globals.css';
+import '@styles/globals.css';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
 import Providers from './providers';
@@ -33,9 +33,15 @@ const FooterComponent = styled.div`
   width: 100%;
 `;
 
-export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
+type RootLayoutProps = {
+  children: ReactNode;
+  params: { locale: string };
+};
+
+export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
   return (
     <html lang="en">
+      {/* <html lang={locale}> */}
       <body className={inter.className}>
         <Metadata />
         <Providers>
