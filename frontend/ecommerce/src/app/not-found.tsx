@@ -6,8 +6,8 @@ export default function NotFound() {
   return (
     <html lang="en">
       <body>
-        thanh
-        <Error statusCode={404} />
+        thanh, loiiiiiiiiiiiiiiiiiiiiiiiii
+        {/* <Error statusCode={404} /> */}
       </body>
     </html>
   );
