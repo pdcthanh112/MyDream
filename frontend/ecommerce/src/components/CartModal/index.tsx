@@ -15,7 +15,7 @@ import Image from 'next/image';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Button from '@components/Button';
 
-export default function Cartmodal() {
+export default function CartModal() {
   const router = useRouter();
 
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);

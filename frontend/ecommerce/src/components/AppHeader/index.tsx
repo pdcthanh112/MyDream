@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
 import { logout } from '@redux/features/authSlice';
 import CartIcon from '@assets/icons/cart-icon.png';
+import NotificationIcon from '@assets/icons/notification.png';
 import { Customer } from 'models/CustomerModel';
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
@@ -15,8 +16,9 @@ import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import Cartmodal from '@components/CartModal';
+import CartModal from '@components/CartModal';
 import ChangeLanguage from '@components/ChangeLanguage';
+import NotificationModal from '@components/NotificationModal';
 
 export default function AppHeader() {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
@@ -52,6 +54,29 @@ export default function AppHeader() {
 
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
           <ChangeLanguage/>
+
+
+          <div className="flex items-start justify-center relative group">
+            <Image src={CartIcon} alt={''} width={32} onClick={() => router.push('/cart')} className='hover:cursor-pointer'/>
+            <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p>
+            <span className="absolute -top-1 right-5 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
+
+            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+              <CartModal />
+            </Card>
+          </div>
+
+          <div className="flex items-start justify-center relative group">
+            <Image src={NotificationIcon} alt={''} width={32} onClick={() => router.push('/cart')} className='hover:cursor-pointer'/>
+            {/* <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p> */}
+            <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
+
+            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+              <NotificationModal />
+            </Card>
+          </div>
+
+
 
           <div className="relative inline-block group">
             <div className="hover:cursor-pointer">
@@ -108,15 +133,7 @@ export default function AppHeader() {
             </Card>
           </div>
 
-          <div className="flex items-start justify-center relative group">
-            <Image src={CartIcon} alt={''} width={32} onClick={() => router.push('/cart')} className='hover:cursor-pointer'/>
-            <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p>
-            <span className="absolute -top-1 right-4 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
-
-            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-              <Cartmodal />
-            </Card>
-          </div>
+         
         </div>
       </div>
     </header>

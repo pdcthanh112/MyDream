@@ -17,7 +17,7 @@ export default function ChangeLanguage() {
               control={<Radio size="small" />}
               label={
                 <div className="flex items-center">
-                  <Image src={USFlag} alt={''} width={30} />
+                  <Image src={USFlag} alt={''} width={25} />
                   <span className="ml-3">en-US</span>
                 </div>
               }
@@ -27,7 +27,7 @@ export default function ChangeLanguage() {
               control={<Radio size="small" />}
               label={
                 <div className="flex items-center">
-                  <Image src={VNFlag} alt={''} width={30} />
+                  <Image src={VNFlag} alt={''} width={25} />
                   <span className="ml-3">vi-VN</span>
                 </div>
               }
@@ -37,8 +37,8 @@ export default function ChangeLanguage() {
               control={<Radio size="small" />}
               label={
                 <div className="flex items-center">
-                  <Image src={CNFlag} alt={''} width={30} />
-                  <span className="ml-3">zn-CN</span>
+                  <Image src={CNFlag} alt={''} width={25} />
+                  <span className="ml-3">zh-CN</span>
                 </div>
               }
             />
@@ -47,7 +47,7 @@ export default function ChangeLanguage() {
               control={<Radio size="small" />}
               label={
                 <div className="flex items-center">
-                  <Image src={ESFlag} alt={''} width={30} />
+                  <Image src={ESFlag} alt={''} width={25} />
                   <span className="ml-3">es-ES</span>
                 </div>
               }
