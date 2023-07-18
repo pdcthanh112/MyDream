@@ -17,6 +17,8 @@ public class NotificationDTO {
 
     private String customer;
 
+    private String title;
+
     private String content;
 
     private Timestamp createdDate;

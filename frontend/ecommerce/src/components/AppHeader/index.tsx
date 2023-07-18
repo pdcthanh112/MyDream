@@ -71,7 +71,7 @@ export default function AppHeader() {
             {/* <p className="hidden md:inline font-extrabold md:text-sm mt-3">Cart</p> */}
             <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
 
-            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
+            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[120rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
               <NotificationModal />
             </Card>
           </div>
