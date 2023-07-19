@@ -76,7 +76,8 @@ class _AddressScreenState extends State<AddressScreen> {
   void payPressed(String addressFromProvider) {
     addressToBeUsed = "";
 
-    bool isForm = flatBuildingController.text.isNotEmpty || areaController.text.isNotEmpty || pincodeController.text.isNotEmpty || cityController.text.isNotEmpty;
+    bool isForm =
+        flatBuildingController.text.isNotEmpty || areaController.text.isNotEmpty || pincodeController.text.isNotEmpty || cityController.text.isNotEmpty;
 
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
@@ -186,7 +187,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 onPaymentResult: onGooglePayResult,
                 paymentItems: paymentItems,
                 height: 50,
-                style: GooglePayButtonStyle.black,
+                // style: GooglePayButtonStyle.black,
                 type: GooglePayButtonType.buy,
                 margin: const EdgeInsets.only(top: 15),
                 loadingIndicator: const Center(
