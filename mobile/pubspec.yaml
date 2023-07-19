@@ -73,7 +73,7 @@ flutter:
     assets:
     - assets/images/
     - assets/applepay.json
-    - assets/gpay.json
+    - assets/googlepay.json
   #   - images/a_dot_ham.jpeg
 
   # assets:
