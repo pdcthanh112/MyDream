@@ -1,10 +1,7 @@
 import axiosConfig from '@config/axiosConfig';
 
 export const getAllProduct = async (page?: number, limit?: number) => {
-  const url =
-    page !== undefined && limit !== undefined
-      ? `product/getAll?page=${page}&limit=${limit}`
-      : 'product/getAll';
+  const url = page !== undefined && limit !== undefined ? `product/getAll?page=${page}&limit=${limit}` : 'product/getAll';
   return await axiosConfig
     .get(url)
     .then((response) => response.data)

@@ -1,5 +1,5 @@
 'use client';
-import { type ReactElement, useState } from 'react';
+import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
 import { Card, Icon } from '@mui/material';

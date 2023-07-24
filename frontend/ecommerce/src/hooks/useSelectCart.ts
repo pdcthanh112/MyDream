@@ -1,8 +1,29 @@
-import {useState} from 'react'
+// import React from 'react';
+// import useSelectCart from './useSelectCart';
 
-const useSelectCart = () => {
+// const CartSelection = () => {
+//   const { cart, loading, error, selectedItemId, handleSelectItem } = useSelectCart();
 
-    const [cart, setCart] = useState()
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>Error :(</p>;
 
-    return cart;
-}
+//   return (
+//     <div>
+//       {cart && cart.map((item) => (
+//         <div key={item.id}>
+//           <input
+//             type="radio"
+//             id={item.id}
+//             value={item.id}
+//             checked={selectedItemId === item.id}
+//             onChange={() => handleSelectItem(item.id)}
+//           />
+//           <label htmlFor={item.id}>{item.name}</label>
+//         </div>
+//       ))}
+//       {selectedItemId && <p>Selected Item ID: {selectedItemId}</p>}
+//     </div>
+//   );
+// };
+
+// export default CartSelection;
