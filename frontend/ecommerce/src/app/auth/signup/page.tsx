@@ -6,7 +6,7 @@ import { SignupForm } from 'models/CustomerModel';
 import { Autocomplete, TextField, Icon, Card } from '@mui/material';
 import { genderData } from '@utils/constants/dropdownData';
 import Button from '@components/Button';
-import {Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon} from '@mui/icons-material';
+import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
 import Link from 'next/link';
 
 interface InputComponentProps {
@@ -20,13 +20,13 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   return (
     <div className={`mb-3 h-20 ${element.className}`}>
       <h5 className="font-medium">{element.title}</h5>
-      <div className={`${element.error ? 'bg-red-100' : ''}`}>{element.children}</div>
+      <div className={`${element.error && 'bg-red-100'}`}>{element.children}</div>
       <span className="text-red-500">{element.error}</span>
     </div>
   );
 };
 
-export default function Signup () {
+export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<SignupForm>();
@@ -66,7 +66,7 @@ export default function Signup () {
                     required: 'Email is require',
                   })}
                   placeholder="Enter your email"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.email ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.email && 'bg-red-100'}`}
                 />
               </InputField>
             </InputComponent>
@@ -79,7 +79,7 @@ export default function Signup () {
                     required: 'Name is require',
                   })}
                   placeholder="Enter your fullname"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.name ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.name && 'bg-red-100'}`}
                 />
               </InputField>
             </InputComponent>
@@ -96,7 +96,7 @@ export default function Signup () {
                     maxLength: { value: 32, message: 'Password must be 8 - 32 digit' },
                   })}
                   placeholder="Enter your password"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.password ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.password && 'bg-red-100'}`}
                 />
                 <Icon
                   component={showPassword ? VisibilityIcon : VisibilityOffIcon}
@@ -116,7 +116,7 @@ export default function Signup () {
                     validate: (value) => value === watch('password') || 'Confirm do not match',
                   })}
                   placeholder="Enter your confirm"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.confirm ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.confirm && 'bg-red-100'}`}
                 />
                 <Icon
                   component={showPassword ? VisibilityIcon : VisibilityOffIcon}
@@ -137,7 +137,7 @@ export default function Signup () {
                     required: 'Phone is require',
                   })}
                   placeholder="Enter your phone number"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone && 'bg-red-100'}`}
                 />
               </InputField>
             </InputComponent>
@@ -153,7 +153,7 @@ export default function Signup () {
                 onInputChange={(event, value) => {
                   setValue('gender', value);
                 }}
-                // {...register('gender')}
+              // {...register('gender')}
               />
               {/* </InputField> */}
             </InputComponent>
@@ -163,7 +163,7 @@ export default function Signup () {
                   type="date"
                   {...register('dob')}
                   // placeholder="Enter your phone number"
-                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.dob ? 'bg-red-100' : ''}`}
+                  className={`focus:outline-none ml-3 w-[100%] ${formState.errors.dob && 'bg-red-100'}`}
                 />
               </InputField>
             </InputComponent>
@@ -176,7 +176,7 @@ export default function Signup () {
                   required: 'Name is require',
                 })}
                 placeholder="Enter your address"
-                className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address ? 'bg-red-100' : ''}`}
+                className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address && 'bg-red-100'}`}
               />
             </InputField>
           </InputComponent>

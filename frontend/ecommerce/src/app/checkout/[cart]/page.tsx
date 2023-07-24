@@ -30,13 +30,14 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   return (
     <div className={`mb-3 h-20 ${element.className}`}>
       <h5 className="font-medium">{element.title}</h5>
-      <div className={`${element.error ? 'bg-red-100' : ''}`}>{element.children}</div>
+      <div className={`${element.error && 'bg-red-100'}`}>{element.children}</div>
       <span className="text-red-500">{element.error}</span>
     </div>
   );
 };
 
-export default function Checkout () {
+export default function Checkout() {
+
   const currentUser = useAppSelector((state) => state.auth.login.currentUser);
 
   const param = useParams();
@@ -163,7 +164,7 @@ export default function Checkout () {
                         required: 'Address is require',
                       })}
                       placeholder="Enter your address"
-                      className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address ? 'bg-red-100' : ''}`}
+                      className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address && 'bg-red-100'}`}
                     />
                   </InputField>
                 </InputComponent>
@@ -177,7 +178,7 @@ export default function Checkout () {
                           required: 'Phone is require',
                         })}
                         placeholder="Enter your phone number"
-                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone ? 'bg-red-100' : ''}`}
+                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone && 'bg-red-100'}`}
                       />
                     </InputField>
                   </InputComponent>
@@ -190,7 +191,7 @@ export default function Checkout () {
                           required: 'Address is require',
                         })}
                         placeholder="Enter zip code"
-                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address ? 'bg-red-100' : ''}`}
+                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address && 'bg-red-100'}`}
                       />
                     </InputField>
                   </InputComponent>
@@ -301,6 +302,16 @@ export default function Checkout () {
                           </InputField>
                         </InputComponent>
                       </div>
+                      <InputComponent title="Name on card" error={formState.errors.address?.message} className="">
+                        <InputField>
+                          <input {...register('name', {
+                            required: 'Name is require',
+                          })}
+                            placeholder="Enter name on card"
+                            className={`focus:outline-none ml-3 w-[100%] ${formState.errors.name && 'bg-red-100'}`}
+                          />
+                        </InputField>
+                      </InputComponent>
                       <InputComponent title={'CCV'} className="w-[30%]">
                         <InputField>
                           <PatternFormat format="###" allowEmptyFormatting mask="X" className="focus:outline-none" style={{ width: 80, opacity: 0.6 }} />

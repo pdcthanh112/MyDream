@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Button from '@components/Button';
 import { GoogleLogin } from '@react-oauth/google';
 import LoginFacebook from '@assets/images/facebook-login-button.png';
-import {Email as EmailIcon, Lock as LockIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon} from '@mui/icons-material';
+import { Email as EmailIcon, Lock as LockIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { login } from '@redux/features/authSlice';
 import { LoginForm } from 'models/CustomerModel';
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
 
-export default function Login () {
+export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useRouter();
 
@@ -50,7 +50,7 @@ export default function Login () {
         <h1 className="bg-green-300 text-white text-xl px-8 py-3">Welcome to CongThanh Ecommerce</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="h-16">
-            <InputField className={formState.errors.email ? 'bg-red-100' : ''}>
+            <InputField className={formState.errors.email && 'bg-red-100'}>
               <Icon component={EmailIcon} />
               <input
                 type="email"
@@ -58,13 +58,13 @@ export default function Login () {
                   required: 'Email is require',
                 })}
                 placeholder="Enter your email"
-                className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.email ? 'bg-red-100' : ''}`}
+                className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.email && 'bg-red-100'}`}
               />
             </InputField>
             {formState.errors.email && <span className="text-red-500">{formState.errors.email.message}</span>}
           </div>
           <div className="h-16">
-            <InputField className={formState.errors.password ? 'bg-red-100' : ''}>
+            <InputField className={formState.errors.password && 'bg-red-100'}>
               <Icon component={LockIcon} />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -72,7 +72,7 @@ export default function Login () {
                   required: 'Password is require',
                 })}
                 placeholder="Enter your password"
-                className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.password ? 'bg-red-100' : ''}`}
+                className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.password && 'bg-red-100'}`}
               />
               <Icon
                 component={showPassword ? VisibilityIcon : VisibilityOffIcon}
