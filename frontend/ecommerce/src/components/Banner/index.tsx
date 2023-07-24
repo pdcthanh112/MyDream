@@ -1,14 +1,15 @@
-'use client'
+// 'use client'
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Image from 'next/image';
-import Daisy1 from '@assets/images/daisy1.jpg';
-import Daisy2 from '@assets/images/daisy2.jpg';
-import Daisy3 from '@assets/images/daisy3.jpg';
-import Daisy4 from '@assets/images/daisy4.jpg';
-import Daisy5 from '@assets/images/daisy5.jpg';
+import Banner1 from '@assets/images/banner1.jpg';
+import Banner2 from '@assets/images/banner2.jpg';
+import Banner3 from '@assets/images/banner3.jpg';
 
 export default function Banner() {
+
+const carousel = [Banner1, Banner2, Banner3]
+
   return (
     <div className="relative">
       <div className='absolute w-full bg-gradient-to-t from-gray-100 to-transparent bottom-0 z-20'/>
@@ -20,46 +21,16 @@ export default function Banner() {
         showIndicators={false}
         interval={5000}
       >
-        <div>
+        {carousel.map((item) => (
+          <div key={1}>
           <Image
-            src={Daisy1}
+            src={item}
             alt="Banner"
             loading="lazy"
-            style={{ width: 1500, height: 500 }}
+            style={{ width: 1450, height: 450 }}
           />
         </div>
-        <div>
-          <Image
-            src={Daisy2}
-            alt="Banner"
-            loading="lazy"
-            style={{ width: 1500, height: 500 }}
-          />
-        </div>
-        <div>
-          <Image
-            src={Daisy3}
-            alt="Banner"
-            loading="lazy"
-            style={{ width: 1500, height: 500 }}
-          />
-        </div>
-        <div>
-          <Image
-            src={Daisy4}
-            alt="Banner"
-            loading="lazy"
-            style={{ width: 1500, height: 500 }}
-          />
-        </div>
-        <div>
-          <Image
-            src={Daisy5}
-            alt="Banner"
-            loading="lazy"
-            style={{ width: 1500, height: 500 }}
-          />
-        </div>
+        ))}
       </Carousel>
     </div>
   );

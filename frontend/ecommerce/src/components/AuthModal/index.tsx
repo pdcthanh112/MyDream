@@ -3,17 +3,15 @@ import { useState, ReactNode } from 'react';
 import './style.scss';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Modal, Box, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginForm, SignupForm } from 'models/CustomerModel';
 import { useAppDispatch } from '@redux/store';
 import { login } from '@redux/features/authSlice';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CloseIcon from '@mui/icons-material/Close';
+import {Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon, Close as CloseIcon} from '@mui/icons-material';
 import Button from '@components/Button';
 import AppLogo from '@assets/images/app-logo.png';
-import Link from 'next/link';
 
 interface InputComponentProps {
   title: string;

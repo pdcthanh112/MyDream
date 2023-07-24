@@ -24,9 +24,9 @@ export default function Home() {
   });
 
   return (
-    <div className="max-w-screen-2xl mx-auto">
+    <div className="mx-auto">
       <Banner />
-      <div className="mx-auto w-[80%]">
+      <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} />
         <div className='flex justify-end'>
         <Pagination

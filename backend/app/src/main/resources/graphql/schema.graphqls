@@ -1,0 +1,53 @@
+type Query {
+    product: [Product]
+    category: [Category]
+    subcategory: [Subcategory]
+    cart: [Cart]
+    appData: AppData
+}
+
+union AppData = Category | Subcategory
+
+type Product {
+    id: ID!
+    name: String!
+    category: Category
+    subcategory: Subcategory
+    quantity: Int
+    price: Float
+    production: String
+    sold: Int
+    image: String
+    description: String
+    ratingVote: Int
+    ratingValue: Float
+    status: String
+}
+
+type Category {
+    id: ID!
+    name: String!
+}
+
+type Subcategory {
+    id: ID!
+    name: String!
+    category: Category
+}
+
+type Cart {
+    id: ID!
+    name: String
+    createdDate: String
+    customerId: String
+    status: String
+    cartItems: [CartItem]
+}
+
+type CartItem {
+    id: ID!
+    quantity: Int
+    product: Product
+    cartId: String
+    createdDate: String
+}

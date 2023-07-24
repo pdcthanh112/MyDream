@@ -4,8 +4,10 @@ import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CartDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.entity.ecommerce.Cart;
+import com.congthanh.project.repository.ecommerce.CartRepository;
 import com.congthanh.project.service.ecommerce.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/ecommerce/cart")
 public class CartController {
+
+    @Autowired
+    private CartRepository cartRepository;
 
     @Autowired
     private CartService cartService;
@@ -56,5 +61,10 @@ public class CartController {
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Delete successfully");
         return ResponseEntity.ok().body(response);
+    }
+
+    @QueryMapping(value = "cart")
+    List<Cart> carts() {
+        return cartRepository.findAll();
     }
 }

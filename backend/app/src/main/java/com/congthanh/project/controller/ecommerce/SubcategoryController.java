@@ -3,11 +3,12 @@ package com.congthanh.project.controller.ecommerce;
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.Response;
-import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Subcategory;
+import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.SubcategoryService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/ecommerce/subcategory")
 public class SubcategoryController {
+
+    @Autowired
+    private SubcategoryRepository subcategoryRepository;
 
     @Autowired
     private SubcategoryService subcategoryService;
@@ -63,5 +67,10 @@ public class SubcategoryController {
         response.setMessage("get successfully");
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         return ResponseEntity.ok().body(response);
+    }
+
+    @QueryMapping(value = "subcategory")
+    List<Subcategory> subcategories() {
+        return subcategoryRepository.findAll();
     }
 }

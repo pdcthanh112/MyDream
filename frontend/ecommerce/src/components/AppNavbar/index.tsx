@@ -1,10 +1,9 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import MenuIcon from '@mui/icons-material/Menu';
 import AppSidebar from '@components/AppSidebar';
 import { Icon } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import {Menu as MenuIcon, Close as CloseIcon} from '@mui/icons-material';
 
 export default function AppNavbar() {
 

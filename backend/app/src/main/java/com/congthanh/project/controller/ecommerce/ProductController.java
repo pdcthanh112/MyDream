@@ -5,9 +5,11 @@ import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/ecommerce/product")
 public class ProductController {
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private ProductService productService;
@@ -90,5 +95,10 @@ public class ProductController {
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get successfully");
         return ResponseEntity.ok().body(response);
+    }
+
+    @QueryMapping(value = "product")
+    List<Product> products() {
+        return productRepository.findAll();
     }
 }

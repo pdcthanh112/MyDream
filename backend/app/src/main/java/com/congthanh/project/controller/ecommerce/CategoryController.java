@@ -2,13 +2,13 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
-import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.Response;
-import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
+import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.service.ecommerce.CategoryService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +19,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/ecommerce/category")
 public class CategoryController {
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private CategoryService categoryService;
@@ -58,4 +61,8 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
     }
 
+    @QueryMapping(value = "category")
+    List<Category> categories() {
+        return categoryRepository.findAll();
+    }
 }
