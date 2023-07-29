@@ -12,7 +12,7 @@ import LoginFacebook from '@assets/images/facebook-login-button.png';
 import { Email as EmailIcon, Lock as LockIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { login } from '@redux/features/authSlice';
-import { LoginForm } from 'models/CustomerModel';
+import { LoginForm } from '@models/CustomerModel';
 import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';

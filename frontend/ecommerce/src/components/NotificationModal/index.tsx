@@ -1,8 +1,9 @@
 import { useAppSelector } from '@redux/store';
-import { Customer } from 'models/CustomerModel';
+import { Customer } from '@models/CustomerModel';
 import { useQuery } from '@tanstack/react-query';
 import { getNotificationByCustomer } from '@apis/notificationApi';
-import { Notification } from 'models/NotificationModel';
+import { Notification } from '@models/NotificationModel';
+
 
 export default function NotificationModal() {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);

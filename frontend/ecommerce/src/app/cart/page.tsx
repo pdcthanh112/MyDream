@@ -2,12 +2,12 @@
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
-import { Cart } from 'models/CartModel';
-import { CartItem as ICartItem } from 'models/CartItemModel';
+import { Cart } from '@models/CartModel';
+import { CartItem as ICartItem } from '@models/CartItemModel';
 import CartItem from './CartItem';
 import { Card } from '@mui/material';
 import Button from '@components/Button';
-import { Customer } from 'models/CustomerModel';
+import { Customer } from '@models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/navigation';
 

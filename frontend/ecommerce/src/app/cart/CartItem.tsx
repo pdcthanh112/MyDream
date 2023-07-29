@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItem } from 'models/CartItemModel';
+import { CartItem } from '@models/CartItemModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
 import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartItemApi';

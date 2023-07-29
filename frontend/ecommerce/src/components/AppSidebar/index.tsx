@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
 import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
-import { Customer } from 'models/CustomerModel';
-import { AppData, Category, Subcategory } from 'models/AppDataModel';
+import { Customer } from '@models/CustomerModel';
+import { AppData, Category, Subcategory } from '@models/AppDataModel';
 import { motion } from 'framer-motion';
 
 const AppSidebar = () => {
@@ -45,7 +45,7 @@ const AppSidebar = () => {
         {data.category?.map((item: Category) => (
           <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => handleShowSubSidebar(item.id)}>
             <span>{item.name}</span>
-            <Icon component={ArrowForwardIosIcon} />
+            <Icon component={ArrowForwardIosIcon}  fontSize='small'/>
           </div>
         ))}
       </div>
@@ -58,13 +58,13 @@ const AppSidebar = () => {
       {showSubSidebar && (
         <motion.div initial={{ x: -500, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3 }} className="bg-white w-96 h-full top-0 absolute">
           <div className="px-3 py-2 hover:cursor-pointer hover:bg-gray-100 border-b border-b-gray-300" onClick={() => setShowSubSidebar(false)}>
-            <Icon component={ArrowBackIcon} />
+            <Icon component={ArrowBackIcon}/>
             <span className="ml-2">Back</span>
           </div>
           {listSubcategory.map((item: Subcategory) => (
             <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => router.push(`/product/subcategory/${item.id}`)}>
               <span>{item.name}</span>
-              <Icon component={ArrowForwardIosIcon} />
+              <Icon component={ArrowForwardIosIcon}  fontSize='small'/>
             </div>
           ))}
         </motion.div>

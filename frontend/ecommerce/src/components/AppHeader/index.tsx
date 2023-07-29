@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
 import { logout } from '@redux/features/authSlice';
-import { Customer } from 'models/CustomerModel';
+import { Customer } from '@models/CustomerModel';
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
 import AppLogo from '@assets/images/app-logo-removebg.png';

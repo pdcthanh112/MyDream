@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Modal, Box, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginForm, SignupForm } from 'models/CustomerModel';
+import { LoginForm, SignupForm } from '@models/CustomerModel';
 import { useAppDispatch } from '@redux/store';
 import { login } from '@redux/features/authSlice';
 import {Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon, Close as CloseIcon} from '@mui/icons-material';

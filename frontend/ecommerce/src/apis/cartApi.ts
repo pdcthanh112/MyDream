@@ -1,5 +1,5 @@
 import axiosConfig from '@config/axiosConfig';
-import { CreateCartForm } from 'models/CartModel';
+import { CreateCartForm } from '@models/CartModel';
 
 export const createNewCart = async (data: CreateCartForm) => {
   return await axiosConfig

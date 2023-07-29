@@ -1,11 +1,29 @@
-import { Product } from 'models/ProductModel';
+import { Product } from '@models/ProductModel';
 import ProductItemCard from './ProductItemCard';
+import ProductItemCardSkeleton from './ProductItemCard/ProductItemCardSkeleton';
 
 interface ShowListProductProps {
   listProduct: Product[];
+  loading: boolean
 }
-export default function ShowListProduct({ listProduct }: ShowListProductProps) {
-  
+const ShowListProduct = ({ listProduct, loading }: ShowListProductProps): React.ReactElement => {
+
+  if (loading)
+  return (
+    <div className="w-[90%] mx-auto grid gap-4 grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+      <ProductItemCardSkeleton />
+    </div>
+  );
+
   return (
     <div className="grid gap-4 grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {listProduct?.map((product: Product) => (
@@ -14,3 +32,5 @@ export default function ShowListProduct({ listProduct }: ShowListProductProps) {
     </div>
   );
 }
+
+export default ShowListProduct;

@@ -28,7 +28,7 @@
       "@config/*": ["config/*"],
       "@hooks/*": ["hooks/*"],
       "@locales/*": ["locales/*"],
-      "@model/*": ["model/*"],
+      "@models/*": ["models/*"],
       "@pages/*": ["pages/*"],
       "@redux/*": ["redux/*"],
       "@styles/*": ["styles/*"],

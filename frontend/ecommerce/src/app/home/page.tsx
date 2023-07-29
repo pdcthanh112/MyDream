@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import { PaginationParams } from 'models/Request';
+import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 
 const Home: NextPage = (): React.ReactElement => {
@@ -28,7 +28,7 @@ const Home: NextPage = (): React.ReactElement => {
     <div className="mx-auto">
       <Banner />
       <div className="mx-auto mt-3 w-[80%]">
-        <ShowListProduct listProduct={listProduct} />
+        <ShowListProduct listProduct={listProduct} loading={isLoading} />
         <div className='flex justify-end'>
           <Pagination
             count={pagination.totalPage}

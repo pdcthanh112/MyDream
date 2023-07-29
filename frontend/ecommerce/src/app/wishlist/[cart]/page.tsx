@@ -2,9 +2,9 @@
 import { NextPage } from 'next';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
-import { Customer } from 'models/CustomerModel';
+import { Customer } from '@models/CustomerModel';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
-import { Product } from 'models/ProductModel';
+import { Product } from '@models/ProductModel';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
 import Image from 'next/image';
 import DeleteIcon from '@assets/icons/delete-icon.png';
