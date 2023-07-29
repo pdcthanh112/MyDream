@@ -6,7 +6,7 @@ public interface WishlistService {
 
     boolean addProductToWishlist(String customerId, String productId);
 
-    boolean removeProductToWishlist(String customerId, String productId);
+    boolean removeProductFromWishlist(String customerId, String productId);
 
     WishlistDTO getWishlistByCustomer(String customerId);
 

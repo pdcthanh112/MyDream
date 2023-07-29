@@ -5,9 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import { Customer } from '@models/CustomerModel';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
 import { Product } from '@models/ProductModel';
-import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell, Icon } from '@mui/material';
 import Image from 'next/image';
-import DeleteIcon from '@assets/icons/delete-icon.png';
+import { useRouter } from 'next/navigation';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 import Button from '@components/Button';
 import DefaultImage from '@assets/images/default-image.jpg';
 import { stateStatus } from '@utils/constants';
@@ -17,6 +18,8 @@ import { toast } from 'react-toastify';
 const Wishlist: NextPage = (): React.ReactElement => {
 
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+
+  const router = useRouter();
 
   const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userData.accountId).then((response) => response.data));
 
@@ -64,20 +67,17 @@ const Wishlist: NextPage = (): React.ReactElement => {
                   <TableRow key={item.id}>
                     <TableCell component="th" scope="row" style={{ display: 'flex' }}>
                       <Image src={item.image || DefaultImage} alt="Product image" width={100} />
-                      <span style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}>{item.name}</span>
+                      <span style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }} className='hover:cursor-pointer' onClick={() => router.push(`/product/${item.id}`)}>{item.name}</span>
                     </TableCell>
                     <TableCell align="center">{item.category}</TableCell>
                     <TableCell align="center">{item.price}</TableCell>
                     <TableCell align="center">{checkStatus(item.quantity, item.status)}</TableCell>
                     <TableCell align="right" style={{ width: '20%' }}>
                       <div className="flex justify-end">
-                        <Image
-                          src={DeleteIcon}
-                          alt="Delete Icon"
-                          title="Remove item"
-                          width={20}
+                        <Icon
+                          component={DeleteIcon}
                           className="hover:cursor-pointer opacity-50 hover:opacity-100"
-                          // onClick={() => handleDeleteCartItem(item.id)}
+                        // onClick={() => handleDeleteCartItem(item.id)}
                         />
                       </div>
                       <Button className="bg-yellow-400 w-40" onClick={() => handleAddProductToCart(item.id)}>

@@ -28,4 +28,8 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
     @Modifying
     @Query(nativeQuery = true, value = "INSERT INTO wishlist_product (wishlist_id, product_id) VALUES (?1, ?2)")
     int addProductToWishlist(int wishlistId, String productId);
+
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM wishlist_product WHERE product_id = ?1 AND wishlist_id = (SELECT id FROM wishlist WHERE customer = ?2) ")
+    int removeProductFromWishlist(String productId, String customerId);
 }

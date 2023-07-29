@@ -2,7 +2,7 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getProductBySubcategory } from '@apis/productApi';
 import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';

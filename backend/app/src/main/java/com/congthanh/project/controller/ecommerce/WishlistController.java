@@ -34,4 +34,18 @@ public class WishlistController {
         response.setMessage("Add successfully");
         return ResponseEntity.ok().body(response);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Response<String>> removeProductFromWishlist(@RequestParam String customer, @RequestParam String productId) {
+        boolean result = wishlistService.removeProductFromWishlist(customer, productId);
+        if (result) {
+            Response<String> response = new Response();
+            response.setData(null);
+            response.setStatus(ResponseStatus.STATUS_SUCCESS);
+            response.setMessage("Delete successfully");
+            return ResponseEntity.ok().body(response);
+        } else {
+            throw new RuntimeException("Product khong ton tai");
+        }
+    }
 }
