@@ -1,3 +1,4 @@
+import React from 'react';
 import { CartItem } from 'models/CartItemModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
@@ -12,7 +13,7 @@ interface CartItemProps {
   item: CartItem;
 }
 
-export default function CartItem({ item }: CartItemProps) {
+export default function CartItem({ item }: CartItemProps): React.ReactElement {
   const router = useRouter();
   const confirm = useConfirm();
   const queryClient = useQueryClient();

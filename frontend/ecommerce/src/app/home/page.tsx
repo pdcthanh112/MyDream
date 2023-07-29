@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { NextPage } from 'next';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
@@ -7,7 +8,7 @@ import ShowListProduct from '@components/Product/ShowListProduct';
 import { PaginationParams } from 'models/Request';
 import Pagination from '@components/Pagination';
 
-export default function Home() {
+const Home: NextPage = (): React.ReactElement => {
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -29,24 +30,18 @@ export default function Home() {
       <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} />
         <div className='flex justify-end'>
-        <Pagination
-          count={pagination.totalPage}
-          page={pagination.page}
-          onChange={(event: React.ChangeEvent<any>, page: number) => {
-            setPagination({ ...pagination, page: page });
-          }}
-        />
+          <Pagination
+            count={pagination.totalPage}
+            page={pagination.page}
+            onChange={(event: React.ChangeEvent<any>, page: number) => {
+              setPagination({ ...pagination, page: page });
+            }}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const listProduct: Product[] = await getAllProduct().then((response) => response.data);
-//   return {
-//     props: {
-//       listProduct,
-//     },
-//   };
-// };
+export default Home;
+

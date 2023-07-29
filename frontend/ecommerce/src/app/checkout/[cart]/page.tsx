@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from '@apis/cartApi';
@@ -21,7 +21,7 @@ import PaymentMomo from '@assets/icons/payment-momo.png';
 
 interface InputComponentProps {
   title: string;
-  children: ReactNode;
+  children: React.ReactNode;
   error?: any;
   className?: string;
 }
@@ -36,7 +36,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
-export default function Checkout() {
+export default function Checkout(): React.ReactElement {
 
   const currentUser = useAppSelector((state) => state.auth.login.currentUser);
 

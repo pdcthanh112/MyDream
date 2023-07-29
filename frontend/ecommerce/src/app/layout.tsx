@@ -10,11 +10,12 @@ import AppFooter from '@components/AppFooter';
 import AppNavbar from '@components/AppNavbar';
 import styled from 'styled-components';
 
-import { getAppData } from '@apis/appApi';
+// import { getAppData } from '@apis/appApi';
 import { setAppData } from '@redux/features/appDataSlice';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { store } from '@redux/store';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,13 +39,13 @@ type RootLayoutProps = {
   params: { locale: string };
 };
 
-export default function RootLayout({ children }: RootLayoutProps): React.ReactElement {
+const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
   return (
     <html lang="en">
       {/* <html lang={locale}> */}
       <body className={inter.className}>
-        <Metadata />
         <Providers>
+          <Metadata />
           <HeaderComponent>
             <AppHeader />
           </HeaderComponent>
@@ -74,10 +75,8 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
   );
 }
 
-// export const getStaticProps = async () => {
-//   await getAppData().then((response) => {
-//     if (response) {
-//       store.dispatch(setAppData(response));
-//     }
-//   });
-// };
+export default RootLayout;
+
+export const getStaticProps = async () => {
+  store.dispatch(setAppData());
+};

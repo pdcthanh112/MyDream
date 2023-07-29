@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, ReactNode, ReactElement } from 'react';
+import { NextPage } from 'next';
+import { useState, ReactNode } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignupForm } from 'models/CustomerModel';
@@ -26,7 +27,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
-export default function Signup() {
+const Signup: NextPage = (): React.ReactElement => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<SignupForm>();
@@ -189,3 +190,5 @@ export default function Signup() {
     </Card>
   );
 };
+
+export default Signup;

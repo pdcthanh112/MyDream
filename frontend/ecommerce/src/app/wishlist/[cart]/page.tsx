@@ -1,6 +1,5 @@
 'use client'
-import { ReactElement } from 'react';
-import RootLayout from 'app/layout';
+import { NextPage } from 'next';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { Customer } from 'models/CustomerModel';
@@ -15,7 +14,7 @@ import { stateStatus } from '@utils/constants';
 import { addToCart } from '@apis/cartItemApi';
 import { toast } from 'react-toastify';
 
-const Wishlist = () => {
+const Wishlist: NextPage = (): React.ReactElement => {
 
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 

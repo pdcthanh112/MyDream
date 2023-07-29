@@ -1,10 +1,11 @@
+'use client'
 import { getHistoryByCustomer } from '@apis/purchasingApi';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { CheckoutForm } from 'models/CheckoutModel';
 import { Customer } from 'models/CustomerModel';
 
-export default function History() {
+export default function History(): React.ReactElement {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 
   const { data: listCheckout, isLoading } = useQuery(['history'], async () => await getHistoryByCustomer(currentUser.userData.accountId).then((response) => response.data));

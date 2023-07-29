@@ -1,4 +1,5 @@
 'use client';
+import { NextPage } from 'next';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ import ShowListProduct from '@components/Product/ShowListProduct';
 import NotFound from './not-found';
 import ProductItemCardSkeleton from '@components/Product/ProductItemCard/ProductItemCardSkeleton';
 
-export default function ProductBySubcategory() {
+const ProductBySubcategory: NextPage = (): React.ReactElement => {
   const param = useParams();
   const subcategory = param?.subcategory;
 
@@ -60,3 +61,5 @@ export default function ProductBySubcategory() {
     </div>
   );
 }
+
+export default ProductBySubcategory;

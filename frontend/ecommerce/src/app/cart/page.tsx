@@ -1,4 +1,5 @@
 'use client'
+import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import { Cart } from 'models/CartModel';
@@ -10,7 +11,7 @@ import { Customer } from 'models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/navigation';
 
-export default function Cart () {
+const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
@@ -66,4 +67,6 @@ export default function Cart () {
     </div>
   );
 };
+
+export default Cart;
 

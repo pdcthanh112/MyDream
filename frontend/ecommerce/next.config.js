@@ -3,7 +3,8 @@
  */
 module.exports = {
   experimental: {
-    appDir: true
+    appDir: true,
+    // serverActions: true
   },
   reactStrictMode: true,
   compiler: {

@@ -4,7 +4,7 @@ import './AppSidebar.scss';
 import { useRouter } from 'next/navigation';
 import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
-import {ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
+import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
 import { Customer } from 'models/CustomerModel';
 import { AppData, Category, Subcategory } from 'models/AppDataModel';
 import { motion } from 'framer-motion';
@@ -36,8 +36,9 @@ const AppSidebar = () => {
       className="w-96 h-full bg-white border border-black overflow-y-scroll"
     >
       <div className="bg-green-500 flex px-10 py-3 items-center">
-        <Avatar src={currentUser.userData.image || ""} />
-        <span className="text-white font-semibold text-xl ml-3">Hello, {currentUser.userData.name.split(' ')[0] || <>signin</>}</span>
+        <Avatar src={currentUser && currentUser.userData.image} alt={''} />
+        {/* <Image src={currentUser ? currentUser.userData.image : DefaultUser} alt={''} /> */}
+        <span className="text-white font-semibold text-xl ml-3">Hello, {currentUser ? currentUser.userData.name.split(' ')[0] : <>signin</>}</span>
       </div>
       <div className="border-b border-gray-400">
         <h3 className="font-semibold text-lg pl-6">Category</h3>

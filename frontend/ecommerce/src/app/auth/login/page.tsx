@@ -1,4 +1,5 @@
 'use client';
+import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
@@ -17,7 +18,8 @@ import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
 
-export default function Login() {
+const Login: NextPage = (): React.ReactElement => {
+
   const dispatch = useAppDispatch();
   const navigate = useRouter();
 
@@ -121,4 +123,6 @@ export default function Login() {
     </div>
   );
 };
+
+export default Login;
 
