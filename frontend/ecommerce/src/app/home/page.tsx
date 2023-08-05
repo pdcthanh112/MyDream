@@ -9,10 +9,12 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { appWithTranslation } from 'next-i18next';
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 const Home: NextPage = (): React.ReactElement => {
 
   const { t } = useTranslation('common')
+
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -27,7 +29,7 @@ const Home: NextPage = (): React.ReactElement => {
         return result.data.responseList;
       }),
   });
-console.log('RRRRRRRRRRRRRRRRRRRR', t('abc'))
+
   return (
     <div className="mx-auto">
       <Banner />
@@ -49,13 +51,21 @@ console.log('RRRRRRRRRRRRRRRRRRRR', t('abc'))
   );
 }
 
-export async function getStaticProps({ locale }: any) {
+export async function getLanguageData({ locale }: any) {
+  console.log('HOMEEEEEEEEEEEEEEEE', locale)
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }
+// export async function getStaticProps({ locale }: any) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//     },
+//   };
+// }
 
 export default appWithTranslation(Home);
 
