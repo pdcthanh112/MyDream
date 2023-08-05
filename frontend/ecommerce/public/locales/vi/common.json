@@ -1,0 +1,10 @@
+{
+  "abc": "VN",
+  "home": {
+    "title": "VN",
+    "add-to-cart": "Add to Cart",
+    "add-to-wishlist": "Add to Wishlist",
+    "login": "Login",
+    "signup": "Sign up"
+  }
+}

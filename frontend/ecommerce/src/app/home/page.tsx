@@ -8,10 +8,11 @@ import ShowListProduct from '@components/Product/ShowListProduct';
 import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
-
+import { appWithTranslation } from 'next-i18next';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const Home: NextPage = (): React.ReactElement => {
 
-  const { t } = useTranslation('data')
+  const { t } = useTranslation('common')
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -26,11 +27,12 @@ const Home: NextPage = (): React.ReactElement => {
         return result.data.responseList;
       }),
   });
-console.log('RRRRRRRRRRRRRRRRRRRR', t)
+console.log('RRRRRRRRRRRRRRRRRRRR', t('abc'))
   return (
     <div className="mx-auto">
       <Banner />
-      <div>{t('common.title')}</div>
+      <div>{t('home.title')}</div>
+      <div>{t('abc')}</div>
       <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
         <div className='flex justify-end'>
@@ -47,5 +49,13 @@ console.log('RRRRRRRRRRRRRRRRRRRR', t)
   );
 }
 
-export default Home;
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
+
+export default appWithTranslation(Home);
 

@@ -4,7 +4,7 @@ import '@styles/globals.css';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
 import Providers from './providers';
-// import {appWithTranslation} from 'next-i18next'
+import {appWithTranslation} from 'next-i18next'
 
 import AppHeader from '@components/AppHeader';
 import AppFooter from '@components/AppFooter';
@@ -37,10 +37,10 @@ const FooterComponent = styled.div`
 
 type RootLayoutProps = {
   children: ReactNode;
-  params: { locale: string };
+  // params: { locale: string };
 };
 
-const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
+const RootLayout = ({ children }: any): React.ReactElement => {
   return (
     <html lang="en">
       {/* <html lang={locale}> */}
@@ -76,8 +76,9 @@ const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
   );
 }
 
-export default RootLayout;
+export default appWithTranslation(RootLayout);
 
-export const getStaticProps = async () => {
-  store.dispatch(setAppData());
-};
+// export const getStaticProps = async () => {
+//   store.dispatch(setAppData());
+// };
+
