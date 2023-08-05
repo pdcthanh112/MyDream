@@ -7,8 +7,11 @@ import { getAllProduct } from '@apis/productApi';
 import ShowListProduct from '@components/Product/ShowListProduct';
 import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
+import { useTranslation } from 'next-i18next';
 
 const Home: NextPage = (): React.ReactElement => {
+
+  const { t } = useTranslation('data')
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -27,6 +30,7 @@ const Home: NextPage = (): React.ReactElement => {
   return (
     <div className="mx-auto">
       <Banner />
+      <div>{t('common.title')}</div>
       <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
         <div className='flex justify-end'>
