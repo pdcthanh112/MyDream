@@ -26,7 +26,7 @@ const Home: NextPage = (): React.ReactElement => {
         return result.data.responseList;
       }),
   });
-
+console.log('RRRRRRRRRRRRRRRRRRRR', t)
   return (
     <div className="mx-auto">
       <Banner />

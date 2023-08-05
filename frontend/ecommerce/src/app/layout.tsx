@@ -4,6 +4,7 @@ import '@styles/globals.css';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
 import Providers from './providers';
+// import {appWithTranslation} from 'next-i18next'
 
 import AppHeader from '@components/AppHeader';
 import AppFooter from '@components/AppFooter';
