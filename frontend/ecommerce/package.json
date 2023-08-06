@@ -1,6 +1,10 @@
 {
   "name": "ecommerce",
-  "author": {"name": "CongThanh", "email": "pdcthanh112.dev@gmail.com", "url": "http://pdcthanh.dev"},
+  "author": {
+    "name": "CongThanh",
+    "email": "pdcthanh112.dev@gmail.com",
+    "url": "http://pdcthanh.dev"
+  },
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -19,7 +23,7 @@
     "pm2:prod:restart": "pm2 restart congthanhproject-production"
   },
   "husky": {
-    "hooks" : {
+    "hooks": {
       "pre-commit": "lint-staged"
     }
   },
@@ -35,7 +39,6 @@
       "git add"
     ]
   },
-
   "dependencies": {
     "@apollo/client": "^3.7.17",
     "@emotion/react": "^11.11.0",

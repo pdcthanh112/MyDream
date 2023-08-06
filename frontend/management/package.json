@@ -1,7 +1,13 @@
 {
   "name": "ecommerce",
+  "author": {
+    "name": "CongThanh",
+    "email": "pdcthanh112.dev@gmail.com",
+    "url": "http://pdcthanh.dev"
+  },
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -41,7 +47,11 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.46.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "postcss": "^8.4.23",
+    "prettier": "^3.0.1",
     "prop-types": "^15.8.1",
     "sass": "^1.62.1",
     "storybook": "^7.0.22",
