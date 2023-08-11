@@ -1,10 +1,54 @@
 {
-  "abc": "xong",
-  "home": {
+  "common": {
     "title": "CongThanh Ecommerce",
-    "add-to-cart": "Add to Cart",
-    "add-to-wishlist": "Add to Wishlist",
     "login": "Login",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "logout": "Logout",
+    "hello": "Hello",
+    "welcome": "Welcome",
+    "all": "All",
+    "cart": "Cart",
+    "add_to_cart": "Add to Cart",
+    "add_to_wishlist": "Add to Wishlist",
+    "view_detail": "View detail",
+    "manage_profile": "Manage profile",
+    "category": "category",
+    "Category": "Category",
+    "subcategory": "subcategory",
+    "Subcategory": "Subcategory",
+    "available": "available",
+    "sold_out": "Sold out",
+    "checkout": "Checkout",
+    "shipping": "Shipping",
+    "free": "Free"
+  },
+  "header": {
+    "your_shopping": "Your shopping",
+    "view_your_cart": "View your cart",
+    "wishlist": "Wishlist",
+    "history": "History",
+    "your_account": "Your account",
+    "account": "Account",
+    "orders": "Orders",
+    "recommendations": "Recommendations",
+    "browsing_history": "Browsing History",
+    "watchlist": "Watchlist",
+    "account_and_info": "Account & Info"
+  },
+  "product": {
+    "rating": "rating",
+    "quantity": "quantity",
+    "Quantity": "Quantity",
+    "buy_now": "Buy now",
+    "in_stock": "In stock",
+    "sold": "sold",
+    "Sold": "Sold",
+    "product_detail": "product detail",
+    "product_description": "product description"
+  },
+  "cart": {
+    "create_new_cart": "Create new cart",
+    "your_cart": "Your cart",
+    "this_cart_have_no_item": "This cart have no item"
   }
 }
