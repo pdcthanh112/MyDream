@@ -1,20 +1,47 @@
-import type { AppProps } from 'next/app';
-import { appWithTranslation } from 'next-i18next';
+
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-const App = ({ Component, pageProps }: AppProps) => {
+import React from 'react';
+import './../styles/globals.css';
+import App, { AppPropsWithLayout } from 'app/page';
+import { Provider } from 'react-redux';
+import { store, persistor } from '@redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { appWithTranslation } from 'next-i18next';
+import { ConfirmProvider } from 'material-ui-confirm';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { getAppData } from '@apis/appApi';
+// import { setAppData } from '@redux/features/appDataSlice';
+// import 'react-loading-skeleton/dist/skeleton.css';
+
+const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
+  const queryClient = new QueryClient();
+  const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
+
   return (
-    <Component {...pageProps} />
-  )
-};
+    <GoogleOAuthProvider clientId={clientId}>
+      <React.StrictMode>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ConfirmProvider>
+              <QueryClientProvider client={queryClient}>
+                <App Component={Component} pageProps={pageProps} router={router} />
+              </QueryClientProvider>
+            </ConfirmProvider>
+          </PersistGate>
+        </Provider>
+      </React.StrictMode>
+    </GoogleOAuthProvider>
+  );
+}
 
-export default appWithTranslation(App);
+export default appWithTranslation(MyApp);
 
-// export async function getServerSideProps({ locale, req, resolvedUrl }: any) {
-//   // console.log('AAAAAAAAAAAAAAAAAAA', locale);
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ['common'])),
-//     },
-//   };
-// }
+// export const getStaticProps = async () => {
+//   await getAppData().then((response) => {
+//     if (response) {
+//       store.dispatch(setAppData(response));
+//     }
+//   });
+// };

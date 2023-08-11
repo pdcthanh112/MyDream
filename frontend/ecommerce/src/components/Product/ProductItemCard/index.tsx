@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
 import Button from '@components/Button';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { roundNumber } from '@utils/helper';
 import {ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as FavoriteIcon} from '@mui/icons-material';
 import { addToWishlist } from '@apis/wishlistApi';
@@ -11,15 +11,17 @@ import { useAppSelector } from '@redux/store';
 import { addToCart } from '@apis/cartItemApi';
 import AuthModal from '@components/AuthModal';
 import { Customer } from '@models/CustomerModel';
+import { useTranslation } from 'next-i18next';
 
 interface ProductProps {
   product: Product;
 }
 
 export default function ProductItemCard({ product }: ProductProps) {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
 
+  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
+  const { t } = useTranslation('common');
 
   const handleAddToCart = (productId: string) => {
     if (currentUser) {
@@ -43,15 +45,15 @@ export default function ProductItemCard({ product }: ProductProps) {
         <Image src={product.image || Daisy} width={220} alt="Product image" />
         <ul className="w-full h-36 bg-gray-100 absolute -bottom-36 flex flex-col items-end justify-center gap-2 font-semibold px-2 border-l border-r group-hover:bottom-0 duration-700">
           <li className="productLi" onClick={() => handleAddToCart(product.id)}>
-            Add to Cart
+            {t('common.add_to_cart')}
             <Icon component={ShoppingCartIcon} />
           </li>
           <li className="productLi" onClick={() => router.push(`/product/${product.id}`)}>
-            View detail
+            {t('common.view_detail')}
             <Icon component={SourceIcon} />
           </li>
           <li className="productLi" onClick={() => handleAddToWishlist(product.id)}>
-            Add to Wishlist
+            {t('common.add_to_wishlist')}
             <Icon component={FavoriteIcon} />
           </li>
         </ul>
@@ -70,12 +72,12 @@ export default function ProductItemCard({ product }: ProductProps) {
             <span className="ml-1">{product.ratingValue.toFixed(1)}</span>
           </span>
 
-          <span className="mr-1">{roundNumber(product.ratingVote)} rating</span>
+          <span className="mr-1">{roundNumber(product.ratingVote)} {t('product.rating')}</span>
         </div>
 
-        <span className="italic ml-2">Sold: {product.sold}</span>
+        <span className="italic ml-2">{t('product.Sold')}: {product.sold}</span>
 
-        <Button className="w-full bg-yellow-400">Add to Cart</Button>
+        <Button className="w-full bg-yellow-400">{t('common.add_to_cart')}</Button>
       </div>
     </Card>
   );

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
@@ -9,16 +9,20 @@ import { Card } from '@mui/material';
 import Button from '@components/Button';
 import { Customer } from '@models/CustomerModel';
 import { useAppSelector } from '@redux/store';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const router = useRouter();
+  const { t } = useTranslation('common');
+
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
 
   return (
     <div className="w-full">
-      <h1 className="px-5 py-2 mb-3 text-3xl bg-white">Your cart</h1>
+      <h3 className="px-5 py-2 mb-3 text-3xl bg-white">{t('cart.your_cart')}</h3>
       <div className="flex flex-col w-[90%] mx-auto">
         {listCart?.map((cart: Cart) => {
           let countItem: number = 0;
@@ -36,11 +40,11 @@ const Cart: NextPage = (): React.ReactElement => {
                     })}
                   </>
                 ) : (
-                  <div className="flex justify-center">This cart have no item</div>
+                  <div className="flex justify-center">{t('cart.this_cart_have_no_item')}</div>
                 )}
               </Card>
               <Card className="md:w-[20%] ml-4 p-4 relative">
-                <h1 className="font-semibold text-xl">Checkout</h1>
+                <h1 className="font-semibold text-xl">{t('common.checkout')}</h1>
                 {cart.cartItems?.length > 0 && (
                   <>
                     <div className="px-3">
@@ -48,7 +52,7 @@ const Cart: NextPage = (): React.ReactElement => {
                         <span>Items({countItem}):</span> <span>{sumPrice.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
-                        Shipping: <span>Free</span>
+                        {t('common.shipping')}: <span>{t('common.free')}</span>
                       </div>
                     </div>
                     <div className="flex justify-between px-3 absolute bottom-16 border-t-2 border-t-gray-400 w-[85%]">
@@ -70,3 +74,10 @@ const Cart: NextPage = (): React.ReactElement => {
 
 export default Cart;
 
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ['common'])),
+    },
+  };
+}

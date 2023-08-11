@@ -39,7 +39,6 @@ const appDataSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(setAppData.fulfilled, (state, action) => {
-      console.log('RRRRRRRRRRRRRRR', action.payload.subcategory)
       state.category = action.payload.category;
       state.subcategory = action.payload.subcategory;
     });

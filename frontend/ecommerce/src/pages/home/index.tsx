@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +8,6 @@ import ShowListProduct from '@components/Product/ShowListProduct';
 import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
-import { appWithTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Home: NextPage = (): React.ReactElement => {
@@ -33,8 +32,6 @@ const Home: NextPage = (): React.ReactElement => {
   return (
     <div className="mx-auto">
       <Banner />
-      <div>{t('home.title')}</div>
-      <div>{t('abc')}</div>
       <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
         <div className='flex justify-end'>
@@ -51,21 +48,28 @@ const Home: NextPage = (): React.ReactElement => {
   );
 }
 
-export async function getLanguageData({ locale }: any) {
-  console.log('HOMEEEEEEEEEEEEEEEE', locale)
+// export async function getServerSideProps(context: any) {
+//   console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCC', context)
+// // export async function getServerSideProps({ locale, req, resolvedUrl }:any) {
+//   // const { payload, serverRoutes, domain } = await fetchServerConfigs(req, resolvedUrl);
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(context.locale, ['common'])),
+//       // ...payload,
+//       // domain,
+//     },
+//     // ...serverRoutes,
+//   };
+// }
+export async function getServerSideProps(context: any) {
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(context.locale, ['common'])),
     },
   };
 }
-// export async function getStaticProps({ locale }: any) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     },
-//   };
-// }
 
-export default appWithTranslation(Home);
+
+export default Home;
 

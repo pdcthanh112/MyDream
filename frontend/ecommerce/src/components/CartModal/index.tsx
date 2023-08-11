@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Cart, CreateCartForm } from '@models/CartModel';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
 import {Done as DoneIcon, Clear as ClearIcon} from '@mui/icons-material';
 import { Customer } from '@models/CustomerModel';
@@ -13,9 +13,11 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Button from '@components/Button';
+import { useTranslation } from 'next-i18next';
 
 export default function CartModal() {
   const router = useRouter();
+  const { t } = useTranslation('common')
 
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const queryClient = useQueryClient();
@@ -42,7 +44,7 @@ export default function CartModal() {
   return (
     <div className="">
       <div className="flex justify-end mr-5 hover:cursor-pointer hover:underline" onClick={() => setIsCreateCart(true)}>
-        Create new Cart
+        {t('cart.create_new_cart')}
       </div>
       {isCreateCart && (
         <form onSubmit={handleSubmit(onSubmit)}>

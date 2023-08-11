@@ -1,10 +1,10 @@
 {
-  "abc": "VN",
-  "home": {
-    "title": "VN",
-    "add-to-cart": "Add to Cart",
+  "common": {
+    "title": "CongThanh Ecommerce",
+    "add-to-cart": "Thêm vào giỏ hàng",
     "add-to-wishlist": "Add to Wishlist",
-    "login": "Login",
-    "signup": "Sign up"
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "logout": "Đăng xuất"
   }
 }
