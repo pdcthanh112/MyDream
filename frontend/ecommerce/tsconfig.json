@@ -23,6 +23,8 @@
     "paths": {
       "@/*": ["/*"],
       "@apis/*": ["apis/*"],
+      "@app/*": ["app/*"],
+      "@actions/*": ["actions/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
@@ -30,11 +32,12 @@
       "@models/*": ["models/*"],
       "@pages/*": ["pages/*"],
       "@redux/*": ["redux/*"],
+      "@sagas/*": ["sagas/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     },
     "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next-i18next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next-i18next.config.ts"],
   "exclude": ["node_modules"]
 }

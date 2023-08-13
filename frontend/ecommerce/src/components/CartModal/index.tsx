@@ -84,15 +84,15 @@ export default function CartModal() {
               )})}
             </>
           ) : (
-            <div className="flex justify-center">Cart have no item</div>
+            <div className="flex justify-center">{t('cart.this_cart_have_no_item')}</div>
           )}
         </div>
       ))}
 
       <div className="flex justify-between mx-3 my-3">
-        <span>{countItem} items</span>
+        <span>{countItem} item(s)</span>
         <Button className="bg-yellow-400" onClick={() => router.push('/cart')}>
-          View cart
+          {t('cart.view_cart')}
         </Button>
       </div>
     </div>

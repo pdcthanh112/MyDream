@@ -49,17 +49,19 @@ const Cart: NextPage = (): React.ReactElement => {
                   <>
                     <div className="px-3">
                       <div className="flex justify-between">
-                        <span>Items({countItem}):</span> <span>{sumPrice.toFixed(2)}</span>
+                        <span>Items({countItem}):</span>
+                        <span>{sumPrice.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         {t('common.shipping')}: <span>{t('common.free')}</span>
                       </div>
                     </div>
                     <div className="flex justify-between px-3 absolute bottom-16 border-t-2 border-t-gray-400 w-[85%]">
-                      <span>Subtotal:</span> <span>{sumPrice.toFixed(2)}</span>
+                      <span>{t('cart.subtotal')}:</span>
+                      <span>{sumPrice.toFixed(2)}</span>
                     </div>
                     <Button className="absolute bottom-4 w-[88%] bg-yellow-400" onClick={() => router.push(`/checkout/${cart.id}`)}>
-                      Checkout
+                      {t('common.checkout')}
                     </Button>
                   </>
                 )}

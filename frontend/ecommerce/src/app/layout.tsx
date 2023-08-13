@@ -10,23 +10,21 @@ import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// import 'react-loading-skeleton/dist/skeleton.css';
-
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
   const HeaderComponent = styled.div`
-  background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
+    background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
   `;
 
   const BodyComponent = styled.div`
-  width: 100%;
-  min-height: 80vh;
-  display: inline-flex;
+    width: 100%;
+    min-height: 80vh;
+    display: inline-flex;
   `;
 
   const FooterComponent = styled.div`
-  width: 100%;
+    width: 100%;
   `;
 
   return (
@@ -65,5 +63,4 @@ export default function RootLayout({ children }: { children: ReactNode }): React
   );
 }
 
-export const getLayout = (page: React.ReactElement): React.ReactElement => 
-   (<RootLayout>{page}</RootLayout>);
+export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;

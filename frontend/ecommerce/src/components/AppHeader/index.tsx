@@ -14,7 +14,7 @@ import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
 import { Search as SearchIcon, ArrowDropDownOutlined as ArrowDropDownOutlinedIcon, NavigateNext as NavigateNextIcon } from '@mui/icons-material';
 import CartModal from '@components/CartModal';
-import ChangeLanguage from '@components/ChangeLanguage';
+import LanguageSwitcher from '@components/LanguageSwitcher';
 import NotificationModal from '@components/NotificationModal';
 import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
@@ -54,7 +54,7 @@ export default function AppHeader() {
         </div>
 
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <ChangeLanguage />
+          <LanguageSwitcher />
 
           <div className="flex items-start justify-center relative group">
             <ShoppingCartIcon width={32} height={'32'} onClick={() => router.push('/cart')} className="hover:cursor-pointer" />

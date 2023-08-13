@@ -20,7 +20,14 @@
     "sold_out": "Sold out",
     "checkout": "Checkout",
     "shipping": "Shipping",
-    "free": "Free"
+    "free": "Free",
+    "notification": "Notification",
+    "status": "Status",
+    "delete_this_item": "Delete this item", 
+    "in_stock": "In stock",
+    "out_of_stock": "Out of stock",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "header": {
     "your_shopping": "Your shopping",
@@ -35,20 +42,30 @@
     "watchlist": "Watchlist",
     "account_and_info": "Account & Info"
   },
+  "navbar": {
+    "today_deals": "Today Deals",
+    "flash_sale": "Flash sale",
+    "gift_card": "Gift Card",
+    "sell": "Sell"
+  },
   "product": {
     "rating": "rating",
     "quantity": "quantity",
     "Quantity": "Quantity",
     "buy_now": "Buy now",
-    "in_stock": "In stock",
     "sold": "sold",
     "Sold": "Sold",
     "product_detail": "product detail",
-    "product_description": "product description"
+    "product_description": "product description",
+    "price": "Price",
+    "product_name": "Product name"
+
   },
   "cart": {
     "create_new_cart": "Create new cart",
     "your_cart": "Your cart",
-    "this_cart_have_no_item": "This cart have no item"
+    "this_cart_have_no_item": "This cart have no item",
+    "view_cart": "View cart",
+    "subtotal": "Subtotal"
   }
 }
