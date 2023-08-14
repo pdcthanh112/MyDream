@@ -18,6 +18,7 @@ import PaymentAmex from '@assets/icons/payment-amex.png';
 import PaymentJCB from '@assets/icons/payment-jcb.png';
 import PaymentPaypal from '@assets/icons/payment-paypal.png';
 import PaymentMomo from '@assets/icons/payment-momo.png';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface InputComponentProps {
   title: string;
@@ -366,4 +367,12 @@ export default function Checkout(): React.ReactElement {
       )}
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ['common'])),
+    },
+  };
 }

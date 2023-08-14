@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { store } from '@redux/store';
 import { REACT_APP_API_URL } from '@config/index';
 
@@ -10,7 +10,7 @@ const axiosConfig = axios.create({
 });
 
 axiosConfig.interceptors.request.use(
-  (config) => {
+  function (config) {
     if (config.headers) {
       if (!config.headers.Authorization) {
         const token = store.getState().auth.login.currentUser?.token;
@@ -21,16 +21,18 @@ axiosConfig.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  function (error) {
+    return Promise.reject(error);
+  },
 );
 
 axios.interceptors.response.use(
-  function (response) {
+  function (response: AxiosResponse) {
     return response;
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosConfig;

@@ -6,15 +6,17 @@ import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemAp
 import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { Icon } from '@mui/material'
+import { Icon } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { useTranslation } from 'next-i18next';
 
 interface CartItemProps {
   item: CartItem;
 }
 
-export default function CartItem({ item }: CartItemProps): React.ReactElement {
+const CartItem = ({ item }: CartItemProps): React.ReactElement => {
   const router = useRouter();
+  const { t } = useTranslation('common');
   const confirm = useConfirm();
   const queryClient = useQueryClient();
 
@@ -47,13 +49,23 @@ export default function CartItem({ item }: CartItemProps): React.ReactElement {
 
   return (
     <div className=" items-center border border-gray-600 rounded my-2 grid grid-cols-12">
-      <Image src={item.product.image || DefaultImage} alt="Product image" className='col-span-1' width={100} />
+      <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} />
 
-      <div className="ml-3 hover:cursor-pointer col-span-6" onClick={() => router.push(`/product/${item.product.id}`)}>{item.product.name}</div>
+      <div className="ml-3 col-span-6">
+        <span className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.product.id}`)}>
+          {item.product.name}
+        </span>
+      </div>
 
       <div className="flex items-center col-span-2">
         <div className="border-[#cccccc] border-2 flex">
-          <button className="bg-[#f3f3f3] px-2 py-1" title="Decrease" onClick={() => { handleUpdateCartItem(item.id, item.quantity - 1) }} disabled={item.quantity <= 1}>
+          <button
+            className="bg-[#f3f3f3] px-2 py-1"
+            title={t('common.decrease')}
+            onClick={() => {
+              handleUpdateCartItem(item.id, item.quantity - 1);
+            }}
+            disabled={item.quantity <= 1}>
             <Icon component={MinusIcon} />
           </button>
           <input
@@ -62,18 +74,25 @@ export default function CartItem({ item }: CartItemProps): React.ReactElement {
             disabled
             value={item.quantity}
           />
-          <button className="bg-[#f3f3f3] px-2 py-1" title="Increase" onClick={() => { handleUpdateCartItem(item.id, item.quantity + 1) }}>
+          <button
+            className="bg-[#f3f3f3] px-2 py-1"
+            title={t('common.increase')}
+            onClick={() => {
+              handleUpdateCartItem(item.id, item.quantity + 1);
+            }}>
             <Icon component={AddIcon} />
           </button>
         </div>
       </div>
       <div className="flex justify-center col-span-2">
-        <span className='hidden lg:flex'>Total:&nbsp;</span>
+        <span className="hidden lg:flex">Total:&nbsp;</span>
         <span>${(item.quantity * item.product.price).toFixed(2)}</span>
       </div>
       <div className="col-span-1 flex justify-end">
-        <Icon component={DeleteIcon} className='hover:cursor-pointer opacity-50 hover:opacity-100 mr-3' onClick={() => handleDeleteCartItem(item.id)} />
+        <Icon component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" onClick={() => handleDeleteCartItem(item.id)} />
       </div>
     </div>
   );
 }
+
+export default CartItem;

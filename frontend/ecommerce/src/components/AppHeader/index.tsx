@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import './AppHeader.scss';
 import Image from 'next/image';
-import { Card, Avatar, Icon, Modal } from '@mui/material';
+import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
@@ -19,20 +19,19 @@ import NotificationModal from '@components/NotificationModal';
 import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 
-export default function AppHeader() {
+const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const appData = useAppSelector((state) => state.appData);
-
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
 
-  const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
 
   return (
     <header>
       <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
-        <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-6" onClick={() => router.push('/')} />
+        <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" onClick={() => router.push('/')} />
 
         <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
           <span className="bg-gray-300 h-[2.5rem] w-16 rounded-l-md flex justify-center items-center relative group">
@@ -67,35 +66,32 @@ export default function AppHeader() {
           </div>
 
           <div className="flex items-start justify-center relative">
-            <NotificationIcon
-              width={33}
-              height={33}
-              onClick={() => {
-                setOpenNotification(true);
-              }}
-              className="hover:cursor-pointer"
-            />
+            <NotificationIcon width={33} height={33} className="hover:cursor-pointer" onClick={() => setShowNotification(!showNotification)} />
             <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
-
-            <Modal open={openNotification} onClose={() => setOpenNotification(false)}>
-              <Card className="text-[#a4a4a4] text-sm absolute top-14 right-10 py-2 w-[24rem] h-[40rem] overflow-y-scroll">
+            {showNotification && (
+              <Card className=" text-[#a4a4a4] text-sm absolute top-10 -right-32 py-2 w-[24rem] h-[40rem] overflow-y-scroll z-10">
                 <NotificationModal />
               </Card>
-            </Modal>
+            )}
           </div>
-          {/* <div className="flex items-start justify-center relative group">
-            <Image src={NotificationIcon} alt={''} width={32} onClick={() => router.push('/cart')} className='hover:cursor-pointer'/>
-            <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">4</span>
-
-            <Card className="text-[#a4a4a4] text-sm hidden absolute top-8 right-0 py-2 w-[25rem] h-[120rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-              <NotificationModal />
-            </Card>
-          </div> */}
 
           <div className="relative inline-block group">
             <div className="hover:cursor-pointer">
-              {currentUser ? <>{t('common.hello')}, Thanh</> : <>{t('common.welcome')}</>}
-              <p className="font-extrabold md:text-sm">{currentUser ? <>{t('header.account_and_info')}</> : <span onClick={() => router.push('/auth/login')}>{t('common.signin')}</span>}</p>
+              {currentUser ? (
+                <div>
+                  <div>
+                    {t('common.hello')}, {currentUser.userData.name.split(' ').pop()}
+                  </div>
+                  <div className="font-semibold md:text-sm">{t('header.account_and_info')}</div>
+                </div>
+              ) : (
+                <div>
+                  <div>{t('common.welcome')}</div>
+                  <div className="font-semibold md:text-sm" onClick={() => router.push('/auth/login')}>
+                    {t('common.login')} or {t('common.signup')}
+                  </div>
+                </div>
+              )}
             </div>
             <Card className="text-[#a4a4a4] text-sm hidden absolute transform -translate-x-3/4 p-4 w-[30rem] group-hover:block group-hover:z-50">
               {currentUser ? (
@@ -152,4 +148,6 @@ export default function AppHeader() {
       </div>
     </header>
   );
-}
+};
+
+export default AppHeader;

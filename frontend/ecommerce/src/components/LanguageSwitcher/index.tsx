@@ -7,6 +7,7 @@ import ESFlag from '@assets/icons/spain-flag.png';
 import { useRouter } from 'next/router';
 
 export default function ChangeLanguage() {
+
   const router = useRouter();
 
   return (
@@ -70,16 +71,6 @@ export default function ChangeLanguage() {
             />
           </RadioGroup>
         </FormControl>
-        {/* <FormControl>
-  <FormLabel>Colors</FormLabel>
-  <RadioGroup defaultValue="medium" name="radio-buttons-group">
-    <Radio value="primary" label="Primary" color="primary" />
-    <Radio value="neutral" label="Neutral" color="neutral" />
-    <Radio value="danger" label="Danger" color="danger" />
-    <Radio value="success" label="Success" color="success" />
-    <Radio value="warning" label="Warning" color="warning" />
-  </RadioGroup>
-</FormControl> */}
       </Card>
     </div>
   );

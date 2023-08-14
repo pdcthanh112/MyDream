@@ -1,10 +1,10 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Cart, CreateCartForm } from '@models/CartModel';
 import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
-import {Done as DoneIcon, Clear as ClearIcon} from '@mui/icons-material';
+import { Done as DoneIcon, Clear as ClearIcon } from '@mui/icons-material';
 import { Customer } from '@models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { createNewCart, getCartByCustomerId } from '@apis/cartApi';
@@ -12,12 +12,13 @@ import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import DefaultImage from '@assets/images/default-image.jpg';
+import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import Button from '@components/Button';
 import { useTranslation } from 'next-i18next';
 
-export default function CartModal() {
+const CartModal = () => {
   const router = useRouter();
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common');
 
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
   const queryClient = useQueryClient();
@@ -39,7 +40,15 @@ export default function CartModal() {
     mutateCreateCart(data);
   };
 
- let countItem = 0;
+  let countItem = 0;
+
+  if (!currentUser)
+    return (
+      <div className="text-center">
+        <Image src={CartEmptyImage} alt={'Cart empty'} width={200} className="mx-auto mt-10 mb-3" />
+        <div className="text-lg">{t('cart.please_signin_to_view_your_cart')}</div>
+      </div>
+    );
 
   return (
     <div className="">
@@ -67,21 +76,21 @@ export default function CartModal() {
           {cart.cartItems?.length > 0 ? (
             <>
               {cart.cartItems.map((item) => {
-              countItem+=1
-              return (
-                <div
-                  key={item.id}
-                  className="flex justify-between px-5 py-2 hover:bg-gray-100 hover:cursor-pointer"
-                  title={item.product.name}
-                  onClick={() => router.push(`product/${item.product.id}`)}
-                >
-                  <span className="flex items-center">
-                    <Image src={item.product.image || DefaultImage} alt="" width={40} className="border border-gray-300" />
-                    <h4 className="truncate ml-2 w-56">{item.product.name}</h4>
-                  </span>
-                  <span className="text-yellow-500">${item.product.price}</span>
-                </div>
-              )})}
+                countItem += 1;
+                return (
+                  <div
+                    key={item.id}
+                    className="flex justify-between px-5 py-2 hover:bg-gray-100 hover:cursor-pointer"
+                    title={item.product.name}
+                    onClick={() => router.push(`product/${item.product.id}`)}>
+                    <span className="flex items-center">
+                      <Image src={item.product.image || DefaultImage} alt="" width={40} className="border border-gray-300" />
+                      <h4 className="truncate ml-2 w-56">{item.product.name}</h4>
+                    </span>
+                    <span className="text-yellow-500">${item.product.price}</span>
+                  </div>
+                );
+              })}
             </>
           ) : (
             <div className="flex justify-center">{t('cart.this_cart_have_no_item')}</div>
@@ -97,4 +106,6 @@ export default function CartModal() {
       </div>
     </div>
   );
-}
+};
+
+export default CartModal;

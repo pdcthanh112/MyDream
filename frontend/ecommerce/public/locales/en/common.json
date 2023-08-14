@@ -27,7 +27,10 @@
     "in_stock": "In stock",
     "out_of_stock": "Out of stock",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "see_all": "See all",
+    "increase": "Increase",
+    "decrease": "Decrease"
   },
   "header": {
     "your_shopping": "Your shopping",
@@ -66,6 +69,7 @@
     "your_cart": "Your cart",
     "this_cart_have_no_item": "This cart have no item",
     "view_cart": "View cart",
-    "subtotal": "Subtotal"
+    "subtotal": "Subtotal",
+    "please_signin_to_view_your_cart": "Please signin to view your cart"
   }
 }
