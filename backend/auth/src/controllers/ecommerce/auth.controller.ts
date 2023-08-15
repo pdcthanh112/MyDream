@@ -11,10 +11,10 @@ export class AuthController {
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const customerData: CustomerLoginDTO = req.body;
-      const { cookie, findCustomer, tokenData } = await this.service.login(customerData);
-
+      const { cookie, customerWithoutPassword, tokenData } = await this.service.login(customerData);
+      
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: {userData:findCustomer, tokenData}, message: 'login successfully', status: "SUCCESS" });
+      res.status(200).json({ data: { userData: customerWithoutPassword, tokenData }, message: 'login successfully', status: 'SUCCESS' });
     } catch (error) {
       next(error);
     }

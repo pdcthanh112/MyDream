@@ -24,7 +24,6 @@
       "@/*": ["/*"],
       "@apis/*": ["apis/*"],
       "@app/*": ["app/*"],
-      "@actions/*": ["actions/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
@@ -32,7 +31,6 @@
       "@models/*": ["models/*"],
       "@pages/*": ["pages/*"],
       "@redux/*": ["redux/*"],
-      "@sagas/*": ["sagas/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     },

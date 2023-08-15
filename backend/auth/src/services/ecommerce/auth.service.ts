@@ -12,7 +12,6 @@ import { v4 as uuidv4 } from 'uuid';
 const createToken = (customer: Customer): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: customer.id };
   const expiresIn: number = 60 * 60;
-
   const token: string = JWT.sign(dataStoredInToken, SECRET_KEY, { expiresIn });
   return { expiresIn, token };
 };
@@ -23,8 +22,10 @@ const createCookie = (tokenData: TokenData): string => {
 
 @Service()
 export class AuthService {
-  public async login(loginData: CustomerLoginDTO): Promise<{ cookie: string; findCustomer: Customer; tokenData: any }> {
-    const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: loginData.email } });
+  public async login(
+    loginData: CustomerLoginDTO,
+  ): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
+    const findCustomer: Customer = (await MYSQL_DB.Customer.findOne({ where: { email: loginData.email } })).dataValues;
     if (!findCustomer) throw new HttpException(409, `This email ${loginData.email} was not found`);
 
     const findError: LoginError = await MYSQL_DB.LoginError.findOne({ where: { accountId: findCustomer.accountId } });
@@ -36,11 +37,12 @@ export class AuthService {
 
       if (isPasswordMatching) {
         await MYSQL_DB.LoginError.destroy({ where: { accountId: findCustomer.accountId } });
-
-        const tokenData = createToken(findCustomer);
+        const { password, ...customerWithoutPassword } = findCustomer;
+        
+        const tokenData = createToken(customerWithoutPassword);
         const cookie = createCookie(tokenData);
 
-        return { cookie, findCustomer, tokenData };
+        return { cookie, customerWithoutPassword, tokenData };
       } else {
         await MYSQL_DB.LoginError.upsert({
           accountId: findCustomer.accountId,

@@ -41,22 +41,22 @@ const Footer = (): React.ReactElement => {
         <div className="flex justify-center">Connect to me</div>
         <div className="w-full inline-flex justify-center">
           <a href="https://www.facebook.com/pdcthanh112/">
-            <Image src={FacebookIcon} alt="Facebook icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={FacebookIcon} alt="Facebook icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
           <a href="https://www.linkedin.com/in/pdcthanh112dev/">
-            <Image src={LinkedInIcon} alt="LinkedIn icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={LinkedInIcon} alt="LinkedIn icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
           <a href="https://www.linkedin.com/in/pdcthanh112dev/">
-            <Image src={TwitterIcon} alt="Twitter icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={TwitterIcon} alt="Twitter icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
           <a href="https://www.linkedin.com/in/pdcthanh112dev/">
-            <Image src={InstagramIcon} alt="Instagram icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={InstagramIcon} alt="Instagram icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
           <a href="https://www.linkedin.com/in/pdcthanh112dev/">
-            <Image src={YoutubeIcon} alt="Youtube icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={YoutubeIcon} alt="Youtube icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
           <a href="https://github.com/pdcthanh112/">
-            <Image src={GitHubIcon} alt="Youtube icon" style={{ width: "2.5rem", height: "auto" }} className="mx-2" />
+            <Image src={GitHubIcon} alt="Youtube icon" style={{ width: "2rem", height: "auto" }} className="mx-2" />
           </a>
         </div>
         <div className="flex justify-center">&copy;{currentYear} by pdcthanh</div>
@@ -83,20 +83,20 @@ const Footer = (): React.ReactElement => {
         </ul>
       </div>
       <div className="w-[30%]">
-        <div className="flex py-2">
-          <Image src={LocationIcon} alt="Location icon" style={{ width: "1.65rem", height: "auto" }} />
+        <div className="flex items-center py-2">
+          <Image src={LocationIcon} alt="Location icon" style={{ width: "1.2rem", height: "1.2rem" }} />
           <TextStyle className="ml-2">285 CMT8 Street, Ward 12, District 10, Ho Chi Minh City</TextStyle>
         </div>
-        <div className="flex py-2">
-          <Image src={PhoneIcon} alt="Phone icon" style={{ width: "1.65rem", height: "auto" }} />
+        <div className="flex items-center py-2">
+          <Image src={PhoneIcon} alt="Phone icon" style={{ width: "1.2rem", height: "1.2rem" }} />
           <TextStyle className="ml-2">0382-722-849</TextStyle>
         </div>
-        <div className="flex py-2">
-          <Image src={WebsiteIcon} alt="Website icon" style={{ width: "1.65rem", height: "auto" }} />
+        <div className="flex items-center py-2">
+          <Image src={WebsiteIcon} alt="Website icon" style={{ width: "1.2rem", height: "1.2rem" }} />
           <TextStyle className="ml-2">mydream.com.vn</TextStyle>
         </div>
-        <div className="flex py-2">
-          <Image src={EmailIcon} alt="Email icon" style={{ width: "1.65rem", height: "auto" }} />
+        <div className="flex items-center py-2">
+          <Image src={EmailIcon} alt="Email icon" style={{ width: "1.2rem", height: "1.2rem" }} />
           <TextStyle className="ml-2">pdcthanh112.dev@gmail.com</TextStyle>
         </div>
       </div>

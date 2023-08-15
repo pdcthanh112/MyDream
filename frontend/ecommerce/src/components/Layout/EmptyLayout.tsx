@@ -5,8 +5,10 @@ interface LayoutProps {
     children: React.ReactNode
 }
 
-export function EmptyLayout({children} : LayoutProps) {
+const EmptyLayout = ({children} : LayoutProps) => {
   return (
     <div>{children}</div>
   )
 }
+
+export default EmptyLayout;

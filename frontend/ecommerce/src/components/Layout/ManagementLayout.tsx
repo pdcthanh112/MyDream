@@ -5,10 +5,10 @@ interface LayoutProps {
     children: React.ReactNode
 }
 
-const MainLayout = ({children}: LayoutProps) => {
+const ManagementLayout = ({children}: LayoutProps) => {
   return (
     <>{children}</>
   )
 }
 
-export default MainLayout;
+export default ManagementLayout;
