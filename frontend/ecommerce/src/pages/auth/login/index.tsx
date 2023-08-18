@@ -16,12 +16,22 @@ import { LoginForm } from '@models/CustomerModel';
 import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+
+const InputField = styled.div`
+  border: 1px solid #b6b6b6;
+  padding: 0.65rem 1.8rem 0.65rem 0.8rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  position: relative;
+`;
 
 const Login: NextPage = (): React.ReactElement => {
-
+  const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
-  const navigate = useRouter();
+  const router = useRouter();
 
   const { loading } = useSelector((state: RootState) => state.auth.login);
 
@@ -31,18 +41,10 @@ const Login: NextPage = (): React.ReactElement => {
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     dispatch(login(data)).then((res) => {
       if (res.payload.status === 'SUCCESS') {
-        navigate.push('/home');
+        router.push('/home');
       }
     });
   };
-
-  const InputField = styled.div`
-    border: 1px solid #b6b6b6;
-    padding: 0.65rem 1.8rem 0.65rem 0.8rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    position: relative;
-  `;
 
   return (
     <div className="relative">
@@ -78,25 +80,26 @@ const Login: NextPage = (): React.ReactElement => {
               />
               <Icon
                 component={showPassword ? VisibilityIcon : VisibilityOffIcon}
+                titleAccess={showPassword ? t('common.hide_password') : t('common.show_password')}
                 fontSize="small"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 mt-1"
+                className="absolute right-3 mt-1 hover:cursor-pointer"
               />
             </InputField>
             {formState.errors.password && <span className="text-red-500">{formState.errors.password.message}</span>}
           </div>
-          <div className="flex justify-end">Forget password</div>
+          <div className="flex justify-end">{t('login.forgot_password')}</div>
 
           <div className="flex items-center">
             <input type="checkbox" />
-            <span className="ml-2">Remember me</span>
+            <span className="ml-2">{t('login.remember_me')}</span>
           </div>
-          <Button className="w-full bg-yellow-400 mt-5">Login</Button>
+          <Button className="w-full bg-yellow-400 mt-5">{t('common.login')}</Button>
           <BarLoader color="#00FF00" loading={loading} width={440} />
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
-          <span className="mx-4">or</span>
+          <span className="mx-4">{t('common.or')}</span>
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
         </div>
 
@@ -114,9 +117,9 @@ const Login: NextPage = (): React.ReactElement => {
           <Image src={LoginFacebook} alt={''} width={182} className="ml-6" />
         </div>
         <div className="flex justify-center mt-10 text-sm">
-          <span>You don&apos;t have an account?</span>
+          <span>{t('login.you_dont_have_an_account')}</span>
           <Link href={'/auth/signup'} className="hover:text-yellow-600">
-            &nbsp;Register now
+            &nbsp;{t('login.register_now')}
           </Link>
         </div>
       </Card>
@@ -126,3 +129,10 @@ const Login: NextPage = (): React.ReactElement => {
 
 export default Login;
 
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ['common'])),
+    },
+  };
+}
