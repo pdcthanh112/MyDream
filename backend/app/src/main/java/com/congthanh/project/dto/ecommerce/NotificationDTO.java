@@ -21,6 +21,6 @@ public class NotificationDTO {
 
     private String content;
 
-    private Timestamp createdDate;
+    private long createdDate;
 
 }

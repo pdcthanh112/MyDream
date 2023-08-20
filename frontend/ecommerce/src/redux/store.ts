@@ -32,6 +32,7 @@ export const store = configureStore({
       },
       thunk: true,
     }).concat(sagaMiddleware),
+    devTools: true
 });
 
 export let persistor = persistStore(store);

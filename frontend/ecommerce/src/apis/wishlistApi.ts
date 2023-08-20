@@ -1,6 +1,15 @@
 import axiosConfig from '@config/axiosConfig';
 
-export const addToWishlist = async (customerId: string, productId: string) => {
+export const getWishlistByCustomer = async (customerId: string) => {
+  return await axiosConfig
+    .get(`wishlist/getByCustomer?customerId=${customerId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const addProductToWishlist = async (customerId: string, productId: string) => {
   return await axiosConfig
     .post(`wishlist/add?customerId=${customerId}&productId=${productId}`)
     .then((response) => response)
@@ -9,10 +18,13 @@ export const addToWishlist = async (customerId: string, productId: string) => {
     });
 };
 
-export const getWishlistByCustomer = async (customerId: string) => {
+export const removeProductFromWishlist = async (customerId: string, productId: string) => {
   return await axiosConfig
-    .get(`wishlist/getByCustomer?customerId=${customerId}`)
-    .then((response) => response.data)
+    .delete('wishlist/remove', {
+      customer: customerId,
+      productId: productId,
+    })
+    .then((response) => response)
     .catch((error) => {
       throw error;
     });

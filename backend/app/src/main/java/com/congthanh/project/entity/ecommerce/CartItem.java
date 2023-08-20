@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -31,6 +29,6 @@ public class CartItem {
     private Cart cart;
 
     @Column(name = "created_date")
-    private Timestamp createdDate;
+    private long createdDate;
 
 }

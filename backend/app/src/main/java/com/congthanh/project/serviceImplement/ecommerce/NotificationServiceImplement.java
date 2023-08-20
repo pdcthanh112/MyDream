@@ -7,10 +7,8 @@ import com.congthanh.project.service.ecommerce.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +43,7 @@ public class NotificationServiceImplement implements NotificationService {
                 .customer(notificationDTO.getCustomer())
                 .content(notificationDTO.getContent())
                 .title(notificationDTO.getTitle())
-                .createdDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"))))
+                .createdDate(new Date().getTime())
                 .build();
         Notification response = notificationRepository.save(notification);
         return response;

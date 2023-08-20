@@ -1,12 +1,12 @@
 // import * as AC from '../../redux/actions/types/user';
-import * as AC from '../actions/types/user';
+import * as AC from '../actions/name/user';
 import Router from 'next/router';
 // import UserApi from '../apis/api-user';
 import { put, takeEvery, all } from 'redux-saga/effects';
 // import { handleHttpCode } from '../utils/helpers';
-import { GET_USER } from '../actions/types/user';
-import { GET_COMPANY_USERS } from '../actions/types/user';
-import { CART_LIST_FETCH_SUCCESS, CART_SYNC } from '../actions/types/cart';
+import { GET_USER } from '../actions/name/user';
+import { GET_COMPANY_USERS } from '../actions/name/user';
+import { CART_LIST_FETCH_SUCCESS, CART_SYNC } from '../actions/type/cart';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // import { getGuestId } from '../utils/helpers';
 

@@ -15,16 +15,6 @@ public class WishlistController {
     @Autowired
     private WishlistService wishlistService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Response> getProductToWishlist(@RequestParam String customerId, @RequestParam String productId) {
-        wishlistService.addProductToWishlist(customerId, productId);
-        Response<String> response = new Response();
-        response.setData(null);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Add successfully");
-        return ResponseEntity.ok().body(response);
-    }
-
     @GetMapping("/getByCustomer")
     public ResponseEntity<Response<WishlistDTO>> getWishlistByCustomer(@RequestParam String customerId) {
         WishlistDTO data = wishlistService.getWishlistByCustomer(customerId);
@@ -35,7 +25,17 @@ public class WishlistController {
         return ResponseEntity.ok().body(response);
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/add")
+    public ResponseEntity<Response> addProductToWishlist(@RequestParam String customerId, @RequestParam String productId) {
+        wishlistService.addProductToWishlist(customerId, productId);
+        Response<String> response = new Response();
+        response.setData(null);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Add successfully");
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/remove")
     public ResponseEntity<Response<String>> removeProductFromWishlist(@RequestParam String customer, @RequestParam String productId) {
         boolean result = wishlistService.removeProductFromWishlist(customer, productId);
         if (result) {

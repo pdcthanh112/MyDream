@@ -10,9 +10,6 @@ import com.congthanh.project.service.ecommerce.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 
@@ -122,7 +119,7 @@ public class CartServiceImplement implements CartService {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
                 .customerId(cartDTO.getCustomerId())
-                .createdDate(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"))))
+                .createdDate(new Date().getTime())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();
         Cart response = cartRepository.save(cart);

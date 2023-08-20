@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,6 +24,7 @@ public class Notification {
 
     private String content;
 
-    private Timestamp createdDate;
+    @Column(name = "created_date")
+    private long createdDate;
 
 }

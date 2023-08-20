@@ -77,7 +77,7 @@ const Signup: NextPage = (): React.ReactElement => {
 
   const ValidatePasswordForm = () => {
     return (
-      <div>
+      <>
         <div className={`${validated.lengthValidated && 'text-green-500'}`}>
           <Icon component={validated.lengthValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
           <span className="ml-1">{t('signup.8_32_characters')}</span>
@@ -98,15 +98,15 @@ const Signup: NextPage = (): React.ReactElement => {
           <Icon component={validated.specialValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_special_character')}</span>
         </div>
-      </div>
+      </>
     );
   };
   return (
     <Card className="flex items-center justify-center h-[85vh] w-screen bg-gradient-to-tr from-blue-500 to-purple-500">
       <div className="bg-white h-[80%] w-[52%] px-8 py-3">
-        <h1 className="flex justify-center text-2xl font-semibold">{t('signup.register')}</h1>
-        <div className="flex justify-end">
-          <span>{t('signup.you_already_have_an_account')}&nbsp;</span>
+        <h2 className="flex justify-center text-2xl font-semibold font-mono">{t('signup.register')}</h2>
+        <div className="flex justify-end font-mono">
+          <span>{t('signup.you_already_have_an_account')}</span>
           <Link href="/auth/login" className="hover:text-yellow-600 hover:cursor-pointer hover:underline">
             {t('common.login')}
           </Link>

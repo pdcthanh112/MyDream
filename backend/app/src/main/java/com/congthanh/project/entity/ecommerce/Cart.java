@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -30,7 +29,7 @@ public class Cart   {
     private String status;
 
     @Column(name = "created_date")
-    private Timestamp createdDate;
+    private long createdDate;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems;
