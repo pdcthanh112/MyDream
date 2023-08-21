@@ -17,7 +17,7 @@ export const wishlistReducer = (state = initialState, action: WishlistAction) =>
       return { ...state, pending: false, success: true, error: null, data: action.payload };
     }
     case actionName.FETCH_WISHLIST_FAILED: {
-      return { ...state, success: false, error: 'loi' };
+      return { ...state, success: false, error: action.payload.error };
     }
     case actionName.ADD_ITEM_TO_WISHLIST_START: {
       return { ...state, pending: true };
@@ -26,7 +26,7 @@ export const wishlistReducer = (state = initialState, action: WishlistAction) =>
       return { ...state, pending: false, success: true, error: null, data: action.payload };
     }
     case actionName.ADD_ITEM_TO_WISHLIST_FAILED: {
-      return { ...state, success: false, error: 'loi' };
+      return { ...state, success: false, error: action.payload.error };
     }
     case actionName.REMOVE_ITEM_FROM_WISHLIST_START: {
       return { ...state, pending: true };
@@ -35,7 +35,7 @@ export const wishlistReducer = (state = initialState, action: WishlistAction) =>
       return { ...state, pending: false, success: true, error: null, data: action.payload };
     }
     case actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED: {
-      return { ...state, success: false, error: 'loi' };
+      return { ...state, success: false, error: action.payload.error };
     }
     default:
       return state;

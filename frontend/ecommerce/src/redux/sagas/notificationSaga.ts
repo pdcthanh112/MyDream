@@ -4,6 +4,7 @@ import { getNotificationByCustomer } from '@apis/notificationApi';
 
 function* fetchNotification(action: any) {
   try {
+    yield put({type: actionName.FETCH_NOTIFICATION_START})
     yield getNotificationByCustomer(action.payload.customerId)
     yield put({ type: actionName.FETCH_NOTIFICATION_SUCCESS });
   } catch (e) {

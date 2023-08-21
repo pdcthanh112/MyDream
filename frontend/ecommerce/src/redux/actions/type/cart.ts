@@ -1,4 +1,4 @@
-import * as actionName from '@redux/actions/name/cart';
+import * as actionName from '../name/cart';
 import {
   AddToCartFailedPayload,
   AddToCartStartPayload,

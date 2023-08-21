@@ -1,18 +1,13 @@
-import {
-  AddToCartFailed,
-  AddToCartFailedPayload,
-  AddToCartStart,
-  AddToCartStartPayload,
-  AddToCartSuccess,
-  AddToCartSuccessPayload,
-  CreateNewCartFailed,
-  CreateNewCartFailedPayload,
-  CreateNewCartStart,
-  CreateNewCartStartPayload,
-  CreateNewCartSuccess,
-  CreateNewCartSuccessPayload,
-} from './type/cart';
+import { AddToCartFailed, AddToCartStart, AddToCartSuccess, CreateNewCartFailed, CreateNewCartStart, CreateNewCartSuccess } from './type/cart';
 import * as actionName from './name/cart';
+import {
+  AddToCartFailedPayload,
+  AddToCartStartPayload,
+  AddToCartSuccessPayload,
+  CreateNewCartFailedPayload,
+  CreateNewCartStartPayload,
+  CreateNewCartSuccessPayload,
+} from './payload/cart';
 
 export const createNewCartStart = (payload: CreateNewCartStartPayload): CreateNewCartStart => ({
   type: actionName.CREATE_NEW_CART_START,

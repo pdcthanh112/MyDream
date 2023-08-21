@@ -7,6 +7,7 @@ import * as actionName from '../actions/name/cart';
 // ADD TO CART
 function* addToCart(action: any) {
   try {
+    yield put({ type: actionName.ADD_ITEM_TO_CART_START });
     yield put(cartAction.addToCartStart(action.payload));
     // Merge payload
     // yield api.addToCart({ ...action.payload, userId: uId, guestId: gId });

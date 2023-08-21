@@ -1,4 +1,4 @@
-import * as actionName from '@redux/actions/name/wishlist';
+import * as actionName from '../name/wishlist';
 import {
   AddItemToWishlistFailedPayload,
   AddItemToWishlistStartPayload,
