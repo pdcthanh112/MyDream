@@ -1,5 +1,7 @@
-import { WishlistAction, WishlistState } from '@redux/actions/type/wishlist';
+import {  WishlistState } from '@redux/actions/type/wishlist';
 import * as actionName from '@redux/actions/name/wishlist';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { FetchWishlistFailedPayload, FetchWishlistStartPayload, FetchWishlistSuccessPayload } from '@redux/actions/payload/wishlist';
 
 const initialState: WishlistState = {
   pending: false,
@@ -8,36 +10,25 @@ const initialState: WishlistState = {
   data: {},
 };
 
-export const wishlistReducer = (state = initialState, action: WishlistAction) => {
-  switch (action.type) {
-    case actionName.FETCH_WISHLIST_START: {
-      return { ...state, pending: true };
-    }
-    case actionName.FETCH_WISHLIST_SUCCESS: {
-      return { ...state, pending: false, success: true, error: null, data: action.payload };
-    }
-    case actionName.FETCH_WISHLIST_FAILED: {
-      return { ...state, success: false, error: action.payload.error };
-    }
-    case actionName.ADD_ITEM_TO_WISHLIST_START: {
-      return { ...state, pending: true };
-    }
-    case actionName.ADD_ITEM_TO_WISHLIST_SUCCESS: {
-      return { ...state, pending: false, success: true, error: null, data: action.payload };
-    }
-    case actionName.ADD_ITEM_TO_WISHLIST_FAILED: {
-      return { ...state, success: false, error: action.payload.error };
-    }
-    case actionName.REMOVE_ITEM_FROM_WISHLIST_START: {
-      return { ...state, pending: true };
-    }
-    case actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCESS: {
-      return { ...state, pending: false, success: true, error: null, data: action.payload };
-    }
-    case actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED: {
-      return { ...state, success: false, error: action.payload.error };
-    }
-    default:
-      return state;
-  }
-};
+const wishlistSlice = createSlice({
+  name: 'WISHLIST',
+  initialState: initialState,
+  reducers: {
+    FETCH_WISHLIST_START: (state: WishlistState, action: PayloadAction<FetchWishlistStartPayload>) => {
+      state.pending = true;
+    },
+    FETCH_WISHLIST_SUCCESS: (state: WishlistState, action: PayloadAction<FetchWishlistSuccessPayload>) => {
+      state.pending = false;
+      state.success = true;
+      state.data = action.payload.data;
+    },
+    FETCH_WISHLIST_FAILED: (state: WishlistState, action: PayloadAction<FetchWishlistFailedPayload>) => {
+      state.pending = false;
+      state.error = action.payload.error;
+    },
+  },
+});
+
+export const { FETCH_WISHLIST_START, FETCH_WISHLIST_SUCCESS, FETCH_WISHLIST_FAILED } = wishlistSlice.actions;
+export default wishlistSlice.reducer;
+

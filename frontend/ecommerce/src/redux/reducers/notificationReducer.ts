@@ -1,5 +1,7 @@
-import { NotificationAction, NotificationState } from '@redux/actions/type/notification';
+import { NotificationState } from '@redux/actions/type/notification';
 import * as actionName from '@redux/actions/name/notification';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSuccessPayload } from '@redux/actions/payload/notification';
 
 const initialState: NotificationState = {
   pending: false,
@@ -8,18 +10,25 @@ const initialState: NotificationState = {
   data: {},
 };
 
-export const notificationReducer = (state = initialState, action: NotificationAction) => {
-  switch (action.type) {
-    case actionName.FETCH_NOTIFICATION_START: {
-      return { ...state, pending: true };
-    }
-    case actionName.FETCH_NOTIFICATION_SUCCESS: {
-      return { ...state, pending: false, success: true, error: null, data: action.payload };
-    }
-    case actionName.FETCH_NOTIFICATION_FAILED: {
-      return { ...state, success: false, error: 'loi' };
-    }
-    default:
-      return state;
-  }
-};
+const notificationSlice = createSlice({
+  name: 'NOTIFICAION',
+  initialState: initialState,
+  reducers: {
+    FETCH_NOTIFICATION_START: (state: NotificationState, action: PayloadAction<FetchNotificationStartPayload>) => {
+      state.pending = true;
+    },
+    FETCH_NOTIFICATION_SUCCESS: (state: NotificationState, action: PayloadAction<FetchNotificationSuccessPayload>) => {
+      state.pending = false;
+      state.success = true;
+      state.data = action.payload.data;
+    },
+    FETCH_NOTIFICATION_FAILED: (state: NotificationState, action: PayloadAction<FetchNotificationFailedPayload>) => {
+      state.pending = false;
+      state.error = action.payload.error;
+    },
+  },
+});
+
+export const { FETCH_NOTIFICATION_START, FETCH_NOTIFICATION_SUCCESS, FETCH_NOTIFICATION_FAILED } = notificationSlice.actions;
+export default notificationSlice.reducer;
+

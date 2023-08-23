@@ -1,11 +1,11 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { addToCart as addToCartApi} from '@apis/cartItemApi';
+import { addToCart as addToCartApi } from '@apis/cartItemApi';
 import * as cartAction from '../actions/cart';
 import * as actionName from '../actions/name/cart';
-
+import { PayloadAction } from '@reduxjs/toolkit';
 
 // ADD TO CART
-function* addToCart(action: any) {
+function* addToCart(action: PayloadAction<any>) {
   try {
     yield put({ type: actionName.ADD_ITEM_TO_CART_START });
     yield put(cartAction.addToCartStart(action.payload));

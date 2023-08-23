@@ -1,13 +1,13 @@
-import { AddToCartFailed, AddToCartStart, AddToCartSuccess, CreateNewCartFailed, CreateNewCartStart, CreateNewCartSuccess } from './type/cart';
 import * as actionName from './name/cart';
 import {
-  AddToCartFailedPayload,
-  AddToCartStartPayload,
-  AddToCartSuccessPayload,
   CreateNewCartFailedPayload,
   CreateNewCartStartPayload,
   CreateNewCartSuccessPayload,
+  DeleteCartFailedPayload,
+  DeleteCartStartPayload,
+  DeleteCartSuccessPayload,
 } from './payload/cart';
+import { CreateNewCartStart, CreateNewCartSuccess, CreateNewCartFailed, DeleteCartStart, DeleteCartSuccess, DeleteCartFailed } from './type/cart';
 
 export const createNewCartStart = (payload: CreateNewCartStartPayload): CreateNewCartStart => ({
   type: actionName.CREATE_NEW_CART_START,
@@ -24,17 +24,17 @@ export const createNewCartFailed = (payload: CreateNewCartFailedPayload): Create
   payload,
 });
 
-export const addToCartStart = (payload: AddToCartStartPayload): AddToCartStart => ({
-  type: actionName.ADD_ITEM_TO_CART_START,
+export const deleteCartStart = (payload: DeleteCartStartPayload): DeleteCartStart => ({
+  type: actionName.DELETE_CART_START,
   payload,
 });
 
-export const addToCartSuccess = (payload: AddToCartSuccessPayload): AddToCartSuccess => ({
-  type: actionName.ADD_ITEM_TO_CART_SUCCESS,
+export const deleteCartSuccess = (payload: DeleteCartSuccessPayload): DeleteCartSuccess => ({
+  type: actionName.DELETE_CART_SUCCESS,
   payload,
 });
 
-export const addToCartFailed = (payload: AddToCartFailedPayload): AddToCartFailed => ({
-  type: actionName.ADD_ITEM_TO_CART_FAILED,
+export const deleteCartFailed = (payload: DeleteCartFailedPayload): DeleteCartFailed => ({
+  type: actionName.DELETE_CART_FAILED,
   payload,
 });

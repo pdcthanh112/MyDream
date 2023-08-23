@@ -1,10 +1,9 @@
 export interface CreateNewCartStartPayload {
   values: { id: string; name: string };
-  callback: () => void | any;
 }
 
 export interface CreateNewCartSuccessPayload {
-  token: string;
+  data: {};
 }
 
 export interface CreateNewCartFailedPayload {
@@ -12,27 +11,14 @@ export interface CreateNewCartFailedPayload {
 }
 
 export interface DeleteCartStartPayload {
-    values: { id: string };
-    callback: () => void | any;
-  }
-  
-  export interface DeleteCartSuccessPayload {
-    token: string;
-  }
-  
-  export interface DeleteCartFailedPayload {
-    error: string;
-  }
+  values: { id: string };
+}
 
-  export interface AddToCartStartPayload {
-    values: { email: string; password: string };
-    callback: () => void | any;
-  }
-  
-  export interface AddToCartSuccessPayload {
-    token: string;
-  }
-  
-  export interface AddToCartFailedPayload {
-    error: string;
-  }
+export interface DeleteCartSuccessPayload {
+  data: {};
+}
+
+export interface DeleteCartFailedPayload {
+  error: string;
+}
+

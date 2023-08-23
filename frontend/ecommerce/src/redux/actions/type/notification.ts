@@ -22,5 +22,3 @@ export type FetchNotificationFailed = {
   type: typeof actionName.FETCH_NOTIFICATION_FAILED;
   payload: FetchNotificationFailedPayload;
 };
-
-export type NotificationAction = FetchNotificationStart | FetchNotificationSuccess | FetchNotificationFailed;

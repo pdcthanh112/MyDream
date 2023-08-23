@@ -1,8 +1,5 @@
 import * as actionName from '../name/cart';
 import {
-  AddToCartFailedPayload,
-  AddToCartStartPayload,
-  AddToCartSuccessPayload,
   CreateNewCartFailedPayload,
   CreateNewCartStartPayload,
   CreateNewCartSuccessPayload,
@@ -15,6 +12,7 @@ export interface CartState {
   pending: boolean;
   success: boolean;
   error: string | null;
+  data: {};
 }
 
 export type CreateNewCartStart = {
@@ -45,29 +43,3 @@ export type DeleteCartFailed = {
   type: typeof actionName.DELETE_CART_FAILED;
   payload: DeleteCartFailedPayload;
 };
-// add to cart
-export type AddToCartStart = {
-  type: typeof actionName.ADD_ITEM_TO_CART_START;
-  payload: AddToCartStartPayload;
-};
-
-export type AddToCartSuccess = {
-  type: typeof actionName.ADD_ITEM_TO_CART_SUCCESS;
-  payload: AddToCartSuccessPayload;
-};
-
-export type AddToCartFailed = {
-  type: typeof actionName.ADD_ITEM_TO_CART_FAILED;
-  payload: AddToCartFailedPayload;
-};
-
-export type CartAction =
-  | CreateNewCartStart
-  | CreateNewCartSuccess
-  | CreateNewCartFailed
-  | DeleteCartStart
-  | DeleteCartSuccess
-  | DeleteCartFailed
-  | AddToCartStart
-  | AddToCartSuccess
-  | AddToCartFailed;

@@ -62,14 +62,3 @@ export type RemoveItemFromWishlistFailed = {
   type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED;
   payload: RemoveItemFromWishlistFailedPayload;
 };
-
-export type WishlistAction =
-  | FetchWishlistStart
-  | FetchWishlistSuccess
-  | FetchWishlistFailed
-  | AddItemToWishlistStart
-  | AddItemToWishlistSuccess
-  | AddItemToWishlistFailed
-  | RemoveItemFromWishlistStart
-  | RemoveItemFromWishlistSuccess
-  | RemoveItemFromWishlistFailed;

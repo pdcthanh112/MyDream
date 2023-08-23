@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import * as actionName from '../actions/name/notification';
 import { getNotificationByCustomer } from '@apis/notificationApi';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-function* fetchNotification(action: any) {
+function* fetchNotification(action: PayloadAction<any>) {
   try {
     yield put({type: actionName.FETCH_NOTIFICATION_START})
     yield getNotificationByCustomer(action.payload.customerId)
@@ -12,6 +13,6 @@ function* fetchNotification(action: any) {
   }
 }
 
-export const notificationSaga = [
-    takeEvery(actionName.FETCH_NOTIFICATION, fetchNotification),
-];
+export function* notificationSaga() {
+    takeEvery(actionName.FETCH_NOTIFICATION, fetchNotification);
+}
