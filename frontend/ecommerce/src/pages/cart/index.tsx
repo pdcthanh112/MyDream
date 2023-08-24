@@ -1,4 +1,4 @@
-'use client';
+ ;
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';

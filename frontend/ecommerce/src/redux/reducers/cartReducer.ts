@@ -1,5 +1,4 @@
 import { CartState } from '@redux/actions/type/cart';
-import * as actionName from '@redux/actions/name/cart';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
   CreateNewCartFailedPayload,

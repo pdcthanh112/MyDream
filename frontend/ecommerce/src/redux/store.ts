@@ -1,14 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import authReducer from './features/authSlice';
-import appDataReducer from './features/appDataSlice';
-import cartReducer from './features/cartSlice';
+import authReducer from './reducers/authReducer';
+import categoryReducer from './reducers/categoryReducer';
+import cartReducer from './reducers/cartReducer';
+import { getStartedData } from '@utils/helper';
+import wishlistReducer from './reducers/wishlistReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  appData: appDataReducer,
+  category: categoryReducer,
   cart: cartReducer,
+  wishlist: wishlistReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -22,7 +25,8 @@ export const store = configureStore({
       },
       thunk: true,
     }).concat(sagaMiddleware),
-    devTools: true
+  devTools: process.env.NODE_ENV !== 'production',
+  preloadedState: useGetStartedData()
 });
 
 export type RootState = ReturnType<typeof store.getState>;

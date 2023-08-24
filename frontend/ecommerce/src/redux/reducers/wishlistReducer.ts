@@ -1,5 +1,4 @@
-import {  WishlistState } from '@redux/actions/type/wishlist';
-import * as actionName from '@redux/actions/name/wishlist';
+import { WishlistState } from '@redux/actions/type/wishlist';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { FetchWishlistFailedPayload, FetchWishlistStartPayload, FetchWishlistSuccessPayload } from '@redux/actions/payload/wishlist';
 
@@ -11,7 +10,7 @@ const initialState: WishlistState = {
 };
 
 const wishlistSlice = createSlice({
-  name: 'WISHLIST',
+  name: 'wishlist',
   initialState: initialState,
   reducers: {
     FETCH_WISHLIST_START: (state: WishlistState, action: PayloadAction<FetchWishlistStartPayload>) => {
@@ -31,4 +30,3 @@ const wishlistSlice = createSlice({
 
 export const { FETCH_WISHLIST_START, FETCH_WISHLIST_SUCCESS, FETCH_WISHLIST_FAILED } = wishlistSlice.actions;
 export default wishlistSlice.reducer;
-

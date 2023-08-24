@@ -1,4 +1,4 @@
-'use client';
+ ;
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';

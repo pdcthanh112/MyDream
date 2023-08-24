@@ -1,4 +1,3 @@
-'use client';
 import { useState } from 'react';
 import './AppHeader.scss';
 import Image from 'next/image';
@@ -6,7 +5,7 @@ import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
-import { logout } from '@redux/features/authSlice';
+// import { logout } from '@redux/features/authSlice';
 import { Customer } from '@models/CustomerModel';
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
@@ -20,8 +19,8 @@ import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 
 const AppHeader = () => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
-  const appData = useAppSelector((state) => state.appData);
+  const currentUser: Customer = useAppSelector((state) => state?.auth?.login?.currentUser);
+  const appData = useAppSelector((state) => state?.appData);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
@@ -133,7 +132,9 @@ const AppHeader = () => {
                         <li className="sub-item-link">{t('header.browsing_history')}</li>
                         <li className="sub-item-link">{t('header.watchlist')}</li>
                       </menu>
-                      <Button className="bg-yellow-400 w-52 rounded-xl" onClick={() => dispatch(logout())}>
+                      <Button className="bg-yellow-400 w-52 rounded-xl"
+                      //  onClick={() => dispatch(logout())}
+                       >
                         {t('common.logout')}
                       </Button>
                     </div>

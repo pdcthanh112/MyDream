@@ -1,5 +1,4 @@
 import { NotificationState } from '@redux/actions/type/notification';
-import * as actionName from '@redux/actions/name/notification';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSuccessPayload } from '@redux/actions/payload/notification';
 
@@ -31,4 +30,3 @@ const notificationSlice = createSlice({
 
 export const { FETCH_NOTIFICATION_START, FETCH_NOTIFICATION_SUCCESS, FETCH_NOTIFICATION_FAILED } = notificationSlice.actions;
 export default notificationSlice.reducer;
-

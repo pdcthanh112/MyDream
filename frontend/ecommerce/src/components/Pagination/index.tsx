@@ -1,4 +1,4 @@
-'use client'
+ 
 import { Stack, Pagination as PaginationComponent } from '@mui/material';
 
 const Pagination: React.FC<any> = ({ onChange, ...props }) => {

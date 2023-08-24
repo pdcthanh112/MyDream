@@ -5,10 +5,14 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 function* login(action: PayloadAction<any>) {
   try {
-    yield put({ type: actionName.LOGIN_START });
+    // yield put({ type: actionName.LOGIN_START });
+    yield put({ type: 'auth/loginStart' });
+    yield console.log('MMMMMMMMMMMMMMMMMMMMMMMM', action.payload);
     const { userData, token } = yield authApi.login(action.payload.email, action.payload.password);
-    yield localStorage.setItem('user', userData);
-    yield localStorage.setItem('token', token);
+    if (typeof window !== 'undefined') {
+      yield localStorage.setItem('user', userData);
+      yield localStorage.setItem('token', token);
+    }
     yield put({ type: actionName.LOGIN_SUCCESS });
   } catch (e) {
     yield put({ type: actionName.LOGIN_FAILED });

@@ -1,4 +1,3 @@
-'use client';
 import { NextPage } from 'next';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';

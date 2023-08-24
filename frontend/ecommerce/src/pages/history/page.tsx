@@ -1,4 +1,4 @@
-'use client'
+ 
 import { getHistoryByCustomer } from '@apis/purchasingApi';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';

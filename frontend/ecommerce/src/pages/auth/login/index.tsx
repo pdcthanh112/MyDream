@@ -1,4 +1,3 @@
-'use client';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
@@ -9,9 +8,9 @@ import styled from 'styled-components';
 import Button from '@components/Button';
 import { GoogleLogin } from '@react-oauth/google';
 import LoginFacebook from '@assets/images/facebook-login-button.png';
-import { Email as EmailIcon, Lock as LockIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
+import { Email as EmailIcon, Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
-import { login } from '@redux/features/authSlice';
+// import { login } from '@redux/features/authSlice';
 import { LoginForm } from '@models/CustomerModel';
 import { RootState, useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
@@ -33,17 +32,18 @@ const Login: NextPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { loading } = useSelector((state: RootState) => state.auth.login);
+  const { loading } = useSelector((state: RootState) => state.auth?.login);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    dispatch(login(data)).then((res) => {
-      if (res.payload.status === 'SUCCESS') {
-        router.push('/home');
-      }
-    });
+    dispatch({type: 'auth/login', payload: data});
+    // dispatch(login(data)).then((res) => {
+    //   if (res.payload.status === 'SUCCESS') {
+    //     router.push('/home');
+    //   }
+    // });
   };
 
   return (
@@ -79,7 +79,7 @@ const Login: NextPage = (): React.ReactElement => {
                 className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.password && 'bg-red-100'}`}
               />
               <Icon
-                component={showPassword ? VisibilityIcon : VisibilityOffIcon}
+                component={showPassword ? Visibility : VisibilityOff}
                 titleAccess={showPassword ? t('common.hide_password') : t('common.show_password')}
                 fontSize="small"
                 onClick={() => setShowPassword(!showPassword)}

@@ -12,21 +12,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
+const HeaderComponent = styled.div`
+  background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
+`;
+
+const BodyComponent = styled.div`
+  width: 100%;
+  min-height: 80vh;
+  display: inline-flex;
+`;
+
+const FooterComponent = styled.div`
+  width: 100%;
+`;
+
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
-  const HeaderComponent = styled.div`
-    background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
-  `;
-
-  const BodyComponent = styled.div`
-    width: 100%;
-    min-height: 80vh;
-    display: inline-flex;
-  `;
-
-  const FooterComponent = styled.div`
-    width: 100%;
-  `;
-
   return (
     <html lang="en">
       <body className={inter.className}>

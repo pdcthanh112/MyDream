@@ -1,4 +1,3 @@
-'use client'
 import { useEffect, useState } from 'react';
 import './AppSidebar.scss';
 import { useRouter } from 'next/navigation';
