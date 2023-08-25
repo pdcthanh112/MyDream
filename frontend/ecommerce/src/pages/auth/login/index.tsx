@@ -12,8 +12,7 @@ import { Email as EmailIcon, Lock as LockIcon, Visibility, VisibilityOff } from 
 import Link from 'next/link';
 // import { login } from '@redux/features/authSlice';
 import { LoginForm } from '@models/CustomerModel';
-import { RootState, useAppDispatch } from '@redux/store';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -32,13 +31,13 @@ const Login: NextPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { loading } = useSelector((state: RootState) => state.auth?.login);
+  const { pending } = useAppSelector((state) => state.auth?.login);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    dispatch({type: 'auth/login', payload: data});
+    dispatch({ type: 'auth/login', payload: data });
     // dispatch(login(data)).then((res) => {
     //   if (res.payload.status === 'SUCCESS') {
     //     router.push('/home');
@@ -95,7 +94,7 @@ const Login: NextPage = (): React.ReactElement => {
             <span className="ml-2">{t('login.remember_me')}</span>
           </div>
           <Button className="w-full bg-yellow-400 mt-5">{t('common.login')}</Button>
-          <BarLoader color="#00FF00" loading={loading} width={440} />
+          <BarLoader color="#00FF00" loading={pending} width={440} />
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>

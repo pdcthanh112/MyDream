@@ -8,9 +8,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-// import { getAppData } from '@apis/appApi';
-// import { setAppData } from '@redux/features/appDataSlice';
-// import 'react-loading-skeleton/dist/skeleton.css';
 
 const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
   const client = new ApolloClient({
@@ -20,7 +17,7 @@ const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
 
   const queryClient = new QueryClient();
   const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
-
+  
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <React.StrictMode>

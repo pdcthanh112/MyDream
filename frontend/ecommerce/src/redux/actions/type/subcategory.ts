@@ -1,3 +1,4 @@
+import { Subcategory } from '@models/AppDataModel';
 import * as actionName from '../name/subcategory';
 import { FetchSubcategoryFailedPayload, FetchSubcategoryStartPayload, FetchSubcategorySuccessPayload } from '../payload/subcategory';
 
@@ -5,7 +6,7 @@ export interface SubcategoryState {
   pending: boolean;
   success: boolean;
   error: string | null;
-  data: [];
+  data: Subcategory[];
 }
 
 export type FetchSubcategoryStart = {

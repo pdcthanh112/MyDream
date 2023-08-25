@@ -1,4 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
+import { getAppData } from '@apis/appApi';
+import { AppData } from '@models/AppDataModel';
 
 export const roundNumber = (value: number) => {
   if (value > 1000) {
@@ -9,26 +10,31 @@ export const roundNumber = (value: number) => {
   }
 };
 
-export const getStartedData = () => {
-  const { data: category } = useQuery(gql`
-    {
-      category {
-        id
-        name
-      }
-    }
-  `);
-  const { data: subcategory } = useQuery(gql`
-    {
-      subcategory {
-        id
-        name
-        category {
-          id
-          name
-        }
-      }
-    }
-  `);
-  return { category, subcategory };
-}
+// export const getDefaultState = () => {
+//   let defaultState: AppData;
+//   const response = getAppData().then((response) => {
+//      defaultState = {
+//       category: response.category.data,
+//       subcategory: response.subcategory.data,
+//     };
+//     return defaultState
+//   })
+//   return response.then(res => res);
+// };
+
+export const getDefaultState = () => {
+  let defaultState: AppData = {
+    category: [],
+    subcategory: [],
+  };
+
+  getAppData().then((response) => {
+    defaultState = {
+      category: response.category.data,
+      subcategory: response.subcategory.data,
+    };
+  });
+  console.log('RRRRRRRRRRRRRRRRRRRRRRRR', defaultState);
+
+  return defaultState;
+};

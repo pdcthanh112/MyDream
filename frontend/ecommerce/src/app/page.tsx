@@ -15,7 +15,3 @@ export default function App({ Component, pageProps, router }: AppPropsWithLayout
   const getLayout = Component.getLayout ?? ((page: React.ReactNode) => page);
   return <RootLayout>{getLayout(<Component {...pageProps} {...router} />)}</RootLayout>;
 }
-// export default function Page() {
-//   console.log('1111111111111111111111111111111111111111111111111111111')
-//   return <h1>Hello, Next.js!</h1>
-// }

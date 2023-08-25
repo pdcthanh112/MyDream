@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { store } from '@redux/store';
 import { REACT_APP_API_URL } from '@config/index';
 
@@ -13,7 +13,7 @@ axiosConfig.interceptors.request.use(
   function (config) {
     if (config.headers) {
       if (!config.headers.Authorization) {
-        const token = store.getState().auth.login.currentUser?.token;
+        const token = store.getState().auth.login.currentUser?.tokenData.token;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }

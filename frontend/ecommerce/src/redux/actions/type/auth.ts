@@ -1,3 +1,4 @@
+import { Customer } from '@models/CustomerModel';
 import * as actionName from '../name/auth';
 import {
   EditProfileFailedPayload,
@@ -15,10 +16,30 @@ import {
 } from '../payload/auth';
 
 export interface AuthState {
-  pending: boolean;
-  success: boolean;
-  error: string | null;
-  data: {};
+  login: {
+    pending: boolean;
+    success: boolean;
+    error: string | null;
+    currentUser: any;
+  };
+  signup: {
+    pending: boolean;
+    success: boolean;
+    error: string | null;
+    userData: {} | null;
+  };
+  logout: {
+    pending: boolean;
+    success: boolean;
+    error: string | null;
+    data: {} | null;
+  };
+  edit: {
+    pending: boolean;
+    success: boolean;
+    error: string | null;
+    data: {} | null;
+  };
 }
 
 export type LoginStart = {

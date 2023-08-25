@@ -1,3 +1,4 @@
+import { Category } from '@models/AppDataModel';
 import * as actionName from '../name/category';
 import { FetchCategoryFailedPayload, FetchCategoryStartPayload, FetchCategorySuccessPayload } from '../payload/category';
 
@@ -5,7 +6,7 @@ export interface CategoryState {
   pending: boolean;
   success: boolean;
   error: string | null;
-  data: [];
+  data: Category[];
 }
 
 export type FetchCategoryStart = {

@@ -19,8 +19,8 @@ import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 
 const AppHeader = () => {
-  const currentUser: Customer = useAppSelector((state) => state?.auth?.login?.currentUser);
-  const appData = useAppSelector((state) => state?.appData);
+  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const appCategory = useAppSelector((state) => state?.category.data);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
@@ -40,7 +40,7 @@ const AppHeader = () => {
             </span>
 
             <Card className="text-[#a4a4a4] text-sm hidden absolute transform translate-x-[36%] translate-y-[56%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-              {appData.category?.map((item: any) => (
+              {appCategory?.map((item: any) => (
                 <div key={item.id} className="leading-6 px-2 hover:bg-gray-100">
                   {item.name}
                 </div>

@@ -3,10 +3,30 @@ import { AuthState } from '@redux/actions/type/auth';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState: AuthState = {
-  pending: false,
-  success: false,
-  error: null,
-  data: {},
+  login: {
+    pending: false,
+    currentUser: null,
+    error: null,
+    success: false,
+  },
+  signup: {
+    pending: false,
+    userData: null,
+    error: '',
+    success: false,
+  },
+  logout: {
+    pending: false,
+    success: false,
+    error: null,
+    data: null,
+  },
+  edit: {
+    pending: false,
+    error: null,
+    success: false,
+    data: null,
+  },
 };
 
 const authSlice = createSlice({
@@ -14,15 +34,15 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     loginStart: (state: AuthState, action: PayloadAction<LoginStartPayload>) => {
-      state.pending = true;
+      state.login.pending = true;
     },
     loginSuccess: (state: AuthState, action: PayloadAction<LoginSuccessPayload>) => {
-      state.pending = false;
-      state.success = true;
+      state.login.pending = false;
+      state.login.success = true;
     },
     loginFailed: (state: AuthState, action: PayloadAction<LoginFailedPayload>) => {
-      state.pending = false;
-      state.error = action.payload.error;
+      state.login.pending = false;
+      state.login.error = action.payload.error;
     },
   },
 });

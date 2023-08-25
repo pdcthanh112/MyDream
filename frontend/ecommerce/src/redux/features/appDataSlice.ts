@@ -32,10 +32,10 @@
 //     subcategory: [],
 //   },
 //   reducers: {
-//     // setAppData: (state, action) => {
-//     //   state.category = action.payload.category.data;
-//     //   state.subcategory = action.payload.subcategory.data;
-//     // },
+//     setAppData: (state, action) => {
+//       state.category = action.payload.category.data;
+//       state.subcategory = action.payload.subcategory.data;
+//     },
 //   },
 //   extraReducers(builder) {
 //     builder.addCase(setAppData.fulfilled, (state, action) => {
