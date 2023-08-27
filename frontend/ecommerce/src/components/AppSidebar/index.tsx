@@ -5,8 +5,10 @@ import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
 import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
 import { Customer } from '@models/CustomerModel';
-import { AppData, Category, Subcategory } from '@models/AppDataModel';
+import { AppData } from '@models/AppDataModel';
 import { motion } from 'framer-motion';
+import { Subcategory } from '@models/SubcategoryModel';
+import { Category } from '@models/CategoryModel';
 
 const AppSidebar = () => {
   const router = useRouter();

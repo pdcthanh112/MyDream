@@ -1,4 +1,3 @@
-//  ;
 import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -9,10 +8,17 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getAppData } from '@apis/appApi';
+import { useAppDispatch } from '@redux/store';
+import { fetchCategoryStart } from '@redux/actions/category';
+import { fetchSubcategoryStart } from '@redux/actions/subcategory';
 
-const Home: NextPage = (): React.ReactElement => {
+const Home: NextPage = ({ category, subcategory }: any): React.ReactElement => {
+  const { t } = useTranslation('common');
+  const dispatch = useAppDispatch();
 
-  const { t } = useTranslation('common')
+  dispatch(fetchCategoryStart(category));
+  dispatch(fetchSubcategoryStart(subcategory));
 
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
@@ -34,7 +40,7 @@ const Home: NextPage = (): React.ReactElement => {
       <Banner />
       <div className="mx-auto mt-3 w-[80%]">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
-        <div className='flex justify-end'>
+        <div className="flex justify-end">
           <Pagination
             count={pagination.totalPage}
             page={pagination.page}
@@ -46,7 +52,7 @@ const Home: NextPage = (): React.ReactElement => {
       </div>
     </div>
   );
-}
+};
 
 // export async function getServerSideProps(context: any) {
 //   console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCC', context)
@@ -62,14 +68,15 @@ const Home: NextPage = (): React.ReactElement => {
 //   };
 // }
 export async function getServerSideProps(context: any) {
+  const { category, subcategory } = await getAppData();
 
   return {
     props: {
+      category,
+      subcategory,
       ...(await serverSideTranslations(context.locale, ['common'])),
     },
   };
 }
 
-
 export default Home;
-

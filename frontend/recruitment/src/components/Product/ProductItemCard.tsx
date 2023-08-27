@@ -4,7 +4,11 @@ import Daisy from '@assets/images/daisy1.jpg';
 import { NumericFormat } from 'react-number-format';
 import { Card } from '@mui/material'
 
-export default function ProductItemCard({ product }: any) {
+type ProductItemCardProps = {
+  product: Product
+}
+
+export default function ProductItemCard({ product }: ProductItemCardProps) {
   return (
       <Card key={product.id} className='relative flex flex-col m-5 bg-white z-30 p-10'>
         <p className='absolute top-2 right-2 italic text-gray-400'>{product.category}</p>

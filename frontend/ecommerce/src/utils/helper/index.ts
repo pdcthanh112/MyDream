@@ -10,31 +10,16 @@ export const roundNumber = (value: number) => {
   }
 };
 
-// export const getDefaultState = () => {
-//   let defaultState: AppData;
-//   const response = getAppData().then((response) => {
-//      defaultState = {
+// export const getDefaultState = async () => {
+//   let defaultState: AppData = {
+//     category: [],
+//     subcategory: [],
+//   };
+//   await getAppData().then((response) => {
+//     defaultState = {
 //       category: response.category.data,
 //       subcategory: response.subcategory.data,
 //     };
-//     return defaultState
-//   })
-//   return response.then(res => res);
+//   });
+//  return defaultState;
 // };
-
-export const getDefaultState = () => {
-  let defaultState: AppData = {
-    category: [],
-    subcategory: [],
-  };
-
-  getAppData().then((response) => {
-    defaultState = {
-      category: response.category.data,
-      subcategory: response.subcategory.data,
-    };
-  });
-  console.log('RRRRRRRRRRRRRRRRRRRRRRRR', defaultState);
-
-  return defaultState;
-};

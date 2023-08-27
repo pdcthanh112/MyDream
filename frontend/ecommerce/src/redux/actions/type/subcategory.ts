@@ -1,4 +1,4 @@
-import { Subcategory } from '@models/AppDataModel';
+import { Subcategory } from '@models/SubcategoryModel';
 import * as actionName from '../name/subcategory';
 import { FetchSubcategoryFailedPayload, FetchSubcategoryStartPayload, FetchSubcategorySuccessPayload } from '../payload/subcategory';
 

@@ -8,10 +8,7 @@ import wishlistReducer from './reducers/wishlistReducer';
 import subcategoryReducer from './reducers/subcategoryReducer';
 import notificationReducer from './reducers/notificationReducer';
 import cartItemReducer from './reducers/cartItemReducer';
-import { getDefaultState } from '@utils/helper';
-
-const defaultState = getDefaultState()
-console.log('CCCCCCCCCCCCCCCCCCCCCCC', defaultState);
+// import { getDefaultState } from '@utils/helper';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -32,20 +29,22 @@ export const store = configureStore({
       thunk: true, 
     }).concat([sagaMiddleware]),
   devTools: process.env.NODE_ENV !== 'production',
-  preloadedState: {
-    category: {
-      pending: false,
-      success: false,
-      error: null,
-      data: [],
-    },
-    subcategory: {
-      pending: false,
-      success: false,
-      error: null,
-      data: [],
-    },
-  },
+  // preloadedState: {
+  //   category: {
+  //     pending: false,
+  //     success: false,
+  //     error: null,
+  //     data: [],
+  //     // data: (await (getDefaultState())).category,
+  //   },
+  //   subcategory: {
+  //     pending: false,
+  //     success: false,
+  //     error: null,
+  //     data: [],
+  //     // data: (await (getDefaultState())).subcategory,
+  //   },
+  // },
 });
 
 type RootState = ReturnType<typeof store.getState>;
