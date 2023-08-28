@@ -8,17 +8,13 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getAppData } from '@apis/appApi';
-import { useAppDispatch } from '@redux/store';
+import {  store } from '@redux/store';
 import { fetchCategoryStart } from '@redux/actions/category';
 import { fetchSubcategoryStart } from '@redux/actions/subcategory';
 
-const Home: NextPage = ({ category, subcategory }: any): React.ReactElement => {
+const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
-  const dispatch = useAppDispatch();
 
-  dispatch(fetchCategoryStart(category));
-  dispatch(fetchSubcategoryStart(subcategory));
 
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
@@ -68,12 +64,13 @@ const Home: NextPage = ({ category, subcategory }: any): React.ReactElement => {
 //   };
 // }
 export async function getServerSideProps(context: any) {
-  const { category, subcategory } = await getAppData();
+
+  store.dispatch({type: 'FETCH_CATEGORY'});
+  // store.dispatch(fetchCategoryStart(context.category));
+  store.dispatch(fetchSubcategoryStart(context.subcategory));;
 
   return {
     props: {
-      category,
-      subcategory,
       ...(await serverSideTranslations(context.locale, ['common'])),
     },
   };

@@ -15,6 +15,7 @@ const categorySlice = createSlice({
   reducers: {
     fetchCategoryStart: (state: CategoryState, action: PayloadAction<FetchCategoryStartPayload>) => {
       state.pending = true;
+      console.log('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM')
     },
     fetchCategorySuccess: (state: CategoryState, action: PayloadAction<FetchCategorySuccessPayload>) => {
       state.pending = false;

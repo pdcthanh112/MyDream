@@ -17,10 +17,12 @@ import LanguageSwitcher from '@components/LanguageSwitcher';
 import NotificationModal from '@components/NotificationModal';
 import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
+import { Category } from '@models/CategoryModel';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
-  const appCategory = useAppSelector((state) => state?.category.data);
+  const appCategory: Category[] = useAppSelector((state) => state.category.data);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
@@ -132,9 +134,10 @@ const AppHeader = () => {
                         <li className="sub-item-link">{t('header.browsing_history')}</li>
                         <li className="sub-item-link">{t('header.watchlist')}</li>
                       </menu>
-                      <Button className="bg-yellow-400 w-52 rounded-xl"
-                      //  onClick={() => dispatch(logout())}
-                       >
+                      <Button
+                        className="bg-yellow-400 w-52 rounded-xl"
+                        //  onClick={() => dispatch(logout())}
+                      >
                         {t('common.logout')}
                       </Button>
                     </div>
