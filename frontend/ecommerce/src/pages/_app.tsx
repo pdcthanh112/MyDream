@@ -7,7 +7,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
 import { ConfirmProvider } from 'material-ui-confirm';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { SessionProvider } from 'next-auth/react';
 
 const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
@@ -20,21 +19,19 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
   const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <React.StrictMode>
-        <SessionProvider session={session}>
-          <ApolloProvider client={client}>
-            <Provider store={store}>
-              <ConfirmProvider>
-                <QueryClientProvider client={queryClient}>
-                  <App Component={Component} pageProps={pageProps} router={router} />
-                </QueryClientProvider>
-              </ConfirmProvider>
-            </Provider>
-          </ApolloProvider>
-        </SessionProvider>
-      </React.StrictMode>
-    </GoogleOAuthProvider>
+    <React.StrictMode>
+      <SessionProvider session={session}>
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <ConfirmProvider>
+              <QueryClientProvider client={queryClient}>
+                <App Component={Component} pageProps={pageProps} router={router} />
+              </QueryClientProvider>
+            </ConfirmProvider>
+          </Provider>
+        </ApolloProvider>
+      </SessionProvider>
+    </React.StrictMode>
   );
 };
 

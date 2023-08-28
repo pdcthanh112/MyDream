@@ -1,19 +1,21 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { put, takeEvery } from 'redux-saga/effects';
-import * as actionName from '../actions/name/category';
 import * as api from '@apis/categoryApi';
+import { fetchCategoryFailed, fetchCategoryStart, fetchCategorySuccess } from '@redux/reducers/categoryReducer';
+
 
 function* fetchCategory(action: PayloadAction<any>) {
   try {
-    yield put({ type: actionName.FETCH_CATEGORY_START });
+    yield put(fetchCategoryStart(action.payload));
     const { data } = yield api.getAllCategory();
     yield console.log('SSSSSSSSSSSSSSSSSSSS', data)
-    yield put({ type: actionName.FETCH_CATEGORY_SUCCESS, payload: data });
+    yield put(fetchCategorySuccess({data}));
   } catch (e) {
-    yield put({ type: actionName.FETCH_CATEGORY_FAILED });
+    yield put(fetchCategoryFailed(action.payload));
   }
 }
 
 export function* categorySaga() {
-  takeEvery(actionName.FETCH_CATEGORY, fetchCategory);
+  takeEvery('category/fetchCategoryStart', fetchCategory);
+  // takeEvery(actionName.FETCH_CATEGORY_START, fetchCategory);
 }

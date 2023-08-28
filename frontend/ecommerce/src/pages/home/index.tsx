@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
@@ -8,19 +8,23 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import {  store } from '@redux/store';
-import { fetchCategoryStart } from '@redux/actions/category';
-import { fetchSubcategoryStart } from '@redux/actions/subcategory';
+import {  store, useAppDispatch } from '@redux/store';
+import { fetchCategoryStart } from '@redux/reducers/categoryReducer';
+import { fetchSubcategoryStart } from '@redux/reducers/subcategoryReducer';
 
 const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
-
+const dispatch = useAppDispatch()
 
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
     totalPage: 0,
   });
+
+  dispatch(fetchCategoryStart());
+  // useEffect(() => {
+  // }, [dispatch]);
 
   const { data: listProduct, isLoading } = useQuery({
     queryKey: ['listProduct', pagination],
@@ -50,23 +54,9 @@ const Home: NextPage = (): React.ReactElement => {
   );
 };
 
-// export async function getServerSideProps(context: any) {
-//   console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCC', context)
-// // export async function getServerSideProps({ locale, req, resolvedUrl }:any) {
-//   // const { payload, serverRoutes, domain } = await fetchServerConfigs(req, resolvedUrl);
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(context.locale, ['common'])),
-//       // ...payload,
-//       // domain,
-//     },
-//     // ...serverRoutes,
-//   };
-// }
 export async function getServerSideProps(context: any) {
 
-  store.dispatch({type: 'FETCH_CATEGORY'});
-  // store.dispatch(fetchCategoryStart(context.category));
+  store.dispatch(fetchCategoryStart(context.category));
   store.dispatch(fetchSubcategoryStart(context.subcategory));;
 
   return {

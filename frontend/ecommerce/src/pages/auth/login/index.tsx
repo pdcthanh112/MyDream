@@ -6,7 +6,6 @@ import { Card, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@components/Button';
-import { GoogleLogin } from '@react-oauth/google';
 import LoginFacebook from '@assets/images/facebook-login-button.png';
 import { Email as EmailIcon, Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
@@ -102,7 +101,7 @@ const Login: NextPage = (): React.ReactElement => {
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
         </div>
 
-        <div className="grid grid-cols-2 mt-4">
+        {/* <div className="grid grid-cols-2 mt-4">
           <GoogleLogin
             text="signin_with"
             context="signin"
@@ -114,7 +113,7 @@ const Login: NextPage = (): React.ReactElement => {
             }}
           />
           <Image src={LoginFacebook} alt={''} width={182} className="ml-6" />
-        </div>
+        </div> */}
         <div className="flex justify-center mt-10 text-sm">
           <span>{t('login.you_dont_have_an_account')}</span>
           <Link href={'/auth/signup'} className="hover:text-yellow-600">

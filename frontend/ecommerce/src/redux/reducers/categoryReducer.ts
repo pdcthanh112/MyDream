@@ -13,11 +13,12 @@ const categorySlice = createSlice({
   name: 'category',
   initialState: initialState,
   reducers: {
-    fetchCategoryStart: (state: CategoryState, action: PayloadAction<FetchCategoryStartPayload>) => {
+    fetchCategoryStart: (state: CategoryState) => {
       state.pending = true;
       console.log('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM')
     },
     fetchCategorySuccess: (state: CategoryState, action: PayloadAction<FetchCategorySuccessPayload>) => {
+      console.log('SUSUSUSUUSUSUSUSSUUSSUSUSSUS')
       state.pending = false;
       state.success = true;
       state.data = action.payload.data;

@@ -109,7 +109,7 @@ function* syncCartItems(action) {
 }
 
 // List of watchers
-export const cartSagas = [
+export const cartSaga = [
   takeEvery(actionName.ADD_ITEM_TO_CART, addToCart),
   // takeEvery(actionType.CART_REMOVE, removeCart),
   // takeEvery(actionType.CART_LIST_FETCH, listFetch),

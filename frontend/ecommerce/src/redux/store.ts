@@ -8,6 +8,7 @@ import wishlistReducer from './reducers/wishlistReducer';
 import subcategoryReducer from './reducers/subcategoryReducer';
 import notificationReducer from './reducers/notificationReducer';
 import cartItemReducer from './reducers/cartItemReducer';
+import rootSaga from './sagas/rootSaga';
 // import { getDefaultState } from '@utils/helper';
 
 const rootReducer = combineReducers({
@@ -26,7 +27,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk: true, 
+      thunk: true,
     }).concat([sagaMiddleware]),
   devTools: process.env.NODE_ENV !== 'production',
   // preloadedState: {
@@ -34,18 +35,20 @@ export const store = configureStore({
   //     pending: false,
   //     success: false,
   //     error: null,
-  //     data: [],
+  //     data: [{ id: 1, name: 'book' }],
   //     // data: (await (getDefaultState())).category,
   //   },
   //   subcategory: {
   //     pending: false,
   //     success: false,
   //     error: null,
-  //     data: [],
+  //     data: [{ id: 1, name: 'edu', category: { id: 1, name: 'book' } }],
   //     // data: (await (getDefaultState())).subcategory,
   //   },
   // },
 });
+
+sagaMiddleware.run(rootSaga)
 
 type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;

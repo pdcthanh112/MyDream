@@ -11,7 +11,7 @@ export interface CategoryState {
 
 export type FetchCategoryStart = {
   type: typeof actionName.FETCH_CATEGORY_START;
-  payload: FetchCategoryStartPayload;
+  // payload: FetchCategoryStartPayload;
 };
 
 export type FetchCategorySuccess = {
