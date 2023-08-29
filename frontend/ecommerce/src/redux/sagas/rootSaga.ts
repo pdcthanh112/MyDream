@@ -5,7 +5,9 @@ import { categorySaga } from './categorySaga';
 import { subcategorySaga } from './subcategorySaga';
 import { notificationSaga } from './notificationSaga';
 import { wishlistSaga } from './wishlistSaga';
+import { cartSaga } from './cartSaga';
+import { cartItemSaga } from './cartItemSaga';
 
 export default function* rootSaga() {
-  yield all([authSaga(), categorySaga(), subcategorySaga(), notificationSaga(), wishlistSaga()]);
+  yield all([authSaga(), cartSaga(), cartItemSaga(), categorySaga(), subcategorySaga(), notificationSaga(), wishlistSaga()]);
 }

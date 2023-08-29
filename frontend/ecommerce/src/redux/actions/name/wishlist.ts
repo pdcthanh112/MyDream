@@ -1,15 +1,15 @@
-export const FETCH_WISHLIST = "FETCH_WISHLIST";
-export const FETCH_WISHLIST_START = "FETCH_WISHLIST_START";
-export const FETCH_WISHLIST_SUCCESS = "FETCH_WISHLIST_SUCCESS";
-export const FETCH_WISHLIST_FAILED = "FETCH_WISHLIST_FAILED"
+export const FETCH_WISHLIST_REQUESTED = "wishlist/fetchWishlistRequested";
+export const FETCH_WISHLIST_START = "wishlist/fetchWishlistStart";
+export const FETCH_WISHLIST_SUCCEEDED = "wishlist/fetchWishlistSucceeded";
+export const FETCH_WISHLIST_FAILED = "wishlist/fetchWishlistFailed"
 
-export const ADD_ITEM_TO_WISHLIST = "ADD_ITEM_TO_WISHLIST";
-export const ADD_ITEM_TO_WISHLIST_START = "ADD_ITEM_TO_WISHLIST_START";
-export const ADD_ITEM_TO_WISHLIST_SUCCESS = "ADD_ITEM_TO_WISHLIST_SUCCESS";
-export const ADD_ITEM_TO_WISHLIST_FAILED = "ADD_ITEM_TO_WISHLIST_FAILED";
+export const ADD_ITEM_TO_WISHLIST_REQUESTED = "wishlist/addItemToWishlistRequested";
+export const ADD_ITEM_TO_WISHLIST_START = "wishlist/addItemToWishlistStart";
+export const ADD_ITEM_TO_WISHLIST_SUCCEEDED = "wishlist/addItemToWishlistSucceeded";
+export const ADD_ITEM_TO_WISHLIST_FAILED = "wishlist/addItemToWishlistFailed";
 
-export const REMOVE_ITEM_FROM_WISHLIST = "REMOVE_ITEM_FROM_WISHLIST";
-export const REMOVE_ITEM_FROM_WISHLIST_START = "REMOVE_ITEM_FROM_WISHLIST_START";
-export const REMOVE_ITEM_FROM_WISHLIST_SUCCESS = "REMOVE_ITEM_FROM_WISHLIST_SUCCESS";
-export const REMOVE_ITEM_FROM_WISHLIST_FAILED = "REMOVE_ITEM_FROM_WISHLIST_FAILED";
+export const REMOVE_ITEM_FROM_WISHLIST_REQUESTED = "wishlist/removeItemFromWishlistRequested";
+export const REMOVE_ITEM_FROM_WISHLIST_START = "wishlist/removeItemFromWishlistStart";
+export const REMOVE_ITEM_FROM_WISHLIST_SUCCEEDED = "wishlist/removeItemFromWishlistSucceeded";
+export const REMOVE_ITEM_FROM_WISHLIST_FAILED = "wishlist/removeItemFromWishlistFailed";
 

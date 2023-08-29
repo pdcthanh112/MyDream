@@ -1,34 +1,41 @@
 import {
   AddItemToWishlistFailedPayload,
   AddItemToWishlistStartPayload,
-  AddItemToWishlistSuccessPayload,
+  AddItemToWishlistSucceededPayload,
   FetchWishlistFailedPayload,
   FetchWishlistStartPayload,
-  FetchWishlistSuccessPayload,
+  FetchWishlistSucceededPayload,
   RemoveItemFromWishlistFailedPayload,
+  RemoveItemFromWishlistRequestedPayload,
   RemoveItemFromWishlistStartPayload,
-  RemoveItemFromWishlistSuccessPayload,
+  RemoveItemFromWishlistSucceededPayload,
 } from './payload/wishlist';
 import {
   AddItemToWishlistFailed,
   AddItemToWishlistStart,
-  AddItemToWishlistSuccess,
+  AddItemToWishlistSucceeded,
   FetchWishlistFailed,
   FetchWishlistStart,
-  FetchWishlistSuccess,
+  FetchWishlistSucceeded,
   RemoveItemFromWishlistFailed,
+  RemoveItemFromWishlistRequested,
   RemoveItemFromWishlistStart,
-  RemoveItemFromWishlistSuccess,
+  RemoveItemFromWishlistSucceeded,
 } from './type/wishlist';
 import * as actionName from './name/wishlist';
+
+export const fetchWishlistRequested = () => ({
+  type: actionName.FETCH_WISHLIST_REQUESTED,
+  payload: null,
+});
 
 export const fetchWishlistStart = (payload: FetchWishlistStartPayload): FetchWishlistStart => ({
   type: actionName.FETCH_WISHLIST_START,
   payload,
 });
 
-export const fetchWishlistSuccess = (payload: FetchWishlistSuccessPayload): FetchWishlistSuccess => ({
-  type: actionName.FETCH_WISHLIST_SUCCESS,
+export const fetchWishlistSucceeded = (payload: FetchWishlistSucceededPayload): FetchWishlistSucceeded => ({
+  type: actionName.FETCH_WISHLIST_SUCCEEDED,
   payload,
 });
 
@@ -37,13 +44,18 @@ export const fetchWishlistFailed = (payload: FetchWishlistFailedPayload): FetchW
   payload,
 });
 
+export const addItemToWishlistRequested = () => ({
+  type: actionName.ADD_ITEM_TO_WISHLIST_REQUESTED,
+  payload: null,
+});
+
 export const addItemToWishlistStart = (payload: AddItemToWishlistStartPayload): AddItemToWishlistStart => ({
   type: actionName.ADD_ITEM_TO_WISHLIST_START,
   payload,
 });
 
-export const addItemToWishlistSuccess = (payload: AddItemToWishlistSuccessPayload): AddItemToWishlistSuccess => ({
-  type: actionName.ADD_ITEM_TO_WISHLIST_SUCCESS,
+export const addItemToWishlistSuccess = (payload: AddItemToWishlistSucceededPayload): AddItemToWishlistSucceeded => ({
+  type: actionName.ADD_ITEM_TO_WISHLIST_SUCCEEDED,
   payload,
 });
 
@@ -52,13 +64,18 @@ export const addItemToWishlistFailed = (payload: AddItemToWishlistFailedPayload)
   payload,
 });
 
+export const removeItemFromWishlistRequested = (payload: RemoveItemFromWishlistRequestedPayload): RemoveItemFromWishlistRequested => ({
+  type: actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED,
+  payload,
+});
+
 export const removeItemFromWishlistStart = (payload: RemoveItemFromWishlistStartPayload): RemoveItemFromWishlistStart => ({
   type: actionName.REMOVE_ITEM_FROM_WISHLIST_START,
   payload,
 });
 
-export const removeItemFromWishlistSuccess = (payload: RemoveItemFromWishlistSuccessPayload): RemoveItemFromWishlistSuccess => ({
-  type: actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCESS,
+export const removeItemFromWishlistSucceeded = (payload: RemoveItemFromWishlistSucceededPayload): RemoveItemFromWishlistSucceeded => ({
+  type: actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCEEDED,
   payload,
 });
 

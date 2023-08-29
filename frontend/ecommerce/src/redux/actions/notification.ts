@@ -1,14 +1,19 @@
-import { FetchNotificationFailed, FetchNotificationStart, FetchNotificationSuccess } from './type/notification';
+import { FetchNotificationFailed, FetchNotificationStart, FetchNotificationSucceeded } from './type/notification';
 import * as actionName from './name/notification';
-import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSuccessPayload } from './payload/notification';
+import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSucceededPayload } from './payload/notification';
+
+export const fetchNotificationRequested = () => ({
+  type: actionName.FETCH_NOTIFICATION_REQUESTED,
+  payload: null,
+});
 
 export const fetchNotificationStart = (payload: FetchNotificationStartPayload): FetchNotificationStart => ({
   type: actionName.FETCH_NOTIFICATION_START,
   payload,
 });
 
-export const fetchNotificationSuccess = (payload: FetchNotificationSuccessPayload): FetchNotificationSuccess => ({
-  type: actionName.FETCH_NOTIFICATION_SUCCESS,
+export const fetchNotificationSucceeded = (payload: FetchNotificationSucceededPayload): FetchNotificationSucceeded => ({
+  type: actionName.FETCH_NOTIFICATION_SUCCEEDED,
   payload,
 });
 

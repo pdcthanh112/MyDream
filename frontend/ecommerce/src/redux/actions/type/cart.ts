@@ -1,42 +1,54 @@
 import * as actionName from '../name/cart';
 import {
   CreateNewCartFailedPayload,
+  CreateNewCartRequestedPayload,
   CreateNewCartStartPayload,
-  CreateNewCartSuccessPayload,
+  CreateNewCartSucceededPayload,
   DeleteCartFailedPayload,
+  DeleteCartRequestedPayload,
   DeleteCartStartPayload,
-  DeleteCartSuccessPayload,
+  DeleteCartSucceededPayload,
 } from '../payload/cart';
 
 export interface CartState {
-  pending: boolean;
-  success: boolean;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
   data: {};
 }
+
+export type CreateNewCartRequested = {
+  type: typeof actionName.CREATE_NEW_CART_REQUESTED;
+  payload: CreateNewCartRequestedPayload;
+};
 
 export type CreateNewCartStart = {
   type: typeof actionName.CREATE_NEW_CART_START;
   payload: CreateNewCartStartPayload;
 };
 
-export type CreateNewCartSuccess = {
-  type: typeof actionName.CREATE_NEW_CART_SUCCESS;
-  payload: CreateNewCartSuccessPayload;
+export type CreateNewCartSucceeded = {
+  type: typeof actionName.CREATE_NEW_CART_SUCCEEDED;
+  payload: CreateNewCartSucceededPayload;
 };
 
 export type CreateNewCartFailed = {
   type: typeof actionName.CREATE_NEW_CART_FAILED;
   payload: CreateNewCartFailedPayload;
 };
+
+export type DeleteCartRequested = {
+  type: typeof actionName.DELETE_CART_REQUESTED;
+  payload: DeleteCartRequestedPayload;
+};
+
 export type DeleteCartStart = {
   type: typeof actionName.DELETE_CART_START;
   payload: DeleteCartStartPayload;
 };
 
-export type DeleteCartSuccess = {
-  type: typeof actionName.DELETE_CART_SUCCESS;
-  payload: DeleteCartSuccessPayload;
+export type DeleteCartSucceeded = {
+  type: typeof actionName.DELETE_CART_SUCCEEDED;
+  payload: DeleteCartSucceededPayload;
 };
 
 export type DeleteCartFailed = {

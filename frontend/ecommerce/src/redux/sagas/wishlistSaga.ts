@@ -2,39 +2,40 @@ import { put, takeEvery } from 'redux-saga/effects';
 import * as actionName from '../actions/name/wishlist';
 import { addProductToWishlist, getWishlistByCustomer, removeProductFromWishlist } from '@apis/wishlistApi';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { addItemToWishlistFailed, addItemToWishlistStart, addItemToWishlistSucceeded, fetchWishlistFailed, fetchWishlistStart, fetchWishlistSucceeded, removeItemFromWishlistFailed, removeItemFromWishlistStart, removeItemFromWishlistSucceeded } from '@redux/reducers/wishlistReducer';
 
 function* fetchWishlistByCustomer(action: PayloadAction<any>) {
   try {
-    yield put({ type: actionName.FETCH_WISHLIST_START });
+    yield put(fetchWishlistStart(action.payload));
     yield getWishlistByCustomer(action.payload.customerId);
-    yield put({ type: actionName.FETCH_WISHLIST_SUCCESS });
+    yield put(fetchWishlistSucceeded);
   } catch (e) {
-    yield put({ type: actionName.FETCH_WISHLIST_FAILED, payload: e });
+    yield put(fetchWishlistFailed(action.payload));
   }
 }
 
 function* addItemToWishlist(action: PayloadAction<any>) {
   try {
-    yield put({ type: actionName.FETCH_WISHLIST_START });
+    yield put(addItemToWishlistStart(action.payload));
     yield addProductToWishlist(action.payload.customerId, action.payload.productId);
-    yield put({ type: actionName.ADD_ITEM_TO_WISHLIST_SUCCESS });
+    yield put(addItemToWishlistSucceeded(action.payload));
   } catch (e) {
-    yield put({ type: actionName.ADD_ITEM_TO_WISHLIST_FAILED });
+    yield put(addItemToWishlistFailed(action.payload));
   }
 }
 
 function* removeItemFromWishlist(action: PayloadAction<any>) {
   try {
-    yield put({ type: actionName.FETCH_WISHLIST_START });
+    yield put(removeItemFromWishlistStart(action.payload));
     yield removeProductFromWishlist(action.payload.customerId, action.payload.productId);
-    yield put({ type: actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCESS });
+    yield put(removeItemFromWishlistSucceeded(action.payload));
   } catch (e) {
-    yield put({ type: actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED });
+    yield put(removeItemFromWishlistFailed(action.payload));
   }
 }
 
 export function* wishlistSaga() {
-  takeEvery(actionName.FETCH_WISHLIST, fetchWishlistByCustomer);
-  takeEvery(actionName.ADD_ITEM_TO_WISHLIST, addItemToWishlist);
-  takeEvery(actionName.REMOVE_ITEM_FROM_WISHLIST, removeItemFromWishlist);
+  takeEvery(actionName.FETCH_WISHLIST_REQUESTED, fetchWishlistByCustomer);
+  takeEvery(actionName.ADD_ITEM_TO_WISHLIST_REQUESTED, addItemToWishlist);
+  takeEvery(actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED, removeItemFromWishlist);
 };

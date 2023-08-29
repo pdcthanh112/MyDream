@@ -2,27 +2,33 @@ import * as actionName from '../name/cartItem';
 import {
   AddItemToCartFailedPayload,
   AddItemToCartStartPayload,
-  AddItemToCartSuccessPayload,
   RemoveItemFromCartStartPayload,
-  RemoveItemFromCartSuccessPayload,
   RemoveItemFromCartFailedPayload,
+  AddItemToCartRequestedPayload,
+  AddItemToCartSucceededPayload,
+  RemoveItemFromCartSucceededPayload,
+  RemoveItemFromCartRequestedPayload,
 } from '../payload/cartItem';
 
 export interface CartItemState {
-  pending: boolean;
-  success: boolean;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
   data: {};
 }
+
+export type AddItemToCartRequested = {
+  type: typeof actionName.ADD_ITEM_TO_CART_REQUESTED;
+  payload: AddItemToCartRequestedPayload;
+};
 
 export type AddItemToCartStart = {
   type: typeof actionName.ADD_ITEM_TO_CART_START;
   payload: AddItemToCartStartPayload;
 };
 
-export type AddItemToCartSuccess = {
-  type: typeof actionName.ADD_ITEM_TO_CART_SUCCESS;
-  payload: AddItemToCartSuccessPayload;
+export type AddItemToCartSucceeded = {
+  type: typeof actionName.ADD_ITEM_TO_CART_SUCCEEDED;
+  payload: AddItemToCartSucceededPayload;
 };
 
 export type AddItemToCartFailed = {
@@ -30,14 +36,19 @@ export type AddItemToCartFailed = {
   payload: AddItemToCartFailedPayload;
 };
 
+export type RemoveItemFromCartRequested = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_REQUESTED;
+  payload: RemoveItemFromCartRequestedPayload;
+};
+
 export type RemoveItemFromCartStart = {
   type: typeof actionName.REMOVE_ITEM_FROM_CART_START;
   payload: RemoveItemFromCartStartPayload;
 };
 
-export type RemoveItemFromCartSuccess = {
-  type: typeof actionName.REMOVE_ITEM_FROM_CART_SUCCESS;
-  payload: RemoveItemFromCartSuccessPayload;
+export type RemoveItemFromCartSucceeded = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_SUCCEEDED;
+  payload: RemoveItemFromCartSucceededPayload;
 };
 
 export type RemoveItemFromCartFailed = {

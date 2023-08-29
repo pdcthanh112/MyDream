@@ -2,17 +2,18 @@ import { put, takeEvery } from 'redux-saga/effects';
 import * as actionName from '../actions/name/notification';
 import { getNotificationByCustomer } from '@apis/notificationApi';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { fetchNotificationFailed, fetchNotificationStart, fetchNotificationSucceeded } from '@redux/reducers/notificationReducer';
 
 function* fetchNotification(action: PayloadAction<any>) {
   try {
-    yield put({type: actionName.FETCH_NOTIFICATION_START})
+    yield put(fetchNotificationStart(action.payload))
     yield getNotificationByCustomer(action.payload.customerId)
-    yield put({ type: actionName.FETCH_NOTIFICATION_SUCCESS });
+    yield put(fetchNotificationSucceeded(action.payload));
   } catch (e) {
-    yield put({ type: actionName.FETCH_NOTIFICATION_FAILED });
+    yield put(fetchNotificationFailed(action.payload));
   }
 }
 
 export function* notificationSaga() {
-    takeEvery(actionName.FETCH_NOTIFICATION, fetchNotification);
+    takeEvery(actionName.FETCH_NOTIFICATION_REQUESTED, fetchNotification);
 }

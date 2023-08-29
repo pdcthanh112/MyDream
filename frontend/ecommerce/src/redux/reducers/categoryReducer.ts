@@ -1,10 +1,9 @@
-import { FetchCategoryFailedPayload, FetchCategoryStartPayload, FetchCategorySuccessPayload } from '@redux/actions/payload/category';
+import { FetchCategoryFailedPayload, FetchCategoryStartPayload, FetchCategorySucceededPayload } from '@redux/actions/payload/category';
 import { CategoryState } from '@redux/actions/type/category';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState: CategoryState = {
-  pending: false,
-  success: false,
+  status: 'idle',
   error: null,
   data: [],
 };
@@ -13,21 +12,19 @@ const categorySlice = createSlice({
   name: 'category',
   initialState: initialState,
   reducers: {
-    fetchCategoryStart: (state: CategoryState) => {
-      state.pending = true;
-      console.log('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM')
+    fetchCategoryStart: (state: CategoryState, action: PayloadAction<FetchCategoryStartPayload>) => {
+      state.status = 'pending';
     },
-    fetchCategorySuccess: (state: CategoryState, action: PayloadAction<FetchCategorySuccessPayload>) => {
-      console.log('SUSUSUSUUSUSUSUSSUUSSUSUSSUS')
-      state.pending = false;
-      state.success = true;
-      state.data = action.payload.data;
+    fetchCategorySucceeded: (state: CategoryState, action: PayloadAction<FetchCategorySucceededPayload>) => {
+      state.status = 'succeeded';
+      state.data = action.payload;
     },
     fetchCategoryFailed: (state: CategoryState, action: PayloadAction<FetchCategoryFailedPayload>) => {
+      state.status = 'failed';
       state.error = 'loi';
     },
   },
 });
 
-export const { fetchCategoryStart, fetchCategorySuccess, fetchCategoryFailed } = categorySlice.actions;
+export const { fetchCategoryStart, fetchCategorySucceeded, fetchCategoryFailed } = categorySlice.actions;
 export default categorySlice.reducer;

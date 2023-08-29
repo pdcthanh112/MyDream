@@ -1,32 +1,30 @@
 import { NotificationState } from '@redux/actions/type/notification';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSuccessPayload } from '@redux/actions/payload/notification';
+import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSucceededPayload } from '@redux/actions/payload/notification';
 
 const initialState: NotificationState = {
-  pending: false,
-  success: false,
+  status: 'idle',
   error: null,
-  data: {},
+  data: [],
 };
 
 const notificationSlice = createSlice({
-  name: 'NOTIFICAION',
+  name: 'notification',
   initialState: initialState,
   reducers: {
-    FETCH_NOTIFICATION_START: (state: NotificationState, action: PayloadAction<FetchNotificationStartPayload>) => {
-      state.pending = true;
+    fetchNotificationStart: (state: NotificationState, action: PayloadAction<FetchNotificationStartPayload>) => {
+      state.status = 'pending';
     },
-    FETCH_NOTIFICATION_SUCCESS: (state: NotificationState, action: PayloadAction<FetchNotificationSuccessPayload>) => {
-      state.pending = false;
-      state.success = true;
-      state.data = action.payload.data;
+    fetchNotificationSucceeded: (state: NotificationState, action: PayloadAction<FetchNotificationSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.data = action.payload;
     },
-    FETCH_NOTIFICATION_FAILED: (state: NotificationState, action: PayloadAction<FetchNotificationFailedPayload>) => {
-      state.pending = false;
-      state.error = action.payload.error;
+    fetchNotificationFailed: (state: NotificationState, action: PayloadAction<FetchNotificationFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
     },
   },
 });
 
-export const { FETCH_NOTIFICATION_START, FETCH_NOTIFICATION_SUCCESS, FETCH_NOTIFICATION_FAILED } = notificationSlice.actions;
+export const { fetchNotificationStart, fetchNotificationSucceeded, fetchNotificationFailed } = notificationSlice.actions;
 export default notificationSlice.reducer;

@@ -1,4 +1,4 @@
-export const FETCH_SUBCATEGORY = "FETCH_SUBCATEGORY"
-export const FETCH_SUBCATEGORY_START = "FETCH_SUBCATEGORY_START"
-export const FETCH_SUBCATEGORY_SUCCESS = "FETCH_SUBCATEGORY_SUCCESS"
-export const FETCH_SUBCATEGORY_FAILED = "FETCH_SUBCATEGORY_FAILED"
+export const FETCH_SUBCATEGORY_REQUESTED = "subcategory/fetchSubcategoryRequested"
+export const FETCH_SUBCATEGORY_START = "subcategory/fetchSubcategoryStart"
+export const FETCH_SUBCATEGORY_SUCCEEDED = "subcategory/fetchSubcategorySucceeded"
+export const FETCH_SUBCATEGORY_FAILED = "subcategory/fetchSubcategoryFailed"

@@ -1,9 +1,17 @@
+import { Category } from '@models/CategoryModel';
+
+export interface FetchCategoryRequestedPayload {
+  params: any;
+}
+
 export interface FetchCategoryStartPayload {
-    params: { userId: string };
-  }
-  export interface FetchCategorySuccessPayload {
-    data: [];
-  }
-  export interface FetchCategoryFailedPayload {
-    error: string;
-  }
+  params: { token: string };
+}
+
+export interface FetchCategorySucceededPayload {
+  data: Category[];
+}
+
+export interface FetchCategoryFailedPayload {
+  error: string;
+}

@@ -1,11 +1,11 @@
+import { Notification } from '@models/NotificationModel';
 import * as actionName from '../name/notification';
-import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSuccessPayload } from '../payload/notification';
+import { FetchNotificationFailedPayload, FetchNotificationStartPayload, FetchNotificationSucceededPayload } from '../payload/notification';
 
 export interface NotificationState {
-  pending: boolean;
-  success: boolean;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
-  data: {};
+  data: Notification[];
 }
 
 export type FetchNotificationStart = {
@@ -13,9 +13,9 @@ export type FetchNotificationStart = {
   payload: FetchNotificationStartPayload;
 };
 
-export type FetchNotificationSuccess = {
-  type: typeof actionName.FETCH_NOTIFICATION_SUCCESS;
-  payload: FetchNotificationSuccessPayload;
+export type FetchNotificationSucceeded = {
+  type: typeof actionName.FETCH_NOTIFICATION_SUCCEEDED;
+  payload: FetchNotificationSucceededPayload;
 };
 
 export type FetchNotificationFailed = {

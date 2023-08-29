@@ -1,31 +1,39 @@
+import { Wishlist } from '@models/WishlistModel';
 import * as actionName from '../name/wishlist';
 import {
   AddItemToWishlistFailedPayload,
+  AddItemToWishlistRequestedPayload,
   AddItemToWishlistStartPayload,
-  AddItemToWishlistSuccessPayload,
+  AddItemToWishlistSucceededPayload,
   FetchWishlistFailedPayload,
+  FetchWishlistRequestedPayload,
   FetchWishlistStartPayload,
-  FetchWishlistSuccessPayload,
+  FetchWishlistSucceededPayload,
   RemoveItemFromWishlistFailedPayload,
+  RemoveItemFromWishlistRequestedPayload,
   RemoveItemFromWishlistStartPayload,
-  RemoveItemFromWishlistSuccessPayload,
+  RemoveItemFromWishlistSucceededPayload,
 } from '../payload/wishlist';
 
 export interface WishlistState {
-  pending: boolean;
-  success: boolean;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
-  data: {};
+  data: Wishlist[];
 }
+
+export type FetchWishlistRequested = {
+  type: typeof actionName.FETCH_WISHLIST_REQUESTED;
+  payload: FetchWishlistRequestedPayload;
+};
 
 export type FetchWishlistStart = {
   type: typeof actionName.FETCH_WISHLIST_START;
   payload: FetchWishlistStartPayload;
 };
 
-export type FetchWishlistSuccess = {
-  type: typeof actionName.FETCH_WISHLIST_SUCCESS;
-  payload: FetchWishlistSuccessPayload;
+export type FetchWishlistSucceeded = {
+  type: typeof actionName.FETCH_WISHLIST_SUCCEEDED;
+  payload: FetchWishlistSucceededPayload;
 };
 
 export type FetchWishlistFailed = {
@@ -33,14 +41,19 @@ export type FetchWishlistFailed = {
   payload: FetchWishlistFailedPayload;
 };
 
+export type AddItemToWishlistRequested = {
+  type: typeof actionName.ADD_ITEM_TO_WISHLIST_REQUESTED;
+  payload: AddItemToWishlistRequestedPayload;
+};
+
 export type AddItemToWishlistStart = {
   type: typeof actionName.ADD_ITEM_TO_WISHLIST_START;
   payload: AddItemToWishlistStartPayload;
 };
 
-export type AddItemToWishlistSuccess = {
-  type: typeof actionName.ADD_ITEM_TO_WISHLIST_SUCCESS;
-  payload: AddItemToWishlistSuccessPayload;
+export type AddItemToWishlistSucceeded = {
+  type: typeof actionName.ADD_ITEM_TO_WISHLIST_SUCCEEDED;
+  payload: AddItemToWishlistSucceededPayload;
 };
 
 export type AddItemToWishlistFailed = {
@@ -48,14 +61,19 @@ export type AddItemToWishlistFailed = {
   payload: AddItemToWishlistFailedPayload;
 };
 
+export type RemoveItemFromWishlistRequested = {
+  type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED;
+  payload: RemoveItemFromWishlistRequestedPayload;
+};
+
 export type RemoveItemFromWishlistStart = {
   type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_START;
   payload: RemoveItemFromWishlistStartPayload;
 };
 
-export type RemoveItemFromWishlistSuccess = {
-  type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCESS;
-  payload: RemoveItemFromWishlistSuccessPayload;
+export type RemoveItemFromWishlistSucceeded = {
+  type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_SUCCEEDED;
+  payload: RemoveItemFromWishlistSucceededPayload;
 };
 
 export type RemoveItemFromWishlistFailed = {

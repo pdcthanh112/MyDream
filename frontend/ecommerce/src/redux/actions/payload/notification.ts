@@ -1,8 +1,10 @@
+import { Notification } from "@models/NotificationModel";
+
 export interface FetchNotificationStartPayload {
-  params: { userId: string };
+  params: { token: string };
 }
-export interface FetchNotificationSuccessPayload {
-  data: {};
+export interface FetchNotificationSucceededPayload {
+  data: Notification[];
 }
 export interface FetchNotificationFailedPayload {
   error: string;

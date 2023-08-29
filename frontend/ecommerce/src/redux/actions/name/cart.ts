@@ -1,14 +1,14 @@
-export const CREATE_NEW_CART = 'CREATE_NEW_CART';
-export const CREATE_NEW_CART_START = 'CREATE_NEW_CART_START';
-export const CREATE_NEW_CART_SUCCESS = 'CREATE_NEW_CART_SUCCESS';
-export const CREATE_NEW_CART_FAILED = 'CREATE_NEW_CART_FAILED';
-export const CREATE_NEW_CART_CLEAN = 'CREATE_NEW_CART_CLEAN';
+export const CREATE_NEW_CART_REQUESTED = 'cart/createNewCartRequested';
+export const CREATE_NEW_CART_START = 'cart/createNewCartStart';
+export const CREATE_NEW_CART_SUCCEEDED = 'cart/createNewCartSucceeded';
+export const CREATE_NEW_CART_FAILED = 'cart/createNewCartFailed';
 
-export const DELETE_CART = 'DELETE_CART';
-export const DELETE_CART_START = 'DELETE_CART_START';
-export const DELETE_CART_SUCCESS = 'DELETE_CART_SUCCESS';
-export const DELETE_CART_FAILED = 'DELETE_CART_FAILED';
-export const DELETE_CART_CLEAN = 'DELETE_CART_CLEAN';
+export const DELETE_CART_REQUESTED = 'cart/deleteCartRequested';
+export const DELETE_CART_START = 'cart/deleteCartStart';
+export const DELETE_CART_SUCCEEDED = 'cart/deleteCartSucceeded';
+export const DELETE_CART_FAILED = 'cart/deleteCartFailed';
+
+
 
 
 

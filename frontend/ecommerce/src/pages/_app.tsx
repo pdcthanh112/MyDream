@@ -16,11 +16,10 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
   });
 
   const queryClient = new QueryClient();
-  const clientId = process.env.CLIENT_ID || '1085433653419-r6fptbnccc52h3q0rnhhsi5ge1onectp.apps.googleusercontent.com';
-
+  
   return (
     <React.StrictMode>
-      <SessionProvider session={session}>
+      {/* <SessionProvider session={session}> */}
         <ApolloProvider client={client}>
           <Provider store={store}>
             <ConfirmProvider>
@@ -30,7 +29,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
             </ConfirmProvider>
           </Provider>
         </ApolloProvider>
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </React.StrictMode>
   );
 };

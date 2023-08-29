@@ -1,8 +1,10 @@
+import { Subcategory } from "@models/SubcategoryModel";
+
 export interface FetchSubcategoryStartPayload {
-  params: { userId: string };
+  params: { token: string };
 }
-export interface FetchSubcategorySuccessPayload {
-  data: [];
+export interface FetchSubcategorySucceededPayload {
+  data: Subcategory[];
 }
 export interface FetchSubcategoryFailedPayload {
   error: string;

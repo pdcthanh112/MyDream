@@ -8,13 +8,14 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import {  store, useAppDispatch } from '@redux/store';
-import { fetchCategoryStart } from '@redux/reducers/categoryReducer';
+import { store, useAppDispatch } from '@redux/store';
+
+import { fetchCategoryRequested, fetchCategoryStart } from '@redux/actions/category';
 import { fetchSubcategoryStart } from '@redux/reducers/subcategoryReducer';
 
 const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
-const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
@@ -22,9 +23,9 @@ const dispatch = useAppDispatch()
     totalPage: 0,
   });
 
-  dispatch(fetchCategoryStart());
   // useEffect(() => {
-  // }, [dispatch]);
+  //   dispatch(fetchCategoryRequested());
+  // }, []);
 
   const { data: listProduct, isLoading } = useQuery({
     queryKey: ['listProduct', pagination],
@@ -55,9 +56,8 @@ const dispatch = useAppDispatch()
 };
 
 export async function getServerSideProps(context: any) {
-
-  store.dispatch(fetchCategoryStart(context.category));
-  store.dispatch(fetchSubcategoryStart(context.subcategory));;
+  // store.dispatch(fetchCategoryStart(context.category));
+  // store.dispatch(fetchSubcategoryStart(context.subcategory));
 
   return {
     props: {

@@ -1,11 +1,9 @@
-export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
-export const ADD_ITEM_TO_CART_START = 'ADD_ITEM_TO_CART_START';
-export const ADD_ITEM_TO_CART_SUCCESS = 'ADD_ITEM_TO_CART_SUCCESS';
-export const ADD_ITEM_TO_CART_FAILED = 'ADD_ITEM_TO_CART_FAILED';
-export const ADD_ITEM_TO_CART_CLEAN = 'ADD_ITEM_TO_CART_CLEAN';
+export const ADD_ITEM_TO_CART_REQUESTED = 'cartItem/addItemToCartRequested';
+export const ADD_ITEM_TO_CART_START = 'cartItem/addItemToCartStart';
+export const ADD_ITEM_TO_CART_SUCCEEDED = 'cartItem/addItemToCartSucceeded';
+export const ADD_ITEM_TO_CART_FAILED = 'cartItem/addItemToCartFailed';
 
-export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
-export const REMOVE_ITEM_FROM_CART_START = 'REMOVE_ITEM_FROM_CART_START';
-export const REMOVE_ITEM_FROM_CART_SUCCESS = 'REMOVE_ITEM_FROM_CART_SUCCESS';
-export const REMOVE_ITEM_FROM_CART_FAILED = 'REMOVE_ITEM_FROM_CART_FAILED';
-export const REMOVE_ITEM_FROM_CART_CLEAN = 'REMOVE_ITEM_FROM_CART_CLEAN';
+export const REMOVE_ITEM_FROM_CART_REQUESTED = 'cartItem/removeItemFromCartRequested';
+export const REMOVE_ITEM_FROM_CART_START = 'cartItem/removeItemFromCartStart';
+export const REMOVE_ITEM_FROM_CART_SUCCEEDED = 'cartItem/removeItemFromCartSucceeded';
+export const REMOVE_ITEM_FROM_CART_FAILED = 'cartItem/removeItemFromCartFailed';

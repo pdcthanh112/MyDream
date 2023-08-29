@@ -1,22 +1,26 @@
 import { Category } from '@models/CategoryModel';
 import * as actionName from '../name/category';
-import { FetchCategoryFailedPayload, FetchCategoryStartPayload, FetchCategorySuccessPayload } from '../payload/category';
+import { FetchCategoryFailedPayload, FetchCategoryRequestedPayload, FetchCategoryStartPayload, FetchCategorySucceededPayload } from '../payload/category';
 
 export interface CategoryState {
-  pending: boolean;
-  success: boolean;
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
   data: Category[];
 }
 
-export type FetchCategoryStart = {
-  type: typeof actionName.FETCH_CATEGORY_START;
-  // payload: FetchCategoryStartPayload;
+export type FetchCategoryRequested = {
+  type: typeof actionName.FETCH_CATEGORY_REQUESTED;
+  payload: FetchCategoryRequestedPayload;
 };
 
-export type FetchCategorySuccess = {
-  type: typeof actionName.FETCH_CATEGORY_SUCCESS;
-  payload: FetchCategorySuccessPayload;
+export type FetchCategoryStart = {
+  type: typeof actionName.FETCH_CATEGORY_START;
+  payload: FetchCategoryStartPayload;
+};
+
+export type FetchCategorySucceeded = {
+  type: typeof actionName.FETCH_CATEGORY_SUCCEEDED;
+  payload: FetchCategorySucceededPayload;
 };
 
 export type FetchCategoryFailed = {
