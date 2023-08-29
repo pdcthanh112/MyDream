@@ -9,7 +9,6 @@ import subcategoryReducer from './reducers/subcategoryReducer';
 import notificationReducer from './reducers/notificationReducer';
 import cartItemReducer from './reducers/cartItemReducer';
 import rootSaga from './sagas/rootSaga';
-// import { getDefaultState } from '@utils/helper';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -30,22 +29,6 @@ export const store = configureStore({
       thunk: true,
     }).concat([sagaMiddleware]),
   devTools: process.env.NODE_ENV !== 'production',
-  // preloadedState: {
-  //   category: {
-  //     pending: false,
-  //     success: false,
-  //     error: null,
-  //     data: [{ id: 1, name: 'book' }],
-  //     // data: (await (getDefaultState())).category,
-  //   },
-  //   subcategory: {
-  //     pending: false,
-  //     success: false,
-  //     error: null,
-  //     data: [{ id: 1, name: 'edu', category: { id: 1, name: 'book' } }],
-  //     // data: (await (getDefaultState())).subcategory,
-  //   },
-  // },
 });
 
 sagaMiddleware.run(rootSaga)
