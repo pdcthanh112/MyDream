@@ -35,7 +35,7 @@ function* removeItemFromWishlist(action: PayloadAction<any>) {
 }
 
 export function* wishlistSaga() {
-  takeEvery(actionName.FETCH_WISHLIST_REQUESTED, fetchWishlistByCustomer);
-  takeEvery(actionName.ADD_ITEM_TO_WISHLIST_REQUESTED, addItemToWishlist);
-  takeEvery(actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED, removeItemFromWishlist);
+  yield takeEvery(actionName.FETCH_WISHLIST_REQUESTED, fetchWishlistByCustomer);
+  yield takeEvery(actionName.ADD_ITEM_TO_WISHLIST_REQUESTED, addItemToWishlist);
+  yield takeEvery(actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED, removeItemFromWishlist);
 };

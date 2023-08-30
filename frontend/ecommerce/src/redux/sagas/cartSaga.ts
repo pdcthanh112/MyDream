@@ -26,6 +26,6 @@ function* deleteCart(action: PayloadAction<any>) {
 
 
 export function* cartSaga() {
-  takeEvery(actionName.CREATE_NEW_CART_REQUESTED, createNewCart);
-  takeEvery(actionName.DELETE_CART_REQUESTED, deleteCart);
+  yield takeEvery(actionName.CREATE_NEW_CART_REQUESTED, createNewCart);
+  yield takeEvery(actionName.DELETE_CART_REQUESTED, deleteCart);
 };

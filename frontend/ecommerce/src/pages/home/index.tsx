@@ -10,8 +10,8 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { store, useAppDispatch } from '@redux/store';
 
-import { fetchCategoryRequested, fetchCategoryStart } from '@redux/actions/category';
-import { fetchSubcategoryStart } from '@redux/reducers/subcategoryReducer';
+import { fetchCategoryRequested } from '@redux/actions/category';
+import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
 
 const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
@@ -23,9 +23,10 @@ const Home: NextPage = (): React.ReactElement => {
     totalPage: 0,
   });
 
-  // useEffect(() => {
-  //   dispatch(fetchCategoryRequested());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchSubcategoryRequested())
+    dispatch(fetchCategoryRequested());
+  }, []);
 
   const { data: listProduct, isLoading } = useQuery({
     queryKey: ['listProduct', pagination],

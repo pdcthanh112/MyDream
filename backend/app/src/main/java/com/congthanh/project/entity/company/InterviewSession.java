@@ -1,4 +1,4 @@
-package com.congthanh.project.entity.recruitment;
+package com.congthanh.project.entity.company;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

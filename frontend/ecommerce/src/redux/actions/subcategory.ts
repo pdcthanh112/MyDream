@@ -2,7 +2,7 @@ import * as actionName from './name/subcategory';
 import { FetchSubcategoryFailedPayload, FetchSubcategoryStartPayload, FetchSubcategorySucceededPayload } from './payload/subcategory';
 import { FetchSubcategoryFailed, FetchSubcategoryStart, FetchSubcategorySucceeded } from './type/subcategory';
 
-export const fetchSubcategoryRequest = () => ({
+export const fetchSubcategoryRequested = () => ({
   type: actionName.FETCH_SUBCATEGORY_REQUESTED,
   payload: null
 })
@@ -12,7 +12,7 @@ export const fetchSubcategoryStart = (payload: FetchSubcategoryStartPayload): Fe
   payload,
 });
 
-export const fetchSubcategorySuccess = (payload: FetchSubcategorySucceededPayload): FetchSubcategorySucceeded => ({
+export const fetchSubcategorySucceeded = (payload: FetchSubcategorySucceededPayload): FetchSubcategorySucceeded => ({
   type: actionName.FETCH_SUBCATEGORY_SUCCEEDED,
   payload,
 });

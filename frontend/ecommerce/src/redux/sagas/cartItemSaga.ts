@@ -25,6 +25,6 @@ function* removeFromCart(action: PayloadAction<any>) {
 
 
 export function* cartItemSaga() {
-  takeEvery(actionName.ADD_ITEM_TO_CART_REQUESTED, addToCart);
-  takeEvery(actionName.REMOVE_ITEM_FROM_CART_REQUESTED, removeFromCart);
+  yield takeEvery(actionName.ADD_ITEM_TO_CART_REQUESTED, addToCart);
+  yield takeEvery(actionName.REMOVE_ITEM_FROM_CART_REQUESTED, removeFromCart);
 };

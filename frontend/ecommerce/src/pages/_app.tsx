@@ -9,7 +9,8 @@ import { appWithTranslation } from 'next-i18next';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SessionProvider } from 'next-auth/react';
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
+const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
+// const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
   const client = new ApolloClient({
     uri: `${process.env.REACT_APP_API_URL}/graphql`,
     cache: new InMemoryCache(),

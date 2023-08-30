@@ -1,4 +1,4 @@
-package com.congthanh.project.dto.recruitment;
+package com.congthanh.project.dto.company;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

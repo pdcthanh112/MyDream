@@ -6,8 +6,8 @@ import { fetchNotificationFailed, fetchNotificationStart, fetchNotificationSucce
 
 function* fetchNotification(action: PayloadAction<any>) {
   try {
-    yield put(fetchNotificationStart(action.payload))
-    yield getNotificationByCustomer(action.payload.customerId)
+    yield put(fetchNotificationStart(action.payload));
+    yield getNotificationByCustomer(action.payload.customerId);
     yield put(fetchNotificationSucceeded(action.payload));
   } catch (e) {
     yield put(fetchNotificationFailed(action.payload));
@@ -15,5 +15,5 @@ function* fetchNotification(action: PayloadAction<any>) {
 }
 
 export function* notificationSaga() {
-    takeEvery(actionName.FETCH_NOTIFICATION_REQUESTED, fetchNotification);
+  yield takeEvery(actionName.FETCH_NOTIFICATION_REQUESTED, fetchNotification);
 }

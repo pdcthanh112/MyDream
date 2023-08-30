@@ -13,9 +13,10 @@ const subcategorySlice = createSlice({
   initialState: initialState,
   reducers: {
     fetchSubcategoryStart: (state: SubcategoryState, action: PayloadAction<FetchSubcategoryStartPayload>) => {
+      console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
       state.status = 'pending';
     },
-    fetchSubcategorySuccess: (state: SubcategoryState, action: PayloadAction<FetchSubcategorySucceededPayload>) => {
+    fetchSubcategorySucceeded: (state: SubcategoryState, action: PayloadAction<FetchSubcategorySucceededPayload>) => {
       state.status = 'succeeded';
       state.data = action.payload;
     },
@@ -26,5 +27,5 @@ const subcategorySlice = createSlice({
   },
 });
 
-export const { fetchSubcategoryStart, fetchSubcategorySuccess, fetchSubcategoryFailed } = subcategorySlice.actions;
+export const { fetchSubcategoryStart, fetchSubcategorySucceeded, fetchSubcategoryFailed } = subcategorySlice.actions;
 export default subcategorySlice.reducer;

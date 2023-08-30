@@ -1,8 +1,8 @@
-package com.congthanh.project.service.recruitment;
+package com.congthanh.project.service.company;
 
-import com.congthanh.project.dto.recruitment.RecruitmentRequestDTO;
+import com.congthanh.project.dto.company.RecruitmentRequestDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
-import com.congthanh.project.entity.recruitment.RecruitmentRequest;
+import com.congthanh.project.entity.company.RecruitmentRequest;
 
 public interface RecruitmentRequestService {
 
