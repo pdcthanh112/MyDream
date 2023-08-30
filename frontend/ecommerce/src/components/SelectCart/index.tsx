@@ -3,10 +3,7 @@ import { Card, Modal } from '@mui/material';
 const SelectCart = () => {
   console.log('seleect cart');
   return (
-    <Modal>
-      SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart SelectCart
-      SelectCart SelectCart
-    </Modal>
+ <div>select cart</div>
   );
 };
 

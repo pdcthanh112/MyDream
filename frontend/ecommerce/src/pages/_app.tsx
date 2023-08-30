@@ -36,3 +36,4 @@ const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
 };
 
 export default appWithTranslation(MyApp);
+

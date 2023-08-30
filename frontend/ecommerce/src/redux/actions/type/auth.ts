@@ -1,55 +1,42 @@
-import { Customer } from '@models/CustomerModel';
 import * as actionName from '../name/auth';
 import {
   EditProfileFailedPayload,
+  EditProfileRequestedPayload,
   EditProfileStartPayload,
-  EditProfileSuccessPayload,
+  EditProfileSucceededPayload,
   LoginFailedPayload,
+  LoginRequestedPayload,
   LoginStartPayload,
-  LoginSuccessPayload,
-  ResetPasswordFailedPayload,
-  ResetPasswordStartPayload,
-  ResetPasswordSuccessPayload,
+  LoginSucceededPayload,
+  LogoutFailedPayload,
+  LogoutRequestedPayload,
+  LogoutStartPayload,
+  LogoutSucceededPayload,
   SignupFailedPayload,
+  SignupRequestedPayload,
   SignupStartPayload,
-  SignupSuccessPayload,
+  SignupSucceededPayload,
 } from '../payload/auth';
 
 export interface AuthState {
-  login: {
-    pending: boolean;
-    success: boolean;
+    status: 'idle' | 'pending' | 'succeeded' | 'failed'
     error: string | null;
     currentUser: any;
   };
-  signup: {
-    pending: boolean;
-    success: boolean;
-    error: string | null;
-    userData: {} | null;
-  };
-  logout: {
-    pending: boolean;
-    success: boolean;
-    error: string | null;
-    data: {} | null;
-  };
-  edit: {
-    pending: boolean;
-    success: boolean;
-    error: string | null;
-    data: {} | null;
-  };
-}
+  
+export type LoginRequested = {
+  type: typeof actionName.LOGIN_REQUESTED;
+  payload: LoginRequestedPayload;
+};
 
 export type LoginStart = {
   type: typeof actionName.LOGIN_START;
   payload: LoginStartPayload;
 };
 
-export type LoginSuccess = {
-  type: typeof actionName.LOGIN_SUCCESS;
-  payload: LoginSuccessPayload;
+export type LoginSucceeded = {
+  type: typeof actionName.LOGIN_SUCCEEDED;
+  payload: LoginSucceededPayload;
 };
 
 export type LoginFailed = {
@@ -57,14 +44,39 @@ export type LoginFailed = {
   payload: LoginFailedPayload;
 };
 
+export type LogoutRequested = {
+  type: typeof actionName.LOGOUT_REQUESTED;
+  payload: LogoutRequestedPayload;
+};
+
+export type LogoutStart = {
+  type: typeof actionName.LOGOUT_START;
+  payload: LogoutStartPayload;
+};
+
+export type LogoutSucceeded = {
+  type: typeof actionName.LOGOUT_SUCCEEDED;
+  payload: LogoutSucceededPayload;
+};
+
+export type LogoutFailed = {
+  type: typeof actionName.LOGOUT_FAILED;
+  payload: LogoutFailedPayload;
+};
+
+export type SignupRequested = {
+  type: typeof actionName.SIGNUP_REQUESTED;
+  payload: SignupRequestedPayload;
+};
+
 export type SignupStart = {
   type: typeof actionName.SIGNUP_START;
   payload: SignupStartPayload;
 };
 
-export type SignupSuccess = {
-  type: typeof actionName.SIGNUP_SUCCESS;
-  payload: SignupSuccessPayload;
+export type SignupSucceeded = {
+  type: typeof actionName.SIGNUP_SUCCEEDED;
+  payload: SignupSucceededPayload;
 };
 
 export type SignupFailed = {
@@ -72,19 +84,9 @@ export type SignupFailed = {
   payload: SignupFailedPayload;
 };
 
-export type ResetPasswordStart = {
-  type: typeof actionName.RESET_PASSWORD_START;
-  payload: ResetPasswordStartPayload;
-};
-
-export type ResetPasswordSuccess = {
-  type: typeof actionName.RESET_PASSWORD_SUCCESS;
-  payload: ResetPasswordSuccessPayload;
-};
-
-export type ResetPasswordFailed = {
-  type: typeof actionName.RESET_PASSWORD_FAILED;
-  payload: ResetPasswordFailedPayload;
+export type EditProfileRequested = {
+  type: typeof actionName.EDIT_PROFILE_REQUESTED;
+  payload: EditProfileRequestedPayload;
 };
 
 export type EditProfileStart = {
@@ -92,26 +94,12 @@ export type EditProfileStart = {
   payload: EditProfileStartPayload;
 };
 
-export type EditProfileSuccess = {
-  type: typeof actionName.EDIT_PROFILE_SUCCESS;
-  payload: EditProfileSuccessPayload;
+export type EditProfileSucceeded = {
+  type: typeof actionName.EDIT_PROFILE_SUCCEEDED;
+  payload: EditProfileSucceededPayload;
 };
 
 export type EditProfileFailed = {
   type: typeof actionName.EDIT_PROFILE_FAILED;
   payload: EditProfileFailedPayload;
 };
-
-export type AuthAction =
-  | LoginStart
-  | LoginSuccess
-  | LoginFailed
-  | SignupStart
-  | SignupSuccess
-  | SignupFailed
-  | ResetPasswordStart
-  | ResetPasswordSuccess
-  | ResetPasswordFailed
-  | EditProfileStart
-  | EditProfileSuccess
-  | EditProfileFailed;

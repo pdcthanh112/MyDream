@@ -1,20 +1,41 @@
+export interface LoginRequestedPayload {
+  params: { email: string; password: string };
+}
 export interface LoginStartPayload {
   params: { email: string; password: string };
 }
 
-export interface LoginSuccessPayload {
+export interface LoginSucceededPayload {
   data: {};
 }
 
 export interface LoginFailedPayload {
   error: string;
 }
+export interface LogoutRequestedPayload {
+  params: { email: string; password: string };
+}
+export interface LogoutStartPayload {
+  params: { email: string; password: string };
+}
+
+export interface LogoutSucceededPayload {
+  data: {};
+}
+
+export interface LogoutFailedPayload {
+  error: string;
+}
+
+export interface SignupRequestedPayload {
+  params: { email: string; password: string };
+}
 
 export interface SignupStartPayload {
   params: { email: string; password: string };
 }
 
-export interface SignupSuccessPayload {
+export interface SignupSucceededPayload {
   data: {};
 }
 
@@ -22,23 +43,15 @@ export interface SignupFailedPayload {
   error: string;
 }
 
-export interface ResetPasswordStartPayload {
+export interface EditProfileRequestedPayload {
   params: { email: string; password: string };
-}
-
-export interface ResetPasswordSuccessPayload {
-  data: {};
-}
-
-export interface ResetPasswordFailedPayload {
-  error: string;
 }
 
 export interface EditProfileStartPayload {
   params: { email: string; password: string };
 }
 
-export interface EditProfileSuccessPayload {
+export interface EditProfileSucceededPayload {
   data: {};
 }
 

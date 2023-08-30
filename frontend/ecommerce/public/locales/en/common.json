@@ -23,7 +23,7 @@
     "free": "Free",
     "notification": "Notification",
     "status": "Status",
-    "delete_this_item": "Delete this item", 
+    "delete_this_item": "Delete this item",
     "in_stock": "In stock",
     "out_of_stock": "Out of stock",
     "active": "Active",
@@ -35,7 +35,8 @@
     "show_password": "Show password",
     "or": "or",
     "enter_your_field": "${label} Enter your ${field}",
-    "field_is_require": "${feild} is require"
+    "field_is_require": "${feild} is require",
+    "back": "Back"
   },
   "header": {
     "your_shopping": "Your shopping",
@@ -56,6 +57,11 @@
     "gift_card": "Gift Card",
     "sell": "Sell"
   },
+  "sidebar": {
+    "help_and_settings": "Help & Settings",
+    "your_account": "Your account",
+    "customer_service": "Customer Service"
+  },
   "login": {
     "forgot_password": "Forgot password",
     "remember_me": "Remember me",
@@ -71,11 +77,11 @@
     "phone": "Phone",
     "gender": "Gender",
     "date_of_birth": "Date of birth",
-    "address": "Address", 
+    "address": "Address",
     "male": "Male",
     "female": "Female",
-    "other": "Other", 
-    "8_32_characters": "8 - 32 characters", 
+    "other": "Other",
+    "8_32_characters": "8 - 32 characters",
     "at_least_1_lowercase_letter": "at least 1 lowercase letter",
     "at_least_1_uppercase_letter": "at least 1 uppercase letter",
     "at_least_1_numberic_character": "at least 1 numberic character",
@@ -92,7 +98,6 @@
     "product_description": "product description",
     "price": "Price",
     "product_name": "Product name"
-
   },
   "cart": {
     "create_new_cart": "Create new cart",

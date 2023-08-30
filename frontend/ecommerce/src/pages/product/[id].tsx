@@ -1,4 +1,3 @@
- ;
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -29,7 +28,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   });
 
   const addProductToCart = async () => {
-    await addToCart(product.id, quantity, '8d4f19b5-491a-4d3c-a7e3-13aea1eb4986').then(() => {});
+    await addToCart({productId: product.id, quantity: quantity, cartId: '8d4f19b5-491a-4d3c-a7e3-13aea1eb4986'}).then(() => {});
   };
 
   if (isLoading) return <ProductSkeleton />;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Product } from '@models/ProductModel';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
@@ -7,7 +6,7 @@ import Button from '@components/Button';
 import { useRouter } from 'next/router';
 import { roundNumber } from '@utils/helper';
 import { ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as FavoriteIcon } from '@mui/icons-material';
-import { addToWishlist } from '@apis/wishlistApi';
+import { addProductToWishlist } from '@apis/wishlistApi';
 import { useAppSelector } from '@redux/store';
 import { addToCart } from '@apis/cartItemApi';
 import AuthModal from '@components/AuthModal';
@@ -37,7 +36,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
 
   const handleAddToWishlist = (productId: string) => {
     if (currentUser) {
-      addToWishlist(currentUser.userData.accountId, productId);
+      addProductToWishlist(currentUser.userData.accountId, productId);
     } else {
       <AuthModal />;
     }

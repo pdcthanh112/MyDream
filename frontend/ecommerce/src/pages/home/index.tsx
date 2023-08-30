@@ -24,7 +24,7 @@ const Home: NextPage = (): React.ReactElement => {
   });
 
   useEffect(() => {
-    dispatch(fetchSubcategoryRequested())
+    dispatch(fetchSubcategoryRequested());
     dispatch(fetchCategoryRequested());
   }, []);
 
@@ -57,8 +57,8 @@ const Home: NextPage = (): React.ReactElement => {
 };
 
 export async function getServerSideProps(context: any) {
-  // store.dispatch(fetchCategoryStart(context.category));
-  // store.dispatch(fetchSubcategoryStart(context.subcategory));
+  // store.dispatch(fetchSubcategoryRequested());
+  // store.dispatch(fetchCategoryRequested());
 
   return {
     props: {

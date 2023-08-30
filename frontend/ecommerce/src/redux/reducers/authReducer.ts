@@ -1,32 +1,24 @@
-import { LoginFailedPayload, LoginStartPayload, LoginSuccessPayload } from '@redux/actions/payload/auth';
 import { AuthState } from '@redux/actions/type/auth';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import {
+  EditProfileFailedPayload,
+  EditProfileStartPayload,
+  EditProfileSucceededPayload,
+  LoginFailedPayload,
+  LoginStartPayload,
+  LoginSucceededPayload,
+  LogoutFailedPayload,
+  LogoutStartPayload,
+  LogoutSucceededPayload,
+  SignupFailedPayload,
+  SignupStartPayload,
+  SignupSucceededPayload,
+} from '@redux/actions/payload/auth';
 
 const initialState: AuthState = {
-  login: {
-    pending: false,
-    currentUser: null,
-    error: null,
-    success: false,
-  },
-  signup: {
-    pending: false,
-    userData: null,
-    error: '',
-    success: false,
-  },
-  logout: {
-    pending: false,
-    success: false,
-    error: null,
-    data: null,
-  },
-  edit: {
-    pending: false,
-    error: null,
-    success: false,
-    data: null,
-  },
+  status: 'idle',
+  error: null,
+  currentUser: null,
 };
 
 const authSlice = createSlice({
@@ -34,20 +26,65 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     loginStart: (state: AuthState, action: PayloadAction<LoginStartPayload>) => {
-      state.login.pending = true;
+      state.status = 'pending';
     },
-    loginSuccess: (state: AuthState, action: PayloadAction<LoginSuccessPayload>) => {
-      state.login.pending = false;
-      state.login.success = true;
+    loginSucceeded: (state: AuthState, action: PayloadAction<LoginSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.currentUser = action.payload;
     },
     loginFailed: (state: AuthState, action: PayloadAction<LoginFailedPayload>) => {
-      state.login.pending = false;
-      state.login.error = action.payload.error;
+      state.status = 'failed';
+      state.error = 'loi';
+    },
+    logoutStart: (state: AuthState, action: PayloadAction<LogoutStartPayload>) => {
+      state.status = 'pending';
+    },
+    logoutSucceeded: (state: AuthState, action: PayloadAction<LogoutSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.currentUser = null;
+    },
+    logoutFailed: (state: AuthState, action: PayloadAction<LogoutFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
+    },
+    signupStart: (state: AuthState, action: PayloadAction<SignupStartPayload>) => {
+      state.status = 'pending';
+    },
+    signupSucceeded: (state: AuthState, action: PayloadAction<SignupSucceededPayload>) => {
+      state.status = 'succeeded';
+    },
+    signupFailed: (state: AuthState, action: PayloadAction<SignupFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
+    },
+    editProfileStart: (state: AuthState, action: PayloadAction<EditProfileStartPayload>) => {
+      state.status = 'pending';
+    },
+    editProfileSucceeded: (state: AuthState, action: PayloadAction<EditProfileSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.currentUser = action.payload;
+    },
+    editProfileFailed: (state: AuthState, action: PayloadAction<EditProfileFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
     },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailed } = authSlice.actions;
+export const {
+  loginStart,
+  loginSucceeded,
+  loginFailed,
+  logoutStart,
+  logoutSucceeded,
+  logoutFailed,
+  signupStart,
+  signupSucceeded,
+  signupFailed,
+  editProfileStart,
+  editProfileSucceeded,
+  editProfileFailed,
+} = authSlice.actions;
 export default authSlice.reducer;
 
 // export const authReducer = (state = initialState, action: AuthAction) => {

@@ -30,7 +30,7 @@ const AppHeader = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
 
   return (
-    <header>
+
       <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
         <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" onClick={() => router.push('/')} />
 
@@ -150,7 +150,7 @@ const AppHeader = () => {
           </div>
         </div>
       </div>
-    </header>
+ 
   );
 };
 

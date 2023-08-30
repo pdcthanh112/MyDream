@@ -1,40 +1,53 @@
 import * as actionName from './name/auth';
 import {
   EditProfileFailedPayload,
+  EditProfileRequestedPayload,
   EditProfileStartPayload,
-  EditProfileSuccessPayload,
+  EditProfileSucceededPayload,
   LoginFailedPayload,
+  LoginRequestedPayload,
   LoginStartPayload,
-  LoginSuccessPayload,
-  ResetPasswordFailedPayload,
-  ResetPasswordStartPayload,
-  ResetPasswordSuccessPayload,
+  LoginSucceededPayload,
+  LogoutFailedPayload,
+  LogoutRequestedPayload,
+  LogoutStartPayload,
+  LogoutSucceededPayload,
   SignupFailedPayload,
+  SignupRequestedPayload,
   SignupStartPayload,
-  SignupSuccessPayload,
+  SignupSucceededPayload,
 } from './payload/auth';
 import {
   EditProfileFailed,
+  EditProfileRequested,
   EditProfileStart,
-  EditProfileSuccess,
+  EditProfileSucceeded,
   LoginFailed,
+  LoginRequested,
   LoginStart,
-  LoginSuccess,
-  ResetPasswordFailed,
-  ResetPasswordStart,
-  ResetPasswordSuccess,
+  LoginSucceeded,
+  LogoutFailed,
+  LogoutRequested,
+  LogoutStart,
+  LogoutSucceeded,
   SignupFailed,
+  SignupRequested,
   SignupStart,
-  SignupSuccess,
+  SignupSucceeded,
 } from './type/auth';
+
+export const loginRequested = (payload: LoginRequestedPayload): LoginRequested => ({
+  type: actionName.LOGIN_REQUESTED,
+  payload,
+});
 
 export const loginStart = (payload: LoginStartPayload): LoginStart => ({
   type: actionName.LOGIN_START,
   payload,
 });
 
-export const loginSuccess = (payload: LoginSuccessPayload): LoginSuccess => ({
-  type: actionName.LOGIN_SUCCESS,
+export const loginSuccess = (payload: LoginSucceededPayload): LoginSucceeded => ({
+  type: actionName.LOGIN_SUCCEEDED,
   payload,
 });
 
@@ -43,13 +56,38 @@ export const loginFailed = (payload: LoginFailedPayload): LoginFailed => ({
   payload,
 });
 
+export const logoutRequested = (payload: LogoutRequestedPayload): LogoutRequested => ({
+  type: actionName.LOGOUT_REQUESTED,
+  payload,
+});
+
+export const logoutStart = (payload: LogoutStartPayload): LogoutStart => ({
+  type: actionName.LOGOUT_START,
+  payload,
+});
+
+export const logoutSuccess = (payload: LogoutSucceededPayload): LogoutSucceeded => ({
+  type: actionName.LOGOUT_SUCCEEDED,
+  payload,
+});
+
+export const logoutFailed = (payload: LogoutFailedPayload): LogoutFailed => ({
+  type: actionName.LOGOUT_FAILED,
+  payload,
+});
+
+export const signupRequested = (payload: SignupRequestedPayload): SignupRequested => ({
+  type: actionName.SIGNUP_REQUESTED,
+  payload,
+});
+
 export const signupStart = (payload: SignupStartPayload): SignupStart => ({
   type: actionName.SIGNUP_START,
   payload,
 });
 
-export const signupSuccess = (payload: SignupSuccessPayload): SignupSuccess => ({
-  type: actionName.SIGNUP_SUCCESS,
+export const signupSuccess = (payload: SignupSucceededPayload): SignupSucceeded => ({
+  type: actionName.SIGNUP_SUCCEEDED,
   payload,
 });
 
@@ -58,18 +96,8 @@ export const signupFailed = (payload: SignupFailedPayload): SignupFailed => ({
   payload,
 });
 
-export const resetPasswordStart = (payload: ResetPasswordStartPayload): ResetPasswordStart => ({
-  type: actionName.RESET_PASSWORD_START,
-  payload,
-});
-
-export const resetPasswordSuccess = (payload: ResetPasswordSuccessPayload): ResetPasswordSuccess => ({
-  type: actionName.RESET_PASSWORD_SUCCESS,
-  payload,
-});
-
-export const resetPasswordFailed = (payload: ResetPasswordFailedPayload): ResetPasswordFailed => ({
-  type: actionName.RESET_PASSWORD_FAILED,
+export const editProfileRequested = (payload: EditProfileRequestedPayload): EditProfileRequested => ({
+  type: actionName.EDIT_PROFILE_REQUESTED,
   payload,
 });
 
@@ -78,8 +106,8 @@ export const editProfileStart = (payload: EditProfileStartPayload): EditProfileS
   payload,
 });
 
-export const editProfileSuccess = (payload: EditProfileSuccessPayload): EditProfileSuccess => ({
-  type: actionName.EDIT_PROFILE_SUCCESS,
+export const editProfileSuccess = (payload: EditProfileSucceededPayload): EditProfileSucceeded => ({
+  type: actionName.EDIT_PROFILE_SUCCEEDED,
   payload,
 });
 

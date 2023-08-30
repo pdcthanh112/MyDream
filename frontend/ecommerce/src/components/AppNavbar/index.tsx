@@ -1,4 +1,3 @@
- ;
 import { useState } from 'react';
 import Link from 'next/link';
 import AppSidebar from '@components/AppSidebar';
@@ -6,7 +5,7 @@ import { Icon } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useTranslation } from 'next-i18next';
 
-export default function AppNavbar() {
+const AppNavbar = () => {
   const { t } = useTranslation('common');
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -40,4 +39,6 @@ export default function AppNavbar() {
       )}
     </>
   );
-}
+};
+
+export default AppNavbar;

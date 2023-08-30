@@ -29,9 +29,8 @@ const FooterComponent = styled.div`
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
   return (
     <html lang="en">
+      <Metadata />
       <body className={inter.className}>
-        <Metadata />
-
         <HeaderComponent>
           <AppHeader />
         </HeaderComponent>
@@ -62,5 +61,6 @@ export default function RootLayout({ children }: { children: ReactNode }): React
     </html>
   );
 }
+
 
 // export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;
