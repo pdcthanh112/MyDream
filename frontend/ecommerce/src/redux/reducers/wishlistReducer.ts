@@ -27,7 +27,7 @@ const wishlistSlice = createSlice({
     },
     fetchWishlistSucceeded: (state: WishlistState, action: PayloadAction<FetchWishlistSucceededPayload>) => {
       state.status = 'pending';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     fetchWishlistFailed: (state: WishlistState, action: PayloadAction<FetchWishlistFailedPayload>) => {
       state.status = 'failed';
@@ -38,7 +38,7 @@ const wishlistSlice = createSlice({
     },
     addItemToWishlistSucceeded: (state: WishlistState, action: PayloadAction<AddItemToWishlistSucceededPayload>) => {
       state.status = 'pending';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     addItemToWishlistFailed: (state: WishlistState, action: PayloadAction<AddItemToWishlistFailedPayload>) => {
       state.status = 'failed';
@@ -49,7 +49,7 @@ const wishlistSlice = createSlice({
     },
     removeItemFromWishlistSucceeded: (state: WishlistState, action: PayloadAction<RemoveItemFromWishlistSucceededPayload>) => {
       state.status = 'pending';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     removeItemFromWishlistFailed: (state: WishlistState, action: PayloadAction<RemoveItemFromWishlistFailedPayload>) => {
       state.status = 'failed';

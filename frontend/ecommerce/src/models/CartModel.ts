@@ -1,4 +1,4 @@
-import { CartItem } from "./CartItemModel";
+import { Product } from "./ProductModel";
 
 export interface Cart {
   id: string;
@@ -8,6 +8,14 @@ export interface Cart {
   createdDate: Date;
   checkoutDate: Date;
   cartItems: CartItem[];
+}
+
+export interface CartItem {
+  id: string;
+  product: Product;
+  quantity: number;
+  status: string;
+  cart?:string
 }
 
 export interface CreateCartForm {

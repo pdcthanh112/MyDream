@@ -10,6 +10,9 @@ import {
   DeleteCartFailedPayload,
   DeleteCartStartPayload,
   DeleteCartSucceededPayload,
+  FetchCartFailedPayload,
+  FetchCartStartPayload,
+  FetchCartSucceededPayload,
   RemoveItemFromCartFailedPayload,
   RemoveItemFromCartStartPayload,
   RemoveItemFromCartSucceededPayload,
@@ -25,6 +28,21 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
+    fetchCartStart: (state: CartState, action: PayloadAction<FetchCartStartPayload>) => {
+      state.status = 'pending';
+    },
+    fetchCartSucceeded: (state: CartState, action: PayloadAction<FetchCartSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.data = action.payload;
+    },
+    fetchCartFailed: (state: CartState, action: PayloadAction<FetchCartFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
+    },
+    fetchCartClear: (state: CartState, action: PayloadAction<FetchCartFailedPayload>) => {
+      state.status = 'idle';
+      state.error = null;
+    },
     createNewCartStart: (state: CartState, action: PayloadAction<CreateNewCartStartPayload>) => {
       state.status = 'pending';
     },
@@ -73,6 +91,10 @@ const cartSlice = createSlice({
 });
 
 export const {
+  fetchCartStart,
+  fetchCartSucceeded,
+  fetchCartFailed,
+  fetchCartClear,
   createNewCartStart,
   createNewCartSucceeded,
   createNewCartFailed,

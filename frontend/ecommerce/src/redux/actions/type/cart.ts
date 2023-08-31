@@ -1,3 +1,4 @@
+import { Cart } from '@models/CartModel';
 import * as actionName from '../name/cart';
 import {
   AddItemToCartFailedPayload,
@@ -12,6 +13,11 @@ import {
   DeleteCartRequestedPayload,
   DeleteCartStartPayload,
   DeleteCartSucceededPayload,
+  FetchCartClearPayload,
+  FetchCartFailedPayload,
+  FetchCartRequestedPayload,
+  FetchCartStartPayload,
+  FetchCartSucceededPayload,
   RemoveItemFromCartFailedPayload,
   RemoveItemFromCartRequestedPayload,
   RemoveItemFromCartStartPayload,
@@ -21,8 +27,33 @@ import {
 export interface CartState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
-  data: {};
+  data: Cart[];
 }
+
+export type FetchCartRequested = {
+  type: typeof actionName.FETCH_CART_REQUESTED;
+  payload: FetchCartRequestedPayload;
+};
+
+export type FetchCartStart = {
+  type: typeof actionName.FETCH_CART_START;
+  payload: FetchCartStartPayload;
+};
+
+export type FetchCartSucceeded = {
+  type: typeof actionName.FETCH_CART_SUCCEEDED;
+  payload: FetchCartSucceededPayload;
+};
+
+export type FetchCartFailed = {
+  type: typeof actionName.FETCH_CART_FAILED;
+  payload: FetchCartFailedPayload;
+};
+
+export type FetchCartClear = {
+  type: typeof actionName.FETCH_CART_CLEAR;
+  payload: FetchCartClearPayload;
+};
 
 export type CreateNewCartRequested = {
   type: typeof actionName.CREATE_NEW_CART_REQUESTED;

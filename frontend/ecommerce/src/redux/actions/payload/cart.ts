@@ -1,3 +1,23 @@
+import { Cart } from "@models/CartModel";
+
+export interface FetchCartRequestedPayload {
+  values: { id: string; name: string };
+}
+
+export interface FetchCartStartPayload {
+  values: { id: string; name: string };
+}
+
+export interface FetchCartSucceededPayload {
+  data: Cart[];
+}
+
+export interface FetchCartFailedPayload {
+  error: string;
+}
+export interface FetchCartClearPayload {
+  data: {};
+}
 export interface CreateNewCartRequestedPayload {
   values: { id: string; name: string };
 }
@@ -61,5 +81,3 @@ export interface RemoveItemFromCartSucceededPayload {
 export interface RemoveItemFromCartFailedPayload {
   error: string;
 }
-
-

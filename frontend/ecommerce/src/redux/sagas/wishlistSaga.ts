@@ -7,8 +7,8 @@ import { addItemToWishlistFailed, addItemToWishlistStart, addItemToWishlistSucce
 function* fetchWishlistByCustomer(action: PayloadAction<any>) {
   try {
     yield put(fetchWishlistStart(action.payload));
-    yield getWishlistByCustomer(action.payload.customerId);
-    yield put(fetchWishlistSucceeded);
+    const {data} = yield getWishlistByCustomer(action.payload.customerId);
+    yield put(fetchWishlistSucceeded({data: data}));
   } catch (e) {
     yield put(fetchWishlistFailed(action.payload));
   }

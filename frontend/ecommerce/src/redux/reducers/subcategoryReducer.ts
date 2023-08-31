@@ -13,12 +13,11 @@ const subcategorySlice = createSlice({
   initialState: initialState,
   reducers: {
     fetchSubcategoryStart: (state: SubcategoryState, action: PayloadAction<FetchSubcategoryStartPayload>) => {
-      console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
       state.status = 'pending';
     },
     fetchSubcategorySucceeded: (state: SubcategoryState, action: PayloadAction<FetchSubcategorySucceededPayload>) => {
       state.status = 'succeeded';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     fetchSubcategoryFailed: (state: SubcategoryState, action: PayloadAction<FetchSubcategoryFailedPayload>) => {
       state.status = 'failed';

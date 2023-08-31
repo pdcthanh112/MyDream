@@ -1,5 +1,8 @@
-import { Notification } from "@models/NotificationModel";
+import { Notification } from '@models/NotificationModel';
 
+export interface FetchNotificationRequestedPayload {
+  accountId: string;
+}
 export interface FetchNotificationStartPayload {
   params: { token: string };
 }

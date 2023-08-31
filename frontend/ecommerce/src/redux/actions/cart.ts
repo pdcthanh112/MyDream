@@ -12,6 +12,11 @@ import {
   DeleteCartRequestedPayload,
   DeleteCartStartPayload,
   DeleteCartSucceededPayload,
+  FetchCartClearPayload,
+  FetchCartFailedPayload,
+  FetchCartRequestedPayload,
+  FetchCartStartPayload,
+  FetchCartSucceededPayload,
   RemoveItemFromCartFailedPayload,
   RemoveItemFromCartRequestedPayload,
   RemoveItemFromCartStartPayload,
@@ -34,7 +39,37 @@ import {
   RemoveItemFromCartRequested,
   RemoveItemFromCartStart,
   RemoveItemFromCartSucceeded,
+  FetchCartFailed,
+  FetchCartRequested,
+  FetchCartStart,
+  FetchCartSucceeded,
+  FetchCartClear,
 } from './type/cart';
+
+export const fetchCartRequested = (payload: FetchCartRequestedPayload): FetchCartRequested => ({
+  type: actionName.FETCH_CART_REQUESTED,
+  payload,
+});
+
+export const fetchCartStart = (payload: FetchCartStartPayload): FetchCartStart => ({
+  type: actionName.FETCH_CART_START,
+  payload,
+});
+
+export const fetchCartSucceeded = (payload: FetchCartSucceededPayload): FetchCartSucceeded => ({
+  type: actionName.FETCH_CART_SUCCEEDED,
+  payload,
+});
+
+export const fetchCartFailed = (payload: FetchCartFailedPayload): FetchCartFailed => ({
+  type: actionName.FETCH_CART_FAILED,
+  payload,
+});
+
+export const fetchCartClear = (payload: FetchCartClearPayload): FetchCartClear => ({
+  type: actionName.FETCH_CART_CLEAR,
+  payload,
+});
 
 export const createNewCartRequested = (payload: CreateNewCartRequestedPayload): CreateNewCartRequested => ({
   type: actionName.CREATE_NEW_CART_REQUESTED,
@@ -115,4 +150,3 @@ export const removeItemFromCartFailed = (payload: RemoveItemFromCartFailedPayloa
   type: actionName.REMOVE_ITEM_FROM_CART_FAILED,
   payload,
 });
-

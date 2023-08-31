@@ -39,10 +39,6 @@ const Login: NextPage = (): React.ReactElement => {
   const { register, handleSubmit, formState } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     dispatch(loginRequested({ email: data.email, password: data.password }));
-    if(status === 'succeeded') {
-      // dispatch(fetchCartR)
-      dispatch(fetchNotificationRequested())
-    }
   };
 
   return (

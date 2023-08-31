@@ -1,8 +1,7 @@
-import React from 'react';
-import { CartItem } from '@models/CartItemModel';
+import { CartItem } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
-import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartItemApi';
+import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartApi';
 import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';

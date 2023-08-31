@@ -3,6 +3,7 @@ import {
   AddItemToWishlistStartPayload,
   AddItemToWishlistSucceededPayload,
   FetchWishlistFailedPayload,
+  FetchWishlistRequestedPayload,
   FetchWishlistStartPayload,
   FetchWishlistSucceededPayload,
   RemoveItemFromWishlistFailedPayload,
@@ -15,6 +16,7 @@ import {
   AddItemToWishlistStart,
   AddItemToWishlistSucceeded,
   FetchWishlistFailed,
+  FetchWishlistRequested,
   FetchWishlistStart,
   FetchWishlistSucceeded,
   RemoveItemFromWishlistFailed,
@@ -24,9 +26,9 @@ import {
 } from './type/wishlist';
 import * as actionName from './name/wishlist';
 
-export const fetchWishlistRequested = () => ({
+export const fetchWishlistRequested = (payload: FetchWishlistRequestedPayload): FetchWishlistRequested => ({
   type: actionName.FETCH_WISHLIST_REQUESTED,
-  payload: null,
+  payload,
 });
 
 export const fetchWishlistStart = (payload: FetchWishlistStartPayload): FetchWishlistStart => ({

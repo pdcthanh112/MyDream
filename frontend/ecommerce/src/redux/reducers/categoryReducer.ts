@@ -17,7 +17,7 @@ const categorySlice = createSlice({
     },
     fetchCategorySucceeded: (state: CategoryState, action: PayloadAction<FetchCategorySucceededPayload>) => {
       state.status = 'succeeded';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     fetchCategoryFailed: (state: CategoryState, action: PayloadAction<FetchCategoryFailedPayload>) => {
       state.status = 'failed';

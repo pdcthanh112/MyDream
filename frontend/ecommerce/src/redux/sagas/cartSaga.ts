@@ -1,7 +1,18 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import * as actionName from '../actions/name/cart';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { addItemToCartFailed, addItemToCartStart, addItemToCartSucceeded, createNewCartFailed, createNewCartStart, createNewCartSucceeded, deleteCartFailed, deleteCartStart, deleteCartSucceeded, removeItemFromCartFailed, removeItemFromCartStart, removeItemFromCartSucceeded } from '@redux/reducers/cartReducer';
+import { addItemToCartFailed, addItemToCartStart, addItemToCartSucceeded, createNewCartFailed, createNewCartStart, createNewCartSucceeded, deleteCartFailed, deleteCartStart, deleteCartSucceeded, fetchCartFailed, fetchCartStart, fetchCartSucceeded, removeItemFromCartFailed, removeItemFromCartStart, removeItemFromCartSucceeded } from '@redux/reducers/cartReducer';
+import { getCartByCustomerId } from '@apis/cartApi';
+
+function* fetchCart(action: PayloadAction<any>) {
+  try {
+    yield put(fetchCartStart(action.payload));
+    const {data} = yield getCartByCustomerId(action.payload);
+    yield put(fetchCartSucceeded(data));
+  } catch (e) {
+    yield put(fetchCartFailed(action.payload));
+  }
+}
 
 function* createNewCart(action: PayloadAction<any>) {
   try {
@@ -43,8 +54,8 @@ function* removeFromCart(action: PayloadAction<any>) {
   }
 }
 
-
 export function* cartSaga() {
+  yield takeEvery(actionName.FETCH_CART_REQUESTED, fetchCart);
   yield takeEvery(actionName.CREATE_NEW_CART_REQUESTED, createNewCart);
   yield takeEvery(actionName.DELETE_CART_REQUESTED, deleteCart);
   yield takeEvery(actionName.ADD_ITEM_TO_CART_REQUESTED, addToCart);

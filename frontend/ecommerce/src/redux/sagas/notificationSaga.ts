@@ -7,8 +7,8 @@ import { fetchNotificationFailed, fetchNotificationStart, fetchNotificationSucce
 function* fetchNotification(action: PayloadAction<any>) {
   try {
     yield put(fetchNotificationStart(action.payload));
-    yield getNotificationByCustomer(action.payload.customerId);
-    yield put(fetchNotificationSucceeded(action.payload));
+    const {data} =  yield getNotificationByCustomer(action.payload);
+    yield put(fetchNotificationSucceeded({data: data}));
   } catch (e) {
     yield put(fetchNotificationFailed(action.payload));
   }

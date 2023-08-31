@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next';
 
 const AppSidebar = () => {
   const router = useRouter();
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const category: Category[] = useAppSelector((state) => state.category.data);
   const subcategory: Subcategory[] = useAppSelector((state) => state.subcategory.data);
   const { t } = useTranslation('common');

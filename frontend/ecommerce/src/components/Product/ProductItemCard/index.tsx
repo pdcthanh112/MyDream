@@ -8,7 +8,7 @@ import { roundNumber } from '@utils/helper';
 import { ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as FavoriteIcon } from '@mui/icons-material';
 import { addProductToWishlist } from '@apis/wishlistApi';
 import { useAppSelector } from '@redux/store';
-import { addToCart } from '@apis/cartItemApi';
+import { addToCart } from '@apis/cartApi';
 import AuthModal from '@components/AuthModal';
 import { Customer } from '@models/CustomerModel';
 import { useTranslation } from 'next-i18next';
@@ -19,7 +19,7 @@ interface ProductProps {
 }
 
 const ProductItemCard = ({ product }: ProductProps) => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { t } = useTranslation('common');
   // const [showSelectCart, setshowSelectCart] = useState(false);

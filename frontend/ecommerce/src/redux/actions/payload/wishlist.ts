@@ -2,7 +2,7 @@ import { Wishlist } from "@models/WishlistModel";
 
 // ================= FETCH WISHLIST =================
 export interface FetchWishlistRequestedPayload {
-  params: any;
+  customerId: string;
 }
 
 export interface FetchWishlistStartPayload {
@@ -27,7 +27,7 @@ export interface AddItemToWishlistStartPayload {
 }
 
 export interface AddItemToWishlistSucceededPayload {
-  data: {};
+  data: [];
 }
 
 export interface AddItemToWishlistFailedPayload {
@@ -44,7 +44,7 @@ export interface RemoveItemFromWishlistStartPayload {
 }
 
 export interface RemoveItemFromWishlistSucceededPayload {
-  data: {};
+  data: [];
 }
 
 export interface RemoveItemFromWishlistFailedPayload {

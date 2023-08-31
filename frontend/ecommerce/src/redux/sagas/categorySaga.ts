@@ -9,7 +9,7 @@ function* fetchCategory(action: PayloadAction<any>) {
   try {
     yield put(fetchCategoryStart(action.payload));
     const { data } = yield api.getAllCategory();
-    yield put(fetchCategorySucceeded(data));
+    yield put(fetchCategorySucceeded({data: data}));
   } catch (e) {
     yield put(fetchCategoryFailed(action.payload));
   }

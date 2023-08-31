@@ -50,7 +50,7 @@ const CartModal = () => {
     );
 
   return (
-    <div className="">
+    <div className="text-base">
       <div className="flex justify-end mr-5 hover:cursor-pointer hover:underline" onClick={() => setIsCreateCart(true)}>
         {t('cart.create_new_cart')}
       </div>

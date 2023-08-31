@@ -16,6 +16,9 @@ import {
   signupStart,
   signupSucceeded,
 } from '@redux/reducers/authReducer';
+import { fetchNotificationRequested } from '@redux/actions/notification';
+import { fetchCartRequested } from '@redux/actions/cart';
+import { fetchWishlistRequested } from '@redux/actions/wishlist';
 
 function* login(action: PayloadAction<any>) {
   try {
@@ -27,6 +30,9 @@ function* login(action: PayloadAction<any>) {
       yield localStorage.setItem('user', userData);
       yield localStorage.setItem('token', tokenData);
     }
+    yield put(fetchNotificationRequested(userData.accountId))
+    yield put(fetchCartRequested(userData.accountId))
+    yield put(fetchWishlistRequested(userData.accountId))
     yield put(loginSucceeded({userData, tokenData}));
   } catch (e) {
     yield put(loginFailed(action.payload));

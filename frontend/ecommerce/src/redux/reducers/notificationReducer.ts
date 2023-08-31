@@ -17,7 +17,7 @@ const notificationSlice = createSlice({
     },
     fetchNotificationSucceeded: (state: NotificationState, action: PayloadAction<FetchNotificationSucceededPayload>) => {
       state.status = 'succeeded';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     fetchNotificationFailed: (state: NotificationState, action: PayloadAction<FetchNotificationFailedPayload>) => {
       state.status = 'failed';

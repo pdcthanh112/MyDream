@@ -1,9 +1,8 @@
- ;
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import { Cart } from '@models/CartModel';
-import { CartItem as ICartItem } from '@models/CartItemModel';
+import { CartItem as ICartItem } from '@models/CartModel';
 import CartItem from './CartItem';
 import { Card } from '@mui/material';
 import Button from '@components/Button';
@@ -14,7 +13,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
 const Cart: NextPage = (): React.ReactElement => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { t } = useTranslation('common');
 
