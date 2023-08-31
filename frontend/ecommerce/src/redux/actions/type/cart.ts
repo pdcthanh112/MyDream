@@ -1,5 +1,9 @@
 import * as actionName from '../name/cart';
 import {
+  AddItemToCartFailedPayload,
+  AddItemToCartRequestedPayload,
+  AddItemToCartStartPayload,
+  AddItemToCartSucceededPayload,
   CreateNewCartFailedPayload,
   CreateNewCartRequestedPayload,
   CreateNewCartStartPayload,
@@ -8,6 +12,10 @@ import {
   DeleteCartRequestedPayload,
   DeleteCartStartPayload,
   DeleteCartSucceededPayload,
+  RemoveItemFromCartFailedPayload,
+  RemoveItemFromCartRequestedPayload,
+  RemoveItemFromCartStartPayload,
+  RemoveItemFromCartSucceededPayload,
 } from '../payload/cart';
 
 export interface CartState {
@@ -55,3 +63,44 @@ export type DeleteCartFailed = {
   type: typeof actionName.DELETE_CART_FAILED;
   payload: DeleteCartFailedPayload;
 };
+
+export type AddItemToCartRequested = {
+  type: typeof actionName.ADD_ITEM_TO_CART_REQUESTED;
+  payload: AddItemToCartRequestedPayload;
+};
+
+export type AddItemToCartStart = {
+  type: typeof actionName.ADD_ITEM_TO_CART_START;
+  payload: AddItemToCartStartPayload;
+};
+
+export type AddItemToCartSucceeded = {
+  type: typeof actionName.ADD_ITEM_TO_CART_SUCCEEDED;
+  payload: AddItemToCartSucceededPayload;
+};
+
+export type AddItemToCartFailed = {
+  type: typeof actionName.ADD_ITEM_TO_CART_FAILED;
+  payload: AddItemToCartFailedPayload;
+};
+
+export type RemoveItemFromCartRequested = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_REQUESTED;
+  payload: RemoveItemFromCartRequestedPayload;
+};
+
+export type RemoveItemFromCartStart = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_START;
+  payload: RemoveItemFromCartStartPayload;
+};
+
+export type RemoveItemFromCartSucceeded = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_SUCCEEDED;
+  payload: RemoveItemFromCartSucceededPayload;
+};
+
+export type RemoveItemFromCartFailed = {
+  type: typeof actionName.REMOVE_ITEM_FROM_CART_FAILED;
+  payload: RemoveItemFromCartFailedPayload;
+};
+

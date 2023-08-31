@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { MYSQL_DB } from '@databases/mysql';
-import { CreateCandidateDto } from '@/dtos/candidate.dto';
-import { HttpException } from '@/exceptions/httpException';
-import { Candidate } from '@/interfaces/account.interface';
+import { CreateCandidateDto } from '@dtos/candidate.dto';
+import { HttpException } from '@exceptions/httpException';
+import { Candidate } from '@interfaces/account.interface';
 
 @Service()
 export class CandidateService {

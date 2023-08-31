@@ -13,7 +13,7 @@ axiosConfig.interceptors.request.use(
   function (config) {
     if (config.headers) {
       if (!config.headers.Authorization) {
-        const token = store.getState().auth.login.currentUser?.tokenData.token;
+        const token = store.getState().auth.currentUser?.tokenData.token;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }

@@ -16,6 +16,8 @@ import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { loginRequested } from '@redux/actions/auth';
+import { fetchNotificationRequested } from '@redux/actions/notification';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;
@@ -30,18 +32,17 @@ const Login: NextPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { pending } = useAppSelector((state) => state.auth?.login);
+  const status = useAppSelector((state) => state.auth.status);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    dispatch({ type: 'auth/login', payload: data });
-    // dispatch(login(data)).then((res) => {
-    //   if (res.payload.status === 'SUCCESS') {
-    //     router.push('/home');
-    //   }
-    // });
+    dispatch(loginRequested({ email: data.email, password: data.password }));
+    if(status === 'succeeded') {
+      // dispatch(fetchCartR)
+      dispatch(fetchNotificationRequested())
+    }
   };
 
   return (
@@ -93,7 +94,7 @@ const Login: NextPage = (): React.ReactElement => {
             <span className="ml-2">{t('login.remember_me')}</span>
           </div>
           <Button className="w-full bg-yellow-400 mt-5">{t('common.login')}</Button>
-          <BarLoader color="#00FF00" loading={pending} width={440} />
+          <BarLoader color="#00FF00" loading={status === 'pending'} width={440} />
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>

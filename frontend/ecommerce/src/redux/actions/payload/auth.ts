@@ -1,12 +1,14 @@
 export interface LoginRequestedPayload {
-  params: { email: string; password: string };
+  email: string;
+  password: string;
 }
 export interface LoginStartPayload {
   params: { email: string; password: string };
 }
 
 export interface LoginSucceededPayload {
-  data: {};
+  userData: {};
+  tokenData: {};
 }
 
 export interface LoginFailedPayload {

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateEmployeeDto, UpdateEmployeeDto } from '@/dtos/employee.dto';
-import { Employee } from '@/interfaces/account.interface';
-import { EmployeeService } from '@/services/management/employee.service';
+import { CreateEmployeeDTO, UpdateEmployeeDTO } from '@dtos/employee.dto';
+import { Employee } from '@interfaces/account.interface';
+import { EmployeeService } from '@services/management/employee.service';
 
 export class EmployeeController {
   private service = Container.get(EmployeeService);
@@ -30,7 +30,7 @@ export class EmployeeController {
 
   public createEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const employeeData: CreateEmployeeDto = req.body;
+      const employeeData: CreateEmployeeDTO = req.body;
       const createEmployeeData: Employee = await this.service.createEmployee(employeeData);
 
       res.status(201).json({ data: createEmployeeData, message: 'created' });
@@ -42,7 +42,7 @@ export class EmployeeController {
   public updateEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const employeeId = Number(req.params.id);
-      const employeeData: UpdateEmployeeDto = req.body;
+      const employeeData: UpdateEmployeeDTO = req.body;
       const result: Employee = await this.service.updateEmployee(employeeId, employeeData);
 
       res.status(200).json({ data: result, message: 'updated' });

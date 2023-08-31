@@ -3,7 +3,7 @@ import { Container } from 'typedi';
 import { CandidateLoginDto } from '@/dtos/candidate.dto';
 import { Candidate } from '@/interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
-import { AuthService } from '@services/recruitment/auth.service';
+import { AuthService } from '@services/company/auth.service';
 
 export class AuthController {
   public service = Container.get(AuthService);

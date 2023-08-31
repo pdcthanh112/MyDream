@@ -5,7 +5,16 @@ import axios from 'axios';
 export const login = async (email: string, password: string) => {
   return await axios
     .post('http://localhost:8000/ecommerce/auth/login', { email: email, password: password })
-    .then((response) => response)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const logout = async (email: string) => {
+  return await axios
+    .post('http://localhost:8000/ecommerce/auth/logout', { email: email })
+    .then((response) => response.data)
     .catch((error) => {
       throw error;
     });

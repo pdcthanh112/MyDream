@@ -12,7 +12,7 @@ export class AuthController {
     try {
       const customerData: CustomerLoginDTO = req.body;
       const { cookie, customerWithoutPassword, tokenData } = await this.service.login(customerData);
-      
+
       res.setHeader('Set-Cookie', [cookie]);
       res.status(200).json({ data: { userData: customerWithoutPassword, tokenData }, message: 'login successfully', status: 'SUCCESS' });
     } catch (error) {
@@ -25,7 +25,7 @@ export class AuthController {
       const customerData: CustomerSignupDTO = req.body;
       const signUpCustomerData: Customer = await this.service.signup(customerData);
 
-      res.status(201).json({ data: signUpCustomerData, message: 'signup' });
+      res.status(201).json({ data: signUpCustomerData, message: 'signup successfully', status: 'SUCCESS' });
     } catch (error) {
       next(error);
     }
@@ -34,10 +34,10 @@ export class AuthController {
   public logout = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userData: Customer = req.user;
-      const logOutUserData: Customer = await this.service.logout(userData);
-
+      const logoutUserData: Customer = await this.service.logout(userData);
+      res.clearCookie('Authorization');
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutUserData, message: 'logout' });
+      res.status(200).json({ data: logoutUserData, message: 'logout successfully', status: 'SUCCESS' });
     } catch (error) {
       next(error);
     }

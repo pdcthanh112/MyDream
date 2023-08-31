@@ -89,9 +89,9 @@ export class AuthService {
     return createCustomerData;
   }
 
-  public async logout(customerData: Customer): Promise<Customer> {
+  public async logout(customerData: Customer): Promise<Omit<Customer, 'password'>> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
-    if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`);
+    if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} does not exists`);
     return findCustomer;
   }
 }

@@ -20,13 +20,14 @@ import {
 function* login(action: PayloadAction<any>) {
   try {
     yield put(loginStart(action.payload));
-    yield console.log('MMMMMMMMMMMMMMMMMMMMMMMM', action.payload);
-    const { userData, token } = yield authApi.login(action.payload.email, action.payload.password);
+    const {
+      data: { userData, tokenData },
+    } = yield authApi.login(action.payload.email, action.payload.password);
     if (typeof window !== 'undefined') {
       yield localStorage.setItem('user', userData);
-      yield localStorage.setItem('token', token);
+      yield localStorage.setItem('token', tokenData);
     }
-    yield put(loginSucceeded(action.payload));
+    yield put(loginSucceeded({userData, tokenData}));
   } catch (e) {
     yield put(loginFailed(action.payload));
   }

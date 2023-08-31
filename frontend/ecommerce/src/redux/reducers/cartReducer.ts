@@ -1,12 +1,18 @@
 import { CartState } from '@redux/actions/type/cart';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
+  AddItemToCartFailedPayload,
+  AddItemToCartStartPayload,
+  AddItemToCartSucceededPayload,
   CreateNewCartFailedPayload,
   CreateNewCartStartPayload,
   CreateNewCartSucceededPayload,
   DeleteCartFailedPayload,
   DeleteCartStartPayload,
   DeleteCartSucceededPayload,
+  RemoveItemFromCartFailedPayload,
+  RemoveItemFromCartStartPayload,
+  RemoveItemFromCartSucceededPayload,
 } from '@redux/actions/payload/cart';
 
 const initialState: CartState = {
@@ -41,9 +47,43 @@ const cartSlice = createSlice({
       state.status = 'failed';
       state.error = 'loi';
     },
+    addItemToCartStart: (state: CartState, action: PayloadAction<AddItemToCartStartPayload>) => {
+      state.status = 'pending';
+    },
+    addItemToCartSucceeded: (state: CartState, action: PayloadAction<AddItemToCartSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.data = action.payload.data;
+    },
+    addItemToCartFailed: (state: CartState, action: PayloadAction<AddItemToCartFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
+    },
+    removeItemFromCartStart: (state: CartState, action: PayloadAction<RemoveItemFromCartStartPayload>) => {
+      state.status = 'pending';
+    },
+    removeItemFromCartSucceeded: (state: CartState, action: PayloadAction<RemoveItemFromCartSucceededPayload>) => {
+      state.status = 'succeeded';
+      state.data = action.payload;
+    },
+    removeItemFromCartFailed: (state: CartState, action: PayloadAction<RemoveItemFromCartFailedPayload>) => {
+      state.status = 'failed';
+      state.error = 'loi';
+    },
   },
 });
 
-export const { createNewCartStart, createNewCartSucceeded, createNewCartFailed, deleteCartStart, deleteCartSucceeded, deleteCartFailed } = cartSlice.actions;
+export const {
+  createNewCartStart,
+  createNewCartSucceeded,
+  createNewCartFailed,
+  deleteCartStart,
+  deleteCartSucceeded,
+  deleteCartFailed,
+  addItemToCartStart,
+  addItemToCartSucceeded,
+  addItemToCartFailed,
+  removeItemFromCartStart,
+  removeItemFromCartSucceeded,
+  removeItemFromCartFailed,
+} = cartSlice.actions;
 export default cartSlice.reducer;
-

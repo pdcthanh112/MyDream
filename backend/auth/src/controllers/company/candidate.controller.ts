@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateCandidateDto } from '@/dtos/candidate.dto';
-import { Candidate } from '@/interfaces/account.interface';
-import { CandidateService } from '@services/recruitment/candidate.service';
+import { CreateCandidateDto } from '@dtos/candidate.dto';
+import { Candidate } from '@interfaces/account.interface';
+import { CandidateService } from '@services/company/candidate.service';
 
 export class CandidateController {
   public service = Container.get(CandidateService);

@@ -19,7 +19,7 @@ const CartModal = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
 
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const queryClient = useQueryClient();
   const [isCreateCart, setIsCreateCart] = useState(false);
 

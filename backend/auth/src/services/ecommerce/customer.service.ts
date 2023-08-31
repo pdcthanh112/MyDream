@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { MYSQL_DB } from '@databases/mysql';
-import { CreateCustomerDto, UpdateCustomerDto } from '@/dtos/customer.dto';
-import { HttpException } from '@/exceptions/httpException';
-import { Customer } from '@/interfaces/account.interface';
+import { CreateCustomerDTO, UpdateCustomerDTO } from '@dtos/customer.dto';
+import { HttpException } from '@exceptions/httpException';
+import { Customer } from '@interfaces/account.interface';
 
 @Service()
 export class CustomerService {
@@ -19,7 +19,7 @@ export class CustomerService {
     return findCustomer;
   }
 
-  public async createCustomer(userData: CreateCustomerDto): Promise<Customer> {
+  public async createCustomer(userData: CreateCustomerDTO): Promise<Customer> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: userData.email } });
     if (findCustomer) throw new HttpException(409, `This email ${userData.email} already exists`);
 
@@ -28,7 +28,7 @@ export class CustomerService {
     return createCustomerData;
   }
 
-  public async updateCustomer(userId: number, userData: UpdateCustomerDto): Promise<Customer> {
+  public async updateCustomer(userId: number, userData: UpdateCustomerDTO): Promise<Customer> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findByPk(userId);
     if (!findCustomer) throw new HttpException(409, "Customer doesn't exist");
 

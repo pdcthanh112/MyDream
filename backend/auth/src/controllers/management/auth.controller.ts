@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { EmployeeLoginDto } from '@/dtos/employee.dto';
-import { Employee } from '@/interfaces/account.interface';
+import { EmployeeLoginDTO } from '@dtos/employee.dto';
+import { Employee } from '@interfaces/account.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/management/auth.service';
 
@@ -10,7 +10,7 @@ export class AuthController {
 
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const employeeData: EmployeeLoginDto = req.body;
+      const employeeData: EmployeeLoginDTO = req.body;
       
       const { cookie, findEmployee } = await this.service.login(employeeData);
 

@@ -7,13 +7,11 @@ import cartReducer from './reducers/cartReducer';
 import wishlistReducer from './reducers/wishlistReducer';
 import subcategoryReducer from './reducers/subcategoryReducer';
 import notificationReducer from './reducers/notificationReducer';
-import cartItemReducer from './reducers/cartItemReducer';
 import rootSaga from './sagas/rootSaga';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
-  cartItem: cartItemReducer,
   category: categoryReducer,
   subcategory: subcategoryReducer,
   notification: notificationReducer,

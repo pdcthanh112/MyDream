@@ -5,7 +5,6 @@ import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
-// import { logout } from '@redux/features/authSlice';
 import { Customer } from '@models/CustomerModel';
 // import signIn from 'next-auth'
 // import {signIn, signOut, useSession} from 'next-auth'    2:01:33
@@ -20,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Category } from '@models/CategoryModel';
 
 const AppHeader = () => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const appCategory: Category[] = useAppSelector((state) => state.category.data);
 
   const dispatch = useAppDispatch();

@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { SECRET_KEY } from '@/config';
 import { MYSQL_DB } from '@databases/mysql';
-import { EmployeeLoginDto } from '@dtos/employee.dto';
+import { EmployeeLoginDTO } from '@dtos/employee.dto';
 import { HttpException } from '@exceptions/httpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { Employee } from '@interfaces/account.interface';
@@ -21,7 +21,7 @@ const createCookie = (tokenData: TokenData): string => {
 
 @Service()
 export class AuthService {
-  public async login(employeeData: EmployeeLoginDto): Promise<{ cookie: string; findEmployee: Employee }> {
+  public async login(employeeData: EmployeeLoginDTO): Promise<{ cookie: string; findEmployee: Employee }> {
     const findEmployee: Employee = await MYSQL_DB.Employee.findOne({ where: { email: employeeData.email } });
     if (!findEmployee) throw new HttpException(409, `This email ${employeeData.email} was not found`);
 
