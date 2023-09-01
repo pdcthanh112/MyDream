@@ -8,7 +8,7 @@ function* fetchCart(action: PayloadAction<any>) {
   try {
     yield put(fetchCartStart(action.payload));
     const {data} = yield getCartByCustomerId(action.payload);
-    yield put(fetchCartSucceeded(data));
+    yield put(fetchCartSucceeded({data: data}));
   } catch (e) {
     yield put(fetchCartFailed(action.payload));
   }

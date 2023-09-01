@@ -20,7 +20,7 @@ import {
 
 const initialState: CartState = {
   status: 'idle',
-  data: {},
+  data: [],
   error: null,
 };
 
@@ -33,7 +33,7 @@ const cartSlice = createSlice({
     },
     fetchCartSucceeded: (state: CartState, action: PayloadAction<FetchCartSucceededPayload>) => {
       state.status = 'succeeded';
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     fetchCartFailed: (state: CartState, action: PayloadAction<FetchCartFailedPayload>) => {
       state.status = 'failed';
