@@ -7,7 +7,7 @@ export interface LoginStartPayload {
 }
 
 export interface LoginSucceededPayload {
-  userData: {};
+  userInfo: {};
   tokenData: {};
 }
 

@@ -37,10 +37,10 @@ const AppSidebar = () => {
       transition={{ duration: 0.3 }}
       className="w-96 h-full bg-white border border-black overflow-y-scroll">
       <div className="bg-green-500 flex px-10 py-3 items-center">
-        <Avatar src={currentUser && currentUser.userData.image} alt={''} />
-        {/* <Image src={currentUser ? currentUser.userData.image : DefaultUser} alt={''} /> */}
+        <Avatar src={currentUser && currentUser.userInfo.image} alt={''} />
+        {/* <Image src={currentUser ? currentUser.userInfo.image : DefaultUser} alt={''} /> */}
         <span className="text-white font-semibold text-xl ml-3">
-          {t('common.hello')}, {currentUser ? currentUser.userData.name.split(' ')[0] : <>signin</>}
+          {t('common.hello')}, {currentUser ? currentUser.userInfo.name.split(' ')[0] : <>signin</>}
         </span>
       </div>
       <div className="border-b border-gray-400">

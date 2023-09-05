@@ -1,5 +1,5 @@
 export interface Customer {
-  userData: {
+  userInfo: {
     id: number;
     email: string;
     password: string;

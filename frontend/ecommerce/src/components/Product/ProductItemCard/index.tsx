@@ -36,7 +36,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
 
   const handleAddToWishlist = (productId: string) => {
     if (currentUser) {
-      addProductToWishlist(currentUser.userData.accountId, productId);
+      addProductToWishlist(currentUser.userInfo.accountId, productId);
     } else {
       <AuthModal />;
     }

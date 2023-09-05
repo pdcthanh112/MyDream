@@ -24,16 +24,16 @@ function* login(action: PayloadAction<any>) {
   try {
     yield put(loginStart(action.payload));
     const {
-      data: { userData, tokenData },
+      data: { userInfo, tokenData },
     } = yield authApi.login(action.payload.email, action.payload.password);
     if (typeof window !== 'undefined') {
-      yield localStorage.setItem('user', userData);
+      yield localStorage.setItem('user', userInfo);
       yield localStorage.setItem('token', tokenData);
     }
-    yield put(fetchNotificationRequested(userData.accountId))
-    yield put(fetchCartRequested(userData.accountId))
-    yield put(fetchWishlistRequested(userData.accountId))
-    yield put(loginSucceeded({userData, tokenData}));
+    yield put(fetchNotificationRequested(userInfo.accountId))
+    yield put(fetchCartRequested(userInfo.accountId))
+    yield put(fetchWishlistRequested(userInfo.accountId))
+    yield put(loginSucceeded({userInfo, tokenData}));
   } catch (e) {
     yield put(loginFailed(action.payload));
   }
@@ -43,8 +43,8 @@ function* logout(action: PayloadAction<any>) {
   try {
     yield put(logoutStart(action.payload));
     yield console.log('MMMMMMMMMMMMMMMMMMMMMMMM', action.payload);
-    yield localStorage.removeItem('userData')
-    yield localStorage.removeItem('tokenData')
+    yield localStorage.removeItem('user')
+    yield localStorage.removeItem('token')
     yield put(logoutSucceeded(action.payload));
   } catch (e) {
     yield put(logoutFailed(action.payload));

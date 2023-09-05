@@ -23,7 +23,7 @@ const CartModal = () => {
   const queryClient = useQueryClient();
   const [isCreateCart, setIsCreateCart] = useState(false);
 
-  const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
+  const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
 
   const { mutate: mutateCreateCart } = useMutation({
     mutationFn: async (data: CreateCartForm) => await createNewCart(data),
@@ -59,7 +59,7 @@ const CartModal = () => {
           <div className="flex justify-end">
             <div className="border border-gray-400 px-2 py-1 rounded">
               <input type="text" {...register('name', {})} defaultValue="New cart" placeholder="Enter name" className="focus:outline-none w-[12rem]" />
-              <input type="hidden" {...register('customerId', {})} defaultValue={currentUser.userData.accountId} />
+              <input type="hidden" {...register('customerId', {})} defaultValue={currentUser.userInfo.accountId} />
             </div>
             <Icon component={ClearIcon} titleAccess="Cancel" className="hover:cursor-pointer" onClick={() => setIsCreateCart(false)} />
             <button className="mb-2 hover:cursor-pointer" title="Create">

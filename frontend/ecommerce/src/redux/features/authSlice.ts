@@ -39,7 +39,7 @@
 //   };
 //   signup: {
 //     loading: boolean;
-//     userData: {};
+//     userInfo: {};
 //     error: '';
 //     success: boolean;
 //   };
@@ -64,7 +64,7 @@
 //     },
 //     signup: {
 //       loading: false,
-//       userData: {},
+//       userInfo: {},
 //       error: '',
 //       success: false,
 //     },
@@ -101,7 +101,7 @@
 //       state.login.success = true;
 //       state.login.error = false;
 //       state.login.currentUser = null;
-//       // state.login.currentUser.userData = {};
+//       // state.login.currentUser.userInfo = {};
 //       // state.login.currentUser.tokenData = {};
 //     });
 //     builder.addCase(logout.rejected, (state, action) => {

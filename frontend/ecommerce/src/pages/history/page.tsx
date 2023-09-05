@@ -6,9 +6,9 @@ import { CheckoutForm } from '@models/CheckoutModel';
 import { Customer } from '@models/CustomerModel';
 
 export default function History(): React.ReactElement {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
 
-  const { data: listCheckout, isLoading } = useQuery(['history'], async () => await getHistoryByCustomer(currentUser.userData.accountId).then((response) => response.data));
+  const { data: listCheckout, isLoading } = useQuery(['history'], async () => await getHistoryByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
   return (
     <>

@@ -81,7 +81,7 @@ console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
             {currentUser ? (
               <div>
                 <div>
-                  {t('common.hello')}, {currentUser.userData.name.split(' ').pop()}
+                  {t('common.hello')}, {currentUser.userInfo.name.split(' ').pop()}
                 </div>
                 <div className="font-semibold md:text-sm">{t('header.account_and_info')}</div>
               </div>
@@ -99,8 +99,8 @@ console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
               <>
                 <div className="flex justify-between bg-sky-100 px-5 py-3 rounded-md">
                   <span className="flex items-center">
-                    <Avatar src={currentUser.userData.image || String(DefaultImage)} />
-                    <span className="font-medium text-lg ml-3">{currentUser.userData.name}</span>
+                    <Avatar src={currentUser.userInfo.image || String(DefaultImage)} />
+                    <span className="font-medium text-lg ml-3">{currentUser.userInfo.name}</span>
                   </span>
                   <span className="flex items-center hover:cursor-pointer hover:underline hover:text-yellow-600" onClick={() => router.push('/manage')}>
                     {t('common.manage_profile')}

@@ -15,7 +15,7 @@ export default function NotificationModal() {
 
   const { data: listNotification, isLoading } = useQuery(
     ['listNotification'],
-    async () => await getNotificationByCustomer(currentUser.userData.accountId).then((response) => response.data),
+    async () => await getNotificationByCustomer(currentUser.userInfo.accountId).then((response) => response.data),
   );
 
   if (isLoading) return <>Loading...</>;

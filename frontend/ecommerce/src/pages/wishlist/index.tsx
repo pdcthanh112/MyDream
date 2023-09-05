@@ -11,17 +11,17 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import Button from '@components/Button';
 import DefaultImage from '@assets/images/default-image.jpg';
 import { stateStatus } from '@utils/constants';
-import { addToCart } from '@apis/cartItemApi';
+// import { addToCart } from '@apis/cartItemApi';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
 const Wishlist: NextPage = (): React.ReactElement => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const { t } = useTranslation('common');
   const router = useRouter();
 
-  const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userData.accountId).then((response) => response.data));
+  const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
   const checkStatus = (quantity: number, status: string) => {
     if (status === stateStatus.ACTIVE) {

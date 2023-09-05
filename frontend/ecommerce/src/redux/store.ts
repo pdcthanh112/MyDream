@@ -1,27 +1,22 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import authReducer from './reducers/authReducer';
-import categoryReducer from './reducers/categoryReducer';
-import cartReducer from './reducers/cartReducer';
-import wishlistReducer from './reducers/wishlistReducer';
-import subcategoryReducer from './reducers/subcategoryReducer';
-import notificationReducer from './reducers/notificationReducer';
-import rootSaga from './sagas/rootSaga';
-
-const rootReducer = combineReducers({
-  auth: authReducer,
-  cart: cartReducer,
-  category: categoryReducer,
-  subcategory: subcategoryReducer,
-  notification: notificationReducer,
-  wishlist: wishlistReducer,
-});
+import rootSaga from './sagas';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { rootReducer } from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: true,
@@ -29,10 +24,11 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 
 type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const persistor = persistStore(store);

@@ -17,7 +17,7 @@ const Cart: NextPage = (): React.ReactElement => {
   const router = useRouter();
   const { t } = useTranslation('common');
 
-  const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userData.accountId).then((response) => response.data));
+  const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
 
   return (
     <div className="w-full">
