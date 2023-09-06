@@ -1,3 +1,4 @@
+'use client';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
@@ -6,18 +7,16 @@ import { Card, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@components/Button';
-import LoginFacebook from '@assets/images/facebook-login-button.png';
 import { Email as EmailIcon, Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
-// import { login } from '@redux/features/authSlice';
 import { LoginForm } from '@models/CustomerModel';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { BarLoader } from 'react-spinners';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { loginRequested } from '@redux/actions/auth';
-import { fetchNotificationRequested } from '@redux/actions/notification';
+import { getProviders, signIn } from 'next-auth/react';
+import { getAuthLogo } from '@utils/helper';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;
@@ -27,7 +26,8 @@ const InputField = styled.div`
   position: relative;
 `;
 
-const Login: NextPage = (): React.ReactElement => {
+const Login: NextPage = ({ providers }: any): React.ReactElement => {
+  console.log('TTTTTTTTTTTTTTTTTTTTTTTTT', providers);
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -45,7 +45,7 @@ const Login: NextPage = (): React.ReactElement => {
     <div className="relative">
       <Image src={LoginPageBackground} alt={'Background'} width={1590} />
 
-      <Card className="bg-white absolute top-14 left-32 z-10 px-10 py-5 w-[34%]">
+      <Card className="bg-white absolute top-14 left-32 z-10 px-10 py-5 w-[36%]">
         <h1 className="bg-green-300 text-white text-xl px-8 py-3">Welcome to CongThanh Ecommerce</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="h-16">
@@ -90,7 +90,6 @@ const Login: NextPage = (): React.ReactElement => {
             <span className="ml-2">{t('login.remember_me')}</span>
           </div>
           <Button className="w-full bg-yellow-400 mt-5">{t('common.login')}</Button>
-          <BarLoader color="#00FF00" loading={status === 'pending'} width={440} />
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
@@ -98,19 +97,20 @@ const Login: NextPage = (): React.ReactElement => {
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
         </div>
 
-        {/* <div className="grid grid-cols-2 mt-4">
-          <GoogleLogin
-            text="signin_with"
-            context="signin"
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log('Login Failed');
-            }}
-          />
-          <Image src={LoginFacebook} alt={''} width={182} className="ml-6" />
-        </div> */}
+        <div className="mt-4 grid grid-cols-12 gap-2">
+          {Object.values(providers).map((provider: any) => (
+            <button
+              key={provider.id}
+              className={`flex items-center rounded-md text-white col-span-6 w-full bg-[${getAuthLogo(provider.id)?.bgColor}]`}
+              onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
+              <span className={`border-r-2 border-r-slate-200 p-2 rounded-l-lg bg-[${getAuthLogo(provider.id).iconBg}]`}>
+                <Image src={getAuthLogo(provider.id)?.img} alt="" width={28}></Image>
+              </span>
+              <span className='ml-2'>Sign in with {provider.name}</span>
+            </button>
+          ))}
+        </div>
+
         <div className="flex justify-center mt-10 text-sm">
           <span>{t('login.you_dont_have_an_account')}</span>
           <Link href={'/auth/signup'} className="hover:text-yellow-600">
@@ -124,10 +124,22 @@ const Login: NextPage = (): React.ReactElement => {
 
 export default Login;
 
+// export async function getServerSideProps(context: any) {
+
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(context.locale, ['common'])),
+//     },
+//   };
+// }
 export async function getServerSideProps(context: any) {
+  const providers = await getProviders();
+  const translations = await serverSideTranslations(context.locale, ['common']);
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      providers,
+      ...translations,
     },
   };
 }

@@ -15,7 +15,7 @@ export interface LoginFailedPayload {
   error: string;
 }
 export interface LogoutRequestedPayload {
-  params: { email: string; password: string };
+email: string; 
 }
 export interface LogoutStartPayload {
   params: { email: string; password: string };

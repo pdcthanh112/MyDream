@@ -10,8 +10,8 @@ import { appWithTranslation } from 'next-i18next';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SessionProvider } from 'next-auth/react';
 
-const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
-  // const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
+// const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
   const client = new ApolloClient({
     uri: `${process.env.REACT_APP_API_URL}/graphql`,
     cache: new InMemoryCache(),
@@ -21,19 +21,19 @@ const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
 
   return (
     <React.StrictMode>
-      {/* <SessionProvider session={session}> */}
-      <ApolloProvider client={client}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <ConfirmProvider>
-              <QueryClientProvider client={queryClient}>
-                <App Component={Component} pageProps={pageProps} router={router} />
-              </QueryClientProvider>
-            </ConfirmProvider>
-          </PersistGate>
-        </Provider>
-      </ApolloProvider>
-      {/* </SessionProvider> */}
+      <SessionProvider session={session}>
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <ConfirmProvider>
+                <QueryClientProvider client={queryClient}>
+                  <App Component={Component} pageProps={pageProps} router={router} />
+                </QueryClientProvider>
+              </ConfirmProvider>
+            </PersistGate>
+          </Provider>
+        </ApolloProvider>
+      </SessionProvider>
     </React.StrictMode>
   );
 };

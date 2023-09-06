@@ -89,7 +89,7 @@ const Footer = (): React.ReactElement => {
         </div>
         <div className="flex items-center py-2">
           <Image src={PhoneIcon} alt="Phone icon" style={{ width: '1.2rem', height: '1.2rem' }} />
-          <TextStyle className="ml-2">0382-722-849</TextStyle>
+          <TextStyle className="ml-2">(+84) 382-722-849</TextStyle>
         </div>
         <div className="flex items-center py-2">
           <Image src={WebsiteIcon} alt="Website icon" style={{ width: '1.2rem', height: '1.2rem' }} />

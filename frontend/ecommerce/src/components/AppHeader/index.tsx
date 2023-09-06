@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
 import { Customer } from '@models/CustomerModel';
-// import signIn from 'next-auth'
-// import {signIn, signOut, useSession} from 'next-auth'    2:01:33
+import { signIn, signOut, useSession } from 'next-auth/react';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
 import { Search as SearchIcon, ArrowDropDownOutlined as ArrowDropDownOutlinedIcon, NavigateNext as NavigateNextIcon } from '@mui/icons-material';
@@ -19,17 +18,24 @@ import { useTranslation } from 'react-i18next';
 import { Category } from '@models/CategoryModel';
 import { Notification } from '@models/NotificationModel';
 import { Cart } from '@models/CartModel';
+import { logoutRequested } from '@redux/actions/auth';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const appCategory: Category[] = useAppSelector((state) => state.category.data);
-  const listCart: Cart[] = useAppSelector(state => state.cart.data)
+  const listCart: Cart[] = useAppSelector((state) => state.cart.data);
   const listNotification: Notification[] = useAppSelector((state) => state.notification.data);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('common');
-console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
+  const { data: session } = useSession();
+  console.log('UUUUUUUUUUUUUUUUUUUUUUU', session);
   const [showNotification, setShowNotification] = useState<boolean>(false);
+
+const handleLogout = () => {
+  signOut()
+  dispatch(logoutRequested({email: 'fjasljflashfiahsd'}))
+}
 
   return (
     <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
@@ -68,7 +74,9 @@ console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
 
         <div className="flex items-start justify-center relative">
           <NotificationIcon width={33} height={33} className="hover:cursor-pointer" onClick={() => setShowNotification(!showNotification)} />
-          {listNotification?.length > 0 && <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listNotification.length}</span>}
+          {listNotification?.length > 0 && (
+            <span className="absolute top-0 right-0 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listNotification.length}</span>
+          )}
           {showNotification && (
             <Card className="absolute top-10 -right-32 py-2 w-[24rem] h-[40rem] overflow-y-scroll z-10">
               <NotificationModal />
@@ -78,7 +86,7 @@ console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
 
         <div className="relative inline-block group">
           <div className="hover:cursor-pointer">
-            {currentUser ? (
+            {session && currentUser ? (
               <div>
                 <div>
                   {t('common.hello')}, {currentUser.userInfo.name.split(' ').pop()}
@@ -136,7 +144,7 @@ console.log('UUUUUUUUUUUUUUUUUUUUUUU', listCart)
                     </menu>
                     <Button
                       className="bg-yellow-400 w-52 rounded-xl"
-                      //  onClick={() => dispatch(logout())}
+                       onClick={() => handleLogout()}
                     >
                       {t('common.logout')}
                     </Button>
