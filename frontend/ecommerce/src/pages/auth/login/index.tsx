@@ -1,22 +1,21 @@
-'use client';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
-import { Card, Icon } from '@mui/material';
+import { Card, Icon, CircularProgress } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@components/Button';
-import { Email as EmailIcon, Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
 import { LoginForm } from '@models/CustomerModel';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { loginRequested } from '@redux/actions/auth';
 import { getProviders, signIn } from 'next-auth/react';
 import { getAuthLogo } from '@utils/helper';
+import { useRouter } from 'next/router';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;
@@ -27,18 +26,19 @@ const InputField = styled.div`
 `;
 
 const Login: NextPage = ({ providers }: any): React.ReactElement => {
-  console.log('TTTTTTTTTTTTTTTTTTTTTTTTT', providers);
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
+  const authState = useAppSelector((state) => state.auth);
   const router = useRouter();
-
-  const status = useAppSelector((state) => state.auth.status);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<LoginForm>();
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     dispatch(loginRequested({ email: data.email, password: data.password }));
+    if (authState.status === 'succeeded') {
+      router.push('/');
+    }
   };
 
   return (
@@ -50,7 +50,7 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="h-16">
             <InputField className={formState.errors.email && 'bg-red-100'}>
-              <Icon component={EmailIcon} />
+              <Icon component={Email} />
               <input
                 type="email"
                 {...register('email', {
@@ -64,7 +64,7 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
           </div>
           <div className="h-16">
             <InputField className={formState.errors.password && 'bg-red-100'}>
-              <Icon component={LockIcon} />
+              <Icon component={Lock} />
               <input
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
@@ -83,13 +83,16 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
             </InputField>
             {formState.errors.password && <span className="text-red-500">{formState.errors.password.message}</span>}
           </div>
+
+          {authState.error && <div className="text-red-500">{authState.error}</div>}
+
           <div className="flex justify-end">{t('login.forgot_password')}</div>
 
           <div className="flex items-center">
             <input type="checkbox" />
             <span className="ml-2">{t('login.remember_me')}</span>
           </div>
-          <Button className="w-full bg-yellow-400 mt-5">{t('common.login')}</Button>
+          <Button className="w-full bg-yellow-400 mt-5">{authState.status === 'pending' ? <CircularProgress size={25} /> : t('common.login')}</Button>
         </form>
         <div className="relative flex justify-center mt-3">
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
@@ -98,20 +101,24 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
         </div>
 
         <div className="mt-4 grid grid-cols-12 gap-2">
-          {Object.values(providers).map((provider: any) => (
-            <button
-              key={provider.id}
-              className={`flex items-center rounded-md text-white col-span-6 w-full bg-[${getAuthLogo(provider.id)?.bgColor}]`}
-              onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
-              <span className={`border-r-2 border-r-slate-200 p-2 rounded-l-lg bg-[${getAuthLogo(provider.id).iconBg}]`}>
-                <Image src={getAuthLogo(provider.id)?.img} alt="" width={28}></Image>
-              </span>
-              <span className='ml-2'>Sign in with {provider.name}</span>
-            </button>
-          ))}
+          {Object.values(providers).map((provider: any) => {
+            const data = getAuthLogo(provider.id);
+            return (
+              <button
+                key={provider.id}
+                title={`Sign in with ${provider.name}`}
+                className={`flex items-center rounded-md text-white col-span-6 w-full bg-[${data.bgColor}]`}
+                onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
+                <span className={`border-r-2 border-r-slate-200 p-2 rounded-l-lg bg-[${data.iconBg}]`}>
+                  <Image src={data.img} alt="" width={28}></Image>
+                </span>
+                <span className="ml-2">Sign in with {provider.name}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="flex justify-center mt-10 text-sm">
+        <div className="flex justify-center mt-4 text-sm">
           <span>{t('login.you_dont_have_an_account')}</span>
           <Link href={'/auth/signup'} className="hover:text-yellow-600">
             &nbsp;{t('login.register_now')}
@@ -124,14 +131,6 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
 
 export default Login;
 
-// export async function getServerSideProps(context: any) {
-
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(context.locale, ['common'])),
-//     },
-//   };
-// }
 export async function getServerSideProps(context: any) {
   const providers = await getProviders();
   const translations = await serverSideTranslations(context.locale, ['common']);

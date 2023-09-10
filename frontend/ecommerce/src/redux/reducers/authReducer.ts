@@ -30,6 +30,7 @@ const authSlice = createSlice({
     },
     loginSucceeded: (state: AuthState, action: PayloadAction<LoginSucceededPayload>) => {
       state.status = 'succeeded';
+      state.error = null;
       state.currentUser = action.payload;
     },
     loginFailed: (state: AuthState, action: PayloadAction<LoginFailedPayload>) => {

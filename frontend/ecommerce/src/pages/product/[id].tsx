@@ -8,11 +8,11 @@ import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { roundNumber } from '@utils/helper';
 import Button from '@components/Button';
-import { addToCart } from '@apis/cartItemApi';
 import ProductSkeleton from './product-skeleton';
 import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { addToCart } from '@apis/cartApi';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();

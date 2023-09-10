@@ -18,7 +18,7 @@ import {
 export interface WishlistState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null;
-  data: Wishlist[];
+  data: Wishlist;
 }
 
 export type FetchWishlistRequested = {

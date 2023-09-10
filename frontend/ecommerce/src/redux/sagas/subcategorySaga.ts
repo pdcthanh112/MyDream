@@ -5,7 +5,6 @@ import { fetchSubcategoryFailed, fetchSubcategoryStart, fetchSubcategorySucceede
 import { FETCH_SUBCATEGORY_REQUESTED } from '@redux/actions/name/subcategory';
 
 function* fetchSubcategory(action: PayloadAction<any>) {
-  yield console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
   try {
     yield put(fetchSubcategoryStart(action.payload));
     const { data } = yield api.getAllSubategory();

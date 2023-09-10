@@ -11,7 +11,10 @@ export const getWishlistByCustomer = async (customerId: string) => {
 
 export const addProductToWishlist = async (customerId: string, productId: string) => {
   return await axiosConfig
-    .post(`wishlist/add?customerId=${customerId}&productId=${productId}`)
+    .post('wishlist/add', {
+      customer: customerId,
+      productId: productId,
+    })
     .then((response) => response)
     .catch((error) => {
       throw error;
@@ -21,8 +24,10 @@ export const addProductToWishlist = async (customerId: string, productId: string
 export const removeProductFromWishlist = async (customerId: string, productId: string) => {
   return await axiosConfig
     .delete('wishlist/remove', {
-      customer: customerId,
-      productId: productId,
+      data: {
+        customer: customerId,
+        productId: productId,
+      },
     })
     .then((response) => response)
     .catch((error) => {

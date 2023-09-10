@@ -19,6 +19,7 @@ import {
 import { fetchNotificationRequested } from '@redux/actions/notification';
 import { fetchCartRequested } from '@redux/actions/cart';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
+import { store } from '@redux/store';
 
 function* login(action: PayloadAction<any>) {
   try {
@@ -30,9 +31,12 @@ function* login(action: PayloadAction<any>) {
       yield localStorage.setItem('user', userInfo);
       yield localStorage.setItem('token', tokenData);
     }
-    yield put(fetchNotificationRequested(userInfo.accountId))
-    yield put(fetchCartRequested(userInfo.accountId))
-    yield put(fetchWishlistRequested(userInfo.accountId))
+    yield store.dispatch(fetchNotificationRequested(userInfo.accountId))
+    yield store.dispatch(fetchCartRequested(userInfo.accountId))
+    yield store.dispatch(fetchWishlistRequested(userInfo.accountId))
+    // yield put(fetchNotificationRequested(userInfo.accountId))
+    // yield put(fetchCartRequested(userInfo.accountId))
+    // yield put(fetchWishlistRequested(userInfo.accountId))
     yield put(loginSucceeded({userInfo, tokenData}));
   } catch (e) {
     yield put(loginFailed(action.payload));

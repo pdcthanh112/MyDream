@@ -10,6 +10,7 @@
     "cart": "Cart",
     "add_to_cart": "Add to Cart",
     "add_to_wishlist": "Add to Wishlist",
+    "remove_from_wishlist": "Remove from Wishlist",
     "view_detail": "View detail",
     "manage_profile": "Manage profile",
     "category": "category",

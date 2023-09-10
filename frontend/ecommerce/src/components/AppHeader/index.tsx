@@ -29,8 +29,8 @@ const AppHeader = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { data: session } = useSession();
-  console.log('UUUUUUUUUUUUUUUUUUUUUUU', session);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
+
+  const [showNotification, setShowNotification] = useState(false);
 
 const handleLogout = () => {
   signOut()
@@ -66,7 +66,7 @@ const handleLogout = () => {
         <div className="flex items-start justify-center relative group">
           <ShoppingCartIcon width={32} height={'32'} onClick={() => router.push('/cart')} className="hover:cursor-pointer" />
           <p className="hidden md:inline font-extrabold md:text-sm mt-3">{t('common.cart')}</p>
-          {listCart && <span className="absolute -top-1 right-7 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listCart.length}</span>}
+          {listCart.length > 0 && <span className="absolute -top-1 right-7 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listCart.length}</span>}
           <Card className="hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
             <CartModal />
           </Card>
@@ -86,7 +86,7 @@ const handleLogout = () => {
 
         <div className="relative inline-block group">
           <div className="hover:cursor-pointer">
-            {session && currentUser ? (
+            {session || currentUser ? (
               <div>
                 <div>
                   {t('common.hello')}, {currentUser.userInfo.name.split(' ').pop()}

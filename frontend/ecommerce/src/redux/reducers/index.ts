@@ -7,6 +7,8 @@ import subcategoryReducer from "./subcategoryReducer";
 import notificationReducer from "./notificationReducer";
 import wishlistReducer from "./wishlistReducer";
 
+import modalAuthReducer from "@redux/features/modalAuth";
+
 export const rootReducer = combineReducers({
     auth: authReducer,
     cart: cartReducer,
@@ -14,4 +16,5 @@ export const rootReducer = combineReducers({
     subcategory: subcategoryReducer,
     notification: notificationReducer,
     wishlist: wishlistReducer,
+    modalAuth: modalAuthReducer
   });

@@ -8,15 +8,16 @@ import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { store, useAppDispatch } from '@redux/store';
-
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { fetchCategoryRequested } from '@redux/actions/category';
 import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
+import { fetchWishlistRequested } from '@redux/actions/wishlist';
+import { Customer } from '@models/CustomerModel';
 
 const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
-
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const [pagination, setPagination] = useState<PaginationParams>({
     page: 1,
     limit: 10,
@@ -26,6 +27,9 @@ const Home: NextPage = (): React.ReactElement => {
   useEffect(() => {
     dispatch(fetchSubcategoryRequested());
     dispatch(fetchCategoryRequested());
+    if (currentUser) {
+      dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
+    }
   }, []);
 
   const { data: listProduct, isLoading } = useQuery({

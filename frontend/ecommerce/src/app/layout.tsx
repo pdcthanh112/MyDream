@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppSelector } from '@redux/store';
+import AuthModal from '@components/AuthModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +29,9 @@ const FooterComponent = styled.div`
 `;
 
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
+
+  const openModalAuth = useAppSelector((state) => state.modalAuth.isOpenModalAuth);
+
   return (
     <html lang="en">
       <Metadata />
@@ -45,6 +50,8 @@ export default function RootLayout({ children }: { children: ReactNode }): React
           <AppFooter />
         </FooterComponent>
 
+        {openModalAuth && <AuthModal />}
+
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -61,6 +68,5 @@ export default function RootLayout({ children }: { children: ReactNode }): React
     </html>
   );
 }
-
 
 // export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;

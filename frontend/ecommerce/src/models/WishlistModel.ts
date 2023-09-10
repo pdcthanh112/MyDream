@@ -1,4 +1,7 @@
+import { Product } from "./ProductModel";
+
 export interface Wishlist {
-  custommerId: string;
-  productId: string;
+  id: string;
+  custommer: string;
+  product: Product[];
 }
