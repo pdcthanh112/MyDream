@@ -14,9 +14,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const someCookie = req.cookies["some-custom-cookie"]
 
   return await NextAuth(req, res, {
-    ...
     callbacks: {
-      session({ session, token }) {
+      session({ session }) {
         // Return a cookie value as part of the session
         // This is read when `req.query.nextauth.includes("session") && req.method === "GET"`
         session.someCookie = someCookie

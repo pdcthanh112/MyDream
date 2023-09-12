@@ -1,6 +1,5 @@
 import { Wishlist } from "@models/WishlistModel";
 
-// ================= FETCH WISHLIST =================
 export interface FetchWishlistRequestedPayload {
   customerId: string;
 }
@@ -10,14 +9,13 @@ export interface FetchWishlistStartPayload {
 }
 
 export interface FetchWishlistSucceededPayload {
-  data: Wishlist[];
+  data: Wishlist;
 }
 
 export interface FetchWishlistFailedPayload {
   error: string;
 }
 
-// ================= ADD ITEM TO WISHLIST =====================
 export interface AddItemToWishlistRequestedPayload {
   params: { customerId: string; productId: string };
 }
@@ -27,14 +25,17 @@ export interface AddItemToWishlistStartPayload {
 }
 
 export interface AddItemToWishlistSucceededPayload {
-  data: [];
+  data: Wishlist;
 }
 
 export interface AddItemToWishlistFailedPayload {
   error: string;
 }
 
-// ================== REMOVE ITEM FROM WISHLIST ====================
+export interface AddItemToWishlistCleanPayload {
+  data: string;
+}
+
 export interface RemoveItemFromWishlistRequestedPayload {
   params: { customerId: string; productId: string };
 }
@@ -44,9 +45,13 @@ export interface RemoveItemFromWishlistStartPayload {
 }
 
 export interface RemoveItemFromWishlistSucceededPayload {
-  data: [];
+  data: Wishlist;
 }
 
 export interface RemoveItemFromWishlistFailedPayload {
   error: string;
+}
+
+export interface RemoveItemFromWishlistCleanPayload {
+  data: string;
 }

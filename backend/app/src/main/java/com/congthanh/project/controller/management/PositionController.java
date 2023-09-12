@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class PositionController {
 
-    @Autowired
-    private PositionService positionService;
+  @Autowired
+  private PositionService positionService;
 
-    @GetMapping("/getAll")
-    @PermitAll
-    public ResponseEntity<Response<Object>> getAllPosition(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object data = positionService.getAllPosition(page, limit);
-        Response<Object> response = new Response<>();
-        response.setData(data);
-        response.setMessage("Get all successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/getAll")
+  @PermitAll
+  public ResponseEntity<Response<Object>> getAllPosition(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+    Object data = positionService.getAllPosition(page, limit);
+    Response<Object> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get all successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PostMapping("/create")
-    @PermitAll
-    public ResponseEntity<Response> createPosition(@RequestBody PositionDTO positionDTO) {
-        Position position = positionService.createPosition(positionDTO);
-        Response<Object> response = new Response<>();
-        response.setData(position);
-        response.setMessage("Create successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  @PostMapping("/create")
+  @PermitAll
+  public ResponseEntity<Response> createPosition(@RequestBody PositionDTO positionDTO) {
+    Position position = positionService.createPosition(positionDTO);
+    Response<Object> response = new Response<>();
+    response.setData(position);
+    response.setMessage("Create successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 }

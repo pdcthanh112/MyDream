@@ -12,7 +12,7 @@ export const getWishlistByCustomer = async (customerId: string) => {
 export const addProductToWishlist = async (customerId: string, productId: string) => {
   return await axiosConfig
     .post('wishlist/add', {
-      customer: customerId,
+      customerId: customerId,
       productId: productId,
     })
     .then((response) => response)

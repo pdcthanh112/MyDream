@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface PurchasingService {
 
-    CheckoutDTO checkoutCart(Checkout checkout);
+  CheckoutDTO checkoutCart(Checkout checkout);
 
-    List<CheckoutDTO> getHistoryByCustomer(String customerId);
+  List<CheckoutDTO> getHistoryByCustomer(String customerId);
 
 }

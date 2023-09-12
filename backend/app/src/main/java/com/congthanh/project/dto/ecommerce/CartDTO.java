@@ -13,16 +13,16 @@ import java.util.Set;
 @Builder
 public class CartDTO {
 
-    private String id;
+  private String id;
 
-    private String name;
+  private String name;
 
-    private long createdDate;
+  private long createdDate;
 
-    private String customerId;
+  private String customerId;
 
-    private String status;
+  private String status;
 
-    private Set<CartItemDTO> cartItems;
+  private Set<CartItemDTO> cartItems;
 
 }

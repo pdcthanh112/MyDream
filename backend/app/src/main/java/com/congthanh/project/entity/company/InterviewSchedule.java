@@ -16,29 +16,29 @@ import java.sql.Time;
 @AllArgsConstructor
 @Builder
 @Table(name = "interview_schedule")
-public class InterviewSchedule   {
-  
+public class InterviewSchedule {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "numeric")
-    private Long id;
 
-    private String candidateId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "numeric")
+  private Long id;
 
-    private String type;
+  private String candidateId;
 
-    private String address;
+  private String type;
 
-    private Date date;
+  private String address;
 
-    private Time time;
+  private Date date;
 
-    private String linkMeeting;
+  private Time time;
 
-    private String room;
+  private String linkMeeting;
 
-    private int round;
+  private String room;
 
-    private String status;
+  private int round;
+
+  private String status;
 }

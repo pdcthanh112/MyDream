@@ -15,15 +15,15 @@ import java.util.Optional;
 @Transactional
 public interface CartRepository extends JpaRepository<Cart, String> {
 
-    Optional<Cart> findById(String id);
+  Optional<Cart> findById(String id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = '" + StateStatus.STATUS_ACTIVE + "' ORDER BY created_date desc")
-    List<Cart> findActiveCartByCustomerId(String customerId);
+  @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = '" + StateStatus.STATUS_ACTIVE + "' ORDER BY created_date desc")
+  List<Cart> findActiveCartByCustomerId(String customerId);
 
-    @Query(nativeQuery = true, value = "UPDATE cart SET status = 'PAID' WHERE id = ?1")
-    boolean checkoutCart(String cartId);
+  @Query(nativeQuery = true, value = "UPDATE cart SET status = 'PAID' WHERE id = ?1")
+  boolean checkoutCart(String cartId);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = '" + StateStatus.CHECKED_OUT + "' ORDER BY created_date desc")
-    List<Cart> findHistoryByCustomerId(String customerId);
+  @Query(nativeQuery = true, value = "SELECT * FROM cart WHERE customerid = ?1 AND status = '" + StateStatus.CHECKED_OUT + "' ORDER BY created_date desc")
+  List<Cart> findHistoryByCustomerId(String customerId);
 
 }

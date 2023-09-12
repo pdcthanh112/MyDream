@@ -16,22 +16,22 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "subcategory")
-public class Subcategory   {
-  
+public class Subcategory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private String status;
+  private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+  private String status;
 
-    @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Product> product;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category", nullable = false)
+  private Category category;
+
+  @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<Product> product;
 }

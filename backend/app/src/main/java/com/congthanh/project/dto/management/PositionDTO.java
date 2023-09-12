@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PositionDTO {
 
-    private int id;
+  private int id;
 
-    private String name;
+  private String name;
 
-    private String department;
+  private String department;
 
-    private String status;
+  private String status;
 }

@@ -17,16 +17,16 @@ import java.util.Set;
 @Table(name = "wishlist")
 public class Wishlist {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private String customer;
+  private String customer;
 
-    @ManyToMany
-    @JoinTable(name = "wishlist_product",
-            joinColumns = @JoinColumn(name = "wishlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonIgnore
-    private Set<Product> product;
+  @ManyToMany
+  @JoinTable(name = "wishlist_product",
+          joinColumns = @JoinColumn(name = "wishlist_id"),
+          inverseJoinColumns = @JoinColumn(name = "product_id"))
+  @JsonIgnore
+  private Set<Product> product;
 }

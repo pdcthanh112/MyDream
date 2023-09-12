@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface ProductService {
 
-    Object getAllProduct(Integer page, Integer limit);
+  Object getAllProduct(Integer page, Integer limit);
 
-    ProductDTO getProductById(String id);
+  ProductDTO getProductById(String id);
 
-    Product createProduct(ProductDTO productDTO);
+  Product createProduct(ProductDTO productDTO);
 
-    Product updateProduct(ProductDTO productDTO);
+  Product updateProduct(ProductDTO productDTO);
 
-    boolean deleteProduct(String id);
+  boolean deleteProduct(String id);
 
-    ResponseWithTotalPage<ProductDTO> getProductByCategory(int categoryId, int page, int limit);
+  ResponseWithTotalPage<ProductDTO> getProductByCategory(int categoryId, int page, int limit);
 
-    ResponseWithTotalPage<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit);
+  ResponseWithTotalPage<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit);
 
-    List<ProductDTO> searchProduct(String keyword);
+  List<ProductDTO> searchProduct(String keyword);
 }

@@ -7,19 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "Orders")
-public class Order   {
-  
+public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
 
-    private String voucher;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
+
+  private String voucher;
 }

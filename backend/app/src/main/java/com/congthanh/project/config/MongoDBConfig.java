@@ -10,15 +10,15 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.example.repository.mongodb")
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
-    @Override
-    protected String getDatabaseName() {
-        return "MyDream";
-    }
+  @Override
+  protected String getDatabaseName() {
+    return "MyDream";
+  }
 
-    @Override
-    public MongoClient mongoClient() {
-        return MongoClients.create("mongodb://localhost:27017");
-    }
+  @Override
+  public MongoClient mongoClient() {
+    return MongoClients.create("mongodb://localhost:27017");
+  }
 
 //    @Override
 //    protected String getMappingBasePackage() {

@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InterviewSessionDTO   {
+public class InterviewSessionDTO {
 
-    private Long id;
+  private Long id;
 
-    private String candidateId;
+  private String candidateId;
 
-    private String status;
+  private String status;
 
 }

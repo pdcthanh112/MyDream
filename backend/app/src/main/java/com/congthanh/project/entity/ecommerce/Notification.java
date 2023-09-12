@@ -14,17 +14,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "ecommerce_notification")
 public class Notification {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String customer;
+  private String customer;
 
-    private String title;
+  private String title;
 
-    private String content;
+  private String content;
 
-    @Column(name = "created_date")
-    private long createdDate;
+  @Column(name = "created_date")
+  private long createdDate;
 
 }

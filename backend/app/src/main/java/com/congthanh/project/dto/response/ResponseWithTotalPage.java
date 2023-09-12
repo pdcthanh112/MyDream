@@ -13,6 +13,6 @@ import java.util.List;
 @Builder
 public class ResponseWithTotalPage<T> {
 
-    private int totalPage;
-    private List<T> responseList;
+  private int totalPage;
+  private List<T> responseList;
 }

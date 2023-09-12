@@ -1,6 +1,7 @@
 import { Wishlist } from '@models/WishlistModel';
 import * as actionName from '../name/wishlist';
 import {
+  AddItemToWishlistCleanPayload,
   AddItemToWishlistFailedPayload,
   AddItemToWishlistRequestedPayload,
   AddItemToWishlistStartPayload,
@@ -9,6 +10,7 @@ import {
   FetchWishlistRequestedPayload,
   FetchWishlistStartPayload,
   FetchWishlistSucceededPayload,
+  RemoveItemFromWishlistCleanPayload,
   RemoveItemFromWishlistFailedPayload,
   RemoveItemFromWishlistRequestedPayload,
   RemoveItemFromWishlistStartPayload,
@@ -16,7 +18,7 @@ import {
 } from '../payload/wishlist';
 
 export interface WishlistState {
-  status: 'idle' | 'pending' | 'succeeded' | 'failed'
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
   data: Wishlist;
 }
@@ -61,6 +63,11 @@ export type AddItemToWishlistFailed = {
   payload: AddItemToWishlistFailedPayload;
 };
 
+export type AddItemToWishlistClean = {
+  type: typeof actionName.ADD_ITEM_TO_WISHLIST_CLEAN;
+  payload: AddItemToWishlistCleanPayload | null;
+};
+
 export type RemoveItemFromWishlistRequested = {
   type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED;
   payload: RemoveItemFromWishlistRequestedPayload;
@@ -79,4 +86,9 @@ export type RemoveItemFromWishlistSucceeded = {
 export type RemoveItemFromWishlistFailed = {
   type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED;
   payload: RemoveItemFromWishlistFailedPayload;
+};
+
+export type RemoveItemFromWishlistClean = {
+  type: typeof actionName.REMOVE_ITEM_FROM_WISHLIST_CLEAN;
+  payload: RemoveItemFromWishlistCleanPayload | null;
 };

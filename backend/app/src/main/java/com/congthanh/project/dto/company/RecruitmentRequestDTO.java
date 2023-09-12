@@ -12,22 +12,22 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RecruitmentRequestDTO   {
+public class RecruitmentRequestDTO {
 
-    private Long id;
+  private Long id;
 
-    private String name;
+  private String name;
 
-    private int amount;
+  private int amount;
 
-    private String address;
+  private String address;
 
-    private Date expiriedDate;
+  private Date expiriedDate;
 
-    private String description;
+  private String description;
 
-    private String requirement;
+  private String requirement;
 
-    private String benefit;
+  private String benefit;
 
 }

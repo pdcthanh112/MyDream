@@ -12,22 +12,22 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-    Optional<Product> findById(String id);
+  Optional<Product> findById(String id);
 
-    Optional<Product> findByName(String name);
+  Optional<Product> findByName(String name);
 
-    Page<Product> findByCategoryId(int categoryId, Pageable pageable);
+  Page<Product> findByCategoryId(int categoryId, Pageable pageable);
 
-    Page<Product> findBySubcategoryId(int categoryId, Pageable pageable);
+  Page<Product> findBySubcategoryId(int categoryId, Pageable pageable);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "UPDATE mydream.product SET status = 'Deleted' WHERE id = ?1 ")
-    boolean deleteProduct(String id);
+  @Modifying
+  @Query(nativeQuery = true, value = "UPDATE mydream.product SET status = 'Deleted' WHERE id = ?1 ")
+  boolean deleteProduct(String id);
 
-    @Query(nativeQuery = true, value = "SELECT product.*\n" +
-            "FROM product  JOIN category on product.category = category.id\n" +
-            "JOIN subcategory on product.subcategory = subcategory.id\n" +
-            "JOIN rating on product.rating = rating.id\n" +
-            "WHERE CONCAT(product.name, category.name, subcategory.name) ILIKE ?1")
-    List<Product> searchProduct(String keyword);
+  @Query(nativeQuery = true, value = "SELECT product.*\n" +
+          "FROM product  JOIN category on product.category = category.id\n" +
+          "JOIN subcategory on product.subcategory = subcategory.id\n" +
+          "JOIN rating on product.rating = rating.id\n" +
+          "WHERE CONCAT(product.name, category.name, subcategory.name) ILIKE ?1")
+  List<Product> searchProduct(String keyword);
 }

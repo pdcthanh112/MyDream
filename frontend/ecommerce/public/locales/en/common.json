@@ -107,5 +107,11 @@
     "view_cart": "View cart",
     "subtotal": "Subtotal",
     "please_signin_to_view_your_cart": "Please signin to view your cart"
+  },
+  "wishlist": {
+    "add_item_to_wishlist_successfully": "Add item to wishlist successfully",
+    "add_item_to_wishlist_failed": "Add item to wishlist failed",
+    "remove_item_from_wishlist_successfully": "Remove item from wishlist successfully",
+    "remove_item_from_wishlist_failed": "Remove item from wishlist failed"
   }
 }

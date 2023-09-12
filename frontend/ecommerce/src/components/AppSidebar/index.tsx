@@ -3,11 +3,11 @@ import './AppSidebar.scss';
 import { useRouter } from 'next/router';
 import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
-import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
 import { Customer } from '@models/CustomerModel';
-import { motion } from 'framer-motion';
 import { Category } from '@models/CategoryModel';
 import { Subcategory } from '@models/SubcategoryModel';
+import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 
 const AppSidebar = () => {

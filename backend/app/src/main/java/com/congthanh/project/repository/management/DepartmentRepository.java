@@ -13,12 +13,12 @@ import java.util.Optional;
 @Transactional
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
 
-    Optional<Department> findById(int id);
+  Optional<Department> findById(int id);
 
-    Optional<Department> findByName(String name);
+  Optional<Department> findByName(String name);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "UPDATE mydream.department SET status = 'Deteted' WHERE id = ?1")
-    boolean deleteDepartment(int id);
+  @Modifying
+  @Query(nativeQuery = true, value = "UPDATE mydream.department SET status = 'Deteted' WHERE id = ?1")
+  boolean deleteDepartment(int id);
 
 }

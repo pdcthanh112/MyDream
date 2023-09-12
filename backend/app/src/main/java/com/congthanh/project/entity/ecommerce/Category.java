@@ -18,19 +18,19 @@ import java.util.Set;
 @Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private String name;
+  private String name;
 
-    private String status;
+  private String status;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<Subcategory> subcategories;
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private Set<Subcategory> subcategories;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Product> product;
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private List<Product> product;
 }

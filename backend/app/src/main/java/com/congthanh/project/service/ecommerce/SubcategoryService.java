@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface SubcategoryService {
 
-    Object getAllSubcategory(Integer pageNo, Integer pageSize);
+  Object getAllSubcategory(Integer pageNo, Integer pageSize);
 
-    Subcategory createSubcategory(SubcategoryDTO subcategoryDTO);
+  Subcategory createSubcategory(SubcategoryDTO subcategoryDTO);
 
-    Subcategory updateSubcategory(SubcategoryDTO subcategoryDTO);
+  Subcategory updateSubcategory(SubcategoryDTO subcategoryDTO);
 
-    boolean deleteSubcategory(int id);
+  boolean deleteSubcategory(int id);
 
-    List<SubcategoryDTO> getSubcategoryByCategoryId(int id);
+  List<SubcategoryDTO> getSubcategoryByCategoryId(int id);
 }

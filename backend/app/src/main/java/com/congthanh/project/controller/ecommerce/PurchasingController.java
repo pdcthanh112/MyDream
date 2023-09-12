@@ -17,16 +17,16 @@ import java.util.List;
 @RequestMapping("/ecommerce/purchasing")
 public class PurchasingController {
 
-    @Autowired
-    private PurchasingService purchasingService;
+  @Autowired
+  private PurchasingService purchasingService;
 
-    @GetMapping("/history")
-    public ResponseEntity<Response<List<CheckoutDTO>>> getHistoryByCustomer(@RequestParam String customerId) {
-        List<CheckoutDTO> data = purchasingService.getHistoryByCustomer(customerId);
-        Response<List<CheckoutDTO>> response = new Response<>();
-        response.setData(data);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Get all successfully");
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/history")
+  public ResponseEntity<Response<List<CheckoutDTO>>> getHistoryByCustomer(@RequestParam String customerId) {
+    List<CheckoutDTO> data = purchasingService.getHistoryByCustomer(customerId);
+    Response<List<CheckoutDTO>> response = new Response<>();
+    response.setData(data);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Get all successfully");
+    return ResponseEntity.ok().body(response);
+  }
 }

@@ -22,78 +22,78 @@ import java.util.Optional;
 @Service
 public class PositionServiceImplement implements PositionService {
 
-    @Autowired
-    private PositionRepository positionRepository;
+  @Autowired
+  private PositionRepository positionRepository;
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+  @Autowired
+  private DepartmentRepository departmentRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private ModelMapper modelMapper;
 
-    @Override
-    public Object getAllPosition(Integer page, Integer limit) {
-        if (page != null && limit != null) {
-            Pageable pageable = PageRequest.of(page, limit);
-            Page<Position> result = positionRepository.findAll(pageable);
-            ResponseWithTotalPage<PositionDTO> response = new ResponseWithTotalPage<>();
-            if (result.hasContent()) {
-                List<PositionDTO> list = new ArrayList<>();
-                for (Position position : result.getContent()) {
-                    PositionDTO positionDTO = PositionDTO.builder()
-                            .id(position.getId())
-                            .name(position.getName())
-                            .department(position.getDepartment().getName())
-                            .status(position.getStatus())
-                            .build();
-                    list.add(positionDTO);
-                }
-                response.setResponseList(list);
-                response.setTotalPage(result.getTotalPages());
-            } else {
-                throw new RuntimeException("List empty exception");
-            }
-            return response;
-        } else {
-            List<Position> list = positionRepository.findAll();
-            List<PositionDTO> result = new ArrayList<>();
-            for (Position position : list) {
-                PositionDTO positionDTO = PositionDTO.builder()
-                        .id(position.getId())
-                        .name(position.getName())
-                        .department(position.getDepartment().getName())
-                        .status(position.getStatus())
-                        .build();
-                result.add(positionDTO);
-            }
-            return result;
+  @Override
+  public Object getAllPosition(Integer page, Integer limit) {
+    if (page != null && limit != null) {
+      Pageable pageable = PageRequest.of(page, limit);
+      Page<Position> result = positionRepository.findAll(pageable);
+      ResponseWithTotalPage<PositionDTO> response = new ResponseWithTotalPage<>();
+      if (result.hasContent()) {
+        List<PositionDTO> list = new ArrayList<>();
+        for (Position position : result.getContent()) {
+          PositionDTO positionDTO = PositionDTO.builder()
+                  .id(position.getId())
+                  .name(position.getName())
+                  .department(position.getDepartment().getName())
+                  .status(position.getStatus())
+                  .build();
+          list.add(positionDTO);
         }
+        response.setResponseList(list);
+        response.setTotalPage(result.getTotalPages());
+      } else {
+        throw new RuntimeException("List empty exception");
+      }
+      return response;
+    } else {
+      List<Position> list = positionRepository.findAll();
+      List<PositionDTO> result = new ArrayList<>();
+      for (Position position : list) {
+        PositionDTO positionDTO = PositionDTO.builder()
+                .id(position.getId())
+                .name(position.getName())
+                .department(position.getDepartment().getName())
+                .status(position.getStatus())
+                .build();
+        result.add(positionDTO);
+      }
+      return result;
     }
+  }
 
-    @Override
-    public Position createPosition(PositionDTO positionDTO) {
-        Optional<Position> existPosition = positionRepository.findByName(positionDTO.getName());
-        if (existPosition.isPresent()) {
-            throw new RuntimeException("Position ton tai");
-        } else {
-            Optional<Department> department = departmentRepository.findById(Integer.parseInt(positionDTO.getDepartment()));
-            Position position = Position.builder()
-                    .name(positionDTO.getName())
-                    .department(department.get())
-                    .status(StateStatus.STATUS_ACTIVE)
-                    .build();
-            Position response = positionRepository.save(position);
-            return  response;
-        }
+  @Override
+  public Position createPosition(PositionDTO positionDTO) {
+    Optional<Position> existPosition = positionRepository.findByName(positionDTO.getName());
+    if (existPosition.isPresent()) {
+      throw new RuntimeException("Position ton tai");
+    } else {
+      Optional<Department> department = departmentRepository.findById(Integer.parseInt(positionDTO.getDepartment()));
+      Position position = Position.builder()
+              .name(positionDTO.getName())
+              .department(department.get())
+              .status(StateStatus.STATUS_ACTIVE)
+              .build();
+      Position response = positionRepository.save(position);
+      return response;
     }
+  }
 
-    @Override
-    public Position updatePosition(PositionDTO positionDTO) {
-        return null;
-    }
+  @Override
+  public Position updatePosition(PositionDTO positionDTO) {
+    return null;
+  }
 
-    @Override
-    public boolean deletePosition(int id) {
-        return false;
-    }
+  @Override
+  public boolean deletePosition(int id) {
+    return false;
+  }
 }

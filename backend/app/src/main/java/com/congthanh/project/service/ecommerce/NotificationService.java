@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface NotificationService {
 
-    List<NotificationDTO> getNotificationByCustomer(String customerId);
+  List<NotificationDTO> getNotificationByCustomer(String customerId);
 
-    Notification createNotification(NotificationDTO notificationDTO);
+  Notification createNotification(NotificationDTO notificationDTO);
 
 }

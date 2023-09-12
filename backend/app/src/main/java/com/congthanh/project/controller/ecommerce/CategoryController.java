@@ -20,49 +20,49 @@ import java.util.List;
 @RequestMapping("/ecommerce/category")
 public class CategoryController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+  @Autowired
+  private CategoryRepository categoryRepository;
 
-    @Autowired
-    private CategoryService categoryService;
+  @Autowired
+  private CategoryService categoryService;
 
-    @GetMapping("/getAll")
-    //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
-    @PermitAll
-    public ResponseEntity<Response<Object>> getAllCategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object data = categoryService.getAllCategory(page, limit);
-        Response<Object> response = new Response<>();
-        response.setData(data);
-        response.setMessage("Get all successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/getAll")
+  //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
+  @PermitAll
+  public ResponseEntity<Response<Object>> getAllCategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+    Object data = categoryService.getAllCategory(page, limit);
+    Response<Object> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get all successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PostMapping("/create")
-    @PermitAll
-    public ResponseEntity<Response> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        Category category = categoryService.createCategory(categoryDTO);
-        Response<Object> response = new Response<>();
-        response.setData(category);
-        response.setMessage("Create successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+  @PostMapping("/create")
+  @PermitAll
+  public ResponseEntity<Response> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    Category category = categoryService.createCategory(categoryDTO);
+    Response<Object> response = new Response<>();
+    response.setData(category);
+    response.setMessage("Create successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateCategory(@RequestBody CategoryDTO categoryDTO) {
-        Category category = categoryService.updateCategory(categoryDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
-    }
+  @PutMapping("/update")
+  public ResponseEntity<String> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+    Category category = categoryService.updateCategory(categoryDTO);
+    return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
+  }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCategory(@RequestParam("id") int id) {
-        boolean result = categoryService.deleteCategory(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
-    }
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<String> deleteCategory(@RequestParam("id") int id) {
+    boolean result = categoryService.deleteCategory(id);
+    return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
+  }
 
-    @QueryMapping(value = "category")
-    List<Category> categories() {
-        return categoryRepository.findAll();
-    }
+  @QueryMapping(value = "category")
+  List<Category> categories() {
+    return categoryRepository.findAll();
+  }
 }

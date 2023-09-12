@@ -15,20 +15,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "department")
-public class Department   {
-  
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Department {
 
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private String phone;
+  private String name;
 
-    private String status;
+  private String phone;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<Position> positions;
+  private String status;
+
+  @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private Set<Position> positions;
 
 }

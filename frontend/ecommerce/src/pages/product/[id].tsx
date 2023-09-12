@@ -4,23 +4,35 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductById } from '@apis/productApi';
 import { Rating, Icon } from '@mui/material';
+import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { roundNumber } from '@utils/helper';
 import Button from '@components/Button';
 import ProductSkeleton from './product-skeleton';
-import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { addToCart } from '@apis/cartApi';
+import { useAppDispatch, useAppSelector } from '@redux/store';
+import { addProductToWishlist, removeProductFromWishlist } from '@apis/wishlistApi';
+import { openModalAuth } from '@redux/features/modalAuth';
+import { HeartEmpty, HeartFull } from '@assets/icons';
+import { addItemToWishlistClean, removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
+import { toast } from 'react-toastify';
+import { Customer } from '@models/CustomerModel';
+import { Wishlist } from '@models/WishlistModel';
+import { fetchWishlistRequested } from '@redux/actions/wishlist';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
   const { id: productId } = router.query;
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
+  const wishlist: Wishlist = useAppSelector((state) => state.wishlist.data);
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation('common');
+  const wishlistState = useAppSelector((state) => state.wishlist.status);
 
   const [quantity, setQuantity] = useState(1);
-
-  const { t } = useTranslation('common');
 
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', productId],
@@ -28,7 +40,47 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   });
 
   const addProductToCart = async () => {
-    await addToCart({productId: product.id, quantity: quantity, cartId: '8d4f19b5-491a-4d3c-a7e3-13aea1eb4986'}).then(() => {});
+    await addToCart({ productId: product.id, quantity: quantity, cartId: '8d4f19b5-491a-4d3c-a7e3-13aea1eb4986' }).then(() => {});
+  };
+
+  const handleAddToWishlist = (productId: string) => {
+    if (currentUser) {
+      try {
+        addProductToWishlist(currentUser.userInfo.accountId, productId);
+        if (wishlistState === 'succeeded') {
+          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }))
+          toast.success(t('wishlist.add_item_to_wishlist_successfully'));
+        } else if (wishlistState === 'failed') {
+          toast.error(t('wishlist.add_item_to_wishlist_failed'));
+        }
+      } catch (error) {
+        toast.error(t('wishlist.add_item_to_wishlist_failed'));
+      } finally {
+        dispatch(addItemToWishlistClean());
+      }
+    } else {
+      dispatch(openModalAuth());
+    }
+  };
+
+  const handleRemoveFromWishlist = (productId: string) => {
+    if (currentUser) {
+      try {
+        removeProductFromWishlist(currentUser.userInfo.accountId, productId);
+        if (wishlistState === 'succeeded') {
+          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }))
+          toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
+        } else if (wishlistState === 'failed') {
+          toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+        }
+      } catch (error) {
+        toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+      } finally {
+        dispatch(removeItemFromWishlistClean());
+      }
+    } else {
+      dispatch(openModalAuth());
+    }
   };
 
   if (isLoading) return <ProductSkeleton />;
@@ -54,13 +106,23 @@ const ProductDetail: NextPage = (): React.ReactElement => {
                 {t('product.sold')}: {product.sold}
               </span>
             </div>
-            <div>wishlist</div>
+            <div>
+              {!!wishlist.product.find((item) => item.id === product.id) ? (
+                <span className="hover:cursor-pointer" title={t('common.remove_from_wishlist')} onClick={() => handleRemoveFromWishlist(product.id)}>
+                  <Icon component={HeartFull} sx={{ color: 'red' }} />
+                </span>
+              ) : (
+                <span className="hover:cursor-pointer" title={t('common.add_to_wishlist')} onClick={() => handleAddToWishlist(product.id)}>
+                  <Icon component={HeartEmpty} sx={{ color: 'red' }} />
+                </span>
+              )}
+            </div>
           </div>
           <div className="font-semibold text-3xl text-yellow-400">{product.price}</div>
           <div className="flex mt-10">
             <span className="flex items-center mr-10">{t('product.Quantity')}</span>
             <div className="border-[#cccccc] border-2">
-              <button className="bg-[#f3f3f3] px-3 py-2" disabled={quantity <= 0} onClick={() => setQuantity(quantity - 1)}>
+              <button className="bg-[#f3f3f3] px-3 py-2" disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)}>
                 <Icon component={MinusIcon} />
               </button>
               <input
@@ -100,7 +162,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <div className="col-span-3">{product.category}</div>
           <div className="col-span-1">{t('common.Subcategory')}</div>
           <div className="col-span-3">{product.subcategory}</div>
-          <div className="col-span-1">{t('product.in_stock')}</div>
+          <div className="col-span-1">{t('common.in_stock')}</div>
           <div className="col-span-3">{product.quantity - product.sold > 0 ? <p>{product.quantity - product.sold}</p> : <p>0</p>}</div>
         </div>
       </div>

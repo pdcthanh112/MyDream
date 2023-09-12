@@ -12,6 +12,7 @@ import {
   RemoveItemFromWishlistSucceededPayload,
 } from './payload/wishlist';
 import {
+  AddItemToWishlistClean,
   AddItemToWishlistFailed,
   AddItemToWishlistStart,
   AddItemToWishlistSucceeded,
@@ -19,6 +20,7 @@ import {
   FetchWishlistRequested,
   FetchWishlistStart,
   FetchWishlistSucceeded,
+  RemoveItemFromWishlistClean,
   RemoveItemFromWishlistFailed,
   RemoveItemFromWishlistRequested,
   RemoveItemFromWishlistStart,
@@ -66,6 +68,11 @@ export const addItemToWishlistFailed = (payload: AddItemToWishlistFailedPayload)
   payload,
 });
 
+export const addItemToWishlistClean = (): AddItemToWishlistClean => ({
+  type: actionName.ADD_ITEM_TO_WISHLIST_CLEAN,
+  payload: null,
+});
+
 export const removeItemFromWishlistRequested = (payload: RemoveItemFromWishlistRequestedPayload): RemoveItemFromWishlistRequested => ({
   type: actionName.REMOVE_ITEM_FROM_WISHLIST_REQUESTED,
   payload,
@@ -84,4 +91,9 @@ export const removeItemFromWishlistSucceeded = (payload: RemoveItemFromWishlistS
 export const removeItemFromWishlistFailed = (payload: RemoveItemFromWishlistFailedPayload): RemoveItemFromWishlistFailed => ({
   type: actionName.REMOVE_ITEM_FROM_WISHLIST_FAILED,
   payload,
+});
+
+export const removeItemFromWishlistClean = (): RemoveItemFromWishlistClean => ({
+  type: actionName.REMOVE_ITEM_FROM_WISHLIST_CLEAN,
+  payload: null,
 });

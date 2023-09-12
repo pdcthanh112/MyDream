@@ -1,13 +1,13 @@
 import { useAppSelector } from '@redux/store';
-import { Customer } from '@models/CustomerModel';
 import { useQuery } from '@tanstack/react-query';
 import { getNotificationByCustomer } from '@apis/notificationApi';
-import { Notification } from '@models/NotificationModel';
 import Link from 'next/link';
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import DefaultImage from '@assets/images/default-image.jpg';
+import { Customer } from '@models/CustomerModel';
+import { Notification } from '@models/NotificationModel';
 
 export default function NotificationModal() {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

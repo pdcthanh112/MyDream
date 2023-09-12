@@ -7,28 +7,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "account", indexes = @Index(columnList = "account_id"))
-public class Account   {
-  
+public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "numeric")
-    private Long id;
 
-    private String email;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "numeric")
+  private Long id;
 
-    @Column(name = "account_id", nullable = false, unique = true)
-    private String accountId;
+  private String email;
 
-    @Column(name = "emp_account", nullable = false, unique = true)
-    private String empAccount;
+  @Column(name = "account_id", nullable = false, unique = true)
+  private String accountId;
 
-    private String role;
+  @Column(name = "emp_account", nullable = false, unique = true)
+  private String empAccount;
+
+  private String role;
 }

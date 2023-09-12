@@ -6,12 +6,12 @@ import com.congthanh.project.entity.company.RecruitmentRequest;
 
 public interface RecruitmentRequestService {
 
-    public ResponseWithTotalPage<RecruitmentRequestDTO> getAllRecruitmetRequest(int pageNo, int pageSize);
+  public ResponseWithTotalPage<RecruitmentRequestDTO> getAllRecruitmetRequest(int pageNo, int pageSize);
 
-    public RecruitmentRequest createRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO);
+  public RecruitmentRequest createRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO);
 
-    public RecruitmentRequest updateRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO);
+  public RecruitmentRequest updateRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO);
 
-    public boolean deleteRecruitmentRequest(int id);
+  public boolean deleteRecruitmentRequest(int id);
 
 }

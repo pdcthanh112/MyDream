@@ -15,14 +15,14 @@ import java.util.Optional;
 @Transactional
 public interface SubcategoryRepository extends JpaRepository<Subcategory, Integer> {
 
-    Optional<Subcategory> findById(int id);
+  Optional<Subcategory> findById(int id);
 
-    Optional<Subcategory> findByName(String name);
+  Optional<Subcategory> findByName(String name);
 
-    @Query(nativeQuery = true, value = "SELECT id, name FROM subcategory WHERE category = ?1")
-    List<Tuple> findByCategoryId(int id);
+  @Query(nativeQuery = true, value = "SELECT id, name FROM subcategory WHERE category = ?1")
+  List<Tuple> findByCategoryId(int id);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "UPDATE mydream.Subcategory SET status = 'Deleted' WHERE id = ?1 ")
-    boolean deleteSubcategory(int id);
+  @Modifying
+  @Query(nativeQuery = true, value = "UPDATE mydream.Subcategory SET status = 'Deleted' WHERE id = ?1 ")
+  boolean deleteSubcategory(int id);
 }

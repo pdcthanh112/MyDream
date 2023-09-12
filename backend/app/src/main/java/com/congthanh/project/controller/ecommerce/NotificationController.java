@@ -16,26 +16,26 @@ import java.util.List;
 @RequestMapping("/ecommerce/notification")
 public class NotificationController {
 
-    @Autowired
-    private NotificationService notificationService;
+  @Autowired
+  private NotificationService notificationService;
 
-    @GetMapping("/getByCustomer")
-    public ResponseEntity<Response<List<NotificationDTO>>> getNotificationByCustomer(@RequestParam("id") String customerId) {
-        List<NotificationDTO> result = notificationService.getNotificationByCustomer(customerId);
-        Response<List<NotificationDTO>> response = new Response<>();
-        response.setData(result != null ? result : null);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage(result != null ? "Get xong" : "Noti emply");
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/getByCustomer")
+  public ResponseEntity<Response<List<NotificationDTO>>> getNotificationByCustomer(@RequestParam("id") String customerId) {
+    List<NotificationDTO> result = notificationService.getNotificationByCustomer(customerId);
+    Response<List<NotificationDTO>> response = new Response<>();
+    response.setData(result != null ? result : null);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage(result != null ? "Get xong" : "Noti emply");
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response<Notification>> createNotification(@RequestBody NotificationDTO notificationDTO) {
-        Notification notification = notificationService.createNotification(notificationDTO);
-        Response<Notification> response = new Response<>();
-        response.setData(notification);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Created successfully");
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+  @PostMapping("/create")
+  public ResponseEntity<Response<Notification>> createNotification(@RequestBody NotificationDTO notificationDTO) {
+    Notification notification = notificationService.createNotification(notificationDTO);
+    Response<Notification> response = new Response<>();
+    response.setData(notification);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Created successfully");
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 }

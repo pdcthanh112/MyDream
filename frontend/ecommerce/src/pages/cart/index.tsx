@@ -1,16 +1,15 @@
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
-import { Cart } from '@models/CartModel';
-import { CartItem as ICartItem } from '@models/CartModel';
 import CartItem from './CartItem';
 import { Card } from '@mui/material';
 import Button from '@components/Button';
-import { Customer } from '@models/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { Customer } from '@models/CustomerModel';
+import { Cart, CartItem as ICartItem } from '@models/CartModel';
 
 const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

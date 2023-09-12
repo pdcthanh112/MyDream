@@ -10,18 +10,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class City   {
-  
+public class City {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  private String name;
 }

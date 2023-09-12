@@ -18,53 +18,53 @@ import java.util.List;
 @RequestMapping("/ecommerce/cart")
 public class CartController {
 
-    @Autowired
-    private CartRepository cartRepository;
+  @Autowired
+  private CartRepository cartRepository;
 
-    @Autowired
-    private CartService cartService;
+  @Autowired
+  private CartService cartService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<CartDTO>> getCartById(@PathVariable String id) {
-        CartDTO result = cartService.getCartById(id);
-        Response<CartDTO> response = new Response<>();
-        response.setData(result);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Get xong");
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<Response<CartDTO>> getCartById(@PathVariable String id) {
+    CartDTO result = cartService.getCartById(id);
+    Response<CartDTO> response = new Response<>();
+    response.setData(result);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Get xong");
+    return ResponseEntity.ok().body(response);
+  }
 
-    @GetMapping("/getByCustomer")
-    public ResponseEntity<Response<List<CartDTO>>> getAllCartByCustomerId(@RequestParam String customerId) {
-        List<CartDTO> result = cartService.getActiveCartByCustomerId(customerId);
-        Response<List<CartDTO>> response = new Response<>();
-        response.setData(result != null ? result : null);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage(result != null ? "Get xong" : "Cart emply");
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/getByCustomer")
+  public ResponseEntity<Response<List<CartDTO>>> getAllCartByCustomerId(@RequestParam String customerId) {
+    List<CartDTO> result = cartService.getActiveCartByCustomerId(customerId);
+    Response<List<CartDTO>> response = new Response<>();
+    response.setData(result != null ? result : null);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage(result != null ? "Get xong" : "Cart emply");
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response<Cart>> createCart(@RequestBody CartDTO cartDTO) {
-        Cart cart = cartService.createCart(cartDTO);
-        Response<Cart> response = new Response<>();
-        response.setData(cart);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Created successfully");
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+  @PostMapping("/create")
+  public ResponseEntity<Response<Cart>> createCart(@RequestBody CartDTO cartDTO) {
+    Cart cart = cartService.createCart(cartDTO);
+    Response<Cart> response = new Response<>();
+    response.setData(cart);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Created successfully");
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Response<String>> deleteCart(@PathVariable String id) {
-        Response<String> response = new Response<>();
-        response.setData(null);
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        response.setMessage("Delete successfully");
-        return ResponseEntity.ok().body(response);
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Response<String>> deleteCart(@PathVariable String id) {
+    Response<String> response = new Response<>();
+    response.setData(null);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Delete successfully");
+    return ResponseEntity.ok().body(response);
+  }
 
-    @QueryMapping(value = "cart")
-    List<Cart> carts() {
-        return cartRepository.findAll();
-    }
+  @QueryMapping(value = "cart")
+  List<Cart> carts() {
+    return cartRepository.findAll();
+  }
 }

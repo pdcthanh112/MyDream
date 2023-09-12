@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountDTO   {
+public class AccountDTO {
 
-    private Long id;
+  private Long id;
 
-    private String accountId;
+  private String accountId;
 
-    private String email;
+  private String email;
 
 }

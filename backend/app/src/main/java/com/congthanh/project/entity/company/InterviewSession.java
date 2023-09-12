@@ -7,22 +7,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "interview_session")
-public class InterviewSession   {
-  
+public class InterviewSession {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "numeric")
-    private Long id;
 
-    private String candidateId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "numeric")
+  private Long id;
 
-    private String status;
+  private String candidateId;
+
+  private String status;
 }

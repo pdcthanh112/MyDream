@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class InterviewScheduleDTO {
 
-    private Long id;
+  private Long id;
 
-    private String candidateId;
+  private String candidateId;
 
-    private String status;
+  private String status;
 
 }

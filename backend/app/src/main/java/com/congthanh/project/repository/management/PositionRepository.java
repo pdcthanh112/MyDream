@@ -13,12 +13,12 @@ import java.util.Optional;
 @Transactional
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
-    Optional<Position> findById(int id);
+  Optional<Position> findById(int id);
 
-    Optional<Position> findByName(String name);
+  Optional<Position> findByName(String name);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "UPDATE mydream.position SET status = 'Deteted' WHERE id = ?1")
-    boolean deletePosition(int id);
+  @Modifying
+  @Query(nativeQuery = true, value = "UPDATE mydream.position SET status = 'Deteted' WHERE id = ?1")
+  boolean deletePosition(int id);
 
 }

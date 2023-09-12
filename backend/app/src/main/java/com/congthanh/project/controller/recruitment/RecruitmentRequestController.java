@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/recruitment/recruitment-request")
 public class RecruitmentRequestController {
 
-    @Autowired
-    private RecruitmentRequestService recruitmentRequestService;
+  @Autowired
+  private RecruitmentRequestService recruitmentRequestService;
 
 //    @GetMapping("/getAll")
 //    public ResponseEntity<> getAllRecruitmentRequest() {

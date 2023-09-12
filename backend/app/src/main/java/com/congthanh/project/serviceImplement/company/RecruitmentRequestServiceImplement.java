@@ -8,23 +8,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RecruitmentRequestServiceImplement implements RecruitmentRequestService {
-    @Override
-    public ResponseWithTotalPage<RecruitmentRequestDTO> getAllRecruitmetRequest(int pageNo, int pageSize) {
-        return null;
-    }
+  @Override
+  public ResponseWithTotalPage<RecruitmentRequestDTO> getAllRecruitmetRequest(int pageNo, int pageSize) {
+    return null;
+  }
 
-    @Override
-    public RecruitmentRequest createRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO) {
-        return null;
-    }
+  @Override
+  public RecruitmentRequest createRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO) {
+    return null;
+  }
 
-    @Override
-    public RecruitmentRequest updateRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO) {
-        return null;
-    }
+  @Override
+  public RecruitmentRequest updateRecruitmentRequest(RecruitmentRequestDTO recruitmentRequestDTO) {
+    return null;
+  }
 
-    @Override
-    public boolean deleteRecruitmentRequest(int id) {
-        return false;
-    }
+  @Override
+  public boolean deleteRecruitmentRequest(int id) {
+    return false;
+  }
 }

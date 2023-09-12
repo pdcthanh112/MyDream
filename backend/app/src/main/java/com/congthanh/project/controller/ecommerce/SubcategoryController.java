@@ -19,58 +19,58 @@ import java.util.List;
 @RequestMapping("/ecommerce/subcategory")
 public class SubcategoryController {
 
-    @Autowired
-    private SubcategoryRepository subcategoryRepository;
+  @Autowired
+  private SubcategoryRepository subcategoryRepository;
 
-    @Autowired
-    private SubcategoryService subcategoryService;
+  @Autowired
+  private SubcategoryService subcategoryService;
 
-    @GetMapping("getAll")
-    //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
-    @PermitAll
-    public ResponseEntity<Response<Object>> getAllSubcategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object data = subcategoryService.getAllSubcategory(page, limit);
-        Response<Object> response = new Response<>();
-        response.setData(data);
-        response.setMessage("Get all successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("getAll")
+  //@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
+  @PermitAll
+  public ResponseEntity<Response<Object>> getAllSubcategory(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+    Object data = subcategoryService.getAllSubcategory(page, limit);
+    Response<Object> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get all successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response> createSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
-        Subcategory subcategory = subcategoryService.createSubcategory(subcategoryDTO);
-        Response<Object> response = new Response<>();
-        response.setData(subcategory);
-        response.setMessage("Create successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+  @PostMapping("/create")
+  public ResponseEntity<Response> createSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
+    Subcategory subcategory = subcategoryService.createSubcategory(subcategoryDTO);
+    Response<Object> response = new Response<>();
+    response.setData(subcategory);
+    response.setMessage("Create successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
-        Subcategory subcategory = subcategoryService.updateSubcategory(subcategoryDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
-    }
+  @PutMapping("/update")
+  public ResponseEntity<String> updateSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
+    Subcategory subcategory = subcategoryService.updateSubcategory(subcategoryDTO);
+    return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
+  }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteSubcategory(@RequestParam("id") int id) {
-        boolean result = subcategoryService.deleteSubcategory(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
-    }
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<String> deleteSubcategory(@RequestParam("id") int id) {
+    boolean result = subcategoryService.deleteSubcategory(id);
+    return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
+  }
 
-    @GetMapping("/getByCategory")
-    public ResponseEntity<Response<List<SubcategoryDTO>>> getSubcategoryByCategoryId(@RequestParam int id) {
-        List<SubcategoryDTO> data =  subcategoryService.getSubcategoryByCategoryId(id);
-        Response<List<SubcategoryDTO>> response = new Response<>();
-        response.setData(data);
-        response.setMessage("get successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/getByCategory")
+  public ResponseEntity<Response<List<SubcategoryDTO>>> getSubcategoryByCategoryId(@RequestParam int id) {
+    List<SubcategoryDTO> data = subcategoryService.getSubcategoryByCategoryId(id);
+    Response<List<SubcategoryDTO>> response = new Response<>();
+    response.setData(data);
+    response.setMessage("get successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @QueryMapping(value = "subcategory")
-    List<Subcategory> subcategories() {
-        return subcategoryRepository.findAll();
-    }
+  @QueryMapping(value = "subcategory")
+  List<Subcategory> subcategories() {
+    return subcategoryRepository.findAll();
+  }
 }

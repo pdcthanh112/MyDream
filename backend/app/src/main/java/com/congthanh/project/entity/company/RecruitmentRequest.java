@@ -15,30 +15,30 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 @Table(name = "recruitment_request")
-public class RecruitmentRequest   {
-  
+public class RecruitmentRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "numeric")
-    private Long id;
 
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "numeric")
+  private Long id;
 
-    private int amount;
+  private String name;
 
-    private String address;
+  private int amount;
 
-    private Date expiriedDate;
+  private String address;
 
-    @Column(columnDefinition = "text")
-    private String description;
+  private Date expiriedDate;
 
-    @Column(columnDefinition = "text")
-    private String requirement;
+  @Column(columnDefinition = "text")
+  private String description;
 
-    @Column(columnDefinition = "text")
-    private String benefit;
+  @Column(columnDefinition = "text")
+  private String requirement;
 
-    private String status;
+  @Column(columnDefinition = "text")
+  private String benefit;
+
+  private String status;
 }

@@ -5,12 +5,12 @@ import com.congthanh.project.entity.ecommerce.Category;
 
 public interface CategoryService {
 
-    Object getAllCategory(Integer pageNo, Integer pageSize);
+  Object getAllCategory(Integer pageNo, Integer pageSize);
 
-    Category createCategory(CategoryDTO categoryDTO);
+  Category createCategory(CategoryDTO categoryDTO);
 
-    Category updateCategory(CategoryDTO categoryDTO);
+  Category updateCategory(CategoryDTO categoryDTO);
 
-    boolean deleteCategory(int id);
+  boolean deleteCategory(int id);
 
 }

@@ -16,25 +16,25 @@ import java.sql.Timestamp;
 @Builder
 public class Checkout {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private float total;
+  private float total;
 
-    private String address;
+  private String address;
 
-    private String phone;
+  private String phone;
 
-    @Column(name = "payment_method")
-    private String paymentMethod;
+  @Column(name = "payment_method")
+  private String paymentMethod;
 
-    @Column(name = "checkout_date")
-    private Timestamp checkoutDate;
+  @Column(name = "checkout_date")
+  private Timestamp checkoutDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")
-    @JsonManagedReference
-    private Cart cart;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")
+  @JsonManagedReference
+  private Cart cart;
 
 }

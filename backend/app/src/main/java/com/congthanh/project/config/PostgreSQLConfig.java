@@ -23,32 +23,32 @@ import java.util.HashMap;
         transactionManagerRef = "postgresqlTransactionManager")
 public class PostgreSQLConfig {
 
-    @Primary
-    @Bean
-    @ConfigurationProperties(prefix = "spring.postgresql.datasource")
-    public DataSource postgresqlDataSource() {
-        return DataSourceBuilder.create().build();
-    }
+  @Primary
+  @Bean
+  @ConfigurationProperties(prefix = "spring.postgresql.datasource")
+  public DataSource postgresqlDataSource() {
+    return DataSourceBuilder.create().build();
+  }
 
-    @Primary
-    @Bean
-    public LocalContainerEntityManagerFactoryBean postgresqlEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+  @Primary
+  @Bean
+  public LocalContainerEntityManagerFactoryBean postgresqlEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 
-        HashMap<String, Object> properties = new HashMap<>();
-        properties.put("spring.jpa.hibernate.ddl-auto=update", "update");
-        return builder
-                .dataSource(postgresqlDataSource())
-                .properties(properties)
-                .packages("com.congthanh.project.entity")
-                .persistenceUnit("postgresql")
-                .build();
-    }
+    HashMap<String, Object> properties = new HashMap<>();
+    properties.put("spring.jpa.hibernate.ddl-auto=update", "update");
+    return builder
+            .dataSource(postgresqlDataSource())
+            .properties(properties)
+            .packages("com.congthanh.project.entity")
+            .persistenceUnit("postgresql")
+            .build();
+  }
 
-    @Primary
-    @Bean
-    public PlatformTransactionManager postgresqlTransactionManager(
-            final @Qualifier("postgresqlEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory.getObject());
-    }
+  @Primary
+  @Bean
+  public PlatformTransactionManager postgresqlTransactionManager(
+          final @Qualifier("postgresqlEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+    return new JpaTransactionManager(entityManagerFactory.getObject());
+  }
 }
 

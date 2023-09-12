@@ -9,32 +9,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO  {
+public class ProductDTO {
 
-    private String id;
+  private String id;
 
-    private String name;
+  private String name;
 
-    private String category;
+  private String category;
 
-    private String subcategory;
+  private String subcategory;
 
-    private int quantity;
+  private int quantity;
 
-    private float price;
+  private float price;
 
-    private String production;
+  private String production;
 
-    private int sold;
+  private int sold;
 
-    private String image;
+  private String image;
 
-    private String description;
+  private String description;
 
-    private int ratingVote;
+  private int ratingVote;
 
-    private float ratingValue;
+  private float ratingValue;
 
-    private String status;
+  private String status;
 
 }

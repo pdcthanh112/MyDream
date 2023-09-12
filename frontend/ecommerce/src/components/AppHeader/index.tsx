@@ -5,7 +5,6 @@ import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import Button from '@components/Button';
-import { Customer } from '@models/CustomerModel';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
@@ -15,10 +14,11 @@ import LanguageSwitcher from '@components/LanguageSwitcher';
 import NotificationModal from '@components/NotificationModal';
 import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
+import { logoutRequested } from '@redux/actions/auth';
+import { Customer } from '@models/CustomerModel';
 import { Category } from '@models/CategoryModel';
 import { Notification } from '@models/NotificationModel';
 import { Cart } from '@models/CartModel';
-import { logoutRequested } from '@redux/actions/auth';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -32,10 +32,10 @@ const AppHeader = () => {
 
   const [showNotification, setShowNotification] = useState(false);
 
-const handleLogout = () => {
-  signOut()
-  dispatch(logoutRequested({email: 'fjasljflashfiahsd'}))
-}
+  const handleLogout = () => {
+    signOut();
+    dispatch(logoutRequested({ email: 'fjasljflashfiahsd' }));
+  };
 
   return (
     <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
@@ -49,7 +49,7 @@ const handleLogout = () => {
           </span>
 
           <Card className="text-[#a4a4a4] text-sm hidden absolute transform translate-x-[36%] translate-y-[56%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-            {appCategory?.map((item: any) => (
+            {appCategory?.map((item: Category) => (
               <div key={item.id} className="leading-6 px-2 hover:bg-gray-100">
                 {item.name}
               </div>
@@ -142,10 +142,7 @@ const handleLogout = () => {
                       <li className="sub-item-link">{t('header.browsing_history')}</li>
                       <li className="sub-item-link">{t('header.watchlist')}</li>
                     </menu>
-                    <Button
-                      className="bg-yellow-400 w-52 rounded-xl"
-                       onClick={() => handleLogout()}
-                    >
+                    <Button className="bg-yellow-400 w-52 rounded-xl" onClick={() => handleLogout()}>
                       {t('common.logout')}
                     </Button>
                   </div>

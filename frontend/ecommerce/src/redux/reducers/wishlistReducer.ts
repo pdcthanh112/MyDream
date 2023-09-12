@@ -1,6 +1,7 @@
 import { WishlistState } from '@redux/actions/type/wishlist';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
+  AddItemToWishlistCleanPayload,
   AddItemToWishlistFailedPayload,
   AddItemToWishlistStartPayload,
   AddItemToWishlistSucceededPayload,
@@ -15,7 +16,7 @@ import {
 const initialState: WishlistState = {
   status: 'idle',
   error: null,
-  data: [],
+  data: null,
 };
 
 const wishlistSlice = createSlice({
@@ -44,6 +45,10 @@ const wishlistSlice = createSlice({
       state.status = 'failed';
       state.error = 'loi';
     },
+    addItemToWishlistClean: (state: WishlistState) => {
+      state.status = 'idle';
+      state.error = null;
+    },
     removeItemFromWishlistStart: (state: WishlistState, action: PayloadAction<RemoveItemFromWishlistStartPayload>) => {
       state.status = 'pending';
     },
@@ -55,6 +60,10 @@ const wishlistSlice = createSlice({
       state.status = 'failed';
       state.error = 'loi';
     },
+    removeItemFromWishlistClean: (state: WishlistState) => {
+      state.status = 'idle';
+      state.error = null;
+    },
   },
 });
 
@@ -65,8 +74,10 @@ export const {
   addItemToWishlistStart,
   addItemToWishlistSucceeded,
   addItemToWishlistFailed,
+  addItemToWishlistClean,
   removeItemFromWishlistStart,
   removeItemFromWishlistSucceeded,
   removeItemFromWishlistFailed,
+  removeItemFromWishlistClean,
 } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

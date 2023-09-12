@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Position {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private String name;
+  private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department", nullable = false)
-    private Department department;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "department", nullable = false)
+  private Department department;
 
-    private String status;
+  private String status;
 
 }

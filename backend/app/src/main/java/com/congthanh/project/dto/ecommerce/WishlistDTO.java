@@ -13,10 +13,10 @@ import java.util.Set;
 @Builder
 public class WishlistDTO {
 
-    private int id;
+  private int id;
 
-    private String customer;
+  private String customer;
 
-    private Set<ProductDTO> product;
+  private Set<ProductDTO> product;
 
 }

@@ -18,47 +18,47 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    private String name;
+  private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category", nullable = false)
+  private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory", nullable = false)
-    private Subcategory subcategory;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "subcategory", nullable = false)
+  private Subcategory subcategory;
 
-    private int quantity;
+  private int quantity;
 
-    private float price;
+  private float price;
 
-    private String production;
+  private String production;
 
-    private int sold;
+  private int sold;
 
-    private String image;
+  private String image;
 
-    @Column(name = "rating_vote")
-    private int ratingVote;
+  @Column(name = "rating_vote")
+  private int ratingVote;
 
-    @Column(name = "rating_value")
-    private float ratingValue;
+  @Column(name = "rating_value")
+  private float ratingValue;
 
-    @Column(columnDefinition = "text")
-    private String description;
+  @Column(columnDefinition = "text")
+  private String description;
 
-    private String status;
+  private String status;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<CartItem> cartItems;
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<CartItem> cartItems;
 
-    @ManyToMany(mappedBy = "product")
-    @JsonIgnore
-    @JsonBackReference
-    private Set<Wishlist> wishlist;
+  @ManyToMany(mappedBy = "product")
+  @JsonIgnore
+  @JsonBackReference
+  private Set<Wishlist> wishlist;
 }

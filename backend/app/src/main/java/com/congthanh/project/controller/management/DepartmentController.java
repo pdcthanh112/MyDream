@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class DepartmentController {
 
-    @Autowired
-    private DepartmentService departmentService;
+  @Autowired
+  private DepartmentService departmentService;
 
-    @GetMapping("/getAll")
-    @PermitAll
+  @GetMapping("/getAll")
+  @PermitAll
 //    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
-    public ResponseEntity<Response<Object>> getAllDepartment(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
-        Object data = departmentService.getAllDepartment(page, limit);
-        Response<Object> response = new Response<>();
-        response.setData(data);
-        response.setMessage("Get all successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  public ResponseEntity<Response<Object>> getAllDepartment(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+    Object data = departmentService.getAllDepartment(page, limit);
+    Response<Object> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get all successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 
-    //
+  //
 //    @GetMapping("getById/{id}")
 //    @PreAuthorize(RolePreAuthorize.ROLE_ADMIN_EMPLOYEE)
 //    public ResponseEntity<ResponseDTO> getDepartmentById(@RequestParam("id") int id) {
@@ -77,17 +77,17 @@ public class DepartmentController {
 //        return ResponseEntity.ok().body(responseDTO);
 //    }
 //
-    @PostMapping("/create")
-    @PermitAll
+  @PostMapping("/create")
+  @PermitAll
 //    @PreAuthorize(RolePreAuthorize.ROLE_ADMIN)
-    public ResponseEntity<Response> createDepartment(@RequestBody DepartmentDTO departmentDTO) {
-        Response<Department> response = new Response();
-        Department department = departmentService.createDepartment(departmentDTO);
-        response.setData(department);
-        response.setMessage("Create successfully");
-        response.setStatus(ResponseStatus.STATUS_SUCCESS);
-        return ResponseEntity.ok().body(response);
-    }
+  public ResponseEntity<Response> createDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    Response<Department> response = new Response();
+    Department department = departmentService.createDepartment(departmentDTO);
+    response.setData(department);
+    response.setMessage("Create successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
 //
 //    @DeleteMapping("delete/{id}")
 //    @PreAuthorize(RolePreAuthorize.ROLE_ADMIN)

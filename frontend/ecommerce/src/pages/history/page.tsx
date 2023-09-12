@@ -1,9 +1,8 @@
- 
 import { getHistoryByCustomer } from '@apis/purchasingApi';
-import { useAppSelector } from '@redux/store';
-import { useQuery } from '@tanstack/react-query';
 import { CheckoutForm } from '@models/CheckoutModel';
 import { Customer } from '@models/CustomerModel';
+import { useAppSelector } from '@redux/store';
+import { useQuery } from '@tanstack/react-query';
 
 export default function History(): React.ReactElement {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

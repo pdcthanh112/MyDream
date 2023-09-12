@@ -11,6 +11,6 @@ import java.util.Optional;
 @Transactional
 public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentRequest, Long> {
 
-    Optional<RecruitmentRequest> getById(int id);
+  Optional<RecruitmentRequest> getById(int id);
 
 }

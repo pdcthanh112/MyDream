@@ -13,14 +13,14 @@ import java.sql.Timestamp;
 @Builder
 public class NotificationDTO {
 
-    private Long id;
+  private Long id;
 
-    private String customer;
+  private String customer;
 
-    private String title;
+  private String title;
 
-    private String content;
+  private String content;
 
-    private long createdDate;
+  private long createdDate;
 
 }

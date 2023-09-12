@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
 import { getAllProduct } from '@apis/productApi';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import { PaginationParams } from '@models/Request';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -13,6 +12,7 @@ import { fetchCategoryRequested } from '@redux/actions/category';
 import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
 import { Customer } from '@models/CustomerModel';
+import { PaginationParams } from '@models/Request';
 
 const Home: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');

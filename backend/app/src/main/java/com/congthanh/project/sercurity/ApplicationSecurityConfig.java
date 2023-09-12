@@ -2,6 +2,7 @@ package com.congthanh.project.sercurity;
 
 //import com.congthanh.project.auth.ApplicationUserService;
 //import com.congthanh.project.jwt.JwtConfig;
+
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,30 +22,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig {
 
-//    private final ApplicationUserService applicationUserService;
+  //    private final ApplicationUserService applicationUserService;
 //    private JwtConfig jwtConfig;
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security", "/swagger-ui/**",
-                        "/webjars/**",
-                        "/swagger-ui.html",
-                        "/management/**", "/management/category/**",
-                        "/ecommerce/**", "/management/product/**",
-                        "/graphql"
-                )
-                .permitAll()
-                .anyRequest().authenticated();
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.csrf().disable().authorizeHttpRequests()
+            .requestMatchers("/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**",
+                    "/configuration/ui",
+                    "/configuration/security", "/swagger-ui/**",
+                    "/webjars/**",
+                    "/swagger-ui.html",
+                    "/management/**", "/management/category/**",
+                    "/ecommerce/**", "/management/product/**",
+                    "/graphql"
+            )
+            .permitAll()
+            .anyRequest().authenticated();
 
-        return http.build();
-    }
+    return http.build();
+  }
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
+  }
 //
 //    @Bean
 //    public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -65,14 +66,14 @@ public class ApplicationSecurityConfig {
 //        return Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());
 //    }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("*");
-            }
-        };
-    }
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*");
+      }
+    };
+  }
 
 }

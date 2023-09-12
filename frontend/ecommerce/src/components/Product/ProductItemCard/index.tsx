@@ -1,4 +1,3 @@
-import { Product } from '@models/ProductModel';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
@@ -9,10 +8,11 @@ import { ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as Fav
 import { addProductToWishlist, removeProductFromWishlist } from '@apis/wishlistApi';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { addToCart } from '@apis/cartApi';
-import { Customer } from '@models/CustomerModel';
 import { useTranslation } from 'next-i18next';
 import SelectCart from '@components/SelectCart';
 import { openModalAuth } from '@redux/features/modalAuth';
+import { Product } from '@models/ProductModel';
+import { Customer } from '@models/CustomerModel';
 import { Wishlist } from '@models/WishlistModel';
 
 interface ProductProps {

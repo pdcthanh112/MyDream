@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SubcategoryDTO   {
+public class SubcategoryDTO {
 
-    private int id;
+  private int id;
 
-    private String name;
+  private String name;
 
-    private CategoryDTO category;
+  private CategoryDTO category;
 
 }

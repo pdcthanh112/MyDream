@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CartItemDTO {
 
-    private String id;
+  private String id;
 
-    private int quantity;
+  private int quantity;
 
-    private ProductDTO product;
+  private ProductDTO product;
 
-    private String cartId;
+  private String cartId;
 
-    private long createdDate;
+  private long createdDate;
 
 }

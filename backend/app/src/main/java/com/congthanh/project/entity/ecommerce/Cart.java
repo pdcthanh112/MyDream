@@ -16,27 +16,27 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "cart")
-public class Cart   {
-  
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class Cart {
 
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    private String customerId;
+  private String name;
 
-    private String status;
+  private String customerId;
 
-    @Column(name = "created_date")
-    private long createdDate;
+  private String status;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems;
+  @Column(name = "created_date")
+  private long createdDate;
 
-    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    @JsonIgnore
-    private Checkout checkout;
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<CartItem> cartItems;
+
+  @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonBackReference
+  @JsonIgnore
+  private Checkout checkout;
 
 }

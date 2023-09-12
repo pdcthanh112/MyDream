@@ -13,18 +13,18 @@ import java.sql.Timestamp;
 @Builder
 public class CheckoutDTO {
 
-    private int id;
+  private int id;
 
-    private float total;
+  private float total;
 
-    private String address;
+  private String address;
 
-    private String phone;
+  private String phone;
 
-    private String paymentMethod;
+  private String paymentMethod;
 
-    private Timestamp checkoutDate;
+  private Timestamp checkoutDate;
 
-    private CartDTO cart;
+  private CartDTO cart;
 
 }
