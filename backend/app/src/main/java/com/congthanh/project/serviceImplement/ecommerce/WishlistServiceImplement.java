@@ -23,10 +23,8 @@ public class WishlistServiceImplement implements WishlistService {
   public boolean addProductToWishlist(String customerId, String productId) {
     Tuple wishlist = wishlistRepository.checkExistWishlist(customerId);
     if (wishlist != null) {
-
       int result = wishlistRepository.addProductToWishlist(wishlist.get("id", Integer.class), productId);
       return result > 0;
-
     } else {
       Wishlist createWishlist = Wishlist.builder()
               .customer(customerId)
@@ -39,7 +37,11 @@ public class WishlistServiceImplement implements WishlistService {
 
   @Override
   public boolean removeProductFromWishlist(String customerId, String productId) {
-    return wishlistRepository.removeProductFromWishlist(productId, customerId) > 0;
+    try {
+      return wishlistRepository.removeProductFromWishlist(productId, customerId) > 0;
+    } catch (Exception e) {
+      throw new RuntimeException("fjalsf");
+    }
   }
 
   @Override

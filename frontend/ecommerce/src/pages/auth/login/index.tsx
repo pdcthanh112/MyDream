@@ -12,10 +12,13 @@ import { LoginForm } from '@models/CustomerModel';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { loginRequested } from '@redux/actions/auth';
+import { authClean, loginRequested } from '@redux/actions/auth';
 import { getProviders, signIn } from 'next-auth/react';
 import { getAuthLogo } from '@utils/helper';
 import { useRouter } from 'next/router';
+import { fetchNotificationRequested } from '@redux/actions/notification';
+import { fetchCartRequested } from '@redux/actions/cart';
+import { fetchWishlistRequested } from '@redux/actions/wishlist';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;
@@ -37,6 +40,10 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     dispatch(loginRequested({ email: data.email, password: data.password }));
     if (authState.status === 'succeeded') {
+      dispatch(fetchNotificationRequested(authState.currentUser.userInfo.accountId))
+      dispatch(fetchCartRequested(authState.currentUser.userInfo.accountId))
+      dispatch(fetchWishlistRequested(authState.currentUser.userInfo.accountId))
+      dispatch(authClean())
       router.push('/');
     }
   };
@@ -108,6 +115,7 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
                 key={provider.id}
                 title={`Sign in with ${provider.name}`}
                 className={`flex items-center rounded-md text-white col-span-6 w-full bg-[${data.bgColor}]`}
+                style={{backgroundColor: data.bgColor}}
                 onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
                 <span className={`border-r-2 border-r-slate-200 p-2 rounded-l-lg bg-[${data.iconBg}]`}>
                   <Image src={data.img} alt="" width={28}></Image>

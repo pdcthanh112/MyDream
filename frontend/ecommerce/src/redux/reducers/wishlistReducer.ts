@@ -1,7 +1,6 @@
 import { WishlistState } from '@redux/actions/type/wishlist';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
-  AddItemToWishlistCleanPayload,
   AddItemToWishlistFailedPayload,
   AddItemToWishlistStartPayload,
   AddItemToWishlistSucceededPayload,
@@ -27,23 +26,23 @@ const wishlistSlice = createSlice({
       state.status = 'pending';
     },
     fetchWishlistSucceeded: (state: WishlistState, action: PayloadAction<FetchWishlistSucceededPayload>) => {
-      state.status = 'pending';
+      state.status = 'succeeded';
       state.data = action.payload.data;
     },
     fetchWishlistFailed: (state: WishlistState, action: PayloadAction<FetchWishlistFailedPayload>) => {
       state.status = 'failed';
-      state.error = 'loi';
+      state.error = { errorCode: 523534, message: 'loi' };
     },
     addItemToWishlistStart: (state: WishlistState, action: PayloadAction<AddItemToWishlistStartPayload>) => {
       state.status = 'pending';
     },
     addItemToWishlistSucceeded: (state: WishlistState, action: PayloadAction<AddItemToWishlistSucceededPayload>) => {
-      state.status = 'pending';
+      state.status = 'succeeded';
       state.data = action.payload.data;
     },
     addItemToWishlistFailed: (state: WishlistState, action: PayloadAction<AddItemToWishlistFailedPayload>) => {
       state.status = 'failed';
-      state.error = 'loi';
+      state.error = action.payload;
     },
     addItemToWishlistClean: (state: WishlistState) => {
       state.status = 'idle';
@@ -53,12 +52,12 @@ const wishlistSlice = createSlice({
       state.status = 'pending';
     },
     removeItemFromWishlistSucceeded: (state: WishlistState, action: PayloadAction<RemoveItemFromWishlistSucceededPayload>) => {
-      state.status = 'pending';
+      state.status = 'succeeded';
       state.data = action.payload.data;
     },
     removeItemFromWishlistFailed: (state: WishlistState, action: PayloadAction<RemoveItemFromWishlistFailedPayload>) => {
       state.status = 'failed';
-      state.error = 'loi';
+      state.error = action.payload.error;
     },
     removeItemFromWishlistClean: (state: WishlistState) => {
       state.status = 'idle';

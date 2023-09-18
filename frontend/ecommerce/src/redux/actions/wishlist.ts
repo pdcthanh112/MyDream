@@ -1,5 +1,6 @@
 import {
   AddItemToWishlistFailedPayload,
+  AddItemToWishlistRequestedPayload,
   AddItemToWishlistStartPayload,
   AddItemToWishlistSucceededPayload,
   FetchWishlistFailedPayload,
@@ -14,6 +15,7 @@ import {
 import {
   AddItemToWishlistClean,
   AddItemToWishlistFailed,
+  AddItemToWishlistRequested,
   AddItemToWishlistStart,
   AddItemToWishlistSucceeded,
   FetchWishlistFailed,
@@ -48,9 +50,9 @@ export const fetchWishlistFailed = (payload: FetchWishlistFailedPayload): FetchW
   payload,
 });
 
-export const addItemToWishlistRequested = () => ({
+export const addItemToWishlistRequested = (payload: AddItemToWishlistRequestedPayload): AddItemToWishlistRequested => ({
   type: actionName.ADD_ITEM_TO_WISHLIST_REQUESTED,
-  payload: null,
+  payload,
 });
 
 export const addItemToWishlistStart = (payload: AddItemToWishlistStartPayload): AddItemToWishlistStart => ({

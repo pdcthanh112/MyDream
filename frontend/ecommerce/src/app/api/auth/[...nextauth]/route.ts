@@ -25,25 +25,25 @@ export const authOptions = {
       clientId: process.env.APPLE_CLIENT_ID as string,
       clientSecret: process.env.APPLE_CLIENT_SECRET as string,
     }),
-    EmailProvider({
-      server: process.env.MAIL_SERVER || '',
-      from: 'pdcthanh112.dev@gmail.com',
-    }),
-    CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        username: { label: 'Username: ', type: 'text', placeholder: 'pdcthanh112.dev' },
-        password: { label: 'Password: ', type: 'password', placeholder: '************' },
-      },
-      async authorize(credentials, req) {
-        const user = { id: '1', name: 'Pham Dao Cong Thanh', email: 'pdcthanh112.dev@gmail.com' };
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
-      },
-    }),
+    // EmailProvider({
+    //   server: process.env.MAIL_SERVER || '',
+    //   from: 'pdcthanh112.dev@gmail.com',
+    // }),
+    // CredentialsProvider({
+    //   name: 'Credentials',
+    //   credentials: {
+    //     username: { label: 'Username: ', type: 'text', placeholder: 'pdcthanh112.dev' },
+    //     password: { label: 'Password: ', type: 'password', placeholder: '************' },
+    //   },
+    //   async authorize(credentials, req) {
+    //     const user = { id: '1', name: 'Pham Dao Cong Thanh', email: 'pdcthanh112.dev@gmail.com' };
+    //     if (user) {
+    //       return user;
+    //     } else {
+    //       return null;
+    //     }
+    //   },
+    // }),
   ],
   callbacks: {
     async jwt({ token, account, user }: any) {

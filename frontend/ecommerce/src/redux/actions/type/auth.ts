@@ -1,5 +1,6 @@
 import * as actionName from '../name/auth';
 import {
+  AuthCleanPayload,
   EditProfileFailedPayload,
   EditProfileRequestedPayload,
   EditProfileStartPayload,
@@ -103,3 +104,8 @@ export type EditProfileFailed = {
   type: typeof actionName.EDIT_PROFILE_FAILED;
   payload: EditProfileFailedPayload;
 };
+
+export type AuthClean = {
+  type: typeof actionName.AUTH_CLEAN;
+  payload: AuthCleanPayload
+}

@@ -19,7 +19,7 @@ import {
 
 export interface WishlistState {
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
-  error: string | null;
+  error: { errorCode: number; message: string } | null;
   data: Wishlist;
 }
 

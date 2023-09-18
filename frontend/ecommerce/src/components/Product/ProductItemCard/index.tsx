@@ -7,7 +7,6 @@ import { roundNumber } from '@utils/helper';
 import { ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as FavoriteIcon } from '@mui/icons-material';
 import { addProductToWishlist, removeProductFromWishlist } from '@apis/wishlistApi';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { addToCart } from '@apis/cartApi';
 import { useTranslation } from 'next-i18next';
 import SelectCart from '@components/SelectCart';
 import { openModalAuth } from '@redux/features/modalAuth';
@@ -64,7 +63,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
             {t('common.view_detail')}
             <Icon component={SourceIcon} />
           </li>
-          {!!wishlist.product.find((item) => item.id === product.id) ? (
+          {!!wishlist?.product.find((item) => item.id === product.id) ? (
             <li className="productLi" onClick={() => handleRemoveFromWishlist(product.id)}>
               {t('common.remove_from_wishlist')}
               <Icon component={FavoriteIcon} />

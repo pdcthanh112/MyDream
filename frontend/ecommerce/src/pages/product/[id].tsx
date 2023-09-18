@@ -14,14 +14,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { addToCart } from '@apis/cartApi';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { addProductToWishlist, removeProductFromWishlist } from '@apis/wishlistApi';
-import { openModalAuth } from '@redux/features/modalAuth';
-import { HeartEmpty, HeartFull } from '@assets/icons';
-import { addItemToWishlistClean, removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
-import { toast } from 'react-toastify';
 import { Customer } from '@models/CustomerModel';
 import { Wishlist } from '@models/WishlistModel';
-import { fetchWishlistRequested } from '@redux/actions/wishlist';
+import { addItemToWishlistRequested, fetchWishlistRequested, removeItemFromWishlistRequested } from '@redux/actions/wishlist';
+import { addItemToWishlistClean, removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
+import { openModalAuth } from '@redux/features/modalAuth';
+import { HeartEmpty, HeartFull } from '@assets/icons';
+import { toast } from 'react-toastify';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
@@ -30,7 +29,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const wishlist: Wishlist = useAppSelector((state) => state.wishlist.data);
   const dispatch = useAppDispatch();
   const { t } = useTranslation('common');
-  const wishlistState = useAppSelector((state) => state.wishlist.status);
+  const wishlistState = useAppSelector((state) => state.wishlist);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -46,16 +45,21 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const handleAddToWishlist = (productId: string) => {
     if (currentUser) {
       try {
-        addProductToWishlist(currentUser.userInfo.accountId, productId);
-        if (wishlistState === 'succeeded') {
-          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }))
+        dispatch(addItemToWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
+        console.log(!wishlistState.error, 'ADDDD', wishlistState.status)
+        if (!wishlistState.error && wishlistState.status === 'succeeded') {
+          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
           toast.success(t('wishlist.add_item_to_wishlist_successfully'));
-        } else if (wishlistState === 'failed') {
-          toast.error(t('wishlist.add_item_to_wishlist_failed'));
+        } else if (wishlistState.error) {
+          console.log('AAAAAAAAAAAAA', wishlistState.error);
+          if (wishlistState.error?.errorCode === 403101) {
+            toast.error(t('wishlist.item_already_exists_in_wishlist'));
+          }
         }
       } catch (error) {
         toast.error(t('wishlist.add_item_to_wishlist_failed'));
       } finally {
+        dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
         dispatch(addItemToWishlistClean());
       }
     } else {
@@ -63,19 +67,23 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     }
   };
 
-  const handleRemoveFromWishlist = (productId: string) => {
+  const handleRemoveFromWishlist = async (productId: string) => {
     if (currentUser) {
       try {
-        removeProductFromWishlist(currentUser.userInfo.accountId, productId);
-        if (wishlistState === 'succeeded') {
-          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }))
+        dispatch(removeItemFromWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
+        console.log(!wishlistState.error, 'REMOVE', wishlistState.status)
+        if (!wishlistState.error && wishlistState.status === 'succeeded') {
+          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
           toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
-        } else if (wishlistState === 'failed') {
-          toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+        } else if (wishlistState.error) {
+          console.log('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM', wishlistState.error);
+          // toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+          toast.error('EEEEEEEEEEEEEEEEEEEE');
         }
       } catch (error) {
-        toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+        toast.error('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
       } finally {
+        dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
         dispatch(removeItemFromWishlistClean());
       }
     } else {
@@ -84,7 +92,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   };
 
   if (isLoading) return <ProductSkeleton />;
-
+  console.log('CHECKKKKKKKKKKKKKK', wishlist?.product.find((item) => item.id === product.id));
   return (
     <div className="w-[80%] mx-auto my-3">
       <div className="bg-white flex">
@@ -107,7 +115,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </span>
             </div>
             <div>
-              {!!wishlist.product.find((item) => item.id === product.id) ? (
+              {wishlist?.product.find((item) => item.id === product.id) !== undefined ? (
                 <span className="hover:cursor-pointer" title={t('common.remove_from_wishlist')} onClick={() => handleRemoveFromWishlist(product.id)}>
                   <Icon component={HeartFull} sx={{ color: 'red' }} />
                 </span>

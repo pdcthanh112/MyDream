@@ -25,7 +25,7 @@ export const removeProductFromWishlist = async (customerId: string, productId: s
   return await axiosConfig
     .delete('wishlist/remove', {
       data: {
-        customer: customerId,
+        customerId: customerId,
         productId: productId,
       },
     })

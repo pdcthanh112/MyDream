@@ -26,19 +26,19 @@ export class AuthService {
     loginData: CustomerLoginDTO,
   ): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
     const findCustomer: Customer = (await MYSQL_DB.Customer.findOne({ where: { email: loginData.email } })).dataValues;
-    if (!findCustomer) throw new HttpException(409, `This email ${loginData.email} was not found`);
+    if (!findCustomer) throw new HttpException(409, `This email ${loginData.email} was not found`, 101001);
 
     const findError: LoginError = await MYSQL_DB.LoginError.findOne({ where: { accountId: findCustomer.accountId } });
 
     if (findError && findError?.lockedUntil > new Date()) {
-      throw new HttpException(409, `Your account have been blocked! (until ${findError.lockedUntil})`);
+      throw new HttpException(409, `Your account have been blocked! (until ${findError.lockedUntil})`, 101003);
     } else {
       const isPasswordMatching: boolean = await compare(loginData.password, findCustomer.password);
 
       if (isPasswordMatching) {
         await MYSQL_DB.LoginError.destroy({ where: { accountId: findCustomer.accountId } });
         const { password, ...customerWithoutPassword } = findCustomer;
-        
+
         const tokenData = createToken(customerWithoutPassword);
         const cookie = createCookie(tokenData);
 
@@ -51,25 +51,25 @@ export class AuthService {
 
         switch (true) {
           case findError === null || findError.failedAttempts < 4: {
-            throw new HttpException(409, 'Password is incorrect');
+            throw new HttpException(409, 'Password is incorrect', 101002);
           }
           case findError.failedAttempts == 4: {
             const lockDuration = 30 * 60 * 1000;
             const lockedUntil = new Date(Date.now() + lockDuration);
             await MYSQL_DB.LoginError.update({ lockedUntil: lockedUntil }, { where: { id: findError.id } });
-            throw new HttpException(409, `Your account have been blocked 30 mins! (until ${lockedUntil})`);
+            throw new HttpException(409, `Your account have been blocked 30 mins! (until ${lockedUntil})`, 101003);
           }
           case findError.failedAttempts == 5: {
             const lockDuration = 6 * 60 * 60 * 1000;
             const lockedUntil = new Date(Date.now() + lockDuration);
             await MYSQL_DB.LoginError.update({ lockedUntil: lockedUntil }, { where: { id: findError.id } });
-            throw new HttpException(409, `Your account have been blocked 6 hours! (until ${lockedUntil})`);
+            throw new HttpException(409, `Your account have been blocked 6 hours! (until ${lockedUntil})`, 101003);
           }
           case findError.failedAttempts >= 6: {
             const lockDuration = 24 * 60 * 60 * 1000;
             const lockedUntil = new Date(Date.now() + lockDuration);
             await MYSQL_DB.LoginError.update({ lockedUntil: lockedUntil }, { where: { id: findError.id } });
-            throw new HttpException(409, `Your account have been blocked 24 hours! (until ${lockedUntil})`);
+            throw new HttpException(409, `Your account have been blocked 24 hours! (until ${lockedUntil})`, 101003);
           }
         }
       }
@@ -78,7 +78,7 @@ export class AuthService {
 
   public async signup(customerData: CustomerSignupDTO): Promise<Customer> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
-    if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`);
+    if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`, 101004);
 
     const hashedPassword = await hash(customerData.password, 10);
 
@@ -91,7 +91,7 @@ export class AuthService {
 
   public async logout(customerData: Customer): Promise<Omit<Customer, 'password'>> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
-    if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} does not exists`);
+    if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} does not exists`, 101001);
     return findCustomer;
   }
 }

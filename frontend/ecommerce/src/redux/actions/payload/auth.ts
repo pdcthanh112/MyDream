@@ -60,3 +60,7 @@ export interface EditProfileSucceededPayload {
 export interface EditProfileFailedPayload {
   error: string;
 }
+
+export interface AuthCleanPayload {
+  token: string;
+}

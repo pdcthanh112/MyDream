@@ -18,6 +18,7 @@ import {
   SignupSucceededPayload,
 } from './payload/auth';
 import {
+  AuthClean,
   EditProfileFailed,
   EditProfileRequested,
   EditProfileStart,
@@ -114,4 +115,9 @@ export const editProfileSuccess = (payload: EditProfileSucceededPayload): EditPr
 export const editProfileFailed = (payload: EditProfileFailedPayload): EditProfileFailed => ({
   type: actionName.EDIT_PROFILE_FAILED,
   payload,
+});
+
+export const authClean = () => ({
+  type: actionName.AUTH_CLEAN,
+  payload: null,
 });
