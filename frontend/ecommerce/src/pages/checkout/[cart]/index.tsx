@@ -7,7 +7,7 @@ import { useAppSelector } from '@redux/store';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { CheckoutForm } from '@models/CheckoutModel';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { Autocomplete, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import { PatternFormat } from 'react-number-format';
 import Image from 'next/image';

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { Card, Rating, Icon } from '@mui/material';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { useRouter } from 'next/router';
 import { roundNumber } from '@utils/helper';
 import { ShoppingCart as ShoppingCartIcon, Source as SourceIcon, Favorite as FavoriteIcon } from '@mui/icons-material';

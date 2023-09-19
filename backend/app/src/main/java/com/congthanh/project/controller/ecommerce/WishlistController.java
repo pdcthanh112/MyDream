@@ -66,7 +66,7 @@ public class WishlistController {
       Response<String> response = new Response();
       response.setData(null);
       response.setStatus(ResponseStatus.STATUS_SUCCESS);
-      response.setMessage("Delete successfully");
+      response.setMessage("Remove successfully");
       return ResponseEntity.ok().body(response);
     } else {
       throw new RuntimeException("Product khong ton tai");

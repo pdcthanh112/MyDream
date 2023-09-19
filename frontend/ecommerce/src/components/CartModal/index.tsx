@@ -12,7 +12,7 @@ import { Customer } from '@models/CustomerModel';
 import { Cart, CreateCartForm } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { useTranslation } from 'next-i18next';
 
 const CartModal = () => {

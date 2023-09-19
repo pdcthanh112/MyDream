@@ -8,7 +8,7 @@ import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { roundNumber } from '@utils/helper';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import ProductSkeleton from './product-skeleton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -46,12 +46,10 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     if (currentUser) {
       try {
         dispatch(addItemToWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
-        console.log(!wishlistState.error, 'ADDDD', wishlistState.status)
         if (!wishlistState.error && wishlistState.status === 'succeeded') {
           dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-          toast.success(t('wishlist.add_item_to_wishlist_successfully'));
+          toast.success(t('wishlist.add_item_successfully'));
         } else if (wishlistState.error) {
-          console.log('AAAAAAAAAAAAA', wishlistState.error);
           if (wishlistState.error?.errorCode === 403101) {
             toast.error(t('wishlist.item_already_exists_in_wishlist'));
           }
@@ -71,17 +69,14 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     if (currentUser) {
       try {
         dispatch(removeItemFromWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
-        console.log(!wishlistState.error, 'REMOVE', wishlistState.status)
         if (!wishlistState.error && wishlistState.status === 'succeeded') {
           dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-          toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
+          toast.success(t('wishlist.remove_item_successfully'));
         } else if (wishlistState.error) {
-          console.log('MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM', wishlistState.error);
-          // toast.error(t('wishlist.remove_item_from_wishlist_failed'));
-          toast.error('EEEEEEEEEEEEEEEEEEEE');
+          toast.error(t('wishlist.remove_item_failed'));
         }
       } catch (error) {
-        toast.error('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
+        toast.error(t('wishlist.remove_item_failed'));
       } finally {
         dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
         dispatch(removeItemFromWishlistClean());
@@ -92,7 +87,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   };
 
   if (isLoading) return <ProductSkeleton />;
-  console.log('CHECKKKKKKKKKKKKKK', wishlist?.product.find((item) => item.id === product.id));
+
   return (
     <div className="w-[80%] mx-auto my-3">
       <div className="bg-white flex">
@@ -115,13 +110,13 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </span>
             </div>
             <div>
-              {wishlist?.product.find((item) => item.id === product.id) !== undefined ? (
-                <span className="hover:cursor-pointer" title={t('common.remove_from_wishlist')} onClick={() => handleRemoveFromWishlist(product.id)}>
-                  <Icon component={HeartFull} sx={{ color: 'red' }} />
-                </span>
-              ) : (
+              {wishlist?.product.find((item) => item.id === product.id) === undefined ? (
                 <span className="hover:cursor-pointer" title={t('common.add_to_wishlist')} onClick={() => handleAddToWishlist(product.id)}>
                   <Icon component={HeartEmpty} sx={{ color: 'red' }} />
+                </span>
+              ) : (
+                <span className="hover:cursor-pointer" title={t('common.remove_from_wishlist')} onClick={() => handleRemoveFromWishlist(product.id)}>
+                  <Icon component={HeartFull} sx={{ color: 'red' }} />
                 </span>
               )}
             </div>

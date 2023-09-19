@@ -9,7 +9,7 @@ import { LoginForm, SignupForm } from '@models/CustomerModel';
 import { useAppDispatch } from '@redux/store';
 import { Visibility, VisibilityOff, Close, Email as EmailIcon, Lock as LockIcon, AccountCircle } from '@mui/icons-material';
 import { loginRequested } from '@redux/actions/auth';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import AppLogo from '@assets/images/app-logo.png';
 import { closeModalAuth } from '@redux/features/modalAuth';
 import { useTranslation } from 'next-i18next';

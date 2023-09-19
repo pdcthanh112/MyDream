@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getCartByCustomerId } from '@apis/cartApi';
 import CartItem from './CartItem';
 import { Card } from '@mui/material';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

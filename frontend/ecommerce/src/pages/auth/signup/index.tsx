@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignupForm } from '@models/CustomerModel';
 import { Autocomplete, TextField, Icon, Card, Tooltip } from '@mui/material';
 import { genderData } from '@utils/constants/dropdownData';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { Visibility, VisibilityOff, RadioButtonChecked as RadioButtonCheckedIcon, CheckCircleOutline as CheckCircleOutlineIcon } from '@mui/icons-material';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

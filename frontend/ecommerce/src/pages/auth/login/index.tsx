@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Card, Icon, CircularProgress } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
 import { LoginForm } from '@models/CustomerModel';

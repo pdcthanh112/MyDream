@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';

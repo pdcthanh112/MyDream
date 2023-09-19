@@ -6,7 +6,7 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Delete as DeleteIcon } from '@mui/icons-material';
-import Button from '@components/Button';
+import Button from '@components/UI/Button';
 import { Customer } from '@models/CustomerModel';
 import { Product } from '@models/ProductModel';
 import DefaultImage from '@assets/images/default-image.jpg';

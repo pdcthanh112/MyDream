@@ -109,10 +109,10 @@
     "please_signin_to_view_your_cart": "Please signin to view your cart"
   },
   "wishlist": {
-    "add_item_to_wishlist_successfully": "Add item to wishlist successfully",
-    "add_item_to_wishlist_failed": "Add item to wishlist failed",
-    "remove_item_from_wishlist_successfully": "Remove item from wishlist successfully",
-    "remove_item_from_wishlist_failed": "Remove item from wishlist failed",
+    "add_item_successfully": "Add item successfully",
+    "add_item_failed": "Add item failed",
+    "remove_item_successfully": "Remove item successfully",
+    "remove_item_failed": "Remove item failed",
     "item_already_exists_in_wishlist": "Item already exists in wishlist"
   }
 }
