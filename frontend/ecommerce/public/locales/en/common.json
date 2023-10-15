@@ -37,7 +37,9 @@
     "or": "or",
     "enter_your_field": "${label} Enter your ${field}",
     "field_is_require": "${feild} is require",
-    "back": "Back"
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No"
   },
   "header": {
     "your_shopping": "Your shopping",

@@ -7,10 +7,16 @@ import { persistor, store } from '@redux/store';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
-import { ConfirmProvider } from 'material-ui-confirm';
 import { SessionProvider } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import { ConfigProvider } from 'antd';
+// import 'antd/dist/antd.css';
 
-// const MyApp = ({ Component, pageProps, router }: AppPropsWithLayout) => {
+const vi_VN = dynamic(() => import('antd/lib/locale/vi_VN'));
+const en_US = dynamic(() => import('antd/lib/locale/en_US'));
+const es_ES = dynamic(() => import('antd/lib/locale/es_ES'));
+const zh_CN = dynamic(() => import('antd/lib/locale/zh_CN'));
+
 const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppPropsWithLayout) => {
   const client = new ApolloClient({
     uri: `${process.env.REACT_APP_API_URL}/graphql`,
@@ -21,19 +27,19 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
 
   return (
     <React.StrictMode>
-      <SessionProvider session={session}>
-        <ApolloProvider client={client}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <ConfirmProvider>
+      <ConfigProvider locale={en_US}>
+        <SessionProvider session={session}>
+          <ApolloProvider client={client}>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
                 <QueryClientProvider client={queryClient}>
                   <App Component={Component} pageProps={pageProps} router={router} />
                 </QueryClientProvider>
-              </ConfirmProvider>
-            </PersistGate>
-          </Provider>
-        </ApolloProvider>
-      </SessionProvider>
+              </PersistGate>
+            </Provider>
+          </ApolloProvider>
+        </SessionProvider>
+      </ConfigProvider>
     </React.StrictMode>
   );
 };

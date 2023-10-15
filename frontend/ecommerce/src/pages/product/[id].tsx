@@ -21,6 +21,7 @@ import { addItemToWishlistClean, removeItemFromWishlistClean } from '@redux/redu
 import { openModalAuth } from '@redux/features/modalAuth';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { toast } from 'react-toastify';
+import { Popconfirm } from 'antd';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
@@ -65,7 +66,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     }
   };
 
-  const handleRemoveFromWishlist = async (productId: string) => {
+  const handleRemoveFromWishlist = (productId: string) => {
     if (currentUser) {
       try {
         dispatch(removeItemFromWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));

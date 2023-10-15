@@ -6,10 +6,10 @@ import AppHeader from '@components/AppHeader';
 import AppFooter from '@components/AppFooter';
 import AppNavbar from '@components/AppNavbar';
 import styled from 'styled-components';
+import { useAppSelector } from '@redux/store';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAppSelector } from '@redux/store';
 import AuthModal from '@components/AuthModal';
 
 const inter = Inter({ subsets: ['latin'] });
