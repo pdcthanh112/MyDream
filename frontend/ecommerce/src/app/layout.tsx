@@ -1,3 +1,4 @@
+'use client'
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
@@ -28,7 +29,7 @@ const FooterComponent = styled.div`
   width: 100%;
 `;
 
-export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
+const RootLayout = ({ children }: { children: ReactNode }): React.ReactElement => {
 
   const openModalAuth = useAppSelector((state) => state.modalAuth.isOpenModalAuth);
 
@@ -68,5 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }): React
     </html>
   );
 }
+
+export default RootLayout;
 
 // export const getLayout = (page: React.ReactElement): React.ReactElement => <RootLayout>{page}</RootLayout>;

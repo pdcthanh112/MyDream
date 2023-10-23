@@ -1,3 +1,4 @@
+'use client'
 import { NextPage } from 'next';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';

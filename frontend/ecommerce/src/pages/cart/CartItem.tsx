@@ -2,7 +2,7 @@ import { CartItem } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
 import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartApi';
-import { useConfirm } from 'material-ui-confirm';
+// import { useConfirm } from 'material-ui-confirm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { Icon } from '@mui/material';
@@ -16,7 +16,7 @@ interface CartItemProps {
 const CartItem = ({ item }: CartItemProps): React.ReactElement => {
   const router = useRouter();
   const { t } = useTranslation('common');
-  const confirm = useConfirm();
+  // const confirm = useConfirm();
   const queryClient = useQueryClient();
 
   const { mutate: updateCartItem } = useMutation({
@@ -37,14 +37,14 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
     updateCartItem({ cartItemId, quantity });
   };
 
-  const handleDeleteCartItem = async (itemId: string) => {
-    await confirm({
-      title: 'Delete item',
-      description: 'Are you sure to delete this item?',
-    }).then(() => {
-      deleteCartItem(itemId);
-    });
-  };
+  // const handleDeleteCartItem = async (itemId: string) => {
+  //   await confirm({
+  //     title: 'Delete item',
+  //     description: 'Are you sure to delete this item?',
+  //   }).then(() => {
+  //     deleteCartItem(itemId);
+  //   });
+  // };
 
   return (
     <div className=" items-center border border-gray-600 rounded my-2 grid grid-cols-12">
@@ -88,7 +88,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
         <span>${(item.quantity * item.product.price).toFixed(2)}</span>
       </div>
       <div className="col-span-1 flex justify-end">
-        <Icon component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" onClick={() => handleDeleteCartItem(item.id)} />
+        {/* <Icon component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" onClick={() => handleDeleteCartItem(item.id)} /> */}
       </div>
     </div>
   );

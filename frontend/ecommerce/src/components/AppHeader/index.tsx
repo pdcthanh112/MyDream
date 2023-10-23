@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import './AppHeader.scss';
 import Image from 'next/image';

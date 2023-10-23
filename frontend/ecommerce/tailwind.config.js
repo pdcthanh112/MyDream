@@ -9,12 +9,12 @@ module.exports = {
     extend: {
       colors: {
         status_active: {
-          text: '#1BC5BD', 
-          background: '#C9F7F5', 
+          text: '#1BC5BD',
+          background: '#C9F7F5',
         },
         status_inactive: {
-          text: '#F64E60', 
-          background: '#FFE2E5', 
+          text: '#F64E60',
+          background: '#FFE2E5',
         },
       }
       // backgroundImage: {
@@ -25,4 +25,7 @@ module.exports = {
     },
   },
   plugins: [],
+  // corePlugins: {
+  //   preflight: false // <== disable this!
+  // },
 }
