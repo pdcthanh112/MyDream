@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { CustomMeta as Metadata } from '@components/Metadata';
@@ -15,22 +15,21 @@ import AuthModal from '@components/AuthModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const HeaderComponent = styled.div`
+const HeaderComponent = styled.header`
   background-image: linear-gradient(to right, rgb(4, 171, 255), rgb(171, 235, 255));
 `;
 
-const BodyComponent = styled.div`
+const BodyComponent = styled.main`
   width: 100%;
   min-height: 80vh;
   display: inline-flex;
 `;
 
-const FooterComponent = styled.div`
+const FooterComponent = styled.footer`
   width: 100%;
 `;
 
 const RootLayout = ({ children }: { children: ReactNode }): React.ReactElement => {
-
   const openModalAuth = useAppSelector((state) => state.modalAuth.isOpenModalAuth);
 
   return (
@@ -43,9 +42,7 @@ const RootLayout = ({ children }: { children: ReactNode }): React.ReactElement =
 
         <AppNavbar />
 
-        <BodyComponent>
-          <main>{children}</main>
-        </BodyComponent>
+        <BodyComponent>{children}</BodyComponent>
 
         <FooterComponent>
           <AppFooter />
@@ -68,7 +65,7 @@ const RootLayout = ({ children }: { children: ReactNode }): React.ReactElement =
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;
 

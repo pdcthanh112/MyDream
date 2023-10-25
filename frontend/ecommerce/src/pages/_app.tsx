@@ -9,12 +9,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
 import { SessionProvider } from 'next-auth/react';
 import dynamic from 'next/dynamic';
-// import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 // import 'antd/dist/antd.css';
 
 // const vi_VN = dynamic(() => import('antd/lib/locale/vi_VN'));
 // const en_US = dynamic(() => import('antd/lib/locale/en_US'));
-// import en_US from 'antd/lib/locale/en_US';
+import en_US from 'antd/lib/locale/en_US';
 
 // const es_ES = dynamic(() => import('antd/lib/locale/es_ES'));
 // const zh_CN = dynamic(() => import('antd/lib/locale/zh_CN'));
@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
 
   return (
     <React.StrictMode>
-      {/* <ConfigProvider locale={en_US}> */}
+      <ConfigProvider locale={en_US}>
         <SessionProvider session={session}>
           <ApolloProvider client={client}>
             <Provider store={store}>
@@ -41,7 +41,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
             </Provider>
           </ApolloProvider>
         </SessionProvider>
-      {/* </ConfigProvider> */}
+      </ConfigProvider>
     </React.StrictMode>
   );
 };

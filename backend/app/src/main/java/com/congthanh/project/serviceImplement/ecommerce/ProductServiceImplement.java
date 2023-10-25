@@ -10,6 +10,7 @@ import com.congthanh.project.repository.ecommerce.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.ProductRepository;
 import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
+import com.congthanh.project.utils.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,8 @@ public class ProductServiceImplement implements ProductService {
 
   @Autowired
   private SubcategoryRepository subcategoryRepository;
+
+  private Helper helper;
 
   @Override
   public Object getAllProduct(Integer page, Integer limit) {
@@ -54,6 +57,7 @@ public class ProductServiceImplement implements ProductService {
                   .image(product.getImage())
                   .description(product.getDescription())
                   .sold(product.getSold())
+                  .slug(product.getSlug())
                   .build();
           list.add(productDTO);
         }
@@ -109,6 +113,27 @@ public class ProductServiceImplement implements ProductService {
   }
 
   @Override
+  public ProductDTO getProductBySlug(String slug) {
+    Product product = productRepository.findProductBySlug(slug).orElseThrow(() -> new RuntimeException("Product not found"));
+    ProductDTO response = ProductDTO.builder()
+            .id(product.getId())
+            .name(product.getName())
+            .category(product.getCategory().getName())
+            .subcategory(product.getSubcategory().getName())
+            .quantity(product.getQuantity())
+            .price(product.getPrice())
+            .ratingVote(product.getRatingVote())
+            .ratingValue(product.getRatingValue())
+            .production(product.getProduction())
+            .image(product.getImage())
+            .description(product.getDescription())
+            .sold(product.getSold())
+            .status(product.getStatus())
+            .build();
+    return response;
+  }
+
+  @Override
   public Product createProduct(ProductDTO productDTO) {
     Optional<Product> existProduct = productRepository.findByName(productDTO.getName());
     if (existProduct.isPresent()) {
@@ -116,6 +141,7 @@ public class ProductServiceImplement implements ProductService {
     } else {
       Category category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory())).orElseThrow(() -> new RuntimeException(" not found"));
       Subcategory subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory())).orElseThrow(() -> new RuntimeException(" not found"));
+      String productSlug = helper.createSlugFromProductName(productDTO.getName());
       Product product = Product.builder()
               .name(productDTO.getName())
               .category(category)
@@ -129,6 +155,7 @@ public class ProductServiceImplement implements ProductService {
               .ratingVote(0)
               .ratingValue(0)
               .status(StateStatus.STATUS_ACTIVE)
+              .slug(productSlug)
               .build();
       Product response = productRepository.save(product);
       return response;

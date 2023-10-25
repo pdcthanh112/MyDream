@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { NextPage } from 'next';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -43,9 +43,9 @@ const Home: NextPage = (): React.ReactElement => {
   });
 
   return (
-    <div className="mx-auto">
+    <div>
       <Banner />
-      <div className="mx-auto mt-3 w-[80%]">
+      <div className="mx-auto mt-3 w-[80%] ">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
         <div className="flex justify-end">
           <Pagination

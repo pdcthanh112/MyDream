@@ -3,7 +3,6 @@ package com.congthanh.project.service.ecommerce;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,6 +11,8 @@ public interface ProductService {
   Object getAllProduct(Integer page, Integer limit);
 
   ProductDTO getProductById(String id);
+
+  ProductDTO getProductBySlug(String slug);
 
   Product createProduct(ProductDTO productDTO);
 

@@ -12,4 +12,5 @@ export interface Product {
   ratingVote: number;
   ratingValue: number;
   status: string;
+  slug: string;
 }

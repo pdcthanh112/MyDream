@@ -14,6 +14,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
   Optional<Product> findById(String id);
 
+  @Query(nativeQuery = true, value = "SELECT product.*\n" +
+          "FROM product  JOIN category on product.category = category.id\n" +
+          "JOIN subcategory on product.subcategory = subcategory.id\n" +
+          "JOIN rating on product.rating = rating.id\n" +
+          "WHERE product.slug ILIKE ?1")
+  Optional<Product> findProductBySlug(String slug);
+
   Optional<Product> findByName(String name);
 
   Page<Product> findByCategoryId(int categoryId, Pageable pageable);
@@ -30,4 +37,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
           "JOIN rating on product.rating = rating.id\n" +
           "WHERE CONCAT(product.name, category.name, subcategory.name) ILIKE ?1")
   List<Product> searchProduct(String keyword);
+
+  @Query(nativeQuery = true, value = "SELECT id FROM product WHERE slug = ?1")
+  boolean checkExistSlug(String slug);
+
 }

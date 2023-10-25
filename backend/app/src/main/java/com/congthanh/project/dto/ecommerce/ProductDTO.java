@@ -37,4 +37,6 @@ public class ProductDTO {
 
   private String status;
 
+  private String slug;
+
 }

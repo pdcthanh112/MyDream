@@ -31,16 +31,6 @@ public class WishlistController {
   public ResponseEntity<Response> addProductToWishlist(@RequestBody Map<String, String> requestData) {
     String customerId = requestData.get("customerId");
     String productId = requestData.get("productId");
-//    try {
-//      wishlistService.addProductToWishlist(customerId, productId);
-//      Response<String> response = new Response();
-//      response.setData(null);
-//      response.setStatus(ResponseStatus.STATUS_SUCCESS);
-//      response.setMessage("Add successfully");
-//      return ResponseEntity.ok().body(response);
-//    } catch (Exception e) {
-//      throw new RuntimeException("Product already exist");
-//    }
     Response<String> response = new Response<>();
     try {
       wishlistService.addProductToWishlist(customerId, productId);

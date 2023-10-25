@@ -53,6 +53,9 @@ public class Product {
 
   private String status;
 
+  @Column(nullable = false, unique = true)
+  private String slug;
+
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   @JsonIgnore
   private Set<CartItem> cartItems;
