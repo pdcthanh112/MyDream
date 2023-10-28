@@ -19,6 +19,9 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, Intege
 
   Optional<Subcategory> findByName(String name);
 
+  @Query(nativeQuery = true, value = "SELECT COUNT(*) > 0 FROM subcategory WHERE name = ?1 AND category = ?2")
+  boolean checkExistSubcategory(String name, int categoryId);
+
   @Query(nativeQuery = true, value = "SELECT id, name FROM subcategory WHERE category = ?1")
   List<Tuple> findByCategoryId(int id);
 

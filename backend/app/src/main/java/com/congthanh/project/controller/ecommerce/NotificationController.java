@@ -23,7 +23,7 @@ public class NotificationController {
   public ResponseEntity<Response<List<NotificationDTO>>> getNotificationByCustomer(@RequestParam("id") String customerId) {
     List<NotificationDTO> result = notificationService.getNotificationByCustomer(customerId);
     Response<List<NotificationDTO>> response = new Response<>();
-    response.setData(result != null ? result : null);
+    response.setData(result);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage(result != null ? "Get xong" : "Noti emply");
     return ResponseEntity.ok().body(response);

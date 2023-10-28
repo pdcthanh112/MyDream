@@ -33,7 +33,7 @@ public class ProductServiceImplement implements ProductService {
   @Autowired
   private SubcategoryRepository subcategoryRepository;
 
-  private Helper helper;
+  private final Helper helper = new Helper();
 
   @Override
   public Object getAllProduct(Integer page, Integer limit) {

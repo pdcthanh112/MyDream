@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ecommerce/subcategory")
@@ -38,8 +39,10 @@ public class SubcategoryController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Response> createSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
-    Subcategory subcategory = subcategoryService.createSubcategory(subcategoryDTO);
+  public ResponseEntity<Response> createSubcategory(@RequestBody Map<String, Object> createSubcategoryModel) {
+    String name = (String) createSubcategoryModel.get("name");
+    int categoryId = (int) createSubcategoryModel.get("categoryId");
+    Subcategory subcategory = subcategoryService.createSubcategory(name, categoryId);
     Response<Object> response = new Response<>();
     response.setData(subcategory);
     response.setMessage("Create successfully");
