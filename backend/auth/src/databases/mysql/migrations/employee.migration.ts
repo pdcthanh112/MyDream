@@ -54,7 +54,7 @@ module.exports = {
       },
       salary: {
         allowNull: false,
-        type: Sequelize.NUMBER,
+        type: Sequelize.DECIMAL(15, 5),
       },
     });
   },

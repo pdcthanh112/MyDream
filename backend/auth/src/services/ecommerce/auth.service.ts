@@ -77,8 +77,8 @@ export class AuthService {
   }
 
   public async signup(customerData: CustomerSignupDTO): Promise<Customer> {
-    const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
-    if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`, 101004);
+    const { count: findCustomer } = await MYSQL_DB.Customer.findAndCountAll({ where: { email: customerData.email } });
+    if (findCustomer > 0) throw new HttpException(409, `This email ${customerData.email} already exists`, 101004);
 
     const hashedPassword = await hash(customerData.password, 10);
 
