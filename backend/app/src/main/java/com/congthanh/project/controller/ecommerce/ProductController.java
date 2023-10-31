@@ -30,7 +30,7 @@ public class ProductController {
   @PermitAll
   public ResponseEntity<Response<Object>> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
     Object data = productService.getAllProduct(page, limit);
-    Response<Object> response = new Response();
+    Response<Object> response = new Response<>();
     response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Get all successfully");

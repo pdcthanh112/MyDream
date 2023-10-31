@@ -13,11 +13,11 @@ import { stateStatus } from '@utils/constants';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-// import { Wishlist as IWishlist } from '@models/WishlistModel';
 import { fetchWishlistRequested, removeItemFromWishlistRequested } from '@redux/actions/wishlist';
 import { removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
 import { useQuery } from '@tanstack/react-query';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
+import EmptyWishlistImage from '@assets/images/empty_wishlist.png';
 
 const Wishlist: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -25,8 +25,7 @@ const Wishlist: NextPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation('common');
 
-  // const wishlist: Wishlist = useAppSelector((state) => state.wishlist.data);
-  const { data: wishlist, isLoading } = useQuery(['cart'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
+  const { data: wishlist, isLoading } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
   const wishlistState = useAppSelector((state) => state.wishlist);
 
   const checkStatus = (quantity: number, status: string) => {
@@ -68,57 +67,63 @@ const Wishlist: NextPage = (): React.ReactElement => {
   };
 
   return (
-    <div className="bg-white">
-      <TableContainer component={Paper} style={{ width: '100vw' }}>
+    <div className="bg-white w-full flex justify-center">
+      <TableContainer component={Paper} style={{ width: '90%', margin: '10px 0 10px 0'}}>
         <Table style={{ width: '85vw', margin: '0 auto' }}>
           <TableHead>
             <TableRow>
-              <TableCell style={{ paddingLeft: '10rem', fontSize: '1.1rem', width: '40%' }}>{t('product.product_name')}</TableCell>
-              <TableCell align="center" style={{ fontSize: '1.1rem' }}>
+              <TableCell style={{ paddingLeft: '10rem', width: '40%' }}>{t('product.product_name')}</TableCell>
+              <TableCell align="center">
                 {t('common.Category')}
               </TableCell>
-              <TableCell align="center" style={{ fontSize: '1.1rem' }}>
+              <TableCell align="center">
                 {t('product.price')}
               </TableCell>
-              <TableCell align="center" style={{ fontSize: '1.1rem' }}>
+              <TableCell align="center">
                 {t('common.status')}
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {wishlist?.product.map((item: Product) => (
-              <TableRow key={item.id}>
-                <TableCell component="th" scope="row" style={{ display: 'flex' }}>
-                  <Image src={item.image || DefaultImage} alt="Product image" width={100} loading="lazy" />
-                  <span style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }} className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.id}`)}>
-                    {item.name}
-                  </span>
-                </TableCell>
-                <TableCell align="center">{item.category}</TableCell>
-                <TableCell align="center">{item.price}</TableCell>
-                <TableCell align="center">{checkStatus(item.quantity, item.status)}</TableCell>
-                <TableCell align="right" style={{ width: '20%' }}>
-                  <div className="flex justify-end">
-                    <Popconfirm
-                      title="Are you sure to remove this item from wishlist?"
-                      okText={t('common.yes')}
-                      okButtonProps={{style: { backgroundColor: '#1677ff' }}}
-                      cancelText={t('common.no')}
-                      onConfirm={() => {
-                        handleRemoveFromWishlist(item.id);
-                      }}
-                      placement="topRight">
-                      <Icon titleAccess={t('common.delete_this_item')} component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100" />
-                    </Popconfirm>
-                  </div>
+          {wishlist ? (
+            <TableBody>
+              {wishlist.product.map((item: Product) => (
+                <TableRow key={item.id}>
+                  <TableCell component="th" scope="row" style={{ display: 'flex' }}>
+                    <Image src={item.image || DefaultImage} alt="Product image" width={100} loading="lazy" />
+                    <span style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }} className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.id}`)}>
+                      {item.name}
+                    </span>
+                  </TableCell>
+                  <TableCell align="center">{item.category}</TableCell>
+                  <TableCell align="center"style={{ width: '15%' }}>{item.price}</TableCell>
+                  <TableCell align="center"style={{ width: '15%' }}>{checkStatus(item.quantity, item.status)}</TableCell>
+                  <TableCell align="right" style={{ width: '15%' }}>
+                    <div className="flex justify-end">
+                      <Popconfirm
+                        title="Are you sure to remove this item from wishlist?"
+                        okText={t('common.yes')}
+                        okButtonProps={{ style: { backgroundColor: '#1677ff' } }}
+                        cancelText={t('common.no')}
+                        onConfirm={() => {
+                          handleRemoveFromWishlist(item.id);
+                        }}
+                        placement="topRight">
+                        <Icon titleAccess={t('common.delete_this_item')} component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100" />
+                      </Popconfirm>
+                    </div>
 
-                  <Button className="bg-yellow-400 w-40" onClick={() => handleAddProductToCart(item.id)}>
-                    {t('common.add_to_cart')}
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                    <Button className="bg-yellow-400 text-white rounded-xl" onClick={() => handleAddProductToCart(item.id)}>
+                      {t('common.add_to_cart')}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          ) : (
+            <TableBody>
+              <EmptyWishlist />
+            </TableBody>
+          )}
         </Table>
       </TableContainer>
     </div>
@@ -126,6 +131,21 @@ const Wishlist: NextPage = (): React.ReactElement => {
 };
 
 export default Wishlist;
+
+const EmptyWishlist = () => {
+  const router = useRouter();
+  return (
+    <div style={{ width: '250%' }}>
+      <div className="flex justify-center">
+        <Image src={EmptyWishlistImage} alt={'Empty wishlist'} width={300} />
+      </div>
+
+      <h6 className="flex justify-center hover:cursor-pointer hover:underline" onClick={() => router.push('/')}>
+        Back to Home
+      </h6>
+    </div>
+  );
+};
 
 export async function getServerSideProps(context: any) {
   return {

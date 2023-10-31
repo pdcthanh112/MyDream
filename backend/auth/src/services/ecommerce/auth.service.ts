@@ -22,9 +22,7 @@ const createCookie = (tokenData: TokenData): string => {
 
 @Service()
 export class AuthService {
-  public async login(
-    loginData: CustomerLoginDTO,
-  ): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
+  public async login(loginData: CustomerLoginDTO,): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
     const findCustomer: Customer = (await MYSQL_DB.Customer.findOne({ where: { email: loginData.email } })).dataValues;
     if (!findCustomer) throw new HttpException(409, `This email ${loginData.email} was not found`, 101001);
 
@@ -77,8 +75,8 @@ export class AuthService {
   }
 
   public async signup(customerData: CustomerSignupDTO): Promise<Customer> {
-    const { count: findCustomer } = await MYSQL_DB.Customer.findAndCountAll({ where: { email: customerData.email } });
-    if (findCustomer > 0) throw new HttpException(409, `This email ${customerData.email} already exists`, 101004);
+    const findCustomer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
+    if (findCustomer) throw new HttpException(409, `This email ${customerData.email} already exists`, 101004);
 
     const hashedPassword = await hash(customerData.password, 10);
 

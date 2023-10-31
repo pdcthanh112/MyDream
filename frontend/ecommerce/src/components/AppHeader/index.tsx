@@ -9,7 +9,7 @@ import Button from '@components/UI/Button';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
-import { Search as SearchIcon, ArrowDropDownOutlined as ArrowDropDownOutlinedIcon, NavigateNext as NavigateNextIcon } from '@mui/icons-material';
+import { Search as SearchIcon, ArrowDropDownOutlined, NavigateNext } from '@mui/icons-material';
 import CartModal from '@components/CartModal';
 import LanguageSwitcher from '@components/LanguageSwitcher';
 import NotificationModal from '@components/NotificationModal';
@@ -46,7 +46,7 @@ const AppHeader = () => {
         <span className="bg-gray-300 h-[2.5rem] w-16 rounded-l-md flex justify-center items-center relative group">
           <span>
             {t('common.all')}
-            <ArrowDropDownOutlinedIcon />
+            <ArrowDropDownOutlined />
           </span>
 
           <Card className="text-[#a4a4a4] text-sm hidden absolute transform translate-x-[36%] translate-y-[56%] py-2 w-[15rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
@@ -67,7 +67,7 @@ const AppHeader = () => {
         <div className="flex items-start justify-center relative group">
           <ShoppingCartIcon width={32} height={'32'} onClick={() => router.push('/cart')} className="hover:cursor-pointer" />
           <p className="hidden md:inline font-extrabold md:text-sm mt-3">{t('common.cart')}</p>
-          {listCart.length > 0 && <span className="absolute -top-1 right-7 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listCart.length}</span>}
+          {listCart?.length > 0 && <span className="absolute -top-1 right-7 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listCart?.length}</span>}
           <Card className="hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
             <CartModal />
           </Card>
@@ -113,7 +113,7 @@ const AppHeader = () => {
                   </span>
                   <span className="flex items-center hover:cursor-pointer hover:underline hover:text-yellow-600" onClick={() => router.push('/manage')}>
                     {t('common.manage_profile')}
-                    <Icon component={NavigateNextIcon} />
+                    <Icon component={NavigateNext} />
                   </span>
                 </div>
                 <div className="flex">

@@ -44,6 +44,7 @@ const Home: NextPage = (): React.ReactElement => {
 
   return (
     <div>
+      <div className='bg-red-500 w-full text-red-500'>a</div>
       <Banner />
       <div className="mx-auto mt-3 w-[80%] ">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
