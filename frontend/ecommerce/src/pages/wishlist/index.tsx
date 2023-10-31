@@ -68,20 +68,21 @@ const Wishlist: NextPage = (): React.ReactElement => {
 
   return (
     <div className="bg-white w-full flex justify-center">
-      <TableContainer component={Paper} style={{ width: '90%', margin: '10px 0 10px 0'}}>
+      <TableContainer component={Paper} style={{ width: '90%', margin: '10px 0 10px 0' }}>
         <Table style={{ width: '85vw', margin: '0 auto' }}>
           <TableHead>
             <TableRow>
               <TableCell style={{ paddingLeft: '10rem', width: '40%' }}>{t('product.product_name')}</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" width={'15%'}>
                 {t('common.Category')}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" width={'10%'}>
                 {t('product.price')}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" width={'10%'}>
                 {t('common.status')}
               </TableCell>
+              <TableCell align="center" width={'11%'}/>
             </TableRow>
           </TableHead>
           {wishlist ? (
@@ -90,14 +91,18 @@ const Wishlist: NextPage = (): React.ReactElement => {
                 <TableRow key={item.id}>
                   <TableCell component="th" scope="row" style={{ display: 'flex' }}>
                     <Image src={item.image || DefaultImage} alt="Product image" width={100} loading="lazy" />
-                    <span style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }} className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.id}`)}>
+                    <span
+                      title={item.name}
+                      style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
+                      className="hover:cursor-pointer"
+                      onClick={() => router.push(`/product/${item.id}`)}>
                       {item.name}
                     </span>
                   </TableCell>
                   <TableCell align="center">{item.category}</TableCell>
-                  <TableCell align="center"style={{ width: '15%' }}>{item.price}</TableCell>
-                  <TableCell align="center"style={{ width: '15%' }}>{checkStatus(item.quantity, item.status)}</TableCell>
-                  <TableCell align="right" style={{ width: '15%' }}>
+                  <TableCell align="center">{item.price}</TableCell>
+                  <TableCell align="center">{checkStatus(item.quantity, item.status)}</TableCell>
+                  <TableCell align="right">
                     <div className="flex justify-end">
                       <Popconfirm
                         title="Are you sure to remove this item from wishlist?"
@@ -108,7 +113,7 @@ const Wishlist: NextPage = (): React.ReactElement => {
                           handleRemoveFromWishlist(item.id);
                         }}
                         placement="topRight">
-                        <Icon titleAccess={t('common.delete_this_item')} component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100" />
+                        <Icon titleAccess={t('common.remove_this_item')} component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100" />
                       </Popconfirm>
                     </div>
 
@@ -134,6 +139,7 @@ export default Wishlist;
 
 const EmptyWishlist = () => {
   const router = useRouter();
+  const { t } = useTranslation('common');
   return (
     <div style={{ width: '250%' }}>
       <div className="flex justify-center">
@@ -141,7 +147,7 @@ const EmptyWishlist = () => {
       </div>
 
       <h6 className="flex justify-center hover:cursor-pointer hover:underline" onClick={() => router.push('/')}>
-        Back to Home
+        {t('common.back_to_home')}
       </h6>
     </div>
   );

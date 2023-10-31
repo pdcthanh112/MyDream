@@ -43,8 +43,8 @@ const AppHeader = () => {
       <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" onClick={() => router.push('/')} />
 
       <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
-        <span className="bg-gray-300 h-[2.5rem] w-16 rounded-l-md flex justify-center items-center relative group">
-          <span>
+        <span className="bg-gray-300 h-[2.5rem] w-20 rounded-l-md flex justify-center items-center relative group">
+          <span className=''>
             {t('common.all')}
             <ArrowDropDownOutlined />
           </span>

@@ -99,7 +99,7 @@ const CartModal = () => {
 
       <div className="flex justify-between mx-3 my-3">
         <span>{countItem} item(s)</span>
-        <Button className="bg-yellow-400" onClick={() => router.push('/cart')}>
+        <Button className="bg-yellow-400 rounded-xl" onClick={() => router.push('/cart')}>
           {t('cart.view_cart')}
         </Button>
       </div>

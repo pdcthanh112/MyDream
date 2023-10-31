@@ -14,8 +14,10 @@ import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
 import { Customer } from '@models/CustomerModel';
 import { PaginationParams } from '@models/Request';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = (): React.ReactElement => {
+  const { locale } = useRouter();
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -44,7 +46,7 @@ const Home: NextPage = (): React.ReactElement => {
 
   return (
     <div>
-      <div className='bg-red-500 w-full text-red-500'>a</div>
+      <div className="bg-red-500 w-full text-red-500">a</div>
       <Banner />
       <div className="mx-auto mt-3 w-[80%] ">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
@@ -62,13 +64,13 @@ const Home: NextPage = (): React.ReactElement => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps({ locale }: any) {
   // store.dispatch(fetchSubcategoryRequested());
   // store.dispatch(fetchCategoryRequested());
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }

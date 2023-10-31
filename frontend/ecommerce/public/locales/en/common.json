@@ -24,7 +24,7 @@
     "free": "Free",
     "notification": "Notification",
     "status": "Status",
-    "delete_this_item": "Delete this item",
+    "remove_this_item": "Remove this item",
     "in_stock": "In stock",
     "out_of_stock": "Out of stock",
     "active": "Active",
@@ -39,7 +39,8 @@
     "field_is_require": "${feild} is require",
     "back": "Back",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "back_to_home": "Back to Home"
   },
   "header": {
     "your_shopping": "Your shopping",
@@ -58,7 +59,7 @@
     "today_deals": "Today Deals",
     "flash_sale": "Flash sale",
     "gift_card": "Gift Card",
-    "sell": "Sell"
+    "sale": "Sale"
   },
   "sidebar": {
     "help_and_settings": "Help & Settings",
@@ -108,7 +109,8 @@
     "this_cart_have_no_item": "This cart have no item",
     "view_cart": "View cart",
     "subtotal": "Subtotal",
-    "please_signin_to_view_your_cart": "Please signin to view your cart"
+    "please_signin_to_view_your_cart": "Please signin to view your cart",
+    "cart_empty": "Cart is empty"
   },
   "wishlist": {
     "add_item_successfully": "Add item successfully",

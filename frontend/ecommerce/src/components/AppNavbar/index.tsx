@@ -14,7 +14,7 @@ const AppNavbar = () => {
     { name: t('navbar.today_deals'), path: '/' },
     { name: t('navbar.flash_sale'), path: '/' },
     { name: t('navbar.gift_card'), path: '/' },
-    { name: t('navbar.sell'), path: '/' },
+    { name: t('navbar.sale'), path: '/' },
   ];
 
   return (

@@ -10,6 +10,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { Customer } from '@models/CustomerModel';
 import { Cart, CartItem as ICartItem } from '@models/CartModel';
+import CartEmptyImage from '@assets/images/cart-empty-image.png';
+import Image from 'next/image';
 
 const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -18,11 +20,25 @@ const Cart: NextPage = (): React.ReactElement => {
 
   const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
 
+  if (!listCart) {
+    return (
+      <div className="w-full bg-white text-center">
+        <div className="w-full flex justify-center">
+          <Image src={CartEmptyImage} alt={'Cart Empty'} width={500} height={100} />
+        </div>
+        <div className="w-full flex justify-center font-medium text-2xl mb-5">{t('cart.cart_empty')}</div>
+        <div className="w-full flex justify-center">
+          <Button className="bg-green-400 rounded-xl text-white" onClick = {() => router.push('/')}>{t('common.back_to_home')}</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full">
       <h3 className="px-5 py-2 mb-3 text-3xl bg-white">{t('cart.your_cart')}</h3>
       <div className="flex flex-col w-[90%] mx-auto">
-        {listCart?.map((cart: Cart) => {
+        {listCart.map((cart: Cart) => {
           let countItem: number = 0;
           let sumPrice: number = 0;
           return (
