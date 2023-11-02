@@ -31,7 +31,7 @@ export const getCartByCustomerId = async (customerId: string) => {
     });
 };
 
-export const addToCart = async ({productId, quantity, cartId}: {productId: string, quantity: number, cartId: string}) => {
+export const addProductToCart = async ({productId, quantity, cartId}: {productId: string, quantity: number, cartId: string}) => {
   return await axiosConfig
     .post(`cart-item/addToCart?productId=${productId}&quantity=${quantity}&cartId=${cartId}`)
     .then((response) => response)

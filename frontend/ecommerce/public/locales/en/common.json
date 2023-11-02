@@ -110,13 +110,17 @@
     "view_cart": "View cart",
     "subtotal": "Subtotal",
     "please_signin_to_view_your_cart": "Please signin to view your cart",
-    "cart_empty": "Cart is empty"
+    "cart_empty": "Cart is empty",
+    "add_item_to_cart_successfully": "Add item to cart successfully",
+    "add_item_to_cart_failed": "Add item to cart failed",
+    "remove_item_from_cart_successfully": "Remove item from cart successfully",
+    "remove_item_from_cart_failed": "Remove item from cart failed"
   },
   "wishlist": {
-    "add_item_successfully": "Add item successfully",
-    "add_item_failed": "Add item failed",
-    "remove_item_successfully": "Remove item successfully",
-    "remove_item_failed": "Remove item failed",
+    "add_item_to_wishlist_successfully": "Add item successfully",
+    "add_item_to_wishlist_failed": "Add item failed",
+    "remove_item_from_wishlist_successfully": "Remove item successfully",
+    "remove_item_from_wishlist_failed": "Remove item failed",
     "item_already_exists_in_wishlist": "Item already exists in wishlist"
   }
 }

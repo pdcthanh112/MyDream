@@ -23,13 +23,13 @@ const CartModal = () => {
   const queryClient = useQueryClient();
   const [isCreateCart, setIsCreateCart] = useState(false);
 
-  const { data: listCart, isLoading } = useQuery(['listCart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
-
+  const { data: listCart } = useQuery(['cart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
+  
   const { mutate: mutateCreateCart } = useMutation({
     mutationFn: async (data: CreateCartForm) => await createNewCart(data),
     onSuccess: () => {
       toast.success('Create cart successfully');
-      queryClient.invalidateQueries(['listCart']);
+      queryClient.invalidateQueries(['cart']);
       setIsCreateCart(false);
     },
   });

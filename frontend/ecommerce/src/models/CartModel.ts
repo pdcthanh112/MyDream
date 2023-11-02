@@ -1,8 +1,8 @@
-import { Product } from "./ProductModel";
+import { Product } from './ProductModel';
 
 export interface Cart {
   id: string;
-  name:string;
+  name: string;
   customerId: string;
   status: string;
   createdDate: Date;
@@ -15,10 +15,20 @@ export interface CartItem {
   product: Product;
   quantity: number;
   status: string;
-  cart?:string
+  cart?: string;
 }
 
 export interface CreateCartForm {
-  name:string;
+  name: string;
   customerId: string;
+}
+
+export interface AddToCartForm {
+  productId: any;
+  quantity: number;
+  cartId: string;
+}
+export interface UpdateCartItemForm {
+  quantity: number;
+  itemId: string;
 }

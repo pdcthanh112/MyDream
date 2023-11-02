@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { fetchWishlistRequested, removeItemFromWishlistRequested } from '@redux/actions/wishlist';
-import { removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
 import { useQuery } from '@tanstack/react-query';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
 import EmptyWishlistImage from '@assets/images/empty_wishlist.png';
@@ -57,9 +56,6 @@ const Wishlist: NextPage = (): React.ReactElement => {
         }
       } catch (error) {
         toast.error(t('wishlist.remove_item_failed'));
-      } finally {
-        dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-        dispatch(removeItemFromWishlistClean());
       }
     } else {
       // dispatch(openModalAuth());

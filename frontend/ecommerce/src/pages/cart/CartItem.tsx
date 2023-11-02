@@ -1,13 +1,12 @@
 import { CartItem } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
-import { deleteCartItem as deleteCartItemApi, updateCartItem as updateCartItemApi } from '@apis/cartApi';
-// import { useConfirm } from 'material-ui-confirm';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { Icon } from '@mui/material';
-import { Add as AddIcon, Remove as MinusIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Add as AddIcon, Remove as MinusIcon, Delete } from '@mui/icons-material';
 import { useTranslation } from 'next-i18next';
+import { useDeleteCartItem, useUpdateCartItem } from '@hooks/cart/cartHook';
+import { Popconfirm } from 'antd';
 
 interface CartItemProps {
   item: CartItem;
@@ -16,35 +15,17 @@ interface CartItemProps {
 const CartItem = ({ item }: CartItemProps): React.ReactElement => {
   const router = useRouter();
   const { t } = useTranslation('common');
-  // const confirm = useConfirm();
-  const queryClient = useQueryClient();
 
-  const { mutate: updateCartItem } = useMutation({
-    mutationFn: async ({ cartItemId, quantity }: { cartItemId: string; quantity: number }) => await updateCartItemApi(cartItemId, quantity),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['listCart']);
-    },
-  });
+  const { mutate: updateCartItem } = useUpdateCartItem();
+  const { mutate: deleteCartItem } = useDeleteCartItem();
 
-  const { mutate: deleteCartItem } = useMutation({
-    mutationFn: async (cartId: string) => await deleteCartItemApi(cartId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['listCart']);
-    },
-  });
-
-  const handleUpdateCartItem = async (cartItemId: string, quantity: number) => {
-    updateCartItem({ cartItemId, quantity });
+  const handleUpdateCartItem = (cartItemId: string, quantity: number) => {
+    updateCartItem({ itemId: cartItemId, quantity: quantity }, {});
   };
 
-  // const handleDeleteCartItem = async (itemId: string) => {
-  //   await confirm({
-  //     title: 'Delete item',
-  //     description: 'Are you sure to delete this item?',
-  //   }).then(() => {
-  //     deleteCartItem(itemId);
-  //   });
-  // };
+  const handleDeleteCartItem = (itemId: string) => {
+    deleteCartItem(itemId, {})
+  };
 
   return (
     <div className=" items-center border border-gray-600 rounded my-2 grid grid-cols-12">
@@ -88,10 +69,12 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
         <span>${(item.quantity * item.product.price).toFixed(2)}</span>
       </div>
       <div className="col-span-1 flex justify-end">
-        {/* <Icon component={DeleteIcon} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" onClick={() => handleDeleteCartItem(item.id)} /> */}
+        <Popconfirm title="Delete cart item" description="Are you sure to delete this item?" onConfirm={() => handleDeleteCartItem(item.id)} okText="Yes" cancelText="No">
+          <Icon component={Delete} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" />
+        </Popconfirm>
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

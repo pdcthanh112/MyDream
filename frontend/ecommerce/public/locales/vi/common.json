@@ -19,16 +19,16 @@
     "Subcategory": "Subcategory",
     "available": "có sẵn",
     "sold_out": "Sold out",
-    "checkout": "Checkout",
+    "checkout": "Thanh toán",
     "shipping": "Shipping",
-    "free": "Free",
+    "free": "Miễn phí",
     "notification": "Thông báo",
     "status": "Trạng thái",
     "remove_this_item": "Xoá sản phẩm",
     "in_stock": "Còn hàng",
     "out_of_stock": "Hết hàng",
-    "active": "Active",
-    "inactive": "Inactive",
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
     "see_all": "Xem tất cả",
     "increase": "Tăng",
     "decrease": "Giảm",
@@ -43,8 +43,8 @@
     "back_to_home": "Quay về trang chủ"
   },
   "header": {
-    "your_shopping": "Your shopping",
-    "view_your_cart": "View your cart",
+    "your_shopping": "Mua sắm của bạn",
+    "view_your_cart": "Xem giỏ hàng",
     "wishlist": "Danh sách yêu thích",
     "history": "Lịch sử",
     "your_account": "Tài khoản của bạn",
@@ -52,7 +52,7 @@
     "orders": "Đơn hàng",
     "recommendations": "Gợi ý",
     "browsing_history": "Xem lịch sử",
-    "watchlist": "Watchlist",
+    "watchlist": "Danh sách xem",
     "account_and_info": "Tài khoản & Thông tin"
   },
   "navbar": {
@@ -64,7 +64,7 @@
   "sidebar": {
     "help_and_settings": "Giúp đỡ & Cài đặt",
     "your_account": "Tài khoản của bạn",
-    "customer_service": "Customer Service"
+    "customer_service": "Dịch vụ khách hàng"
   },
   "login": {
     "forgot_password": "Quên mật khẩu",
@@ -106,7 +106,7 @@
   "cart": {
     "create_new_cart": "Tạo giỏ hàng mới",
     "your_cart": "Giỏ hàng của bạn",
-    "this_cart_have_no_item": "Giỏ hàng không có sản phẩm",
+    "this_cart_have_no_item": "Không có sản phẩm trong giỏ hàng",
     "view_cart": "Xem giỏ hàng",
     "subtotal": "Tổng đơn hàng",
     "please_signin_to_view_your_cart": "Vui lòng đăng nhập để xem giỏ hàng",

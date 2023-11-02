@@ -1,3 +1,4 @@
+'use client';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -12,54 +13,76 @@ import Button from '@components/UI/Button';
 import ProductSkeleton from './product-skeleton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { addToCart } from '@apis/cartApi';
+import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { Customer } from '@models/CustomerModel';
 import { Wishlist } from '@models/WishlistModel';
-import { addItemToWishlistRequested, fetchWishlistRequested, removeItemFromWishlistRequested } from '@redux/actions/wishlist';
-import { addItemToWishlistClean, removeItemFromWishlistClean } from '@redux/reducers/wishlistReducer';
 import { openModalAuth } from '@redux/features/modalAuth';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { toast } from 'react-toastify';
-import { Popconfirm } from 'antd';
+import { useAddProductToCart } from '@hooks/cart/cartHook';
+import { getWishlistByCustomer } from '@apis/wishlistApi';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
   const { id: productId } = router.query;
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
-  const wishlist: Wishlist = useAppSelector((state) => state.wishlist.data);
+
   const dispatch = useAppDispatch();
   const { t } = useTranslation('common');
-  const wishlistState = useAppSelector((state) => state.wishlist);
 
   const [quantity, setQuantity] = useState(1);
+
+  const { mutate: addProductToCart } = useAddProductToCart();
+
+  const { mutate: addProductToWishlist } = useAddProductToWishlist();
+  const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', productId],
     queryFn: async () => await getProductById(productId).then((result) => result.data),
   });
+  const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
-  const addProductToCart = async () => {
-    await addToCart({ productId: product.id, quantity: quantity, cartId: '8d4f19b5-491a-4d3c-a7e3-13aea1eb4986' }).then(() => {});
+
+  const handleAddProductToCart = () => {
+    if (currentUser) {
+      try {
+        addProductToCart({ productId: productId, quantity: quantity, cartId: '85b594d5-632c-4801-844f-3ff08b0b73d0' }, {
+            onSuccess() {
+              toast.success(t('cart.add_item_to_cart_successfully'));
+            },
+            onError(error) {
+              toast.error(t('cart.add_item_to_cart_failed'));
+              console.log(error);
+            },
+          },
+        );
+      } catch (error) {
+        toast.error(t('cart.add_item_to_cart_failed'));
+      }
+    } else {
+      dispatch(openModalAuth());
+    }
   };
 
   const handleAddToWishlist = (productId: string) => {
     if (currentUser) {
       try {
-        dispatch(addItemToWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
-        if (!wishlistState.error && wishlistState.status === 'succeeded') {
-          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-          toast.success(t('wishlist.add_item_successfully'));
-        } else if (wishlistState.error) {
-          if (wishlistState.error?.errorCode === 403101) {
-            toast.error(t('wishlist.item_already_exists_in_wishlist'));
-          }
-        }
+        addProductToWishlist(
+          { customerId: currentUser.userInfo.accountId, productId: productId },
+          {
+            onSuccess() {
+              toast.success(t('wishlist.add_item_to_wishlist_successfully'));
+            },
+            onError(error) {
+              toast.error(t('wishlist.add_item_to_wishlist_failed'));
+              console.log(error);
+            },
+          },
+        );
       } catch (error) {
         toast.error(t('wishlist.add_item_to_wishlist_failed'));
-      } finally {
-        dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-        dispatch(addItemToWishlistClean());
       }
     } else {
       dispatch(openModalAuth());
@@ -69,18 +92,20 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const handleRemoveFromWishlist = (productId: string) => {
     if (currentUser) {
       try {
-        dispatch(removeItemFromWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
-        if (!wishlistState.error && wishlistState.status === 'succeeded') {
-          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-          toast.success(t('wishlist.remove_item_successfully'));
-        } else if (wishlistState.error) {
-          toast.error(t('wishlist.remove_item_failed'));
-        }
+        removeProductFromWishlist(
+          { customerId: currentUser.userInfo.accountId, productId: productId },
+          {
+            onSuccess() {
+              toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
+            },
+            onError(error) {
+              toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+              console.log(error);
+            },
+          },
+        );
       } catch (error) {
-        toast.error(t('wishlist.remove_item_failed'));
-      } finally {
-        dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-        dispatch(removeItemFromWishlistClean());
+        toast.error(t('wishlist.remove_item_from_wishlist_failed'));
       }
     } else {
       dispatch(openModalAuth());
@@ -111,7 +136,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </span>
             </div>
             <div>
-              {wishlist?.product.find((item) => item.id === product.id) === undefined ? (
+              {wishlist?.product.find((item: Wishlist) => item.id === product.id) === undefined ? (
                 <span className="hover:cursor-pointer" title={t('common.add_to_wishlist')} onClick={() => handleAddToWishlist(product.id)}>
                   <Icon component={HeartEmpty} sx={{ color: 'red' }} />
                 </span>
@@ -149,7 +174,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
             </span>
           </div>
           <div className="flex mt-10">
-            <Button className="bg-yellow-50 border-yellow-300 border-2 text-yellow-400" onClick={() => addProductToCart()}>
+            <Button className="bg-yellow-50 border-yellow-300 border-2 text-yellow-400" onClick={() => handleAddProductToCart()}>
               <AddToCartIcon width={28} height={28} />
               <span className="ml-1">{t('common.add_to_cart')}</span>
             </Button>
@@ -188,10 +213,10 @@ const AddToCartIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default ProductDetail;
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }
