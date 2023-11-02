@@ -4,29 +4,27 @@ import { addProductToCart, createNewCart, deleteCartItem, updateCartItem } from 
 
 export const useCreateNewCart = () => {
   const queryClient = useQueryClient();
-  return useMutation(
-    async (data: CreateCartForm) => await createNewCart(data), {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['cart'] });
-      },
-    });
+  return useMutation(async (data: CreateCartForm) => await createNewCart(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
 };
 
 export const useAddProductToCart = () => {
   const queryClient = useQueryClient();
-  return useMutation(
-    async (data: AddToCartForm) => await addProductToCart({ productId: data.productId, quantity: data.quantity, cartId: data.cartId }), {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['cart'] });
-      },
-    });
+  return useMutation(async (data: AddToCartForm) => await addProductToCart({ productId: data.productId, quantity: data.quantity, cartId: data.cartId }), {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
 };
 
 export const useUpdateCartItem = () => {
   const queryClient = useQueryClient();
   return useMutation(async (data: UpdateCartItemForm) => await updateCartItem(data.itemId, data.quantity), {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: ['cart']});
     },
   });
 };

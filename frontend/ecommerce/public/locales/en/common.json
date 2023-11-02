@@ -104,13 +104,14 @@
     "product_name": "Product name"
   },
   "cart": {
-    "create_new_cart": "Create new cart",
     "your_cart": "Your cart",
     "this_cart_have_no_item": "This cart have no item",
     "view_cart": "View cart",
     "subtotal": "Subtotal",
     "please_signin_to_view_your_cart": "Please signin to view your cart",
     "cart_empty": "Cart is empty",
+    "create_new_cart": "Create new cart",
+    "create_new_cart_successfully": "Create new cart successfully",
     "add_item_to_cart_successfully": "Add item to cart successfully",
     "add_item_to_cart_failed": "Add item to cart failed",
     "remove_item_from_cart_successfully": "Remove item from cart successfully",

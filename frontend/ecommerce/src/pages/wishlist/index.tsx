@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useAppDispatch, useAppSelector } from '@redux/store';
+import { useAppSelector } from '@redux/store';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell, Icon } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -13,19 +13,19 @@ import { stateStatus } from '@utils/constants';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { fetchWishlistRequested, removeItemFromWishlistRequested } from '@redux/actions/wishlist';
 import { useQuery } from '@tanstack/react-query';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
 import EmptyWishlistImage from '@assets/images/empty_wishlist.png';
+import { useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 
 const Wishlist: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const { t } = useTranslation('common');
 
   const { data: wishlist, isLoading } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
-  const wishlistState = useAppSelector((state) => state.wishlist);
+
+  const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
   const checkStatus = (quantity: number, status: string) => {
     if (status === stateStatus.ACTIVE) {
@@ -45,20 +45,19 @@ const Wishlist: NextPage = (): React.ReactElement => {
   };
 
   const handleRemoveFromWishlist = async (productId: string) => {
-    if (currentUser) {
-      try {
-        dispatch(removeItemFromWishlistRequested({ customerId: currentUser.userInfo.accountId, productId: productId }));
-        if (!wishlistState.error && wishlistState.status === 'succeeded') {
-          dispatch(fetchWishlistRequested({ customerId: currentUser.userInfo.accountId }));
-          toast.success(t('wishlist.remove_item_successfully'));
-        } else if (wishlistState.error) {
-          toast.error(t('wishlist.remove_item_failed'));
-        }
-      } catch (error) {
-        toast.error(t('wishlist.remove_item_failed'));
-      }
-    } else {
-      // dispatch(openModalAuth());
+    try {
+      removeProductFromWishlist({ customerId: currentUser.userInfo.accountId, productId: productId }, {
+          onSuccess() {
+            toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
+          },
+          onError(error) {
+            toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+            console.log(error);
+          },
+        },
+      );
+    } catch (error) {
+      toast.error(t('wishlist.remove_item_from_wishlist_failed'));
     }
   };
 
@@ -78,7 +77,7 @@ const Wishlist: NextPage = (): React.ReactElement => {
               <TableCell align="center" width={'10%'}>
                 {t('common.status')}
               </TableCell>
-              <TableCell align="center" width={'11%'}/>
+              <TableCell align="center" width={'11%'} />
             </TableRow>
           </TableHead>
           {wishlist ? (
@@ -91,7 +90,7 @@ const Wishlist: NextPage = (): React.ReactElement => {
                       title={item.name}
                       style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
                       className="hover:cursor-pointer"
-                      onClick={() => router.push(`/product/${item.id}`)}>
+                      onClick={() => router.push(`/product/${item.slug}`)}>
                       {item.name}
                     </span>
                   </TableCell>

@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getProductById } from '@apis/productApi';
+import { getProductBySlug } from '@apis/productApi';
 import { Rating, Icon } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
 import Image from 'next/image';
@@ -25,7 +25,7 @@ import { getWishlistByCustomer } from '@apis/wishlistApi';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
-  const { id: productId } = router.query;
+  const { slug: productSlug } = router.query;
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
 
   const dispatch = useAppDispatch();
@@ -38,17 +38,15 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { mutate: addProductToWishlist } = useAddProductToWishlist();
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
-  const { data: product, isLoading } = useQuery({
-    queryKey: ['product', productId],
-    queryFn: async () => await getProductById(productId).then((result) => result.data),
-  });
+  const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data));
   const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
-
 
   const handleAddProductToCart = () => {
     if (currentUser) {
       try {
-        addProductToCart({ productId: productId, quantity: quantity, cartId: '85b594d5-632c-4801-844f-3ff08b0b73d0' }, {
+        addProductToCart(
+          { productId: product.id, quantity: quantity, cartId: '85b594d5-632c-4801-844f-3ff08b0b73d0' },
+          {
             onSuccess() {
               toast.success(t('cart.add_item_to_cart_successfully'));
             },

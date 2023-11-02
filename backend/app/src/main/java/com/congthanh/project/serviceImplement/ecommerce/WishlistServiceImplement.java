@@ -66,6 +66,7 @@ public class WishlistServiceImplement implements WishlistService {
               .ratingVote(item.get("ratingVote", Integer.class))
               .ratingValue(item.get("ratingValue", Float.class))
               .status(item.get("status", String.class))
+              .slug(item.get("slug", String.class))
               .build();
       listProduct.add(productDTO);
     }

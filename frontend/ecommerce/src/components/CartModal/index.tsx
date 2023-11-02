@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
-import { Done as DoneIcon, Clear as ClearIcon } from '@mui/icons-material';
+import { Done as DoneIcon, Clear as ClearIcon, HighlightOff } from '@mui/icons-material';
 import { useAppSelector } from '@redux/store';
-import { createNewCart, getCartByCustomerId } from '@apis/cartApi';
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { getCartByCustomerId } from '@apis/cartApi';
+import {  useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { Customer } from '@models/CustomerModel';
@@ -14,29 +14,28 @@ import DefaultImage from '@assets/images/default-image.jpg';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import Button from '@components/UI/Button';
 import { useTranslation } from 'next-i18next';
+import { useCreateNewCart } from '@hooks/cart/cartHook';
 
 const CartModal = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
 
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
-  const queryClient = useQueryClient();
+
   const [isCreateCart, setIsCreateCart] = useState(false);
 
-  const { data: listCart } = useQuery(['cart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
-  
-  const { mutate: mutateCreateCart } = useMutation({
-    mutationFn: async (data: CreateCartForm) => await createNewCart(data),
-    onSuccess: () => {
-      toast.success('Create cart successfully');
-      queryClient.invalidateQueries(['cart']);
-      setIsCreateCart(false);
-    },
-  });
+  const { mutate: createNewCart } = useCreateNewCart();
 
-  const { register, handleSubmit } = useForm<CreateCartForm>();
-  const onSubmit: SubmitHandler<CreateCartForm> = (data) => {
-    mutateCreateCart(data);
+  const { data: listCart } = useQuery(['cart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
+
+  const { register, resetField, handleSubmit } = useForm<CreateCartForm>();
+  const onSubmit: SubmitHandler<CreateCartForm> = async (data) => {
+    createNewCart(data, {
+      onSuccess: () => {
+        toast.success(t('cart.create_new_cart_successfully'));
+        setIsCreateCart(false);
+      },
+    });
   };
 
   let countItem = 0;
@@ -56,13 +55,14 @@ const CartModal = () => {
       </div>
       {isCreateCart && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-end">
+          <div className="flex justify-end items-center">
             <div className="border border-gray-400 px-2 py-1 rounded">
-              <input type="text" {...register('name', {})} defaultValue="New cart" placeholder="Enter name" className="focus:outline-none w-[12rem]" />
+              <input type="text" {...register('name', { value: 'New cart' })} defaultValue="New cart" placeholder="Enter cart name" className="focus:outline-none w-[12rem]" />
               <input type="hidden" {...register('customerId', {})} defaultValue={currentUser.userInfo.accountId} />
+              <Icon component={HighlightOff} className='hover:cursor-pointer opacity-80' titleAccess='Clear' onClick={() => resetField('name')} />
             </div>
             <Icon component={ClearIcon} titleAccess="Cancel" className="hover:cursor-pointer" onClick={() => setIsCreateCart(false)} />
-            <button className="mb-2 hover:cursor-pointer" title="Create">
+            <button className="hover:cursor-pointer" title="Create">
               <Icon component={DoneIcon} />
             </button>
           </div>

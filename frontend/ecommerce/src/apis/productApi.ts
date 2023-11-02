@@ -12,7 +12,16 @@ export const getAllProduct = async (page?: number, limit?: number) => {
 
 export const getProductById = async (productId: any) => {
   return await axiosConfig
-    .get(`product/${productId}`)
+    .get(`product/getById/${productId}`)
+    .then((response) => response)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getProductBySlug = async (productSlug: any) => {
+  return await axiosConfig
+    .get(`product/getBySlug/${productSlug}`)
     .then((response) => response)
     .catch((error) => {
       throw error;

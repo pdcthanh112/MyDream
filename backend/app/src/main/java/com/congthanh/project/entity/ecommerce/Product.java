@@ -40,6 +40,7 @@ public class Product {
 
   private int sold;
 
+  @Column(length = 1500)
   private String image;
 
   @Column(name = "rating_vote")

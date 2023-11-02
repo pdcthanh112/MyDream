@@ -32,7 +32,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
       <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} />
 
       <div className="ml-3 col-span-6">
-        <span className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.product.id}`)}>
+        <span className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.product.slug}`)}>
           {item.product.name}
         </span>
       </div>

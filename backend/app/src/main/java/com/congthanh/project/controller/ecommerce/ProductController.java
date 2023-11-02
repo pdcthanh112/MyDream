@@ -37,10 +37,17 @@ public class ProductController {
     return ResponseEntity.ok().body(response);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/getById/{id}")
   @PermitAll
   public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") String id) {
     ProductDTO response = productService.getProductById(id);
+    return ResponseEntity.ok().body(response);
+  }
+
+  @GetMapping("/getBySlug/{slug}")
+  @PermitAll
+  public ResponseEntity<ProductDTO> getProductBySlug(@PathVariable("slug") String slug) {
+    ProductDTO response = productService.getProductBySlug(slug);
     return ResponseEntity.ok().body(response);
   }
 
