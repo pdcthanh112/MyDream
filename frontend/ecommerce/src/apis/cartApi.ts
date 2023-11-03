@@ -13,6 +13,15 @@ export const createNewCart = async (data: CreateCartForm) => {
     });
 };
 
+export const deleteCart = async (cartId: String) => {
+  return await axiosConfig
+    .delete(`cart/${cartId}`)
+    .then((response) => response)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getCartById = async (id: any) => {
   return await axiosConfig
     .get(`cart/${id}`)

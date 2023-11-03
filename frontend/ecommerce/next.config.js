@@ -40,11 +40,6 @@ module.exports = {
   images: {
     domains: [
       'https://firebasestorage.googleapis.com/v0/b/congthanh-project.appspot.com/',
-    ],
-    // loaderFile: './src/assets/images',
-    
+    ],    
   },
-  // typescript: {
-  //   ignoreBuildErrors: true
-  // }
 };

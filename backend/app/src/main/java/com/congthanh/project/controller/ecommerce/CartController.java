@@ -57,6 +57,7 @@ public class CartController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Response<String>> deleteCart(@PathVariable String id) {
     Response<String> response = new Response<>();
+    cartService.deleteCart((id));
     response.setData(null);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Delete successfully");

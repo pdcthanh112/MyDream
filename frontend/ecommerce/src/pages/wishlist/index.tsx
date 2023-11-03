@@ -47,15 +47,14 @@ const Wishlist: NextPage = (): React.ReactElement => {
   const handleRemoveFromWishlist = async (productId: string) => {
     try {
       removeProductFromWishlist({ customerId: currentUser.userInfo.accountId, productId: productId }, {
-          onSuccess() {
-            toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
-          },
-          onError(error) {
-            toast.error(t('wishlist.remove_item_from_wishlist_failed'));
-            console.log(error);
-          },
+        onSuccess() {
+          toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
         },
-      );
+        onError(error) {
+          toast.error(t('wishlist.remove_item_from_wishlist_failed'));
+          console.log(error);
+        },
+      });
     } catch (error) {
       toast.error(t('wishlist.remove_item_from_wishlist_failed'));
     }
