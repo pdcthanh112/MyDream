@@ -1,2 +1,9 @@
-package com.congthanh.project.customRepository;public interface StoreCustomRepository {
+package com.congthanh.project.customRepository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StoreCustomRepository {
+
+    boolean createStore();
 }

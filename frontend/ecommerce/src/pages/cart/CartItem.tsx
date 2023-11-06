@@ -29,7 +29,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
 
   return (
     <div className=" items-center border border-gray-600 rounded my-2 grid grid-cols-12">
-      <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} />
+      <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} height={120} />
 
       <div className="ml-3 col-span-6">
         <span className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.product.slug}`)}>
@@ -70,7 +70,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
       </div>
       <div className="col-span-1 flex justify-end">
         <Popconfirm title="Delete cart item" description="Are you sure to delete this item?" onConfirm={() => handleDeleteCartItem(item.id)} okText="Yes" cancelText="No">
-          <Icon component={Delete} className="hover:cursor-pointer opacity-50 hover:opacity-100 mr-3" />
+          <Icon component={Delete} className="hover:cursor-pointer opacity-50 hover:opacity-80 mr-3" />
         </Popconfirm>
       </div>
     </div>

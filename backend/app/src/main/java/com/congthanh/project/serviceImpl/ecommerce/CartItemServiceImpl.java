@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class CartItemServiceImplement implements CartItemService {
+public class CartItemServiceImpl implements CartItemService {
 
   @Autowired
   private CartItemRepository cartItemRepository;

@@ -2,7 +2,6 @@ package com.congthanh.project.repository.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.entity.ecommerce.Cart;
-import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

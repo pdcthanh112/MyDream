@@ -36,6 +36,10 @@ public class Product {
 
   private float price;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "store", nullable = true)
+  private Store store;
+
   private String production;
 
   private int sold;
@@ -65,4 +69,5 @@ public class Product {
   @JsonIgnore
   @JsonBackReference
   private Set<Wishlist> wishlist;
+
 }

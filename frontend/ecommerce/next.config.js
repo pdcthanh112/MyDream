@@ -38,8 +38,20 @@ module.exports = {
     return config;
   },
   images: {
-    domains: [
-      'https://firebasestorage.googleapis.com/v0/b/congthanh-project.appspot.com/',
-    ],    
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: 'firebasestorage.googleapis.com',
+    //     port: '',
+    //     pathname: '/ecommerce/product/**',
+    //   },
+    // ],   
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+    domains: ['firebasestorage.googleapis.com', '*']
   },
 };

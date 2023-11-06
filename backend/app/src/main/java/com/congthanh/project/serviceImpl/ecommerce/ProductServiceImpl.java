@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImplement implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private ProductRepository productRepository;

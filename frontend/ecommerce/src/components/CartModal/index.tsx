@@ -95,7 +95,7 @@ const CartModal = () => {
                 handleDeleteCart(cart.id);
               }}
               placement="topRight">
-              <Icon component={Delete} fontSize="small" titleAccess="Delete cart" className="hover:cursor-pointer" />
+              <Icon component={Delete} fontSize="small" className="opacity-50 hover:opacity-80 hover:cursor-pointer" titleAccess="Delete cart" />
             </Popconfirm>
           </div>
           {cart.cartItems?.length > 0 ? (
@@ -109,7 +109,7 @@ const CartModal = () => {
                     title={item.product.name}
                     onClick={() => router.push(`product/${item.product.id}`)}>
                     <span className="flex items-center">
-                      <Image src={item.product.image || DefaultImage} alt="" width={40} className="border border-gray-300" />
+                      <Image src={item.product.image || DefaultImage} alt="" width={40} height={40} className="border border-gray-300" />
                       <h4 className="truncate ml-2 w-56">{item.product.name}</h4>
                     </span>
                     <span className="text-yellow-500">${item.product.price}</span>

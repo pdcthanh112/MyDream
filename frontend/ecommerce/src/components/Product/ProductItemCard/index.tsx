@@ -88,8 +88,10 @@ const ProductItemCard = ({ product }: ProductProps) => {
 
   return (
     <Card key={product.id} className=" bg-white z-30 p-3 text-sm hover:cursor-pointer">
-      <div className="w-full h-auto flex items-center justify-center relative group">
-        <Image src={product.image || Daisy} alt="Product image" width={220} />
+      <div className="w-full flex items-center justify-center relative group">
+        <div className="h-80">
+          <Image src={product.image || Daisy} alt="Product image" width={220} height={400} />
+        </div>
         <ul className="w-full h-36 bg-gray-100 absolute -bottom-36 flex flex-col items-end justify-center gap-2 font-semibold px-2 border-l border-r group-hover:bottom-0 duration-700">
           <li className="productLi" title={t('common.add_to_cart')} onClick={() => handleAddToCart(product.id)}>
             {t('common.add_to_cart')}

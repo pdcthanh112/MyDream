@@ -50,6 +50,7 @@ export default function ChangeLanguage() {
             {languageData.map((item) => (
               <>
                 <FormControlLabel
+                  key={item.key}
                   value={item.key}
                   control={<Radio size="small" />}
                   label={

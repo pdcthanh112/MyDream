@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class WishlistServiceImplement implements WishlistService {
+public class WishlistServiceImpl implements WishlistService {
 
   @Autowired
   private WishlistRepository wishlistRepository;

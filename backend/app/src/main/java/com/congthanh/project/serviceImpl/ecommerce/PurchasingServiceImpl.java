@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class PurchasingServiceImplement implements PurchasingService {
+public class PurchasingServiceImpl implements PurchasingService {
 
   @Autowired
   private CartRepository cartRepository;

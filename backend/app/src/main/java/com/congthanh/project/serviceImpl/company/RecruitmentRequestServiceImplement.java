@@ -1,4 +1,4 @@
-package com.congthanh.project.serviceImplement.company;
+package com.congthanh.project.serviceImpl.company;
 
 import com.congthanh.project.dto.company.RecruitmentRequestDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;

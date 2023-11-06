@@ -116,7 +116,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     <div className="w-[80%] mx-auto my-3">
       <div className="bg-white flex">
         <div className="w-[40%] justify-center flex py-3">
-          <Image src={product.image || Daisy} width={300} alt="Product image" />
+          <Image src={product.image || Daisy} alt="Product image" width={300} height={800} />
         </div>
         <div className="w-[60%] p-3">
           <h1 className="font-medium text-2xl">{product.name}</h1>

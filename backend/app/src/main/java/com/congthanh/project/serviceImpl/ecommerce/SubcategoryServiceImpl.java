@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SubcategoryServiceImplement implements SubcategoryService {
+public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Autowired
     private SubcategoryRepository subcategoryRepository;

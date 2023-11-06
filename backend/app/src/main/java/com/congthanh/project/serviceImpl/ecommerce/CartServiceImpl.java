@@ -14,7 +14,7 @@ import java.util.*;
 
 
 @Service
-public class CartServiceImplement implements CartService {
+public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartRepository cartRepository;

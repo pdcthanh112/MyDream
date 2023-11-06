@@ -1,4 +1,4 @@
-package com.congthanh.project.serviceImplement.management;
+package com.congthanh.project.serviceImpl.management;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.management.DepartmentDTO;
