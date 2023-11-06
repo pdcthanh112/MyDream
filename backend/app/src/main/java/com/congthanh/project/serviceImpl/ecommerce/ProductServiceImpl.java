@@ -1,4 +1,4 @@
-package com.congthanh.project.serviceImplement.ecommerce;
+package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
@@ -54,6 +54,7 @@ public class ProductServiceImplement implements ProductService {
                   .ratingVote(product.getRatingVote())
                   .ratingValue(product.getRatingValue())
                   .production(product.getProduction())
+                  .store(product.getStore().getId())
                   .image(product.getImage())
                   .description(product.getDescription())
                   .sold(product.getSold())
@@ -81,6 +82,7 @@ public class ProductServiceImplement implements ProductService {
                 .ratingVote(product.getRatingVote())
                 .ratingValue(product.getRatingValue())
                 .production(product.getProduction())
+                .store(product.getStore().getId())
                 .image(product.getImage())
                 .description(product.getDescription())
                 .sold(product.getSold())
@@ -106,6 +108,7 @@ public class ProductServiceImplement implements ProductService {
             .production(product.getProduction())
             .image(product.getImage())
             .description(product.getDescription())
+            .store(product.getStore().getId())
             .sold(product.getSold())
             .status(product.getStatus())
             .build();
@@ -127,6 +130,7 @@ public class ProductServiceImplement implements ProductService {
             .production(product.getProduction())
             .image(product.getImage())
             .description(product.getDescription())
+            .store(product.getStore().getId())
             .sold(product.getSold())
             .status(product.getStatus())
             .build();
@@ -209,6 +213,8 @@ public class ProductServiceImplement implements ProductService {
                 .ratingVote(product.getRatingVote())
                 .ratingValue(product.getRatingValue())
                 .production(product.getProduction())
+                .slug(product.getSlug())
+                .store(product.getStore().getId())
                 .image(product.getImage())
                 .description(product.getDescription())
                 .sold(product.getSold())
@@ -241,6 +247,8 @@ public class ProductServiceImplement implements ProductService {
                 .ratingVote(product.getRatingVote())
                 .ratingValue(product.getRatingValue())
                 .production(product.getProduction())
+                .slug(product.getSlug())
+                .store(product.getStore().getId())
                 .image(product.getImage())
                 .description(product.getDescription())
                 .sold(product.getSold())

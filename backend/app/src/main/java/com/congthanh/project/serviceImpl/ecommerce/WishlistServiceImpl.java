@@ -1,4 +1,4 @@
-package com.congthanh.project.serviceImplement.ecommerce;
+package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.ecommerce.WishlistDTO;
