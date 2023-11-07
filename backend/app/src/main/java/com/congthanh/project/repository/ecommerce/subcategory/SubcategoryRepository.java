@@ -1,4 +1,4 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.subcategory;
 
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import jakarta.persistence.Tuple;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface SubcategoryRepository extends JpaRepository<Subcategory, Integer> {
+public interface SubcategoryRepository extends JpaRepository<Subcategory, Integer>, SubcategoryCustomRepository {
 
   Optional<Subcategory> findById(int id);
 

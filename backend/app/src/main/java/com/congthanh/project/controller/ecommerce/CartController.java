@@ -4,7 +4,7 @@ import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CartDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.entity.ecommerce.Cart;
-import com.congthanh.project.repository.ecommerce.CartRepository;
+import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.service.ecommerce.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

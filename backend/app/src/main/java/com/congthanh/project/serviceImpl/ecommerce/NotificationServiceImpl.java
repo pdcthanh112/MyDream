@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.NotificationDTO;
 import com.congthanh.project.entity.ecommerce.Notification;
-import com.congthanh.project.repository.ecommerce.NotificationRepository;
+import com.congthanh.project.repository.ecommerce.notification.NotificationRepository;
 import com.congthanh.project.service.ecommerce.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

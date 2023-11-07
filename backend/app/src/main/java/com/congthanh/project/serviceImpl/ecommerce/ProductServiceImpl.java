@@ -6,9 +6,9 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Subcategory;
-import com.congthanh.project.repository.ecommerce.CategoryRepository;
-import com.congthanh.project.repository.ecommerce.ProductRepository;
-import com.congthanh.project.repository.ecommerce.SubcategoryRepository;
+import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
+import com.congthanh.project.repository.ecommerce.product.ProductRepository;
+import com.congthanh.project.repository.ecommerce.subcategory.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
 import com.congthanh.project.utils.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -265,7 +265,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public List<ProductDTO> searchProduct(String keyword) {
-    List<Product> data = productRepository.searchProduct("%" + keyword + "%");
+    List<Product> data = productRepository.searchProduct(keyword);
     System.out.println("CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK" + data);
 
     if (data.size() > 0) {

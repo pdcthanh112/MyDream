@@ -1,10 +1,9 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.product;
 
 import com.congthanh.project.entity.ecommerce.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

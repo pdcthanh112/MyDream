@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -69,5 +70,9 @@ public class Product {
   @JsonIgnore
   @JsonBackReference
   private Set<Wishlist> wishlist;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private List<OrderDetail> orderDetail;
 
 }

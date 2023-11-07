@@ -3,15 +3,13 @@ package com.congthanh.project.serviceImpl.ecommerce;
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
-import com.congthanh.project.repository.ecommerce.CartItemRepository;
-import com.congthanh.project.repository.ecommerce.CartRepository;
-import com.congthanh.project.repository.ecommerce.ProductRepository;
+import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
+import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.service.ecommerce.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -21,9 +19,6 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartItemRepository cartItemRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Override
     public CartDTO getCartById(String id) {

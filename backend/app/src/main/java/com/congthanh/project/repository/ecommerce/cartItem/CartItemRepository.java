@@ -1,4 +1,4 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.cartItem;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.entity.ecommerce.CartItem;

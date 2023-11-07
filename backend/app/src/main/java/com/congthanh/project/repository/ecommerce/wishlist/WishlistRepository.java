@@ -1,4 +1,4 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.wishlist;
 
 import com.congthanh.project.entity.ecommerce.Wishlist;
 import jakarta.persistence.Tuple;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
+public interface WishlistRepository extends JpaRepository<Wishlist, Integer>, WishlistCustomRepository {
 
   @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, sold, rating_vote as ratingVote, rating_value as ratingValue, product.status, category.name as category, subcategory.name as subcategory, production, slug\n" +
           "FROM wishlist JOIN wishlist_product ON wishlist.id = wishlist_product.wishlist_id\n" +

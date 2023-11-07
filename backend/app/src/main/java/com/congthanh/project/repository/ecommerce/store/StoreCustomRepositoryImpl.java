@@ -1,4 +1,4 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.store;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;

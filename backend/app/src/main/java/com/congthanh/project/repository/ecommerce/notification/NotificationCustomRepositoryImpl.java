@@ -1,2 +1,4 @@
-package com.congthanh.project.repository.ecommerce.notification;public class NotificationCustomRepositoryImpl {
+package com.congthanh.project.repository.ecommerce.notification;
+
+public class NotificationCustomRepositoryImpl implements NotificationCustomRepository{
 }

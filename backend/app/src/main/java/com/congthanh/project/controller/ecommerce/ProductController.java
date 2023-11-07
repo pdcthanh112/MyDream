@@ -5,7 +5,7 @@ import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.Response;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
-import com.congthanh.project.repository.ecommerce.ProductRepository;
+import com.congthanh.project.repository.ecommerce.product.ProductRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;

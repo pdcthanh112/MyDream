@@ -1,4 +1,4 @@
-package com.congthanh.project.repository.ecommerce;
+package com.congthanh.project.repository.ecommerce.category;
 
 import com.congthanh.project.entity.ecommerce.Category;
 import jakarta.transaction.Transactional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Integer>, CategoryCustomRepository {
 
   Optional<Category> findById(int id);
 
