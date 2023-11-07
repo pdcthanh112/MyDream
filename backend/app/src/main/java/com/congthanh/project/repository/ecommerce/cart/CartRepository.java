@@ -2,6 +2,7 @@ package com.congthanh.project.repository.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.entity.ecommerce.Cart;
+import com.congthanh.project.repository.ecommerce.cartItem.CartItemCustomRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface CartRepository extends JpaRepository<Cart, String> {
+public interface CartRepository extends JpaRepository<Cart, String>, CartItemCustomRepository {
 
   Optional<Cart> findById(String id);
 
