@@ -27,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, String>, Produ
 
   Page<Product> findByCategoryId(int categoryId, Pageable pageable);
 
-  Page<Product> findBySubcategoryId(int categoryId, Pageable pageable);
+  Page<Product> findBySubcategoryId(int subcategoryId, Pageable pageable);
 
   @Modifying
   @Query(nativeQuery = true, value = "UPDATE mydream.product SET status = 'Deleted' WHERE id = ?1 ")

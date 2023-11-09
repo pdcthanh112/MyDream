@@ -45,8 +45,7 @@ const Home: NextPage = (): React.ReactElement => {
   });
 
   return (
-    <div>
-      <div className="bg-red-500 w-full text-red-500">a</div>
+    <React.Fragment>
       <Banner />
       <div className="mx-auto mt-3 w-[80%] ">
         <ShowListProduct listProduct={listProduct} loading={isLoading} />
@@ -60,7 +59,7 @@ const Home: NextPage = (): React.ReactElement => {
           />
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

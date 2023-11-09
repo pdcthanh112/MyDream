@@ -84,7 +84,7 @@ const Wishlist: NextPage = (): React.ReactElement => {
               {wishlist.product.map((item: Product) => (
                 <TableRow key={item.id}>
                   <TableCell component="th" scope="row" style={{ display: 'flex' }}>
-                    <Image src={item.image || DefaultImage} alt="Product image" width={100} loading="lazy" />
+                    <Image src={item.image || DefaultImage} alt="Product image" width={100} height={100} loading="lazy" />
                     <span
                       title={item.name}
                       style={{ display: 'flex', alignItems: 'center', marginLeft: 20 }}
@@ -137,7 +137,7 @@ const EmptyWishlist = () => {
   return (
     <div style={{ width: '250%' }}>
       <div className="flex justify-center">
-        <Image src={EmptyWishlistImage} alt={'Empty wishlist'} width={300} />
+        <Image src={EmptyWishlistImage} alt={'Empty wishlist'} width={300} height={300}/>
       </div>
 
       <h6 className="flex justify-center hover:cursor-pointer hover:underline" onClick={() => router.push('/')}>

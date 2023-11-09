@@ -22,7 +22,6 @@ const HeaderComponent = styled.header`
 const BodyComponent = styled.main`
   width: 100%;
   min-height: 80vh;
-  display: inline-flex;
 `;
 
 const FooterComponent = styled.footer`

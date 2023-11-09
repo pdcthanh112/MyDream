@@ -19,4 +19,6 @@ public class StoreDTO {
 
     private String background;
 
+    private String domain;
+
 }

@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store, String>, StoreCustomRepository {
 
     Optional<Store> findById(String id);
+
 }

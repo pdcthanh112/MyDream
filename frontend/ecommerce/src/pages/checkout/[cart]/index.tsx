@@ -39,7 +39,7 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
 
 export default function Checkout(): React.ReactElement {
 
-  const currentUser = useAppSelector((state) => state.auth.login.currentUser);
+  const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const param = useParams();
   const cartId = param?.cart;
@@ -109,8 +109,8 @@ export default function Checkout(): React.ReactElement {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div className="bg-white w-full ">
-          <div className="w-[80%] mx-auto mt-5 flex justify-between">
+        <div className="bg-white">
+          <div className="w-[80%] mx-auto flex justify-between">
             <div className="border border-gray-400 rounded-md w-[70%] px-4 py-5">
               <h4 className="font-medium text-xl my-3">Checkout information</h4>
               <form onSubmit={handleSubmit(onSubmit)}>

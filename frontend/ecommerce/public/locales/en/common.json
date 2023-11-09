@@ -40,7 +40,9 @@
     "back": "Back",
     "yes": "Yes",
     "no": "No",
-    "back_to_home": "Back to Home"
+    "back_to_home": "Back to Home",
+    "contact": "Contact",
+    "follow": "Follow"
   },
   "header": {
     "your_shopping": "Your shopping",
@@ -124,5 +126,8 @@
     "remove_item_from_wishlist_successfully": "Remove item successfully",
     "remove_item_from_wishlist_failed": "Remove item failed",
     "item_already_exists_in_wishlist": "Item already exists in wishlist"
+  },
+  "store": {
+    "view_store": "View store"
   }
 }

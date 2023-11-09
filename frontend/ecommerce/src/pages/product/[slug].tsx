@@ -1,11 +1,11 @@
 'use client';
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getProductBySlug } from '@apis/productApi';
-import { Rating, Icon } from '@mui/material';
-import { Add as AddIcon, Remove as MinusIcon } from '@mui/icons-material';
+import { Rating, Icon, Avatar } from '@mui/material';
+import { Add as AddIcon, Remove as MinusIcon, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
 import Daisy from '@assets/images/daisy1.jpg';
 import { roundNumber } from '@utils/helper';
@@ -22,6 +22,9 @@ import { HeartEmpty, HeartFull } from '@assets/icons';
 import { toast } from 'react-toastify';
 import { useAddProductToCart } from '@hooks/cart/cartHook';
 import { getWishlistByCustomer } from '@apis/wishlistApi';
+import { Store } from '@models/StoreModel';
+import { getStoreById } from '@apis/storeApi';
+import Link from 'next/link';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
@@ -32,6 +35,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
 
   const [quantity, setQuantity] = useState(1);
+  const [store, setStore] = useState<Store>();
 
   const { mutate: addProductToCart } = useAddProductToCart();
 
@@ -39,7 +43,19 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
   const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data));
-  const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
+  const { data: wishlist } = useQuery<Wishlist>(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
+
+  useEffect(() => {
+    if (!isLoading && product) {
+      const fetchData = async () => {
+        const response = await getStoreById(product.store);
+        if (response) {
+          setStore(response.data);
+        }
+      };
+      fetchData();
+    }
+  }, [isLoading]);
 
   const handleAddProductToCart = () => {
     if (currentUser) {
@@ -134,7 +150,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </span>
             </div>
             <div>
-              {wishlist?.product.find((item: Wishlist) => item.id === product.id) === undefined ? (
+              {wishlist?.product.find((item) => item.id === product.id) === undefined ? (
                 <span className="hover:cursor-pointer" title={t('common.add_to_wishlist')} onClick={() => handleAddToWishlist(product.id)}>
                   <Icon component={HeartEmpty} sx={{ color: 'red' }} />
                 </span>
@@ -181,6 +197,25 @@ const ProductDetail: NextPage = (): React.ReactElement => {
             </Button>
           </div>
         </div>
+      </div>
+      <div className="bg-white mt-10 p-5 flex">
+        <div className="w-[35%] flex">
+          <Avatar src={store?.avatar} alt="Store Avatar" style={{ width: '6rem', height: '6rem' }} />
+          <div className="w-full ml-3">
+            <h3 className="mb-2">{store?.name}</h3>
+            <div className="flex">
+              <Button className=" bg-yellow-100 border-solid border-2 border-yellow-300 text-yellow-400 mr-3">
+                <Icon component={ForumOutlined} />
+                <span>{t('common.contact')}</span>
+              </Button>
+              <Link href={`/store/${store?.id}`} className=" border-solid border-2 border-gray-300 flex items-center px-2">
+                <Icon component={Storefront} />
+                <span>{t('store.view_store')}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="bg-red-400 w-[65%]">asdfasjl</div>
       </div>
       <div className="bg-white mt-10 p-5">
         <h2 className="bg-yellow-100 px-2 py-1 rounded-sm">{t('product.product_detail').toUpperCase()}</h2>

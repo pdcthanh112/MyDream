@@ -20,13 +20,15 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    String name;
+    private String name;
 
     @Column(length = 1500)
-    String avatar;
+    private String avatar;
 
     @Column(length = 1500)
-    String background;
+    private String background;
+
+    private String domain;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
