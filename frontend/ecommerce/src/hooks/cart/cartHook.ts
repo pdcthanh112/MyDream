@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AddToCartForm, CreateCartForm, UpdateCartItemForm } from '@models/CartModel';
-import { addProductToCart, createNewCart, deleteCart, deleteCartItem, updateCartItem } from '@apis/cartApi';
+import { addProductToCart, createNewCart, deleteCart, deleteCartItem, updateCartItem } from 'api/cartApi';
 
 export const useCreateNewCart = () => {
   const queryClient = useQueryClient();

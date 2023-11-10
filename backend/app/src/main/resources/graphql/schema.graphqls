@@ -23,6 +23,7 @@ type Product {
     ratingValue: Float
     status: String
     slug: String
+    store: Store
 }
 
 type Category {
@@ -34,6 +35,14 @@ type Subcategory {
     id: ID!
     name: String!
     category: Category
+}
+
+type Store {
+    id: ID!
+    name: String!
+    avatar: String
+    background: String
+    domain: String
 }
 
 type Cart {

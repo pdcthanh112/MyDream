@@ -1,4 +1,4 @@
-import { getHistoryByCustomer } from '@apis/purchasingApi';
+import { getHistoryByCustomer } from 'api/purchasingApi';
 import { CheckoutForm } from '@models/CheckoutModel';
 import { Customer } from '@models/CustomerModel';
 import { useAppSelector } from '@redux/store';

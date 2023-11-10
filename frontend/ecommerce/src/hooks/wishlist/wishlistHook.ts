@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addProductToWishlist, removeProductFromWishlist } from '@apis/wishlistApi';
+import { addProductToWishlist, removeProductFromWishlist } from 'api/wishlistApi';
 
 export const useAddProductToWishlist = () => {
   const queryClient = useQueryClient();

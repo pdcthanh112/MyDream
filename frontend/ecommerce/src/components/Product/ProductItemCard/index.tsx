@@ -14,7 +14,7 @@ import { Customer } from '@models/CustomerModel';
 import { toast } from 'react-toastify';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
-import { getWishlistByCustomer } from '@apis/wishlistApi';
+import { getWishlistByCustomer } from 'api/wishlistApi';
 import { Wishlist } from '@models/WishlistModel';
 
 interface ProductProps {

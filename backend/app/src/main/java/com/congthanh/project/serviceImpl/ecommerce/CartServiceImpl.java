@@ -3,6 +3,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.service.ecommerce.CartService;
@@ -22,7 +23,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartDTO getCartById(String id) {
-        Cart cart = cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart NOT FOUND"));
+        Cart cart = cartRepository.findById(id).orElseThrow(() -> new NotFoundException("Cart NOT FOUND"));
 
         CartDTO result = new CartDTO();
         result.setId(cart.getId());
@@ -138,7 +139,7 @@ public class CartServiceImpl implements CartService {
             cartRepository.deleteById(cartId);
             return true;
         } catch (Exception e) {
-            throw new RuntimeException("id khong ton tai");
+            throw new NotFoundException("id khong ton tai");
         }
     }
 

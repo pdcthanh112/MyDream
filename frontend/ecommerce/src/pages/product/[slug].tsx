@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getProductBySlug } from '@apis/productApi';
+import { getProductBySlug } from 'api/productApi';
 import { Rating, Icon, Avatar } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
@@ -21,9 +21,9 @@ import { openModalAuth } from '@redux/features/modalAuth';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { toast } from 'react-toastify';
 import { useAddProductToCart } from '@hooks/cart/cartHook';
-import { getWishlistByCustomer } from '@apis/wishlistApi';
+import { getWishlistByCustomer } from 'api/wishlistApi';
 import { Store } from '@models/StoreModel';
-import { getStoreById } from '@apis/storeApi';
+import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 
 const ProductDetail: NextPage = (): React.ReactElement => {

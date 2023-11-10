@@ -1,5 +1,6 @@
 package com.congthanh.project.dto.ecommerce;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ public class CategoryDTO {
 
   private int id;
 
+  @NotNull
   private String name;
 
 }

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useQuery } from '@tanstack/react-query';
-import { getCartByCustomerId } from '@apis/cartApi';
+import { getCartByCustomerId } from 'api/cartApi';
 import CartItem from './CartItem';
 import { Card, Icon } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';

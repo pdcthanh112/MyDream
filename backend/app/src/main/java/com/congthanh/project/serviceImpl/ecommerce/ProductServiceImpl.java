@@ -6,6 +6,7 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Subcategory;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.product.ProductRepository;
 import com.congthanh.project.repository.ecommerce.subcategory.SubcategoryRepository;
@@ -95,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public ProductDTO getProductById(String id) {
-    Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found"));
     ProductDTO response = ProductDTO.builder()
             .id(product.getId())
             .name(product.getName())
@@ -117,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public ProductDTO getProductBySlug(String slug) {
-    Product product = productRepository.findProductBySlug(slug).orElseThrow(() -> new RuntimeException("Product not found"));
+    Product product = productRepository.findProductBySlug(slug).orElseThrow(() -> new NotFoundException("Product not found"));
     ProductDTO response = ProductDTO.builder()
             .id(product.getId())
             .name(product.getName())
@@ -186,7 +187,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public boolean deleteProduct(String id) {
-    Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found"));
     if (product.getStatus().equalsIgnoreCase(StateStatus.STATUS_DELETED)) {
       throw new RuntimeException("Product have deleted before");
     } else {

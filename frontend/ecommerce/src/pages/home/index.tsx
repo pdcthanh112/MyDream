@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
-import { getAllProduct } from '@apis/productApi';
+import { getAllProduct } from 'api/productApi';
 import ShowListProduct from '@components/Product/ShowListProduct';
 import Pagination from '@components/Pagination';
 import { useTranslation } from 'next-i18next';

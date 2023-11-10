@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
 import { Done as DoneIcon, Clear as ClearIcon, HighlightOff, Delete } from '@mui/icons-material';
 import { useAppSelector } from '@redux/store';
-import { getCartByCustomerId } from '@apis/cartApi';
+import { getCartByCustomerId } from 'api/cartApi';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';

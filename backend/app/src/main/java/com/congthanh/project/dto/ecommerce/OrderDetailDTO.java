@@ -1,5 +1,6 @@
 package com.congthanh.project.dto.ecommerce;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class OrderDetailDTO {
 
     private int quantity;
 
+    @NotNull
     private String product;
 
     private float subtotal;

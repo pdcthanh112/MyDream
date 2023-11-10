@@ -1,6 +1,6 @@
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
-import { getNotificationByCustomer } from '@apis/notificationApi';
+import { getNotificationByCustomer } from 'api/notificationApi';
 import Link from 'next/link';
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';

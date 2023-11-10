@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { getCartById } from '@apis/cartApi';
+import { getCartById } from 'api/cartApi';
 import { useAppSelector } from '@redux/store';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';

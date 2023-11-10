@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getProductFromStore, getStoreById } from '@apis/storeApi';
+import { getProductFromStore, getStoreById } from 'api/storeApi';
 import { useRouter } from 'next/router';
 import { Product } from '@models/ProductModel';
 import { PaginationParams } from '@models/Request';

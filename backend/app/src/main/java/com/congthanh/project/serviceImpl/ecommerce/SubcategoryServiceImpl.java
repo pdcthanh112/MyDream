@@ -5,6 +5,7 @@ import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Subcategory;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.subcategory.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.SubcategoryService;
@@ -69,7 +70,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
         }
         Optional<Category> category = categoryRepository.findById(categoryId);
         if (category.isEmpty()) {
-            throw new RuntimeException("Category khong ton tai");
+            throw new NotFoundException("Category khong ton tai");
         } else {
             Subcategory subcategory = Subcategory.builder()
                     .name(name)

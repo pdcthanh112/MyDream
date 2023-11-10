@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { put, takeEvery } from 'redux-saga/effects';
-import * as api from '@apis/subcategoryApi';
+import * as api from 'api/subcategoryApi';
 import { fetchSubcategoryFailed, fetchSubcategoryStart, fetchSubcategorySucceeded } from '@redux/reducers/subcategoryReducer';
 import { FETCH_SUBCATEGORY_REQUESTED } from '@redux/actions/name/subcategory';
 

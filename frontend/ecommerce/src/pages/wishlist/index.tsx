@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from '@tanstack/react-query';
-import { getWishlistByCustomer } from '@apis/wishlistApi';
+import { getWishlistByCustomer } from 'api/wishlistApi';
 import EmptyWishlistImage from '@assets/images/empty_wishlist.png';
 import { useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 
