@@ -1,2 +1,9 @@
-package com.congthanh.project.service.ecommerce;public interface ReviewService {
+package com.congthanh.project.service.ecommerce;
+
+
+import java.util.List;
+
+public interface ReviewService {
+
+
 }

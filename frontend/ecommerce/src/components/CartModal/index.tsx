@@ -16,6 +16,7 @@ import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import Button from '@components/UI/Button';
 import { useTranslation } from 'next-i18next';
 import { useCreateNewCart, useDeleteCart } from '@hooks/cart/cartHook';
+import Link from 'next/link';
 
 const CartModal = () => {
   const router = useRouter();
@@ -125,9 +126,9 @@ const CartModal = () => {
 
       <div className="flex justify-between mx-3 my-3">
         <span>{countItem} item(s)</span>
-        <Button className="bg-yellow-400 rounded-xl" onClick={() => router.push('/cart')}>
+        <Link href={'/cart'} className="bg-yellow-400 rounded-xl px-3 py-1">
           {t('cart.view_cart')}
-        </Button>
+        </Link>
       </div>
     </div>
   );

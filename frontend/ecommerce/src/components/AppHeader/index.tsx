@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import './AppHeader.scss';
 import Image from 'next/image';
@@ -20,6 +20,7 @@ import { Customer } from '@models/CustomerModel';
 import { Category } from '@models/CategoryModel';
 import { Notification } from '@models/NotificationModel';
 import { Cart } from '@models/CartModel';
+import Link from 'next/link';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -40,11 +41,13 @@ const AppHeader = () => {
 
   return (
     <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
-      <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" onClick={() => router.push('/')} />
-
+      <Link href={'/'}>
+        <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" />
+      </Link>
+      
       <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
         <span className="bg-gray-300 h-[2.5rem] w-20 rounded-l-md flex justify-center items-center relative group">
-          <span className=''>
+          <span className="">
             {t('common.all')}
             <ArrowDropDownOutlined />
           </span>

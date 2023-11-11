@@ -2,6 +2,7 @@ package com.congthanh.project.repository.ecommerce.store;
 
 import com.congthanh.project.entity.ecommerce.Product;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 public class StoreCustomRepositoryImpl implements StoreCustomRepository {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

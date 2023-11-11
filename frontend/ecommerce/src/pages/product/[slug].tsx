@@ -60,9 +60,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const handleAddProductToCart = () => {
     if (currentUser) {
       try {
-        addProductToCart(
-          { productId: product.id, quantity: quantity, cartId: '85b594d5-632c-4801-844f-3ff08b0b73d0' },
-          {
+        addProductToCart({ productId: product.id, quantity: quantity, cartId: '36c98af9-bee7-4e11-bd19-36426261d727' }, {
             onSuccess() {
               toast.success(t('cart.add_item_to_cart_successfully'));
             },

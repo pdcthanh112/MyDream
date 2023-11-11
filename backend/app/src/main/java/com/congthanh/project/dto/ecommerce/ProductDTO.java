@@ -1,5 +1,6 @@
 package com.congthanh.project.dto.ecommerce;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +22,10 @@ public class ProductDTO {
 
   private String subcategory;
 
+  @Min(value = 0)
   private int quantity;
 
+  @Min(value = 0)
   private float price;
 
   private String production;

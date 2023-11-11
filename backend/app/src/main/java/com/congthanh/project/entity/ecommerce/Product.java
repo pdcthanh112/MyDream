@@ -62,6 +62,10 @@ public class Product {
   @Column(nullable = false, unique = true)
   private String slug;
 
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private List<Review> review;
+
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   @JsonIgnore
   private Set<CartItem> cartItems;

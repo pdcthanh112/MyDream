@@ -5,7 +5,7 @@ import com.congthanh.project.entity.ecommerce.Checkout;
 
 import java.util.List;
 
-public interface PurchasingService {
+public interface OrderService {
 
   CheckoutDTO checkoutCart(Checkout checkout);
 

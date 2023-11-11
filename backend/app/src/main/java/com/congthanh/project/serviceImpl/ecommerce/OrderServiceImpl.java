@@ -10,7 +10,7 @@ import com.congthanh.project.entity.ecommerce.Checkout;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.CheckoutRepository;
-import com.congthanh.project.service.ecommerce.PurchasingService;
+import com.congthanh.project.service.ecommerce.OrderService;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class PurchasingServiceImpl implements PurchasingService {
+public class OrderServiceImpl implements OrderService {
 
   @Autowired
   private CartRepository cartRepository;

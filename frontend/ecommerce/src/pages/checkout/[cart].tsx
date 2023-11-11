@@ -8,13 +8,14 @@ import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { CheckoutForm } from '@models/CheckoutModel';
 import Button from '@components/UI/Button';
-import { Autocomplete, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { Autocomplete, Card, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import { PatternFormat } from 'react-number-format';
 import Image from 'next/image';
 import PaymentCOD from '@assets/icons/payment-cod.png';
 import PaymentVISA from '@assets/icons/payment-visa.png';
 import PaymentMasterCard from '@assets/icons/payment-mastercard.png';
 import PaymentAmex from '@assets/icons/payment-amex.png';
+import PaymentDiscover from '@assets/icons/payment-discover.png';
 import PaymentJCB from '@assets/icons/payment-jcb.png';
 import PaymentPaypal from '@assets/icons/payment-paypal.png';
 import PaymentMomo from '@assets/icons/payment-momo.png';
@@ -96,6 +97,15 @@ export default function Checkout(): React.ReactElement {
     {
       label: (
         <div className="flex items-center">
+          Discover&nbsp;
+          <Image src={PaymentDiscover} alt={''} width={33} />
+        </div>
+      ),
+      value: 'Discover',
+    },
+    {
+      label: (
+        <div className="flex items-center">
           JCB&nbsp;
           <Image src={PaymentJCB} alt={''} width={33} />
         </div>
@@ -109,7 +119,7 @@ export default function Checkout(): React.ReactElement {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div className="bg-white">
+        <div className="bg-white py-3">
           <div className="w-[80%] mx-auto flex justify-between">
             <div className="border border-gray-400 rounded-md w-[70%] px-4 py-5">
               <h4 className="font-medium text-xl my-3">Checkout information</h4>
@@ -209,7 +219,7 @@ export default function Checkout(): React.ReactElement {
                           <div className="flex items-center">
                             <span>COD&nbsp;</span>
                             <span className="hidden md:flex">
-                              <Image src={PaymentCOD} alt={''} width={33} />
+                              <Image src={PaymentCOD} alt={''} width={25} />
                             </span>
                           </div>
                         }
@@ -222,30 +232,15 @@ export default function Checkout(): React.ReactElement {
                           <div className="flex items-center">
                             <span>Credit card&nbsp;</span>
                             <span className="hidden md:flex gap-2">
-                              <Image src={PaymentVISA} alt={''} width={35} />
-                              <Image src={PaymentMasterCard} alt={''} width={35} />
-                              <Image src={PaymentAmex} alt={''} width={35} />
-                              <Image src={PaymentJCB} alt={''} width={35} />
+                              <Image src={PaymentVISA} alt={''} width={25} />
+                              <Image src={PaymentMasterCard} alt={''} width={25} />
+                              <Image src={PaymentAmex} alt={''} width={25} />
+                              <Image src={PaymentDiscover} alt={''} width={25} />
+                              <Image src={PaymentJCB} alt={''} width={25} />
                             </span>
                           </div>
                         }
                         onClick={() => setPickPaymentMethod('Credit card')}
-                      />
-                      <FormControlLabel
-                        value="Debit card"
-                        control={<Radio />}
-                        label={
-                          <div className="flex items-center">
-                            <span>Debit card&nbsp;</span>
-                            <span className="hidden md:flex gap-2">
-                              <Image src={PaymentVISA} alt={''} width={35} />
-                              <Image src={PaymentMasterCard} alt={''} width={35} />
-                              <Image src={PaymentAmex} alt={''} width={35} />
-                              <Image src={PaymentJCB} alt={''} width={35} />
-                            </span>
-                          </div>
-                        }
-                        onClick={() => setPickPaymentMethod('Debit card')}
                       />
                       <FormControlLabel
                         value="Paypal"
@@ -254,7 +249,7 @@ export default function Checkout(): React.ReactElement {
                           <div className="flex items-center">
                             <span>PayPal&nbsp;</span>
                             <span className="hidden md:flex">
-                              <Image src={PaymentPaypal} alt={''} width={55} />
+                              <Image src={PaymentPaypal} alt={''} width={40} />
                             </span>
                           </div>
                         }
@@ -328,7 +323,7 @@ export default function Checkout(): React.ReactElement {
               </form>
             </div>
 
-            <div className="border border-gray-400 rounded-md w-[28%] h-fit px-3 pt-2 pb-5">
+            <Card className="border border-gray-400 rounded-md w-[28%] h-fit px-3 pt-2 pb-5">
               <div className="border-b-2 border-b-gray-300 mb-3">
                 <h4 className="font-medium text-lg">Order detail</h4>
                 <div className="flex justify-between">
@@ -361,7 +356,7 @@ export default function Checkout(): React.ReactElement {
                   </span>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       )}
