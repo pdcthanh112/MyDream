@@ -28,4 +28,6 @@ public class ReviewDTO {
     @NotNull
     private String product;
 
+    private long createdDate;
+
 }
