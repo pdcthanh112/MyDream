@@ -33,8 +33,6 @@ public class CartItemController {
                     .sold(cartItem.getProduct().getSold())
                     .image(cartItem.getProduct().getImage())
                     .description(cartItem.getProduct().getDescription())
-                    .ratingVote(cartItem.getProduct().getRatingVote())
-                    .ratingValue(cartItem.getProduct().getRatingValue())
                     .status(cartItem.getProduct().getStatus())
                     .build())
             .quantity(cartItem.getQuantity())

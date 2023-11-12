@@ -48,12 +48,6 @@ public class Product {
   @Column(length = 1500)
   private String image;
 
-  @Column(name = "rating_vote")
-  private int ratingVote;
-
-  @Column(name = "rating_value")
-  private float ratingValue;
-
   @Column(columnDefinition = "text")
   private String description;
 

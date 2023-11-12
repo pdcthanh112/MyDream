@@ -60,8 +60,6 @@ public class CartItemServiceImpl implements CartItemService {
                     .subcategory(result.getProduct().getSubcategory().getName())
                     .quantity(result.getProduct().getQuantity())
                     .price(result.getProduct().getPrice())
-                    .ratingVote(result.getProduct().getRatingVote())
-                    .ratingValue(result.getProduct().getRatingValue())
                     .production(result.getProduct().getProduction())
                     .image(result.getProduct().getImage())
                     .description(result.getProduct().getDescription())

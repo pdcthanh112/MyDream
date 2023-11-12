@@ -38,10 +38,6 @@ public class ProductDTO {
 
   private String store;
 
-  private int ratingVote;
-
-  private float ratingValue;
-
   private String status;
 
   private String slug;

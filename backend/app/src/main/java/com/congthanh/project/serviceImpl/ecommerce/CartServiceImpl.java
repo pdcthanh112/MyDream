@@ -52,8 +52,7 @@ public class CartServiceImpl implements CartService {
                         .sold(cartItemItem.getProduct().getSold())
                         .image(cartItemItem.getProduct().getImage())
                         .description(cartItemItem.getProduct().getDescription())
-                        .ratingVote(cartItemItem.getProduct().getRatingVote())
-                        .ratingValue(cartItemItem.getProduct().getRatingValue())
+                        .slug(cartItemItem.getProduct().getSlug())
                         .status(cartItemItem.getProduct().getStatus())
                         .build());
                 cartItems.add(cartItemTmp);
@@ -94,8 +93,6 @@ public class CartServiceImpl implements CartService {
                                 .sold(cartItemItem.getProduct().getSold())
                                 .image(cartItemItem.getProduct().getImage())
                                 .description(cartItemItem.getProduct().getDescription())
-                                .ratingVote(cartItemItem.getProduct().getRatingVote())
-                                .ratingValue(cartItemItem.getProduct().getRatingValue())
                                 .status(cartItemItem.getProduct().getStatus())
                                 .slug(cartItemItem.getProduct().getSlug())
                                 .build());

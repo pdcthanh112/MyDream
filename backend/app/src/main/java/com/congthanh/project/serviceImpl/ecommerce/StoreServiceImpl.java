@@ -61,8 +61,6 @@ public class StoreServiceImpl implements StoreService {
                         .subcategory(product.getSubcategory().getName())
                         .quantity(product.getQuantity())
                         .price(product.getPrice())
-                        .ratingVote(product.getRatingVote())
-                        .ratingValue(product.getRatingValue())
                         .production(product.getProduction())
                         .store(product.getStore().getId())
                         .image(product.getImage())

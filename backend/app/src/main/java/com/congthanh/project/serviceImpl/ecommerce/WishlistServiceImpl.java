@@ -63,8 +63,6 @@ public class WishlistServiceImpl implements WishlistService {
               .production(item.get("production", String.class))
               .image(item.get("image", String.class))
               .description(item.get("description", String.class))
-              .ratingVote(item.get("ratingVote", Integer.class))
-              .ratingValue(item.get("ratingValue", Float.class))
               .status(item.get("status", String.class))
               .slug(item.get("slug", String.class))
               .build();

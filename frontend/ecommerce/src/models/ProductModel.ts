@@ -9,8 +9,6 @@ export interface Product {
   production: string;
   sold: number;
   image: string;
-  ratingVote: number;
-  ratingValue: number;
   status: string;
   slug: string;
   store: string;
