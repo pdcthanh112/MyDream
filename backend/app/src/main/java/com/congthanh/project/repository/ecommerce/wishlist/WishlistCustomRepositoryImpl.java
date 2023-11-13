@@ -7,4 +7,5 @@ public class WishlistCustomRepositoryImpl implements WishlistCustomRepository{
 
     @PersistenceContext
     private EntityManager entityManager;
+
 }

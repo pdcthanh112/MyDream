@@ -13,15 +13,14 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository{
 
     @Override
     public RatingStarDTO getReviewStatsFromProduct(String productId) {
-        String sql = "SELECT SUM(rating), AVG(rating) FROM Review  WHERE product.id = :productId";
+        String sql = "SELECT COUNT(rating), AVG(rating) FROM Review  WHERE product.id = :productId";
         Query query = entityManager.createQuery(sql);
         query.setParameter("productId", productId);
         Object[] result = (Object[]) query.getSingleResult();
 
-        int vote = result[0] != null ? (int) result[0] : 0;
-        float value = result[1] != null ? (float) result[1] : 0;
+        Long vote = result[0] != null ? (Long) result[0] : 0;
+        Double value = result[1] != null ? (Double) result[1] : 0;
 
         return new RatingStarDTO(vote, value);
-//        return query.getResultList();
     }
 }

@@ -1,6 +1,7 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ReviewDTO;
+import com.congthanh.project.dto.ecommerce.utils.RatingStarDTO;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Review;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
@@ -32,5 +33,10 @@ public class ReviewServiceImpl implements ReviewService {
                 .createdDate(new Date().getTime())
                 .build();
         return reviewRepository.save(review);
+    }
+
+    @Override
+    public RatingStarDTO getRatingStarOfProduct(String productId) {
+        return reviewRepository.getReviewStatsFromProduct(productId);
     }
 }

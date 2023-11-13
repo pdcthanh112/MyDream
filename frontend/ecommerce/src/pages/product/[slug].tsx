@@ -25,6 +25,7 @@ import { getWishlistByCustomer } from 'api/wishlistApi';
 import { Store } from '@models/StoreModel';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
+import { getRatingStarofProduct } from 'api/reviewApi';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const router = useRouter();
@@ -35,6 +36,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
 
   const [quantity, setQuantity] = useState(1);
+  const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
   const [store, setStore] = useState<Store>();
 
   const { mutate: addProductToCart } = useAddProductToCart();
@@ -46,21 +48,37 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { data: wishlist } = useQuery<Wishlist>(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
   useEffect(() => {
+    const fetchData = async () => {
+      await getRatingStarofProduct(product.id).then((response) => {
+        if (response && response.data) {
+          setRatingStar(response.data);
+        }
+      });
+    };
     if (!isLoading && product) {
-      const fetchData = async () => {
-        const response = await getStoreById(product.store);
+      fetchData();
+    }
+  }, [isLoading, product]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getStoreById(product.store).then((response) => {
         if (response) {
           setStore(response.data);
         }
-      };
+      });
+    };
+    if (!isLoading && product) {
       fetchData();
     }
-  }, [isLoading]);
+  }, [isLoading, product]);
 
   const handleAddProductToCart = () => {
     if (currentUser) {
       try {
-        addProductToCart({ productId: product.id, quantity: quantity, cartId: '36c98af9-bee7-4e11-bd19-36426261d727' }, {
+        addProductToCart(
+          { productId: product.id, quantity: quantity, cartId: '36c98af9-bee7-4e11-bd19-36426261d727' },
+          {
             onSuccess() {
               toast.success(t('cart.add_item_to_cart_successfully'));
             },
@@ -136,11 +154,11 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <h1 className="font-medium text-2xl">{product.name}</h1>
           <div className="flex justify-between">
             <div className="flex items-center">
-              <span className="mr-1">{product.ratingValue}</span>
-              <Rating value={product.ratingValue} precision={0.1} size="small" readOnly />
+              <span className="mr-1">{ratingStar.value.toFixed(1)}</span>
+              <Rating value={ratingStar.value} precision={0.1} size="small" readOnly />
               <span className="opacity-80 mx-2">|</span>
               <span>
-                {roundNumber(product.ratingVote)} {t('product.rating')}
+                {roundNumber(ratingStar.vote)} {t('product.rating')}
               </span>
               <span className="opacity-80 mx-2">|</span>
               <span>

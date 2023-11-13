@@ -14,9 +14,9 @@ import java.util.List;
 @Transactional
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer>, WishlistCustomRepository {
 
-  @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, sold, rating_vote as ratingVote, rating_value as ratingValue, product.status, category.name as category, subcategory.name as subcategory, production, slug\n" +
-          "FROM wishlist JOIN wishlist_product ON wishlist.id = wishlist_product.wishlist_id\n" +
-          "JOIN product ON wishlist_product.product_id = product.id\n" +
+  @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, sold, product.status, category.name as category, subcategory.name as subcategory, production, slug\n" +
+          "FROM wishlist JOIN wishlist_item ON wishlist.id = wishlist_item.wishlist_id\n" +
+          "JOIN product ON wishlist_item.product_id = product.id\n" +
           "JOIN category ON product.category = category.id\n" +
           "JOIN subcategory ON product.subcategory = subcategory.id\n" +
           "WHERE wishlist.customer = ?1")
@@ -26,10 +26,10 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Integer>, Wi
   Tuple checkExistWishlist(String customerId);
 
   @Modifying
-  @Query(nativeQuery = true, value = "INSERT INTO wishlist_product (wishlist_id, product_id) VALUES (?1, ?2)")
+  @Query(nativeQuery = true, value = "INSERT INTO wishlist_item (wishlist_id, product_id) VALUES (?1, ?2)")
   int addProductToWishlist(int wishlistId, String productId);
 
   @Modifying
-  @Query(nativeQuery = true, value = "DELETE FROM wishlist_product WHERE product_id = ?1 AND wishlist_id = (SELECT id FROM wishlist WHERE customer = ?2) ")
+  @Query(nativeQuery = true, value = "DELETE FROM wishlist_item WHERE product_id = ?1 AND wishlist_id = (SELECT id FROM wishlist WHERE customer = ?2) ")
   int removeProductFromWishlist(String productId, String customerId);
 }

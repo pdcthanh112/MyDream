@@ -16,6 +16,8 @@ import { HeartEmpty, HeartFull } from '@assets/icons';
 import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 import { getWishlistByCustomer } from 'api/wishlistApi';
 import { Wishlist } from '@models/WishlistModel';
+import { useEffect, useState } from 'react';
+import { getRatingStarofProduct } from 'api/reviewApi';
 
 interface ProductProps {
   product: Product;
@@ -26,10 +28,23 @@ const ProductItemCard = ({ product }: ProductProps) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
+
+  const [ratingStar, setRatingStar] = useState<{vote: number, value: number}>({vote: 0, value: 0.0})
   const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
   const { mutate: addProductToWishlist } = useAddProductToWishlist();
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getRatingStarofProduct(product.id).then((response) => {
+        if (response && response.data) {
+          setRatingStar(response.data)
+        }
+      })
+    }
+    fetchData();
+  }, [])
 
   const handleAddToCart = (productId: string) => {
     if (currentUser) {
@@ -126,12 +141,12 @@ const ProductItemCard = ({ product }: ProductProps) => {
 
         <div className="flex justify-between">
           <span className="flex items-center">
-            <Rating precision={0.1} value={product.ratingValue} size="small" readOnly />
-            <span className="ml-1">{product.ratingValue.toFixed(1)}</span>
+            <Rating precision={0.1} value={ratingStar.value} size="small" readOnly />
+            <span className="ml-1">{ratingStar.value.toFixed(1)}</span>
           </span>
 
           <span className="mr-1">
-            {roundNumber(product.ratingVote)} {t('product.rating')}
+            {roundNumber(ratingStar.vote)} {t('product.rating')}
           </span>
         </div>
 
