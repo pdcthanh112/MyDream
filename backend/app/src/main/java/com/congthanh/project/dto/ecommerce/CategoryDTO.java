@@ -18,4 +18,6 @@ public class CategoryDTO {
   @NotNull
   private String name;
 
+  private String status;
+
 }

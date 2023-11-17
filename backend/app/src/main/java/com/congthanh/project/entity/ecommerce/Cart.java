@@ -26,10 +26,10 @@ public class Cart {
 
   private String customerId;
 
-  private String status;
-
   @Column(name = "created_date")
   private long createdDate;
+
+  private String status;
 
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<CartItem> cartItems;

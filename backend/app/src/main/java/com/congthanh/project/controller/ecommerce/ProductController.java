@@ -39,24 +39,32 @@ public class ProductController {
 
   @GetMapping("/getById/{id}")
   @PermitAll
-  public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") String id) {
-    ProductDTO response = productService.getProductById(id);
+  public ResponseEntity<Response<ProductDTO>> getProductById(@PathVariable("id") String id) {
+    ProductDTO data = productService.getProductById(id);
+    Response<ProductDTO> response = new Response<>();
+    response.setData(data);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Get by id successfully");
     return ResponseEntity.ok().body(response);
   }
 
   @GetMapping("/getBySlug/{slug}")
   @PermitAll
-  public ResponseEntity<ProductDTO> getProductBySlug(@PathVariable("slug") String slug) {
-    ProductDTO response = productService.getProductBySlug(slug);
+  public ResponseEntity<Response<ProductDTO>> getProductBySlug(@PathVariable("slug") String slug) {
+    ProductDTO data = productService.getProductBySlug(slug);
+    Response<ProductDTO> response = new Response<>();
+    response.setData(data);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Get by slug successfully");
     return ResponseEntity.ok().body(response);
   }
 
   @PostMapping("/create")
   @PermitAll
-  public ResponseEntity<Response<Product>> createProduct(@RequestBody ProductDTO productDTO) {
-    Product product = productService.createProduct(productDTO);
-    Response<Product> response = new Response<>();
-    response.setData(product);
+  public ResponseEntity<Response<ProductDTO>> createProduct(@RequestBody ProductDTO productDTO) {
+    ProductDTO data = productService.createProduct(productDTO);
+    Response<ProductDTO> response = new Response<>();
+    response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Created successfully");
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -14,7 +14,7 @@ public interface ProductService {
 
   ProductDTO getProductBySlug(String slug);
 
-  Product createProduct(ProductDTO productDTO);
+  ProductDTO createProduct(ProductDTO productDTO);
 
   Product updateProduct(ProductDTO productDTO);
 

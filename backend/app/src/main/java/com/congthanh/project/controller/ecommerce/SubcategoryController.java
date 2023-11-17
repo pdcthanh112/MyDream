@@ -38,6 +38,16 @@ public class SubcategoryController {
     return ResponseEntity.ok().body(response);
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<Response<SubcategoryDTO>> getSubcategoryById(@PathVariable("id") int id) {
+    SubcategoryDTO data = subcategoryService.getSubcategoryById(id);
+    Response<SubcategoryDTO> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get by id successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
+
   @PostMapping("/create")
   public ResponseEntity<Response> createSubcategory(@RequestBody Map<String, Object> createSubcategoryModel) {
     String name = (String) createSubcategoryModel.get("name");

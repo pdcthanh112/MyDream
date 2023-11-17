@@ -37,12 +37,22 @@ public class CategoryController {
     return ResponseEntity.ok().body(response);
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<Response<CategoryDTO>> getCategoryById(@PathVariable("id") int id) {
+    CategoryDTO data = categoryService.getCategoryById(id);
+    Response<CategoryDTO> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Get by id successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
+  }
+
   @PostMapping("/create")
   @PermitAll
-  public ResponseEntity<Response> createCategory(@RequestBody CategoryDTO categoryDTO) {
-    Category category = categoryService.createCategory(categoryDTO);
-    Response<Object> response = new Response<>();
-    response.setData(category);
+  public ResponseEntity<Response<CategoryDTO>> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    CategoryDTO data = categoryService.createCategory(categoryDTO);
+    Response<CategoryDTO> response = new Response<>();
+    response.setData(data);
     response.setMessage("Create successfully");
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

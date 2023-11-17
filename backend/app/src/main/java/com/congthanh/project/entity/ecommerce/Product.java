@@ -23,6 +23,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
+  @Column(nullable = false)
   private String name;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -36,6 +37,9 @@ public class Product {
   private int quantity;
 
   private float price;
+
+  @Column(unique = true, name = "SKU")
+  private String SKU;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "store", nullable = true)

@@ -6,6 +6,7 @@ import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.SubcategoryMapper;
 import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.subcategory.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.SubcategoryService;
@@ -32,6 +33,9 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private SubcategoryMapper subcategoryMapper;
 
     @Override
     public Object getAllSubcategory(Integer pageNo, Integer pageSize) {
@@ -60,6 +64,13 @@ public class SubcategoryServiceImpl implements SubcategoryService {
             }
             return result;
         }
+    }
+
+    @Override
+    public SubcategoryDTO getSubcategoryById(int id) {
+        Subcategory subcategory = subcategoryRepository.findById(id).orElseThrow(() -> new NotFoundException("not found"));
+        SubcategoryDTO result = subcategoryMapper.mapSubcategoryEntityToDTO(subcategory);
+        return result;
     }
 
     @Override

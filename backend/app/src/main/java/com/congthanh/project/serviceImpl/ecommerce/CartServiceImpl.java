@@ -4,6 +4,7 @@ import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.service.ecommerce.CartService;
@@ -20,6 +21,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public CartDTO getCartById(String id) {
@@ -41,20 +45,21 @@ public class CartServiceImpl implements CartService {
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
                 cartItemTmp.setCartId(cart.getId());
                 cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
-                cartItemTmp.setProduct(ProductDTO.builder()
-                        .id(cartItemItem.getProduct().getId())
-                        .name(cartItemItem.getProduct().getName())
-                        .category(cartItemItem.getProduct().getCategory().getName())
-                        .subcategory(cartItemItem.getProduct().getSubcategory().getName())
-                        .quantity(cartItemItem.getProduct().getQuantity())
-                        .price(cartItemItem.getProduct().getPrice())
-                        .production(cartItemItem.getProduct().getProduction())
-                        .sold(cartItemItem.getProduct().getSold())
-                        .image(cartItemItem.getProduct().getImage())
-                        .description(cartItemItem.getProduct().getDescription())
-                        .slug(cartItemItem.getProduct().getSlug())
-                        .status(cartItemItem.getProduct().getStatus())
-                        .build());
+                cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
+//                cartItemTmp.setProduct(ProductDTO.builder()
+//                        .id(cartItemItem.getProduct().getId())
+//                        .name(cartItemItem.getProduct().getName())
+//                        .category(cartItemItem.getProduct().getCategory().getName())
+//                        .subcategory(cartItemItem.getProduct().getSubcategory().getName())
+//                        .quantity(cartItemItem.getProduct().getQuantity())
+//                        .price(cartItemItem.getProduct().getPrice())
+//                        .production(cartItemItem.getProduct().getProduction())
+//                        .sold(cartItemItem.getProduct().getSold())
+//                        .image(cartItemItem.getProduct().getImage())
+//                        .description(cartItemItem.getProduct().getDescription())
+//                        .slug(cartItemItem.getProduct().getSlug())
+//                        .status(cartItemItem.getProduct().getStatus())
+//                        .build());
                 cartItems.add(cartItemTmp);
             }
             result.setCartItems(cartItems);
@@ -82,20 +87,8 @@ public class CartServiceImpl implements CartService {
                         cartItemTmp.setId(cartItemItem.getId());
                         cartItemTmp.setQuantity(cartItemItem.getQuantity());
                         cartItemTmp.setCartId(cart.getId());
-                        cartItemTmp.setProduct(ProductDTO.builder()
-                                .id(cartItemItem.getProduct().getId())
-                                .name(cartItemItem.getProduct().getName())
-                                .category(cartItemItem.getProduct().getCategory().getName())
-                                .subcategory(cartItemItem.getProduct().getSubcategory().getName())
-                                .quantity(cartItemItem.getProduct().getQuantity())
-                                .price(cartItemItem.getProduct().getPrice())
-                                .production(cartItemItem.getProduct().getProduction())
-                                .sold(cartItemItem.getProduct().getSold())
-                                .image(cartItemItem.getProduct().getImage())
-                                .description(cartItemItem.getProduct().getDescription())
-                                .status(cartItemItem.getProduct().getStatus())
-                                .slug(cartItemItem.getProduct().getSlug())
-                                .build());
+                        cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
+
                         cartItems.add(cartItemTmp);
                     }
                     cartTmp.setCartItems(cartItems);

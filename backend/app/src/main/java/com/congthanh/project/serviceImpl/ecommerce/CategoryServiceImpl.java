@@ -4,6 +4,8 @@ import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.CategoryMapper;
 import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
 import com.congthanh.project.service.ecommerce.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -25,6 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Autowired
   private ModelMapper modelMapper;
+
+  @Autowired
+  private CategoryMapper categoryMapper;
 
   @Override
   public Object getAllCategory(Integer pageNo, Integer pageSize) {
@@ -56,7 +61,14 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public Category createCategory(CategoryDTO categoryDTO) {
+  public CategoryDTO getCategoryById(int id) {
+    Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(("not found")));
+    CategoryDTO result = categoryMapper.mapCategoryEntityToDTO(category);
+    return result;
+  }
+
+  @Override
+  public CategoryDTO createCategory(CategoryDTO categoryDTO) {
     Optional<Category> existCategory = categoryRepository.findByName(categoryDTO.getName());
     if (existCategory.isPresent()) {
       throw new RuntimeException("Category ton tai");
@@ -65,7 +77,8 @@ public class CategoryServiceImpl implements CategoryService {
               .name(categoryDTO.getName())
               .status(StateStatus.STATUS_ACTIVE)
               .build();
-      Category response = categoryRepository.save(category);
+      Category result = categoryRepository.save(category);
+      CategoryDTO response = categoryMapper.mapCategoryEntityToDTO(result);
       return response;
     }
   }

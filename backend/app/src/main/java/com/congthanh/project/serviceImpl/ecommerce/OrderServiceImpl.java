@@ -6,20 +6,17 @@ import com.congthanh.project.dto.ecommerce.CheckoutDTO;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.CartItem;
-import com.congthanh.project.entity.ecommerce.Checkout;
+import com.congthanh.project.entity.ecommerce.Order;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
-import com.congthanh.project.repository.ecommerce.CheckoutRepository;
+import com.congthanh.project.repository.ecommerce.order.OrderRepository;
 import com.congthanh.project.service.ecommerce.OrderService;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -31,23 +28,27 @@ public class OrderServiceImpl implements OrderService {
     private CartItemRepository cartItemRepository;
 
     @Autowired
-    private CheckoutRepository checkoutRepository;
+    private OrderRepository orderRepository;
+
 
     @Override
-    public CheckoutDTO checkoutCart(Checkout checkout) {
-        return null;
+    public Order createOrder(CheckoutDTO checkoutDTO) {
+        Order order = Order.builder()
+
+                .build();
+        return orderRepository.save(order);
     }
 
     @Override
     public List<CheckoutDTO> getHistoryByCustomer(String customerId) {
 
         List<CheckoutDTO> response = new ArrayList<>();
-        List<Tuple> listCheckout = checkoutRepository.getHistoryByCustomer(customerId);
+        List<Tuple> listCheckout = orderRepository.getHistoryByCustomer(customerId);
         if (listCheckout.size() > 0) {
             CheckoutDTO checkoutDTO = new CheckoutDTO();
             for (Tuple checkout : listCheckout) {
                 checkoutDTO.setId(checkout.get("checkoutId", Integer.class));
-                checkoutDTO.setCheckoutDate(checkout.get("checkout_date", Timestamp.class));
+                checkoutDTO.setCheckoutDate(checkout.get("checkout_date", Long.class));
                 checkoutDTO.setAddress(checkout.get("address", String.class));
                 checkoutDTO.setPhone(checkout.get("phone", String.class));
                 checkoutDTO.setPaymentMethod(checkout.get("payment_method", String.class));

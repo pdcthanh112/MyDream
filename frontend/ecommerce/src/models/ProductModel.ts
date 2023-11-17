@@ -4,6 +4,7 @@ export interface Product {
   category: number;
   subcategory: number;
   description: string;
+  SKU: string;
   quantity: number;
   price: number;
   production: string;

@@ -9,6 +9,8 @@ public interface SubcategoryService {
 
   Object getAllSubcategory(Integer pageNo, Integer pageSize);
 
+  SubcategoryDTO getSubcategoryById(int id);
+
   Subcategory createSubcategory(String name, int categoryId);
 
   Subcategory updateSubcategory(SubcategoryDTO subcategoryDTO);

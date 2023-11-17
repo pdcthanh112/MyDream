@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +12,8 @@ import java.sql.Timestamp;
 public class CheckoutDTO {
 
   private int id;
+
+  private String customer;
 
   private float total;
 
@@ -23,7 +23,7 @@ public class CheckoutDTO {
 
   private String paymentMethod;
 
-  private Timestamp checkoutDate;
+  private long checkoutDate;
 
   private CartDTO cart;
 

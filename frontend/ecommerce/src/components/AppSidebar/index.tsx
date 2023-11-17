@@ -38,7 +38,6 @@ const AppSidebar = () => {
       className="w-96 h-full bg-white border border-black overflow-y-scroll">
       <div className="bg-green-500 flex px-10 py-3 items-center">
         <Avatar src={currentUser && currentUser.userInfo.image} alt={''} />
-        {/* <Image src={currentUser ? currentUser.userInfo.image : DefaultUser} alt={''} /> */}
         <span className="text-white font-semibold text-xl ml-3">
           {t('common.hello')}, {currentUser ? currentUser.userInfo.name.split(' ')[0] : <>signin</>}
         </span>
@@ -47,7 +46,7 @@ const AppSidebar = () => {
         <h3 className="font-semibold text-lg pl-6">{t("common.Category")}</h3>
         {category?.map((item: Category) => (
           <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => handleShowSubSidebar(item.id)}>
-            <span>{item.name}</span>
+            <span className='truncate' title={item.name}>{item.name}</span>
             <Icon component={ArrowForwardIosIcon} fontSize="small" />
           </div>
         ))}
@@ -66,7 +65,7 @@ const AppSidebar = () => {
           </div>
           {listSubcategory.map((item: Subcategory) => (
             <div key={item.id} className="hover:bg-gray-100 hover:cursor-pointer px-6 py-2 flex justify-between" onClick={() => router.push(`/product/subcategory/${item.id}`)}>
-              <span>{item.name}</span>
+              <span className='truncate' title={item.name}>{item.name}</span>
               <Icon component={ArrowForwardIosIcon} fontSize="small" />
             </div>
           ))}

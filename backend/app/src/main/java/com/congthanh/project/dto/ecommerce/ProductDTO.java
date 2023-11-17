@@ -22,6 +22,8 @@ public class ProductDTO {
 
   private String subcategory;
 
+  private String SKU;
+
   @Min(value = 0)
   private int quantity;
 

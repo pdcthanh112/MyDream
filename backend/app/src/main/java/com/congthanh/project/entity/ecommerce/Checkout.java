@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,6 +18,8 @@ public class Checkout {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
+  private String customer;
+
   private float total;
 
   private String address;
@@ -30,7 +30,7 @@ public class Checkout {
   private String paymentMethod;
 
   @Column(name = "checkout_date")
-  private Timestamp checkoutDate;
+  private long checkoutDate;
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")

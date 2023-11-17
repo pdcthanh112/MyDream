@@ -1,13 +1,14 @@
 package com.congthanh.project.service.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
-import com.congthanh.project.entity.ecommerce.Checkout;
+import com.congthanh.project.entity.ecommerce.Order;
 
 import java.util.List;
 
 public interface OrderService {
 
-  CheckoutDTO checkoutCart(Checkout checkout);
+
+  Order createOrder(CheckoutDTO checkoutDTO);
 
   List<CheckoutDTO> getHistoryByCustomer(String customerId);
 

@@ -7,7 +7,9 @@ public interface CategoryService {
 
   Object getAllCategory(Integer pageNo, Integer pageSize);
 
-  Category createCategory(CategoryDTO categoryDTO);
+  CategoryDTO getCategoryById(int id);
+
+  CategoryDTO createCategory(CategoryDTO categoryDTO);
 
   Category updateCategory(CategoryDTO categoryDTO);
 

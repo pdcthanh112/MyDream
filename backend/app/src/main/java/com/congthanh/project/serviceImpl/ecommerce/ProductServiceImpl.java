@@ -5,10 +5,13 @@ import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.entity.ecommerce.Store;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.repository.ecommerce.category.CategoryRepository;
 import com.congthanh.project.repository.ecommerce.product.ProductRepository;
+import com.congthanh.project.repository.ecommerce.store.StoreRepository;
 import com.congthanh.project.repository.ecommerce.subcategory.SubcategoryRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
 import com.congthanh.project.utils.Helper;
@@ -33,6 +36,12 @@ public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private SubcategoryRepository subcategoryRepository;
+
+  @Autowired
+  private StoreRepository storeRepository;
+
+  @Autowired
+  private ProductMapper productMapper;
 
   private final Helper helper = new Helper();
 
@@ -93,51 +102,26 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ProductDTO getProductById(String id) {
     Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found"));
-    ProductDTO response = ProductDTO.builder()
-            .id(product.getId())
-            .name(product.getName())
-            .category(product.getCategory().getName())
-            .subcategory(product.getSubcategory().getName())
-            .quantity(product.getQuantity())
-            .price(product.getPrice())
-            .production(product.getProduction())
-            .image(product.getImage())
-            .description(product.getDescription())
-            .store(product.getStore().getId())
-            .sold(product.getSold())
-            .status(product.getStatus())
-            .build();
+    ProductDTO response = productMapper.mapProductEntityToDTO(product);
     return response;
   }
 
   @Override
   public ProductDTO getProductBySlug(String slug) {
     Product product = productRepository.findProductBySlug(slug).orElseThrow(() -> new NotFoundException("Product not found"));
-    ProductDTO response = ProductDTO.builder()
-            .id(product.getId())
-            .name(product.getName())
-            .category(product.getCategory().getName())
-            .subcategory(product.getSubcategory().getName())
-            .quantity(product.getQuantity())
-            .price(product.getPrice())
-            .production(product.getProduction())
-            .image(product.getImage())
-            .description(product.getDescription())
-            .store(product.getStore().getId())
-            .sold(product.getSold())
-            .status(product.getStatus())
-            .build();
+    ProductDTO response = productMapper.mapProductEntityToDTO(product);
     return response;
   }
 
   @Override
-  public Product createProduct(ProductDTO productDTO) {
+  public ProductDTO createProduct(ProductDTO productDTO) {
     Optional<Product> existProduct = productRepository.findByName(productDTO.getName());
     if (existProduct.isPresent()) {
       throw new RuntimeException("Product ton taiii");
     } else {
-      Category category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory())).orElseThrow(() -> new RuntimeException(" not found"));
-      Subcategory subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory())).orElseThrow(() -> new RuntimeException(" not found"));
+      Category category = categoryRepository.findById(Integer.parseInt(productDTO.getCategory())).orElseThrow(() -> new NotFoundException(" not found"));
+      Subcategory subcategory = subcategoryRepository.findById(Integer.parseInt(productDTO.getSubcategory())).orElseThrow(() -> new NotFoundException(" not found"));
+      Store store = storeRepository.findById(productDTO.getStore()).orElseThrow(() -> new NotFoundException(" not found"));
       String productSlug = helper.createSlugFromProductName(productDTO.getName());
       Product product = Product.builder()
               .name(productDTO.getName())
@@ -151,8 +135,10 @@ public class ProductServiceImpl implements ProductService {
               .description(productDTO.getDescription())
               .status(StateStatus.STATUS_ACTIVE)
               .slug(productSlug)
+              .store(store)
               .build();
-      Product response = productRepository.save(product);
+      Product result = productRepository.save(product);
+      ProductDTO response = productMapper.mapProductEntityToDTO(result);
       return response;
     }
   }

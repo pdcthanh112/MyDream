@@ -17,12 +17,14 @@ public class CartDTO {
 
   private String name;
 
-  private long createdDate;
-
   private String customerId;
+
+  private long createdDate;
 
   private String status;
 
   private Set<CartItemDTO> cartItems;
+
+  private CheckoutDTO checkout;
 
 }
