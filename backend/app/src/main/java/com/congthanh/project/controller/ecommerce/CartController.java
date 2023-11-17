@@ -45,10 +45,10 @@ public class CartController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Response<Cart>> createCart(@RequestBody CartDTO cartDTO) {
-    Cart cart = cartService.createCart(cartDTO);
-    Response<Cart> response = new Response<>();
-    response.setData(cart);
+  public ResponseEntity<Response<CartDTO>> createCart(@RequestBody CartDTO cartDTO) {
+    CartDTO data = cartService.createCart(cartDTO);
+    Response<CartDTO> response = new Response<>();
+    response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Created successfully");
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

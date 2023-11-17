@@ -5,7 +5,7 @@ import com.congthanh.project.entity.ecommerce.CartItem;
 
 public interface CartItemService {
 
-  CartItem addToCart(String productId, int quantity, String cartId);
+  CartItemDTO addToCart(String productId, int quantity, String cartId);
 
   CartItemDTO updateCartItem(String cartItemId, int quantity);
 

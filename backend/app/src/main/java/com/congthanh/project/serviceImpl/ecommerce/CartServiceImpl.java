@@ -4,6 +4,7 @@ import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.CartMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
@@ -21,6 +22,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private CartMapper cartMapper;
 
     @Autowired
     private ProductMapper productMapper;
@@ -43,23 +47,10 @@ public class CartServiceImpl implements CartService {
                 CartItemDTO cartItemTmp = new CartItemDTO();
                 cartItemTmp.setId(cartItemItem.getId());
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                cartItemTmp.setCartId(cart.getId());
+                cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                 cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
                 cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
-//                cartItemTmp.setProduct(ProductDTO.builder()
-//                        .id(cartItemItem.getProduct().getId())
-//                        .name(cartItemItem.getProduct().getName())
-//                        .category(cartItemItem.getProduct().getCategory().getName())
-//                        .subcategory(cartItemItem.getProduct().getSubcategory().getName())
-//                        .quantity(cartItemItem.getProduct().getQuantity())
-//                        .price(cartItemItem.getProduct().getPrice())
-//                        .production(cartItemItem.getProduct().getProduction())
-//                        .sold(cartItemItem.getProduct().getSold())
-//                        .image(cartItemItem.getProduct().getImage())
-//                        .description(cartItemItem.getProduct().getDescription())
-//                        .slug(cartItemItem.getProduct().getSlug())
-//                        .status(cartItemItem.getProduct().getStatus())
-//                        .build());
+
                 cartItems.add(cartItemTmp);
             }
             result.setCartItems(cartItems);
@@ -86,7 +77,7 @@ public class CartServiceImpl implements CartService {
                         CartItemDTO cartItemTmp = new CartItemDTO();
                         cartItemTmp.setId(cartItemItem.getId());
                         cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                        cartItemTmp.setCartId(cart.getId());
+                        cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                         cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
                         cartItems.add(cartItemTmp);
@@ -102,25 +93,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart createCart(CartDTO cartDTO) {
+    public CartDTO createCart(CartDTO cartDTO) {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
                 .customerId(cartDTO.getCustomerId())
                 .createdDate(new Date().getTime())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();
-        Cart response = cartRepository.save(cart);
+        Cart result = cartRepository.save(cart);
+        CartDTO response = cartMapper.mapCartEntityToDTO(result);
         return response;
     }
 
     @Override
     public Cart updateCart(CartDTO cartDTO) {
         return null;
-    }
-
-    @Override
-    public boolean checkout(String cartId) {
-        return cartRepository.checkoutCart(cartId);
     }
 
     @Override

@@ -12,11 +12,9 @@ public interface CartService {
 
   List<CartDTO> getActiveCartByCustomerId(String customerId);
 
-  Cart createCart(CartDTO cartDTO);
+  CartDTO createCart(CartDTO cartDTO);
 
   Cart updateCart(CartDTO cartDTO);
-
-  boolean checkout(String cartId);
 
   boolean deleteCart(String cartId);
 

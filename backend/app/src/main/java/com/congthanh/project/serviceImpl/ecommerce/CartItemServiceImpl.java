@@ -1,10 +1,12 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.CartItemDTO;
-import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.model.ecommerce.mapper.CartItemMapper;
+import com.congthanh.project.model.ecommerce.mapper.CartMapper;
+import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.product.ProductRepository;
@@ -26,8 +28,17 @@ public class CartItemServiceImpl implements CartItemService {
   @Autowired
   private ProductRepository productRepository;
 
+  @Autowired
+  private CartItemMapper cartItemMapper;
+
+  @Autowired
+  private CartMapper cartMapper;
+
+  @Autowired
+  private ProductMapper productMapper;
+
   @Override
-  public CartItem addToCart(String productId, int quantity, String cartId) {
+  public CartItemDTO addToCart(String productId, int quantity, String cartId) {
     CartItem checkExistProduct = cartItemRepository.checkExistProductFromCart(cartId, productId);
     if (checkExistProduct == null) {
       Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException(" not found"));
@@ -38,10 +49,14 @@ public class CartItemServiceImpl implements CartItemService {
               .cart(cart)
               .createdDate(new Date().getTime())
               .build();
-      return cartItemRepository.save(cartItem);
+      CartItem result =  cartItemRepository.save(cartItem);
+      CartItemDTO response = cartItemMapper.mapCartItemEntityToDTO(result);
+      return response;
     } else {
       checkExistProduct.setQuantity(checkExistProduct.getQuantity() + quantity);
-      return cartItemRepository.save(checkExistProduct);
+      CartItem result = cartItemRepository.save(checkExistProduct);
+      CartItemDTO response = cartItemMapper.mapCartItemEntityToDTO(result);
+      return response;
     }
   }
 
@@ -53,20 +68,8 @@ public class CartItemServiceImpl implements CartItemService {
     CartItemDTO response = CartItemDTO.builder()
             .id(result.getId())
             .quantity(result.getQuantity())
-            .product(ProductDTO.builder()
-                    .id(result.getProduct().getId())
-                    .name(result.getProduct().getName())
-                    .category(result.getProduct().getCategory().getName())
-                    .subcategory(result.getProduct().getSubcategory().getName())
-                    .quantity(result.getProduct().getQuantity())
-                    .price(result.getProduct().getPrice())
-                    .production(result.getProduct().getProduction())
-                    .image(result.getProduct().getImage())
-                    .description(result.getProduct().getDescription())
-                    .sold(result.getProduct().getSold())
-                    .status(result.getProduct().getStatus())
-                    .build())
-            .cartId(result.getCart().getId())
+            .product(productMapper.mapProductEntityToDTO(result.getProduct()))
+            .cart(cartMapper.mapCartEntityToDTO(result.getCart()))
             .build();
     return response;
   }

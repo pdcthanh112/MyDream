@@ -13,11 +13,11 @@ public class CartItemDTO {
 
   private String id;
 
-  private int quantity;
-
   private ProductDTO product;
 
-  private String cartId;
+  private int quantity;
+
+  private CartDTO cart;
 
   private long createdDate;
 
