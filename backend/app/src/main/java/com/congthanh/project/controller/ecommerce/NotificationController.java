@@ -3,7 +3,6 @@ package com.congthanh.project.controller.ecommerce;
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.NotificationDTO;
 import com.congthanh.project.dto.response.Response;
-import com.congthanh.project.entity.ecommerce.Notification;
 import com.congthanh.project.service.ecommerce.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +29,10 @@ public class NotificationController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Response<Notification>> createNotification(@RequestBody NotificationDTO notificationDTO) {
-    Notification notification = notificationService.createNotification(notificationDTO);
-    Response<Notification> response = new Response<>();
-    response.setData(notification);
+  public ResponseEntity<Response<NotificationDTO>> createNotification(@RequestBody NotificationDTO notificationDTO) {
+    NotificationDTO result = notificationService.createNotification(notificationDTO);
+    Response<NotificationDTO> response = new Response<>();
+    response.setData(result);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Created successfully");
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

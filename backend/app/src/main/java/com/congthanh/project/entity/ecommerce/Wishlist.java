@@ -19,7 +19,7 @@ public class Wishlist {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
 
   private String customer;
 
@@ -29,4 +29,5 @@ public class Wishlist {
           inverseJoinColumns = @JoinColumn(name = "product_id"))
   @JsonIgnore
   private Set<Product> product;
+
 }

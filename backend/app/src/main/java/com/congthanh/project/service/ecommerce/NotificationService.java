@@ -9,6 +9,6 @@ public interface NotificationService {
 
   List<NotificationDTO> getNotificationByCustomer(String customerId);
 
-  Notification createNotification(NotificationDTO notificationDTO);
+  NotificationDTO createNotification(NotificationDTO notificationDTO);
 
 }

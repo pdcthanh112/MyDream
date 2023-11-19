@@ -19,26 +19,25 @@ public class WishlistServiceImpl implements WishlistService {
   @Autowired
   private WishlistRepository wishlistRepository;
 
+
   @Override
   public boolean addProductToWishlist(String customerId, String productId) {
     Tuple wishlist = wishlistRepository.checkExistWishlist(customerId);
     if (wishlist != null) {
-      int result = wishlistRepository.addProductToWishlist(wishlist.get("id", Integer.class), productId);
-      return result > 0;
+      return wishlistRepository.addProductToWishlist(wishlist.get("customer", String.class), productId);
     } else {
       Wishlist createWishlist = Wishlist.builder()
               .customer(customerId)
               .build();
       Wishlist newWishlist = wishlistRepository.save(createWishlist);
-      int result = wishlistRepository.addProductToWishlist(newWishlist.getId(), productId);
-      return result > 0;
+      return wishlistRepository.addProductToWishlist(newWishlist.getCustomer(), productId);
     }
   }
 
   @Override
   public boolean removeProductFromWishlist(String customerId, String productId) {
     try {
-      return wishlistRepository.removeProductFromWishlist(productId, customerId) > 0;
+      return wishlistRepository.removeProductFromWishlist(productId, customerId);
     } catch (Exception e) {
       throw new RuntimeException("fjalsf");
     }
@@ -48,7 +47,7 @@ public class WishlistServiceImpl implements WishlistService {
   public WishlistDTO getWishlistByCustomer(String customerId) {
     WishlistDTO result = new WishlistDTO();
     List<Tuple> data = wishlistRepository.findWishlistByCustomer(customerId);
-    result.setId(data.get(0).get("wishlistId", Integer.class));
+    result.setId(data.get(0).get("wishlistId", Long.class));
     result.setCustomer(data.get(0).get("customer", String.class));
     Set<ProductDTO> listProduct = new HashSet<>();
     for (Tuple item : data) {

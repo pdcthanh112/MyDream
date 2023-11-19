@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 public class WishlistDTO {
 
-  private int id;
+  private Long id;
 
   private String customer;
 

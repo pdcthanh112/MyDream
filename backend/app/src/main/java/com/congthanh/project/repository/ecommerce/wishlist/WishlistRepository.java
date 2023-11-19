@@ -4,7 +4,6 @@ import com.congthanh.project.entity.ecommerce.Wishlist;
 import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +24,4 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Integer>, Wi
   @Query(nativeQuery = true, value = "SELECT id, customer FROM wishlist WHERE customer = ?1")
   Tuple checkExistWishlist(String customerId);
 
-  @Modifying
-  @Query(nativeQuery = true, value = "INSERT INTO wishlist_item (wishlist_id, product_id) VALUES (?1, ?2)")
-  int addProductToWishlist(int wishlistId, String productId);
-
-  @Modifying
-  @Query(nativeQuery = true, value = "DELETE FROM wishlist_item WHERE product_id = ?1 AND wishlist_id = (SELECT id FROM wishlist WHERE customer = ?2) ")
-  int removeProductFromWishlist(String productId, String customerId);
 }
