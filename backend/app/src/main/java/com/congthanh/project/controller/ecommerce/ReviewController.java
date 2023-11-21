@@ -2,8 +2,8 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.ReviewDTO;
-import com.congthanh.project.dto.ecommerce.utils.RatingStarDTO;
-import com.congthanh.project.dto.response.Response;
+import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.response.Response;
 import com.congthanh.project.entity.ecommerce.Review;
 import com.congthanh.project.service.ecommerce.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;

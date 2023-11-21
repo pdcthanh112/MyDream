@@ -1,7 +1,7 @@
 package com.congthanh.project.service.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.dto.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
 
 import java.util.List;

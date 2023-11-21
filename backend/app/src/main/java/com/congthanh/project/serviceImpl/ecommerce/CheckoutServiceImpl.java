@@ -5,6 +5,8 @@ import com.congthanh.project.dto.ecommerce.CheckoutDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.Checkout;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
+import com.congthanh.project.model.ecommerce.mapper.CheckoutMapper;
+import com.congthanh.project.model.ecommerce.request.CreateCheckoutDTO;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
 import com.congthanh.project.service.ecommerce.CheckoutService;
@@ -26,6 +28,9 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private CheckoutMapper checkoutMapper;
+
     @Override
     public CheckoutDTO getCheckoutById(int id) {
         Checkout checkout = checkoutRepository.findById(id).orElseThrow(() -> new NotFoundException("checkout not found"));
@@ -43,17 +48,18 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public Checkout createCheckout(CheckoutDTO checkoutDTO) {
-        Cart cart = cartRepository.findById(checkoutDTO.getCart().getId()).orElseThrow(() -> new NotFoundException("cart not found"));
+    public CheckoutDTO createCheckout(CreateCheckoutDTO createCheckoutDTO) {
+        Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
         Checkout checkout = Checkout.builder()
-                .customer(checkoutDTO.getCustomer())
-                .total(checkoutDTO.getTotal())
-                .address(checkoutDTO.getAddress())
-                .paymentMethod(checkoutDTO.getPaymentMethod())
+                .customer(createCheckoutDTO.getCustomer())
+                .total(createCheckoutDTO.getTotal())
+                .address(createCheckoutDTO.getAddress())
+                .paymentMethod(createCheckoutDTO.getPaymentMethod())
                 .checkoutDate(new Date().getTime())
-                .phone(checkoutDTO.getPhone())
+                .phone(createCheckoutDTO.getPhone())
                 .cart(cart)
                 .build();
-        return checkoutRepository.save(checkout);
+        Checkout result = checkoutRepository.save(checkout);
+        return checkoutMapper.mapCheckoutEntityToDTO(result);
     }
 }

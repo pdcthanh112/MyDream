@@ -2,7 +2,7 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CartItemDTO;
-import com.congthanh.project.dto.response.Response;
+import com.congthanh.project.model.ecommerce.response.Response;
 import com.congthanh.project.service.ecommerce.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

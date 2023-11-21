@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CheckoutDTO {
 
-  private int id;
+  private Long id;
 
   private String customer;
 
@@ -26,5 +26,7 @@ public class CheckoutDTO {
   private long checkoutDate;
 
   private CartDTO cart;
+
+  private VoucherDTO voucher;
 
 }

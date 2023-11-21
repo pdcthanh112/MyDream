@@ -1,4 +1,4 @@
-package com.congthanh.project.dto.ecommerce.utils;
+package com.congthanh.project.model.ecommerce.request;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;

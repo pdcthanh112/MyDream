@@ -29,7 +29,7 @@ public class Order {
   private String note;
 
   @Column(name = "order_date")
-  private String orderDate;
+  private Long orderDate;
 
   private String status;
 

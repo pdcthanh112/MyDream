@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.management;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.management.DepartmentDTO;
-import com.congthanh.project.dto.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.management.Department;
 import com.congthanh.project.repository.management.DepartmentRepository;
 import com.congthanh.project.service.management.DepartmentService;

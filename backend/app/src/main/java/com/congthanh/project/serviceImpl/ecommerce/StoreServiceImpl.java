@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.ecommerce.StoreDTO;
-import com.congthanh.project.dto.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Store;
 import com.congthanh.project.repository.ecommerce.store.StoreRepository;

@@ -1,6 +1,6 @@
 package com.congthanh.project.repository.ecommerce.review;
 
-import com.congthanh.project.dto.ecommerce.utils.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
