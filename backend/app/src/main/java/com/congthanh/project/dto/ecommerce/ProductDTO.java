@@ -32,8 +32,6 @@ public class ProductDTO {
 
   private String production;
 
-  private int sold;
-
   private String image;
 
   private String description;

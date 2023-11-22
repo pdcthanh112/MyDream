@@ -29,6 +29,10 @@ public class Checkout {
   @Column(name = "payment_method")
   private String paymentMethod;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "voucher")
+  private Voucher voucher;
+
   @Column(name = "checkout_date")
   private long checkoutDate;
 

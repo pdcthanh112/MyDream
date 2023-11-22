@@ -58,7 +58,6 @@ public class WishlistServiceImpl implements WishlistService {
               .subcategory(item.get("subcategory", String.class))
               .quantity(item.get("quantity", Integer.class))
               .price(item.get("price", Float.class))
-              .sold(item.get("sold", Integer.class))
               .production(item.get("production", String.class))
               .image(item.get("image", String.class))
               .description(item.get("description", String.class))

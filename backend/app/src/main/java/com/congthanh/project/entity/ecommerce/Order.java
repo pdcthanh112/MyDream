@@ -23,8 +23,6 @@ public class Order {
 
   private String customer;
 
-  private String voucher;
-
   @Column(columnDefinition = "text")
   private String note;
 

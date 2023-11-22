@@ -2,6 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.dto.ecommerce.StoreDTO;
+import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Store;
@@ -21,6 +22,9 @@ public class StoreServiceImpl implements StoreService {
 
     @Autowired
     private StoreRepository storeRepository;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public StoreDTO getStoreById(String id) {
@@ -54,20 +58,7 @@ public class StoreServiceImpl implements StoreService {
         if (result.hasContent()) {
             List<ProductDTO> list = new ArrayList<>();
             for (Product product : result.getContent()) {
-                ProductDTO productDTO = ProductDTO.builder()
-                        .id(product.getId())
-                        .name(product.getName())
-                        .category(product.getCategory().getName())
-                        .subcategory(product.getSubcategory().getName())
-                        .quantity(product.getQuantity())
-                        .price(product.getPrice())
-                        .production(product.getProduction())
-                        .store(product.getStore().getId())
-                        .image(product.getImage())
-                        .description(product.getDescription())
-                        .sold(product.getSold())
-                        .slug(product.getSlug())
-                        .build();
+                ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
                 list.add(productDTO);
             }
             response.setResponseList(list);

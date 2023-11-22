@@ -42,12 +42,10 @@ public class Product {
   private String SKU;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "store", nullable = true)
+  @JoinColumn(name = "store")
   private Store store;
 
   private String production;
-
-  private int sold;
 
   @Column(length = 1500)
   private String image;

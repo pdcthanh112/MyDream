@@ -13,18 +13,31 @@ import java.util.Set;
 @Builder
 public class CartDTO {
 
-  private String id;
+    private String id;
 
-  private String name;
+    private String name;
 
-  private String customerId;
+    private String customerId;
 
-  private long createdDate;
+    private long createdDate;
 
-  private String status;
+    private String status;
 
-  private Set<CartItemDTO> cartItems;
+    private Set<CartItemDTO> cartItems;
 
-  private CheckoutDTO checkout;
+    private CheckoutDTO checkout;
+
+    public Double getTotalOrderPrice() {
+        double sum = 0D;
+        Set<CartItemDTO> orderProducts = getCartItems();
+        for (CartItemDTO item : orderProducts) {
+            sum += item.getQuantity() * item.getProduct().getPrice();
+        }
+        return sum;
+    }
+
+    public int getCountItem() {
+        return this.cartItems.size();
+    }
 
 }

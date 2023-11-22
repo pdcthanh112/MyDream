@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
         if (listCheckout.size() > 0) {
             CheckoutDTO checkoutDTO = new CheckoutDTO();
             for (Tuple checkout : listCheckout) {
-                checkoutDTO.setId(checkout.get("checkoutId", Integer.class));
+                checkoutDTO.setId(checkout.get("checkoutId", Long.class));
                 checkoutDTO.setCheckoutDate(checkout.get("checkout_date", Long.class));
                 checkoutDTO.setAddress(checkout.get("address", String.class));
                 checkoutDTO.setPhone(checkout.get("phone", String.class));

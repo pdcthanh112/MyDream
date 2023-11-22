@@ -54,20 +54,7 @@ public class ProductServiceImpl implements ProductService {
       if (result.hasContent()) {
         List<ProductDTO> list = new ArrayList<>();
         for (Product product : result.getContent()) {
-          ProductDTO productDTO = ProductDTO.builder()
-                  .id(product.getId())
-                  .name(product.getName())
-                  .category(product.getCategory().getName())
-                  .subcategory(product.getSubcategory().getName())
-                  .quantity(product.getQuantity())
-                  .price(product.getPrice())
-                  .production(product.getProduction())
-                  .store(product.getStore().getId())
-                  .image(product.getImage())
-                  .description(product.getDescription())
-                  .sold(product.getSold())
-                  .slug(product.getSlug())
-                  .build();
+          ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
           list.add(productDTO);
         }
         response.setResponseList(list);
@@ -80,19 +67,7 @@ public class ProductServiceImpl implements ProductService {
       List<Product> list = productRepository.findAll();
       List<ProductDTO> result = new ArrayList<>();
       for (Product product : list) {
-        ProductDTO productDTO = ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .category(product.getCategory().getName())
-                .subcategory(product.getSubcategory().getName())
-                .quantity(product.getQuantity())
-                .price(product.getPrice())
-                .production(product.getProduction())
-                .store(product.getStore().getId())
-                .image(product.getImage())
-                .description(product.getDescription())
-                .sold(product.getSold())
-                .build();
+        ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
         result.add(productDTO);
       }
       return result;
@@ -130,7 +105,6 @@ public class ProductServiceImpl implements ProductService {
               .quantity(productDTO.getQuantity())
               .price(productDTO.getPrice())
               .production(productDTO.getProduction())
-              .sold(0)
               .image(productDTO.getImage())
               .description(productDTO.getDescription())
               .status(StateStatus.STATUS_ACTIVE)
@@ -153,7 +127,6 @@ public class ProductServiceImpl implements ProductService {
     product.setQuantity(productDTO.getQuantity());
     product.setPrice(productDTO.getPrice());
     product.setProduction(productDTO.getProduction());
-    product.setSold(productDTO.getSold());
     product.setImage(productDTO.getImage());
     product.setDescription(productDTO.getDescription());
 
@@ -180,20 +153,7 @@ public class ProductServiceImpl implements ProductService {
     if (result.hasContent()) {
       List<ProductDTO> list = new ArrayList<>();
       for (Product product : result.getContent()) {
-        ProductDTO productDTO = ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .category(product.getCategory().getName())
-                .subcategory(product.getSubcategory().getName())
-                .quantity(product.getQuantity())
-                .price(product.getPrice())
-                .production(product.getProduction())
-                .slug(product.getSlug())
-                .store(product.getStore().getId())
-                .image(product.getImage())
-                .description(product.getDescription())
-                .sold(product.getSold())
-                .build();
+        ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
         list.add(productDTO);
       }
       response.setResponseList(list);
@@ -212,20 +172,7 @@ public class ProductServiceImpl implements ProductService {
     if (result.hasContent()) {
       List<ProductDTO> list = new ArrayList<>();
       for (Product product : result.getContent()) {
-        ProductDTO productDTO = ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .category(product.getCategory().getName())
-                .subcategory(product.getSubcategory().getName())
-                .quantity(product.getQuantity())
-                .price(product.getPrice())
-                .production(product.getProduction())
-                .slug(product.getSlug())
-                .store(product.getStore().getId())
-                .image(product.getImage())
-                .description(product.getDescription())
-                .sold(product.getSold())
-                .build();
+        ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
         list.add(productDTO);
       }
       response.setResponseList(list);
@@ -244,19 +191,7 @@ public class ProductServiceImpl implements ProductService {
     if (data.size() > 0) {
       List<ProductDTO> result = new ArrayList<>();
       for (Product product : data) {
-        ProductDTO productDTO = ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .category(product.getCategory().getName())
-                .subcategory(product.getSubcategory().getName())
-                .quantity(product.getQuantity())
-                .price(product.getPrice())
-                .slug(product.getSlug())
-                .production(product.getProduction())
-                .image(product.getImage())
-                .description(product.getDescription())
-                .sold(product.getSold())
-                .build();
+        ProductDTO productDTO = productMapper.mapProductEntityToDTO(product);
         result.add(productDTO);
       }
       return result;
