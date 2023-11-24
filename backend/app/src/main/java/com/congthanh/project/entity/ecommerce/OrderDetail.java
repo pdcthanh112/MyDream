@@ -24,8 +24,6 @@ public class OrderDetail {
     @JoinColumn(name = "product", nullable = false)
     private Product product;
 
-    private float subtotal;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders", nullable = true)
     private Order orders;

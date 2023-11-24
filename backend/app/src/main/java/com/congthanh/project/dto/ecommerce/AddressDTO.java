@@ -1,6 +1,5 @@
 package com.congthanh.project.dto.ecommerce;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,20 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDTO {
+public class AddressDTO {
 
     private String id;
 
-    @NotNull
     private String customer;
 
-    private String note;
+    private String country;
 
-    private String orderDate;
+    private String city;
 
-    private CheckoutDTO checkout;
-
-    @NotNull
-    private String status;
-
+    private String postalCode;
+    
 }

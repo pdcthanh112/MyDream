@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +37,8 @@ public class Product {
 
   private int quantity;
 
-  private float price;
+  @Column(name = "price", precision = 19, scale = 4)
+  private BigDecimal price;
 
   @Column(unique = true, name = "SKU")
   private String SKU;
