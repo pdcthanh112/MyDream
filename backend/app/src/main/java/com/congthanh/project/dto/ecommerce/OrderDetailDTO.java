@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,13 +16,16 @@ public class OrderDetailDTO {
 
     private String id;
 
+    @NotNull
     private int quantity;
 
     @NotNull
-    private String product;
+    private ProductDTO product;
 
-    private String createdAt;
+    private String status;
 
-    private String updatedAt;
+    public BigDecimal getTotal() {
+        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
 
 }

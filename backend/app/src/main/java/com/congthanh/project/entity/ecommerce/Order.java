@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -27,18 +28,21 @@ public class Order {
   @Column(columnDefinition = "text")
   private String note;
 
+  @Column(precision = 38, scale = 4)
+  private BigDecimal total;
+
   @Column(name = "order_date")
   private Long orderDate;
 
   private String status;
 
-  @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonIgnore
-  private List<OrderDetail> orderDetail;
-
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "checkout", nullable = false, referencedColumnName = "id")
   @JsonManagedReference
   private Checkout checkout;
+
+  @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private List<OrderDetail> orderDetail;
 
 }

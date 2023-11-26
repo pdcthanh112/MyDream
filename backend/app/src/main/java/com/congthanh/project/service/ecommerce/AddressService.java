@@ -1,2 +1,9 @@
-package com.congthanh.project.service.ecommerce;public interface AddressService {
+package com.congthanh.project.service.ecommerce;
+
+import com.congthanh.project.dto.ecommerce.AddressDTO;
+
+public interface AddressService {
+
+    AddressDTO createAddress(AddressDTO addressDTO);
+
 }

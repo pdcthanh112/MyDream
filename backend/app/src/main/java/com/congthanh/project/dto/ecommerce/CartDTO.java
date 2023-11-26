@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
@@ -27,11 +28,13 @@ public class CartDTO {
 
     private CheckoutDTO checkout;
 
-    public Double getTotalOrderPrice() {
-        double sum = 0D;
+    public BigDecimal getTotalOrderPrice() {
+        BigDecimal sum = BigDecimal.ZERO;
         Set<CartItemDTO> orderProducts = getCartItems();
         for (CartItemDTO item : orderProducts) {
-            sum += item.getQuantity() * item.getProduct().getPrice();
+            BigDecimal quantityDecimal = BigDecimal.valueOf(item.getQuantity());
+            BigDecimal itemTotal = quantityDecimal.multiply(item.getProduct().getPrice());
+            sum = sum.add(itemTotal);
         }
         return sum;
     }

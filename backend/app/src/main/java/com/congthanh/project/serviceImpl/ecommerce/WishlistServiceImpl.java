@@ -9,6 +9,7 @@ import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,7 +58,7 @@ public class WishlistServiceImpl implements WishlistService {
               .category(item.get("category", String.class))
               .subcategory(item.get("subcategory", String.class))
               .quantity(item.get("quantity", Integer.class))
-              .price(item.get("price", Float.class))
+              .price(item.get("price", BigDecimal.class))
               .production(item.get("production", String.class))
               .image(item.get("image", String.class))
               .description(item.get("description", String.class))

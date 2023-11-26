@@ -18,20 +18,16 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private int quantity;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product", nullable = false)
     private Product product;
 
+    private int quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders", nullable = true)
+    @JoinColumn(name = "orders", nullable = false)
     private Order orders;
 
-    @Column(name = "created_at")
-    private String createdAt;
-
-    @Column(name = "updated_at")
-    private String updatedAt;
+    private String status;
 
 }

@@ -24,7 +24,7 @@ public class Checkout {
 
   private String customer;
 
-  @Column(name = "total", precision = 19, scale = 4)
+  @Column(precision = 38, scale = 4)
   private BigDecimal total;
 
   private String address;

@@ -6,16 +6,22 @@ import com.congthanh.project.dto.ecommerce.CheckoutDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.entity.ecommerce.Order;
+import com.congthanh.project.entity.ecommerce.Voucher;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CartMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
+import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.order.OrderRepository;
+import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
+import com.congthanh.project.service.ecommerce.OrderDetailService;
 import com.congthanh.project.service.ecommerce.OrderService;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -31,15 +37,31 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private VoucherRepository voucherRepository;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
+
+    @Autowired
     private CartMapper cartMapper;
 
     @Autowired
     private ProductMapper productMapper;
 
     @Override
-    public Order createOrder(CheckoutDTO checkoutDTO) {
+    public Order createOrder(CreateOrderDTO createOrderDTO) {
+        Voucher voucher = voucherRepository.findById(createOrderDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
+        BigDecimal orderTotal = BigDecimal.ZERO;
+        if(voucher != null) {
+            orderTotal = createOrderDTO.getCheckout().getTotal().multiply(BigDecimal.valueOf(voucher.getValue()));
+        }
         Order order = Order.builder()
-
+                .customer(createOrderDTO.getCustomer())
+                .note(createOrderDTO.getNote())
+                .orderDate(new Date().getTime())
+                .checkout(createOrderDTO.getCheckout())
+                .total(orderTotal)
+                .status("NEW")
                 .build();
         return orderRepository.save(order);
     }
@@ -57,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
                 checkoutDTO.setAddress(checkout.get("address", String.class));
                 checkoutDTO.setPhone(checkout.get("phone", String.class));
                 checkoutDTO.setPaymentMethod(checkout.get("payment_method", String.class));
-                checkoutDTO.setTotal(checkout.get("total", Float.class));
+                checkoutDTO.setTotal(checkout.get("total", BigDecimal.class));
 
                 Cart cart = cartRepository.findById(checkout.get("cartId", String.class)).orElseThrow();
 

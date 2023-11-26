@@ -1,2 +1,4 @@
-package com.congthanh.project.service.ecommerce;public interface PaymentService {
+package com.congthanh.project.service.ecommerce;
+
+public interface PaymentService {
 }
