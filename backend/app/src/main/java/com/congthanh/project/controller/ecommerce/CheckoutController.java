@@ -28,7 +28,7 @@ public class CheckoutController {
         return ResponseEntity.ok().body(response);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<Response<CheckoutDTO>> createCheckout(@RequestBody CreateCheckoutDTO createCheckoutDTO) {
         CheckoutDTO checkout = checkoutService.createCheckout(createCheckoutDTO);
         Response<CheckoutDTO> response = new Response<>();

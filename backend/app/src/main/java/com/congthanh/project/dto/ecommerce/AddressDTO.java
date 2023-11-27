@@ -17,6 +17,9 @@ public class AddressDTO {
     @NotNull
     private String customer;
 
+    @NotNull
+    private String phone;
+
     private String country;
 
     private String addressLine1;

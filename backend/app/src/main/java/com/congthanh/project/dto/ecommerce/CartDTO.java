@@ -30,6 +30,9 @@ public class CartDTO {
 
     public BigDecimal getTotalOrderPrice() {
         BigDecimal sum = BigDecimal.ZERO;
+        if (getCartItems() == null || getCartItems().isEmpty()) {
+            return BigDecimal.ZERO;
+        }
         Set<CartItemDTO> orderProducts = getCartItems();
         for (CartItemDTO item : orderProducts) {
             BigDecimal quantityDecimal = BigDecimal.valueOf(item.getQuantity());
@@ -40,6 +43,9 @@ public class CartDTO {
     }
 
     public int getCountItem() {
+        if (this.cartItems == null || this.cartItems.isEmpty()) {
+            return 0;
+        }
         return this.cartItems.size();
     }
 

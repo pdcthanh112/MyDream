@@ -7,6 +7,7 @@ import { Add as AddIcon, Remove as MinusIcon, Delete } from '@mui/icons-material
 import { useTranslation } from 'next-i18next';
 import { useDeleteCartItem, useUpdateCartItem } from '@hooks/cart/cartHook';
 import { Popconfirm } from 'antd';
+import Link from 'next/link';
 
 interface CartItemProps {
   item: CartItem;
@@ -24,7 +25,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
   };
 
   const handleDeleteCartItem = (itemId: string) => {
-    deleteCartItem(itemId, {})
+    deleteCartItem(itemId, {});
   };
 
   return (
@@ -32,9 +33,9 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
       <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} height={120} />
 
       <div className="ml-3 col-span-6">
-        <span className="hover:cursor-pointer" onClick={() => router.push(`/product/${item.product.slug}`)}>
-          {item.product.name}
-        </span>
+        <Link href={`/product/${item.product.slug}`}>
+          <span className="hover:cursor-pointer">{item.product.name}</span>
+        </Link>
       </div>
 
       <div className="flex items-center col-span-2">

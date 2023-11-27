@@ -20,6 +20,8 @@ public class Address {
 
     private String customer;
 
+    private String phone;
+
     private String country;
 
     @Column(name = "address_line_1")

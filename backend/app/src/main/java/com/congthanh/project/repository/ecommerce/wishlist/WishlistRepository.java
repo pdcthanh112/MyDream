@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer>, WishlistCustomRepository {
 
-  @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, sold, product.status, category.name as category, subcategory.name as subcategory, production, slug\n" +
+  @Query(nativeQuery = true, value = "SELECT wishlist.id as wishlistId, customer, product.id as productId, description, image, product.name, price, quantity, product.status, category.name as category, subcategory.name as subcategory, production, slug\n" +
           "FROM wishlist JOIN wishlist_item ON wishlist.id = wishlist_item.wishlist_id\n" +
           "JOIN product ON wishlist_item.product_id = product.id\n" +
           "JOIN category ON product.category = category.id\n" +

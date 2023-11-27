@@ -1,4 +1,3 @@
- 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -20,6 +19,8 @@ import PaymentJCB from '@assets/icons/payment-jcb.png';
 import PaymentPaypal from '@assets/icons/payment-paypal.png';
 import PaymentMomo from '@assets/icons/payment-momo.png';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getAddressByCustomer } from 'api/addressApi';
+import SelectAddress from '@components/Address/SelectAddress';
 
 interface InputComponentProps {
   title: string;
@@ -39,15 +40,17 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
 };
 
 export default function Checkout(): React.ReactElement {
-
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const param = useParams();
   const cartId = param?.cart;
 
   const [pickPaymentMethod, setPickPaymentMethod] = useState('COD');
+  const [openModalAddress, setOpenModalAddress] = useState(false);
 
   const { data: cart, isLoading } = useQuery(['cart', cartId], async () => await getCartById(cartId).then((response) => response.data));
+
+  // const { data: listAddress } = useQuery(['address'], async () => await getAddressByCustomer(currentUser.accountId).then((response) => response.data));
 
   const { register, setValue, watch, handleSubmit, formState } = useForm<CheckoutForm>();
   const onSubmit: SubmitHandler<CheckoutForm> = (data) => {
@@ -124,7 +127,7 @@ export default function Checkout(): React.ReactElement {
             <div className="border border-gray-400 rounded-md w-[70%] px-4 py-5">
               <h4 className="font-medium text-xl my-3">Checkout information</h4>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <InputComponent title="Country/Region" className="col-span-3" error={formState.errors.paymentMethod?.message}>
+                {/* <InputComponent title="Country/Region" className="col-span-3" error={formState.errors.paymentMethod?.message}>
                   <Autocomplete
                     options={['Vietnam']}
                     size={'small'}
@@ -206,8 +209,16 @@ export default function Checkout(): React.ReactElement {
                       />
                     </InputField>
                   </InputComponent>
+                </div> */}
+                <div>
+                  <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+                    <div className="flex justify-between">
+                      <p className='truncate'>125 D2, tang nho phu a, quan 9, thanh pho ho chi minh</p>
+                      <button className='text-yellow-400' onClick={() => setOpenModalAddress(true)}>Change</button>
+                    </div>
+                  </InputComponent>
+                  <SelectAddress isOpen={openModalAddress} handleOpen={setOpenModalAddress} />
                 </div>
-
                 <div className="grid grid-cols-12 gap-4">
                   <FormControl className="col-span-5">
                     <FormLabel id="demo-radio-buttons-group-label">Payment method</FormLabel>
@@ -298,7 +309,7 @@ export default function Checkout(): React.ReactElement {
                           </InputField>
                         </InputComponent>
                       </div>
-                      <InputComponent title="Name on card" error={formState.errors.address?.message} className="">
+                      {/* <InputComponent title="Name on card" error={formState.errors.address?.message} className="">
                         <InputField>
                           <input {...register('name', {
                             required: 'Name is require',
@@ -307,7 +318,7 @@ export default function Checkout(): React.ReactElement {
                             className={`focus:outline-none ml-3 w-[100%] ${formState.errors.name && 'bg-red-100'}`}
                           />
                         </InputField>
-                      </InputComponent>
+                      </InputComponent> */}
                       <InputComponent title={'CCV'} className="w-[30%]">
                         <InputField>
                           <PatternFormat format="###" allowEmptyFormatting mask="X" className="focus:outline-none" style={{ width: 80, opacity: 0.6 }} />
@@ -330,9 +341,11 @@ export default function Checkout(): React.ReactElement {
                   <span>Items ({cart.cartItems.length}):</span>
                   <span>
                     $
-                    {cart.cartItems.reduce((accumulator: number, item: any) => {
-                      return accumulator + item.product.price * item.quantity;
-                    }, 0).toFixed(2)}
+                    {cart.cartItems
+                      .reduce((accumulator: number, item: any) => {
+                        return accumulator + item.product.price * item.quantity;
+                      }, 0)
+                      .toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -350,9 +363,11 @@ export default function Checkout(): React.ReactElement {
                   <span>Total:</span>
                   <span>
                     $
-                    {cart.cartItems.reduce((accumulator: number, item: any) => {
-                      return accumulator + item.product.price * item.quantity;
-                    }, 0).toFixed(2)}
+                    {cart.cartItems
+                      .reduce((accumulator: number, item: any) => {
+                        return accumulator + item.product.price * item.quantity;
+                      }, 0)
+                      .toFixed(2)}
                   </span>
                 </div>
               </div>

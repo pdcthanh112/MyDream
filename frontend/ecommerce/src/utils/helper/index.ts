@@ -4,13 +4,20 @@ import TwitterLoginImage from '@assets/images/login-twitter-image.png';
 import AppleLoginImage from '@assets/images/login-apple-image.png';
 
 export const roundNumber = (value: number) => {
-  if (value > 1000) {
-    const roundedValue = Math.round(value / 100) / 10;
-    return `${roundedValue}k`;
-  } else {
-    return value.toString();
-  }
+  return new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(value);
 };
+
+// export const roundNumber = (value: number) => {
+//   if (value > 1000) {
+//     const roundedValue = Math.round(value / 100) / 10;
+//     return `${roundedValue}k`;
+//   } else {
+//     return value.toString();
+//   }
+// };
 
 export const getAuthLogo = (name: string) => {
   switch (name) {

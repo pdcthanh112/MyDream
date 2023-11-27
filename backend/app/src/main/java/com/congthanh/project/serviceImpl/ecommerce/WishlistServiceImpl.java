@@ -20,7 +20,6 @@ public class WishlistServiceImpl implements WishlistService {
   @Autowired
   private WishlistRepository wishlistRepository;
 
-
   @Override
   public boolean addProductToWishlist(String customerId, String productId) {
     Tuple wishlist = wishlistRepository.checkExistWishlist(customerId);

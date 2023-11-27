@@ -7,10 +7,9 @@ import com.congthanh.project.service.ecommerce.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ecommerce/address")
@@ -18,6 +17,16 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<AddressDTO>> getAddressById(@PathVariable("id")String addressId) {
+        AddressDTO data = addressService.getAddressById(addressId);
+        Response<AddressDTO> response = new Response<>();
+        response.setData(data);
+        response.setMessage("get successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Response<AddressDTO>> createAddress(@RequestBody AddressDTO addressDTO) {
@@ -27,5 +36,25 @@ public class AddressController {
         response.setMessage("Create successfully");
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Response<AddressDTO>> updateAddress(@PathVariable("id") String addressId, @RequestBody AddressDTO addressDTO) {
+        AddressDTO data = addressService.updateAddress(addressId, addressDTO);
+        Response<AddressDTO> response = new Response<>();
+        response.setData(data);
+        response.setMessage("update successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/getByCustomer")
+    public ResponseEntity<Response<List<AddressDTO>>> getAddressByCustomer(@RequestParam("customer") String customerId) {
+        List<AddressDTO> data = addressService.getAddressByCustomer(customerId);
+        Response<List<AddressDTO>> response = new Response<>();
+        response.setData(data);
+        response.setMessage("get successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
     }
 }
