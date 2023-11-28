@@ -16,10 +16,10 @@ type PropsType = {
 const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
-  const [activeTab, setActiveTab] = useState('1');
+  const [activeTab, setActiveTab] = useState({currentTab: '1', addressId: ''});
 
   const { data: listAddress } = useQuery(['address'], async () => await getAddressByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
-
+console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL', listAddress)
   const TabShowAddress = () => {
     return (
       <React.Fragment>
@@ -33,12 +33,12 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
               <p className="w-4/5">
                 {item.street}, {item.addressLine3}, {item.addressLine2}, {item.addressLine1}, {item.country}
               </p>
-              <button>change</button>
+              <Button onClick={() => setActiveTab({currentTab: '3', addressId: item.id})}>change</Button>
             </div>
           </div>
         ))}
 
-        <Button  onClick={() => setActiveTab('2')}>Add new address</Button>
+        <Button onClick={() => setActiveTab({currentTab: '2', addressId: ''})}>Add new address</Button>
       </React.Fragment>
     );
   };
@@ -52,18 +52,18 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
     {
       key: '2',
       label: null,
-      children: <TabCreateAddress/>,
+      children: <TabCreateAddress onBack={() => setActiveTab({currentTab: '1', addressId: ''})}/>,
     },
     {
       key: '3',
       label: null,
-      children: <TabEditAddress addressId=''/>,
+      children: <TabEditAddress addressId={activeTab.addressId} onBack={() => setActiveTab({currentTab: '1', addressId: ''})}/>,
     },
   ];
 
   return (
-    <Modal open={isOpen} onCancel={() => handleOpen(false)} okButtonProps={{ style: { backgroundColor: '#4096ff' } }}>
-      <Tabs activeKey={activeTab} items={items}/>
+    <Modal open={isOpen} onCancel={() => handleOpen(false) } footer={null}>
+      <Tabs activeKey={activeTab.currentTab} items={items} />
     </Modal>
   );
 };

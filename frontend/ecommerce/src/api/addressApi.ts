@@ -4,7 +4,10 @@ import { CreateAddressForm, UpdateAddressForm } from '@models/AddressModel';
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig
     .get(`address/${addressId}`)
-    .then((response) => response.data)
+    .then((response) => {
+      console.log('AAAAAAAAAAAAAAAAAAAAA', response)
+      return response.data
+    })
     .catch((error) => {
       throw error;
     });
@@ -30,9 +33,9 @@ export const createAddress = async (data: CreateAddressForm) => {
     });
 };
 
-export const updateAddress = async (data: UpdateAddressForm) => {
+export const updateAddress = async (addressId: string, data: UpdateAddressForm) => {
   return await axiosConfig
-    .put('address/create', {
+    .put(`address/update/${addressId}`, {
       data,
     })
     .then((response) => response.data)

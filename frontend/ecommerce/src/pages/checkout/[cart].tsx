@@ -213,8 +213,10 @@ export default function Checkout(): React.ReactElement {
                 <div>
                   <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <div className="flex justify-between">
-                      <p className='truncate'>125 D2, tang nho phu a, quan 9, thanh pho ho chi minh</p>
-                      <button className='text-yellow-400' onClick={() => setOpenModalAddress(true)}>Change</button>
+                      <p className="truncate">125 D2, tang nho phu a, quan 9, thanh pho ho chi minh</p>
+                      <Button className="text-yellow-400" onClick={() => setOpenModalAddress(true)}>
+                        Change
+                      </Button>
                     </div>
                   </InputComponent>
                   <SelectAddress isOpen={openModalAddress} handleOpen={setOpenModalAddress} />
