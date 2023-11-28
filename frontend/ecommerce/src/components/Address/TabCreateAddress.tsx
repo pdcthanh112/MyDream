@@ -6,6 +6,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import countryData from '../../../public/data/country.json';
 import { useAppSelector } from '@redux/store';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
+import { useCreateAddress } from '@hooks/address/addressHook';
 
 type InputComponentProps = {
   title: string;
@@ -38,10 +41,20 @@ type PropsType = {
 const TabCreateAddress = ({ onBack }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
+  const {mutate: createAddress} = useCreateAddress()
+  const { t } = useTranslation('common');
+
   const { register, handleSubmit, formState, setValue } = useForm<CreateAddressForm>();
 
   const onSubmit: SubmitHandler<CreateAddressForm> = (data) => {
-    console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDdd', data);
+    createAddress(data, {
+      onSuccess() {
+        toast.success(t('add_successfully'));
+      },
+      onError() {
+        toast.error(t('add_failed'));
+      },
+    })
   };
 
   return (
@@ -141,7 +154,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
             <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => onBack()}>
               Back
             </Button>
-            <Button type="primary" danger htmlType='submit'>
+            <Button type="primary" danger htmlType="submit">
               Save
             </Button>
           </div>

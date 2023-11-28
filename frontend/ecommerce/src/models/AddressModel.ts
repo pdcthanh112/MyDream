@@ -22,6 +22,7 @@ export type CreateAddressForm = {
 };
 
 export type UpdateAddressForm = {
+  id: string
   phone: string;
   country: string;
   addressLine1: string;

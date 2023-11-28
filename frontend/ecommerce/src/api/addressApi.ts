@@ -4,10 +4,7 @@ import { CreateAddressForm, UpdateAddressForm } from '@models/AddressModel';
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig
     .get(`address/${addressId}`)
-    .then((response) => {
-      console.log('AAAAAAAAAAAAAAAAAAAAA', response)
-      return response.data
-    })
+    .then((response) => response.data)
     .catch((error) => {
       throw error;
     });
@@ -25,7 +22,14 @@ export const getAddressByCustomer = async (customerId: string) => {
 export const createAddress = async (data: CreateAddressForm) => {
   return await axiosConfig
     .post('address/create', {
-      data,
+      customer: data.customer,
+      phone: data.phone,
+      country: data.country,
+      addressLine1: data.addressLine1,
+      addressLine2: data.addressLine2,
+      addressLine3: data.addressLine3,
+      street: data.street,
+      postalCode: data.postalCode,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -36,7 +40,13 @@ export const createAddress = async (data: CreateAddressForm) => {
 export const updateAddress = async (addressId: string, data: UpdateAddressForm) => {
   return await axiosConfig
     .put(`address/update/${addressId}`, {
-      data,
+      phone: data.phone,
+      country: data.country,
+      addressLine1: data.addressLine1,
+      addressLine2: data.addressLine2,
+      addressLine3: data.addressLine3,
+      street: data.street,
+      postalCode: data.postalCode,
     })
     .then((response) => response.data)
     .catch((error) => {

@@ -50,9 +50,8 @@ const Wishlist: NextPage = (): React.ReactElement => {
         onSuccess() {
           toast.success(t('wishlist.remove_item_from_wishlist_successfully'));
         },
-        onError(error) {
+        onError() {
           toast.error(t('wishlist.remove_item_from_wishlist_failed'));
-          console.log(error);
         },
       });
     } catch (error) {

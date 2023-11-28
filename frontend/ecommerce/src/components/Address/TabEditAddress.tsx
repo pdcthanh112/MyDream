@@ -1,12 +1,14 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import { getAddressById } from 'api/addressApi';
-import { UpdateAddressForm } from '@models/AddressModel';
+import { Address, UpdateAddressForm } from '@models/AddressModel';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Checkbox } from 'antd';
 import styled from 'styled-components';
 import { Autocomplete, TextField } from '@mui/material';
 import countryData from '../../../public/data/country.json';
+import { useUpdateAddress } from '@hooks/address/addressHook';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
 
 type InputComponentProps = {
   title: string;
@@ -38,18 +40,44 @@ type PropsType = {
 };
 
 const TabEditAddress = ({ addressId, onBack }: PropsType) => {
-  const { data: address, isLoading } = useQuery(['address1'], async () => await getAddressById(addressId).then((response) => response));
-  if(!isLoading) console.log(addressId, 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCc', address)
+
+  const [address, setAddress] = useState<Address>()
+
+  const {mutate: updateAddress} = useUpdateAddress()
+  const { t } = useTranslation('common');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAddressById(addressId).then(response => {
+        if(response && response.data) {
+          setAddress(response.data)
+        }
+      })
+    }
+    if(addressId !== '') {
+      fetchData();
+    }
+  }, [addressId])
 
   const { register, handleSubmit, formState, setValue } = useForm<UpdateAddressForm>();
 
-  const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {};
+  const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
+    updateAddress(data, {
+      onSuccess() {
+        toast.success(t('change_successfully'));
+      },
+      onError() {
+        toast.error(t('change_failed'));
+      },
+    })
+  };
 
   return (
     <React.Fragment>
       <h3>Update address</h3>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <input type="hidden" {...register('id', {})} defaultValue={addressId} />
           {/* <input type="hidden" {...register('customer', {})} defaultValue={currentUser.userInfo.accountId} /> */}
           <div className="grid grid-cols-12 gap-4">
             <InputComponent title="Phone" className="col-span-7" error={formState.errors.phone?.message}>
@@ -59,7 +87,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
                   {...register('phone', {
                     required: 'Phone is require',
                   })}
-                  defaultValue={address.phone}
+                  defaultValue={address?.phone}
                   placeholder="Enter your phone number"
                   className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone && 'bg-red-100'}`}
                 />
@@ -73,7 +101,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
                   {...register('postalCode', {
                     required: 'Address is require',
                   })}
-                  defaultValue={address.postalCode}
+                  defaultValue={address?.postalCode}
                   placeholder="Enter zip code"
                   className={`focus:outline-none ml-3 w-[100%] ${formState.errors.postalCode && 'bg-red-100'}`}
                 />
@@ -86,6 +114,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
               options={countryData}
               getOptionLabel={(option) => option.country}
               size={'small'}
+              // defaultValue={address?.country}
               renderInput={(params) => <TextField {...params} label="" />}
               onInputChange={(event, value) => {
                 setValue('country', value);
@@ -97,6 +126,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
               <Autocomplete
                 options={['Ho Chi Minh']}
                 size={'small'}
+                defaultValue={address?.addressLine1}
                 renderInput={(params) => <TextField {...params} label="" />}
                 onInputChange={(event, value) => {
                   setValue('addressLine1', value);
@@ -107,6 +137,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
               <Autocomplete
                 options={['Ho Chi Minh']}
                 size={'small'}
+                defaultValue={address?.addressLine2}
                 renderInput={(params) => <TextField {...params} label="" />}
                 onInputChange={(event, value) => {
                   setValue('addressLine2', value);
@@ -117,6 +148,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
               <Autocomplete
                 options={['Ho Chi Minh']}
                 size={'small'}
+                defaultValue={address?.addressLine3}
                 renderInput={(params) => <TextField {...params} label="" />}
                 onInputChange={(event, value) => {
                   setValue('addressLine3', value);
@@ -132,7 +164,7 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
                 {...register('street', {
                   required: 'Address is require',
                 })}
-                defaultValue={address.street}
+                defaultValue={address?.street}
                 placeholder="Enter your address"
                 className={`focus:outline-none ml-3 w-[100%] ${formState.errors.street && 'bg-red-100'}`}
               />
