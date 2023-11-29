@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,22 +22,24 @@ public class Voucher {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(unique = true)
     private String code;
 
     private String type;
 
     private float value;
 
+    @Column(name = "usage_limit")
     private int usageLimit;
 
     @Column(columnDefinition = "text")
     private String description;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     private String status;
 

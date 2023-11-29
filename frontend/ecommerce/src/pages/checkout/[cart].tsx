@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from 'api/cartApi';
@@ -21,6 +21,7 @@ import PaymentMomo from '@assets/icons/payment-momo.png';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getAddressByCustomer } from 'api/addressApi';
 import SelectAddress from '@components/Address/SelectAddress';
+import { Input } from 'antd';
 
 interface InputComponentProps {
   title: string;
@@ -47,6 +48,7 @@ export default function Checkout(): React.ReactElement {
 
   const [pickPaymentMethod, setPickPaymentMethod] = useState('COD');
   const [openModalAddress, setOpenModalAddress] = useState(false);
+  const [voucherCode, setVoucherCode] = useState<string>();
 
   const { data: cart, isLoading } = useQuery(['cart', cartId], async () => await getCartById(cartId).then((response) => response.data));
 
@@ -116,6 +118,10 @@ export default function Checkout(): React.ReactElement {
       value: 'JCB',
     },
   ];
+
+  const handleApplyVoucher = () => {
+    console.log('VVVVVVVVVVVVVVVVVVVVVvv', voucherCode);
+  };
 
   return (
     <>
@@ -337,7 +343,7 @@ export default function Checkout(): React.ReactElement {
             </div>
 
             <Card className="border border-gray-400 rounded-md w-[28%] h-fit px-3 pt-2 pb-5">
-              <div className="border-b-2 border-b-gray-300 mb-3">
+              <div className="border-b-2 border-b-gray-300 mb-3 pb-2">
                 <h4 className="font-medium text-lg">Order detail</h4>
                 <div className="flex justify-between">
                   <span>Items ({cart.cartItems.length}):</span>
@@ -357,6 +363,12 @@ export default function Checkout(): React.ReactElement {
                 <div className="flex justify-between">
                   <span>Tax:</span>
                   <span>0.0</span>
+                </div>
+                <div className="flex">
+                  <input placeholder="Enter your voucher code" value={voucherCode} onChange={(e) => setVoucherCode(e.target.value)} />
+                  <Button className="bg-yellow-300 rounded-xl ml-3" onClick={handleApplyVoucher}>
+                    Apply
+                  </Button>
                 </div>
               </div>
               <div className="border-b-2 border-b-gray-300 mb-3">
