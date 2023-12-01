@@ -14,4 +14,8 @@ public interface AddressService {
 
     List<AddressDTO> getAddressByCustomer(String customerId);
 
+    AddressDTO getDefaultAddressOfCustomer(String customerId);
+
+    boolean setDefaultAddressForCustomer(String customerId, String addressId);
+
 }

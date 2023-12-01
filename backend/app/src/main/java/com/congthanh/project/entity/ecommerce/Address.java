@@ -1,5 +1,6 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,4 +37,8 @@ public class Address {
     private String street;
 
     private String postalCode;
+
+    @Column(name = "is_default")
+    @JsonProperty("isDefault")
+    private boolean isDefault;
 }

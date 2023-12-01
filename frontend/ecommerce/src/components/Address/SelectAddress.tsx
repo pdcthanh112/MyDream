@@ -6,29 +6,37 @@ import { Modal, Tabs, type TabsProps, Radio, Button } from 'antd';
 import { Address } from '@models/AddressModel';
 import TabCreateAddress from './TabCreateAddress';
 import TabEditAddress from './TabEditAddress';
-// import Button from '@components/UI/Button';
 import { Icon } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 type PropsType = {
   isOpen: boolean;
   handleOpen: (isOpen: boolean) => void;
+  changeAddress: (address: Address) => void;
 };
 
-const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
+const SelectAddress = ({ isOpen, handleOpen, changeAddress }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const [activeTab, setActiveTab] = useState({ currentTab: '1', addressId: '' });
+  const [address, setAddress] = useState<Address>();
 
   const { data: listAddress } = useQuery(['address'], async () => await getAddressByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
+
+  const handleChangeAddress = () => {
+    if (address) {
+      changeAddress(address);
+      handleOpen(false)
+    }
+  };
 
   const TabShowAddress = () => {
     return (
       <React.Fragment>
         <h3>Your address</h3>
-        <Radio.Group>
-          {listAddress?.map((item: Address) => (
-            <Radio key={item.id} value={item.id}>
+        <Radio.Group defaultValue={listAddress.find((address: Address) => address.isDefault === true)} onChange={(event) => setAddress(event.target.value)}>
+          {listAddress.map((item: Address) => (
+            <Radio key={item.id} value={item} checked={item.isDefault}>
               <div className="my-2 px-3 py-2 border-t-2">
                 <div>
                   <span className="mr-1 text-lg">Cong Thanh</span>|<span className="ml-2">{item.phone}</span>
@@ -37,8 +45,11 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
                   <p className="w-4/5">
                     {item.street}, {item.addressLine3}, {item.addressLine2}, {item.addressLine1}, {item.country}
                   </p>
-                  <span className='text-blue-400' onClick={() => setActiveTab({ currentTab: '3', addressId: item.id })}>Edit</span>
+                  <span className="text-blue-400" onClick={() => setActiveTab({ currentTab: '3', addressId: item.id })}>
+                    Edit
+                  </span>
                 </div>
+                {item.isDefault && <span className="bg-yellow-300 px-2 py-1 rounded-md">Default</span>}
               </div>
             </Radio>
           ))}
@@ -53,7 +64,7 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
           <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => handleOpen(false)}>
             Cancel
           </Button>
-          <Button type="primary" danger htmlType="submit">
+          <Button type="primary" danger onClick={() => handleChangeAddress()}>
             Confirm
           </Button>
         </div>
@@ -80,7 +91,7 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
   ];
 
   return (
-    <Modal open={isOpen} onCancel={() => handleOpen(false)} footer={null} >
+    <Modal open={isOpen} onCancel={() => handleOpen(false)} footer={null}>
       <Tabs activeKey={activeTab.currentTab} items={items} defaultActiveKey="1" />
     </Modal>
   );

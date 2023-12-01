@@ -22,11 +22,12 @@ public class Voucher {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String code;
 
     private String type;
 
+    @Column(nullable = false)
     private float value;
 
     @Column(name = "usage_limit")

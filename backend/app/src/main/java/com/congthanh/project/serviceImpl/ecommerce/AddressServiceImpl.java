@@ -38,8 +38,12 @@ public class AddressServiceImpl implements AddressService {
                 .addressLine3(addressDTO.getAddressLine3())
                 .street(addressDTO.getStreet())
                 .postalCode(addressDTO.getPostalCode())
+                .isDefault(addressDTO.isDefault())
                 .build();
         Address result = addressRepository.save(address);
+        if(addressDTO.isDefault()) {
+            addressRepository.setDefaultAddressForCustomer(addressDTO.getCustomer(), result.getId());
+        }
         return addressMapper.mapAddressEntityToDTO(result);
     }
 
@@ -70,5 +74,19 @@ public class AddressServiceImpl implements AddressService {
             return result;
         }
         return null;
+    }
+
+    @Override
+    public AddressDTO getDefaultAddressOfCustomer(String customerId) {
+        Address data= addressRepository.getDefaultAddressOfCustomer(customerId);
+        if(data != null) {
+            return addressMapper.mapAddressEntityToDTO(data);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean setDefaultAddressForCustomer(String customerId, String addressId) {
+        return addressRepository.setDefaultAddressForCustomer(customerId, addressId);
     }
 }

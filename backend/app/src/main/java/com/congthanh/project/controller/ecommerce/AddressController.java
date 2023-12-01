@@ -57,4 +57,14 @@ public class AddressController {
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping("/getDefaultAddress")
+    public ResponseEntity<Response<AddressDTO>> getDefaultAddressOfCustomer(@RequestParam("customer") String customerId) {
+        AddressDTO data = addressService.getDefaultAddressOfCustomer(customerId);
+        Response<AddressDTO> response = new Response<>();
+        response.setData(data);
+        response.setMessage("get successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
+    }
 }

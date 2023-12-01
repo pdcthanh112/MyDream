@@ -17,4 +17,11 @@ public class VoucherCustomRepositoryImpl implements VoucherCustomRepository{
         query.setParameter("code", code);
         return query.getSingleResult();
     }
+
+    @Override
+    public Long countUsedVoucher(String voucherId) {
+        String sql = "SELECT ";
+        TypedQuery<Voucher> query = entityManager.createQuery(sql, Voucher.class);
+        return (long) query.executeUpdate();
+    }
 }

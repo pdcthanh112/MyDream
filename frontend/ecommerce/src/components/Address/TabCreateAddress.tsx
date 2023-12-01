@@ -104,7 +104,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
             />
           </InputComponent>
           <div className="grid grid-cols-12 gap-2">
-            <InputComponent title="City/State" className="col-span-4" error={formState.errors.addressLine1?.message}> 
+            <InputComponent title="City/State" className="col-span-4" error={formState.errors.addressLine1?.message}>
               <Autocomplete
                 options={provinceData}
                 getOptionLabel={(option) => option.name}
@@ -114,7 +114,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
                   setValue('addressLine1', value);
                 }}
               />
-            </InputComponent> 
+            </InputComponent>
 
             <InputComponent title="District" className="col-span-4" error={formState.errors.addressLine2?.message}>
               <Autocomplete
@@ -151,7 +151,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
             </InputField>
           </InputComponent>
 
-          <Checkbox>Set as default</Checkbox>
+          <Checkbox onChange={(event) => setValue('isDefault', event.target.checked)}>Set as default</Checkbox>
 
           <div className="flex justify-end">
             <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => onBack()}>

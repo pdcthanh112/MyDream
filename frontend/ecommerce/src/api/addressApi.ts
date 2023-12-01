@@ -1,6 +1,5 @@
 import axiosConfig from '@config/axiosConfig';
 import { CreateAddressForm, UpdateAddressForm } from '@models/AddressModel';
-import axios from 'axios';
 
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig
@@ -31,6 +30,7 @@ export const createAddress = async (data: CreateAddressForm) => {
       addressLine3: data.addressLine3,
       street: data.street,
       postalCode: data.postalCode,
+      idDefault: data.isDefault,
     })
     .then((response) => response.data)
     .catch((error) => {
@@ -55,3 +55,11 @@ export const updateAddress = async (addressId: string, data: UpdateAddressForm) 
     });
 };
 
+export const getDefaultAddressOfCustomer = async (customerId: string) => {
+  return await axiosConfig
+    .get(`address/getDefaultAddress?customer=${customerId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

@@ -1,5 +1,6 @@
 package com.congthanh.project.dto.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +32,8 @@ public class AddressDTO {
     private String street;
 
     private String postalCode;
+
+    @JsonProperty("isDefault")
+    private boolean isDefault;
 
 }

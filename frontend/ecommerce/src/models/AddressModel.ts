@@ -8,6 +8,7 @@ export type Address = {
   addressLine3: string;
   street: string;
   postalCode: string;
+  isDefault: boolean;
 };
 
 export type CreateAddressForm = {
@@ -19,6 +20,7 @@ export type CreateAddressForm = {
   addressLine3: string;
   street: string;
   postalCode: string;
+  isDefault: boolean
 };
 
 export type UpdateAddressForm = {

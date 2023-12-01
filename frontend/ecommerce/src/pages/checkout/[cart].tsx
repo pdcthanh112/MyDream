@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getCartById } from 'api/cartApi';
@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { CheckoutForm } from '@models/CheckoutModel';
 import Button from '@components/UI/Button';
 import { Autocomplete, Card, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { Input } from 'antd';
 import { PatternFormat } from 'react-number-format';
 import Image from 'next/image';
 import PaymentCOD from '@assets/icons/payment-cod.png';
@@ -19,9 +20,11 @@ import PaymentJCB from '@assets/icons/payment-jcb.png';
 import PaymentPaypal from '@assets/icons/payment-paypal.png';
 import PaymentMomo from '@assets/icons/payment-momo.png';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getAddressByCustomer } from 'api/addressApi';
+import { getDefaultAddressOfCustomer } from 'api/addressApi';
 import SelectAddress from '@components/Address/SelectAddress';
-import { Input } from 'antd';
+import { Address } from '@models/AddressModel';
+import { Voucher } from '@models/VoucherModel';
+import { getVoucherByCode } from 'api/voucherApi';
 
 interface InputComponentProps {
   title: string;
@@ -40,6 +43,13 @@ const InputComponent: React.FC<InputComponentProps> = (element) => {
   );
 };
 
+const InputField = styled.div`
+  border: 1px solid #b6b6b6;
+  padding: 0.45rem 1.8rem 0.45rem 0.6rem;
+  border-radius: 4px;
+  position: relative;
+`;
+
 export default function Checkout(): React.ReactElement {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
@@ -48,28 +58,27 @@ export default function Checkout(): React.ReactElement {
 
   const [pickPaymentMethod, setPickPaymentMethod] = useState('COD');
   const [openModalAddress, setOpenModalAddress] = useState(false);
+  const [address, setAddress] = useState<Address>();
   const [voucherCode, setVoucherCode] = useState<string>();
+  const [voucher, setVoucher] = useState<Voucher>();
 
   const { data: cart, isLoading } = useQuery(['cart', cartId], async () => await getCartById(cartId).then((response) => response.data));
 
-  // const { data: listAddress } = useQuery(['address'], async () => await getAddressByCustomer(currentUser.accountId).then((response) => response.data));
-
   const { register, setValue, watch, handleSubmit, formState } = useForm<CheckoutForm>();
   const onSubmit: SubmitHandler<CheckoutForm> = (data) => {
-    // dispatch(login(data)).then((res) => {
-    //   if (res.payload.status === 'SUCCESS') {
-    //     navigate.push('/home');
-    //   }
-    // });
     console.log('RRRRRRRRRRRRRRRRRRRR', data);
   };
 
-  const InputField = styled.div`
-    border: 1px solid #b6b6b6;
-    padding: 0.45rem 1.8rem 0.45rem 0.6rem;
-    border-radius: 4px;
-    position: relative;
-  `;
+  useEffect(() => {
+    const fetchData = async () => {
+      await getDefaultAddressOfCustomer(currentUser.userInfo.accountId).then((response) => {
+        if (response) {
+          setAddress(response.data);
+        }
+      });
+    };
+    fetchData();
+  }, []);
 
   const cardTypeOptions = [
     {
@@ -119,9 +128,19 @@ export default function Checkout(): React.ReactElement {
     },
   ];
 
-  const handleApplyVoucher = () => {
-    console.log('VVVVVVVVVVVVVVVVVVVVVvv', voucherCode);
+  const handleApplyVoucher = async () => {
+    await getVoucherByCode(voucherCode).then((response) => {
+      if (response) {
+        setVoucher(response.data);
+      }
+    });
   };
+
+  const total = cart.cartItems
+    .reduce((accumulator: number, item: any) => {
+      return accumulator + item.product.price * item.quantity;
+    }, 0)
+    .toFixed(2);
 
   return (
     <>
@@ -136,13 +155,18 @@ export default function Checkout(): React.ReactElement {
                 <div>
                   <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <div className="flex justify-between">
-                      <p className="truncate">125 D2, tang nho phu a, quan 9, thanh pho ho chi minh</p>
+                      {address && (
+                        <p className="truncate">
+                          {address.street}, {address.addressLine3}, {address.addressLine2}, {address.addressLine1}, {address.country}
+                        </p>
+                      )}
+                      <input type="hidden" value={address?.id} disabled {...register('address')}/>
                       <Button className="text-yellow-400" onClick={() => setOpenModalAddress(true)}>
                         Change
                       </Button>
                     </div>
                   </InputComponent>
-                  <SelectAddress isOpen={openModalAddress} handleOpen={setOpenModalAddress} />
+                  <SelectAddress isOpen={openModalAddress} handleOpen={setOpenModalAddress} changeAddress={setAddress} />
                 </div>
                 <div className="grid grid-cols-12 gap-4">
                   <FormControl className="col-span-5">

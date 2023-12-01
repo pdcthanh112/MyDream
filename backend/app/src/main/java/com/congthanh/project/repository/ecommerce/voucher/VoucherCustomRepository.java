@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface VoucherCustomRepository {
 
     Voucher getVoucherByCode(String code);
+
+    Long countUsedVoucher(String voucherId);
+
 }

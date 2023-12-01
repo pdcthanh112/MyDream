@@ -51,7 +51,7 @@ public class VoucherServiceImpl implements VoucherService {
         Voucher voucher = voucherRepository.getVoucherByCode(code);
 
         LocalDateTime currentDate = LocalDateTime.now();
-        if(currentDate.isBefore(voucher.getStartDate()) || currentDate.isAfter(voucher.getEndDate())) return false;
+        if(currentDate.isBefore(voucher.getStartDate()) || currentDate.isAfter(voucher.getEndDate()) || voucher.getStatus().equals("INACTIVE")) return false;
         if(voucher.getUsageLimit() == 0) return false;
         return true;
     }
