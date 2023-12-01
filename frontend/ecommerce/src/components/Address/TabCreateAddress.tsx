@@ -1,14 +1,15 @@
+import React from 'react';
 import { CreateAddressForm } from '@models/AddressModel';
 import { Autocomplete, TextField } from '@mui/material';
 import { Button, Checkbox } from 'antd';
-import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import countryData from '../../../public/data/country.json';
 import { useAppSelector } from '@redux/store';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
 import { useCreateAddress } from '@hooks/address/addressHook';
+import countryData from '../../../public/data/country.json';
+import provinceData from '../../../public/data/province.json';
 
 type InputComponentProps = {
   title: string;
@@ -41,7 +42,7 @@ type PropsType = {
 const TabCreateAddress = ({ onBack }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
-  const {mutate: createAddress} = useCreateAddress()
+  const { mutate: createAddress } = useCreateAddress();
   const { t } = useTranslation('common');
 
   const { register, handleSubmit, formState, setValue } = useForm<CreateAddressForm>();
@@ -54,7 +55,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
       onError() {
         toast.error(t('add_failed'));
       },
-    })
+    });
   };
 
   return (
@@ -94,7 +95,7 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
           <InputComponent title="Country/Region" className="col-span-3" error={formState.errors.country?.message}>
             <Autocomplete
               options={countryData}
-              getOptionLabel={(option) => option.country}
+              getOptionLabel={(option) => option.name}
               size={'small'}
               renderInput={(params) => <TextField {...params} label="" />}
               onInputChange={(event, value) => {
@@ -103,16 +104,18 @@ const TabCreateAddress = ({ onBack }: PropsType) => {
             />
           </InputComponent>
           <div className="grid grid-cols-12 gap-2">
-            <InputComponent title="City/State" className="col-span-4" error={formState.errors.addressLine1?.message}>
+            <InputComponent title="City/State" className="col-span-4" error={formState.errors.addressLine1?.message}> 
               <Autocomplete
-                options={['Ho Chi Minh']}
+                options={provinceData}
+                getOptionLabel={(option) => option.name}
                 size={'small'}
                 renderInput={(params) => <TextField {...params} label="" />}
                 onInputChange={(event, value) => {
                   setValue('addressLine1', value);
                 }}
               />
-            </InputComponent>
+            </InputComponent> 
+
             <InputComponent title="District" className="col-span-4" error={formState.errors.addressLine2?.message}>
               <Autocomplete
                 options={['Ho Chi Minh']}

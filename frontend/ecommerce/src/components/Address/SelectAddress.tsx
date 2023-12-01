@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { getAddressByCustomer } from 'api/addressApi';
-import { Modal, Tabs, type TabsProps, Radio } from 'antd';
+import { Modal, Tabs, type TabsProps, Radio, Button } from 'antd';
 import { Address } from '@models/AddressModel';
 import TabCreateAddress from './TabCreateAddress';
 import TabEditAddress from './TabEditAddress';
-import Button from '@components/UI/Button';
+// import Button from '@components/UI/Button';
+import { Icon } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 type PropsType = {
   isOpen: boolean;
@@ -35,14 +37,26 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
                   <p className="w-4/5">
                     {item.street}, {item.addressLine3}, {item.addressLine2}, {item.addressLine1}, {item.country}
                   </p>
-                  <Button onClick={() => setActiveTab({ currentTab: '3', addressId: item.id })}>change</Button>
+                  <span className='text-blue-400' onClick={() => setActiveTab({ currentTab: '3', addressId: item.id })}>Edit</span>
                 </div>
               </div>
             </Radio>
           ))}
         </Radio.Group>
 
-        <Button onClick={() => setActiveTab({ currentTab: '2', addressId: '' })}>Add new address</Button>
+        <Button onClick={() => setActiveTab({ currentTab: '2', addressId: '' })} className="bg-yellow-300">
+          <Icon component={Add} />
+          <span>Add new address</span>
+        </Button>
+
+        <div className="flex justify-end">
+          <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => handleOpen(false)}>
+            Cancel
+          </Button>
+          <Button type="primary" danger htmlType="submit">
+            Confirm
+          </Button>
+        </div>
       </React.Fragment>
     );
   };
@@ -66,7 +80,7 @@ const SelectAddress = ({ isOpen, handleOpen }: PropsType) => {
   ];
 
   return (
-    <Modal open={isOpen} onCancel={() => handleOpen(false)} footer={null}>
+    <Modal open={isOpen} onCancel={() => handleOpen(false)} footer={null} >
       <Tabs activeKey={activeTab.currentTab} items={items} defaultActiveKey="1" />
     </Modal>
   );

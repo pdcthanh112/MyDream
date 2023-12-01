@@ -1,5 +1,6 @@
 import axiosConfig from '@config/axiosConfig';
 import { CreateAddressForm, UpdateAddressForm } from '@models/AddressModel';
+import axios from 'axios';
 
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig
@@ -53,3 +54,4 @@ export const updateAddress = async (addressId: string, data: UpdateAddressForm) 
       throw error;
     });
 };
+

@@ -133,89 +133,6 @@ export default function Checkout(): React.ReactElement {
             <div className="border border-gray-400 rounded-md w-[70%] px-4 py-5">
               <h4 className="font-medium text-xl my-3">Checkout information</h4>
               <form onSubmit={handleSubmit(onSubmit)}>
-                {/* <InputComponent title="Country/Region" className="col-span-3" error={formState.errors.paymentMethod?.message}>
-                  <Autocomplete
-                    options={['Vietnam']}
-                    size={'small'}
-                    renderInput={(params) => <TextField {...params} label="" />}
-                    onInputChange={(event, value) => {
-                      setValue('paymentMethod', value);
-                    }}
-                  />
-                </InputComponent>
-                <div className="grid grid-cols-12 gap-2">
-                  <InputComponent title="City/State" className="col-span-4" error={formState.errors.paymentMethod?.message}>
-                    <Autocomplete
-                      options={['Ho Chi Minh']}
-                      size={'small'}
-                      renderInput={(params) => <TextField {...params} label="" />}
-                      onInputChange={(event, value) => {
-                        setValue('paymentMethod', value);
-                      }}
-                    />
-                  </InputComponent>
-                  <InputComponent title="District" className="col-span-4" error={formState.errors.paymentMethod?.message}>
-                    <Autocomplete
-                      options={['Ho Chi Minh']}
-                      size={'small'}
-                      renderInput={(params) => <TextField {...params} label="" />}
-                      onInputChange={(event, value) => {
-                        setValue('paymentMethod', value);
-                      }}
-                    />
-                  </InputComponent>
-                  <InputComponent title="Ward" className="col-span-4" error={formState.errors.paymentMethod?.message}>
-                    <Autocomplete
-                      options={['Ho Chi Minh']}
-                      size={'small'}
-                      renderInput={(params) => <TextField {...params} label="" />}
-                      onInputChange={(event, value) => {
-                        setValue('paymentMethod', value);
-                      }}
-                    />
-                  </InputComponent>
-                </div>
-
-                <InputComponent title="Address" error={formState.errors.address?.message}>
-                  <InputField>
-                    <input
-                      type="text"
-                      {...register('address', {
-                        required: 'Address is require',
-                      })}
-                      placeholder="Enter your address"
-                      className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address && 'bg-red-100'}`}
-                    />
-                  </InputField>
-                </InputComponent>
-
-                <div className="grid grid-cols-11 gap-10">
-                  <InputComponent title="Phone" className="col-span-4" error={formState.errors.phone?.message}>
-                    <InputField>
-                      <input
-                        type="text"
-                        {...register('phone', {
-                          required: 'Phone is require',
-                        })}
-                        placeholder="Enter your phone number"
-                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.phone && 'bg-red-100'}`}
-                      />
-                    </InputField>
-                  </InputComponent>
-
-                  <InputComponent title="Zip Code/Postal" error={formState.errors.address?.message} className="w-40">
-                    <InputField>
-                      <input
-                        type="text"
-                        {...register('address', {
-                          required: 'Address is require',
-                        })}
-                        placeholder="Enter zip code"
-                        className={`focus:outline-none ml-3 w-[100%] ${formState.errors.address && 'bg-red-100'}`}
-                      />
-                    </InputField>
-                  </InputComponent>
-                </div> */}
                 <div>
                   <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.paymentMethod?.message}>
                     <div className="flex justify-between">
@@ -365,7 +282,7 @@ export default function Checkout(): React.ReactElement {
                   <span>0.0</span>
                 </div>
                 <div className="flex">
-                  <input placeholder="Enter your voucher code" value={voucherCode} onChange={(e) => setVoucherCode(e.target.value)} />
+                  <Input placeholder="Enter your voucher code" value={voucherCode} onChange={(e) => setVoucherCode(e.target.value)} />
                   <Button className="bg-yellow-300 rounded-xl ml-3" onClick={handleApplyVoucher}>
                     Apply
                   </Button>
