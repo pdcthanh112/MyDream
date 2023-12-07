@@ -20,8 +20,8 @@ import java.util.List;
 public class Order {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private String customer;
 

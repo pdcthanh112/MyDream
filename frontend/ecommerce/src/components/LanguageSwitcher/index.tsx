@@ -47,8 +47,7 @@ export default function ChangeLanguage() {
                 { locale: e.target.value },
               );
             }}>
-            {languageData.map((item) => (
-              <>
+            {languageData.map((item) => (       
                 <FormControlLabel
                   key={item.key}
                   value={item.key}
@@ -59,8 +58,7 @@ export default function ChangeLanguage() {
                       <span className="ml-3">{item.name}</span>
                     </div>
                   }
-                />
-              </>
+                />         
             ))}
           </RadioGroup>
         </FormControl>

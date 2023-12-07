@@ -63,8 +63,9 @@ const Footer = (): React.ReactElement => {
       </div>
       <div className="w-[15%]">
         <ul className="text-[#626d79]">
-          <li>Spring framework</li>
+          <li>Java Spring framework</li>
           <li>NodeJS Express</li>
+          <li>Python Django</li>
           <li>PostgreSQL</li>
           <li>MySQL</li>
           <li>MongoDB</li>
@@ -78,6 +79,7 @@ const Footer = (): React.ReactElement => {
           <li>NextJS</li>
           <li>Angular</li>
           <li>Flutter</li>
+          <li>React Native</li>
           <li>AWS</li>
           <li>Firebase</li>
         </ul>

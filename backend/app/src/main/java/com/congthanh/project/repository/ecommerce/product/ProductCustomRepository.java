@@ -12,6 +12,7 @@ public interface ProductCustomRepository {
 
     List<Product> searchProduct(String keyword);
 
-
     boolean checkExistSlug(String slug);
+
+    int countTotalSoldProduct(String productId);
 }

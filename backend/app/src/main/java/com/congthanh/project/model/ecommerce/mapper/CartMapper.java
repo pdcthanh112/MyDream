@@ -16,22 +16,6 @@ public class CartMapper {
     @PostConstruct
     private void configureModelMapper() {
 
-        // Thêm cấu hình ánh xạ cho các trường đặc biệt (ví dụ: Checkout)
-//        modelMapper.typeMap(Cart.class, CartDTO.class)
-//                .addMapping(src -> src.getCheckout().getId(), CartDTO::setCheckout);
-
-        // Thêm các ánh xạ khác tùy thuộc vào yêu cầu của bạn
-        // modelMapper.typeMap(Cart.class, CartDTO.class)
-        //     .addMapping(src -> src.getYourProperty(), CartDTO::setYourProperty);
-
-        // Hoặc sử dụng Converter nếu bạn cần xử lý logic phức tạp hơn
-        // Converter<Cart, CartDTO> yourConverter = ctx -> {
-        //     Cart source = ctx.getSource();
-        //     CartDTO destination = ctx.getDestination();
-        //     destination.setYourProperty(yourConversionLogic(source.getYourProperty()));
-        //     return destination;
-        // };
-        // modelMapper.addConverter(yourConverter);
     }
 
     public Cart mapCartDTOToEntity(CartDTO cartDTO) {

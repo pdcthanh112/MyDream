@@ -2,10 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.CartDTO;
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
-import com.congthanh.project.entity.ecommerce.Cart;
-import com.congthanh.project.entity.ecommerce.CartItem;
-import com.congthanh.project.entity.ecommerce.Checkout;
-import com.congthanh.project.entity.ecommerce.Order;
+import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CheckoutMapper;
 import com.congthanh.project.model.ecommerce.request.CreateCheckoutDTO;
@@ -14,6 +11,7 @@ import com.congthanh.project.model.ecommerce.request.CreateOrderDetailDTO;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
 import com.congthanh.project.repository.ecommerce.order.OrderRepository;
+import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
 import com.congthanh.project.service.ecommerce.CheckoutService;
 import com.congthanh.project.service.ecommerce.OrderDetailService;
 import com.congthanh.project.service.ecommerce.OrderService;
@@ -22,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -32,6 +31,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Autowired
     private CheckoutRepository checkoutRepository;
+
+    @Autowired
+    private VoucherRepository voucherRepository;
 
     @Autowired
     private OrderService orderService;
@@ -64,20 +66,26 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public CheckoutDTO createCheckout(CreateCheckoutDTO createCheckoutDTO) {
         Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
+        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCC"+ cart);
+        Voucher voucher = voucherRepository.findById(createCheckoutDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
         Checkout checkout = Checkout.builder()
                 .customer(createCheckoutDTO.getCustomer())
                 .total(createCheckoutDTO.getTotal())
                 .address(createCheckoutDTO.getAddress())
                 .paymentMethod(createCheckoutDTO.getPaymentMethod())
-                .checkoutDate(new Date().getTime())
+                .checkoutDate(Instant.now().toEpochMilli())
                 .phone(createCheckoutDTO.getPhone())
                 .cart(cart)
+                .voucher(voucher)
                 .build();
         Checkout result = checkoutRepository.save(checkout);
 
         CreateOrderDTO createOrderDTO = CreateOrderDTO.builder()
-                .checkout(result)
+                .customer(createCheckoutDTO.getCustomer())
+//                .total(cart.getTotalOrderPrice())
+                .checkout(result.getId())
                 .build();
+
         Order order = orderService.createOrder(createOrderDTO);
         for (CartItem cartItem: cart.getCartItems()) {
             CreateOrderDetailDTO orderDetailDTO = CreateOrderDetailDTO.builder()

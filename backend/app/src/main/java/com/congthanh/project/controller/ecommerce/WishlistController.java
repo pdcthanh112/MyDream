@@ -20,7 +20,7 @@ public class WishlistController {
   @GetMapping("/getByCustomer")
   public ResponseEntity<Response<WishlistDTO>> getWishlistByCustomer(@RequestParam String customerId) {
     WishlistDTO data = wishlistService.getWishlistByCustomer(customerId);
-    Response<WishlistDTO> response = new Response();
+    Response<WishlistDTO> response = new Response<>();
     response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Add successfully");

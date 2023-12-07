@@ -23,7 +23,7 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public VoucherDTO getVoucherByCode(String code) {
         Voucher result = voucherRepository.getVoucherByCode(code);
-        return voucherMapper.mapVoucherEntityToDTO(result);
+        return result != null ? voucherMapper.mapVoucherEntityToDTO(result) : null;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class VoucherServiceImpl implements VoucherService {
                 .startDate(voucherDTO.getStartDate())
                 .endDate(voucherDTO.getEndDate())
                 .status("NEW")
-                .createdDate(Instant.now().getEpochSecond())
-                .updatedDate(Instant.now().getEpochSecond())
+                .createdDate(Instant.now().toEpochMilli())
+                .updatedDate(Instant.now().toEpochMilli())
                 .build();
         Voucher result = voucherRepository.save(voucher);
         return voucherMapper.mapVoucherEntityToDTO(result);

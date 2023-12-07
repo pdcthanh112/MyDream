@@ -1,10 +1,11 @@
 package com.congthanh.project.model.ecommerce.request;
 
-import com.congthanh.project.entity.ecommerce.Checkout;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -12,14 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreateOrderDTO {
 
-    private Checkout checkout;
-
     private String customer;
 
-    private String voucher;
+    private BigDecimal total;
 
-    private String payment;
-
-    private String note;
+    private long checkout;
 
 }

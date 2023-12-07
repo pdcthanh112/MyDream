@@ -29,4 +29,9 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
         return !resultList.isEmpty();
     }
 
+    @Override
+    public int countTotalSoldProduct(String productId) {
+        return 0;
+    }
+
 }

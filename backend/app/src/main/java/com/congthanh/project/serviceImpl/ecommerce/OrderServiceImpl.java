@@ -3,16 +3,14 @@ package com.congthanh.project.serviceImpl.ecommerce;
 import com.congthanh.project.dto.ecommerce.CartDTO;
 import com.congthanh.project.dto.ecommerce.CartItemDTO;
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
-import com.congthanh.project.entity.ecommerce.Cart;
-import com.congthanh.project.entity.ecommerce.CartItem;
-import com.congthanh.project.entity.ecommerce.Order;
-import com.congthanh.project.entity.ecommerce.Voucher;
+import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CartMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
+import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
 import com.congthanh.project.repository.ecommerce.order.OrderRepository;
 import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
 import com.congthanh.project.service.ecommerce.OrderDetailService;
@@ -37,6 +35,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private CheckoutRepository checkoutRepository;
+
+    @Autowired
     private VoucherRepository voucherRepository;
 
     @Autowired
@@ -50,16 +51,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(CreateOrderDTO createOrderDTO) {
-        Voucher voucher = voucherRepository.findById(createOrderDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
-        BigDecimal orderTotal = BigDecimal.ZERO;
+        Checkout checkout = checkoutRepository.findById((int) createOrderDTO.getCheckout()).orElseThrow(() -> new NotFoundException("Checkout not found"));
+        Voucher voucher = voucherRepository.findById(checkout.getVoucher().getId()).orElseThrow(() -> new NotFoundException("voucher not found"));
+        BigDecimal orderTotal = createOrderDTO.getTotal();
         if(voucher != null) {
-            orderTotal = createOrderDTO.getCheckout().getTotal().multiply(BigDecimal.valueOf(voucher.getValue()));
+            orderTotal = checkout.getTotal().multiply(BigDecimal.valueOf(voucher.getValue()));
         }
         Order order = Order.builder()
                 .customer(createOrderDTO.getCustomer())
-                .note(createOrderDTO.getNote())
                 .orderDate(new Date().getTime())
-                .checkout(createOrderDTO.getCheckout())
+                .checkout(checkout)
                 .total(orderTotal)
                 .status("NEW")
                 .build();

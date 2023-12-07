@@ -3,7 +3,7 @@ import { CheckoutForm } from '@models/CheckoutModel';
 
 export const checkout = async (data: CheckoutForm) => {
   return await axiosConfig
-    .post('/', {
+    .post('/checkout/', {
         customer: data.customer,
         cartId: data.cart,
         total: data.total,
@@ -11,7 +11,6 @@ export const checkout = async (data: CheckoutForm) => {
         address: data.address,
         phone: data.phone,
         payment: data.paymentMethod,
-        note: data.note
     })
     .then((response) => response)
     .catch((error) => {

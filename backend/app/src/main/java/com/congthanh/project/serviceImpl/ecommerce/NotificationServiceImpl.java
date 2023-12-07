@@ -8,6 +8,7 @@ import com.congthanh.project.service.ecommerce.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class NotificationServiceImpl implements NotificationService {
             .customer(notificationDTO.getCustomer())
             .content(notificationDTO.getContent())
             .title(notificationDTO.getTitle())
-            .createdDate(new Date().getTime())
+            .createdDate(Instant.now().toEpochMilli())
             .build();
     Notification result = notificationRepository.save(notification);
     return notificationMapper.mapNotificationEntityToDTO(result);

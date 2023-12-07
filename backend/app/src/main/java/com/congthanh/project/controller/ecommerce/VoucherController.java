@@ -2,6 +2,7 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.VoucherDTO;
+import com.congthanh.project.model.ecommerce.response.ErrorDTO;
 import com.congthanh.project.model.ecommerce.response.Response;
 import com.congthanh.project.service.ecommerce.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,15 @@ public class VoucherController {
     private VoucherService voucherService;
 
     @GetMapping("/getByCode")
-    public ResponseEntity<Response<VoucherDTO>> getVoucherByCode(@RequestParam("code") String code) {
-        VoucherDTO data= voucherService.getVoucherByCode(code);
+    public ResponseEntity<Object> getVoucherByCode(@RequestParam("code") String code) {
+        VoucherDTO data = voucherService.getVoucherByCode(code);
+        if (data == null) {
+            ErrorDTO error = new ErrorDTO();
+            error.setErrorCode(40404);
+            error.setMessage("not found code");
+            error.setStatus(ResponseStatus.STATUS_FAILED);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
         Response<VoucherDTO> response = new Response<>();
         response.setData(data);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
@@ -28,7 +36,7 @@ public class VoucherController {
 
     @PostMapping("/create")
     public ResponseEntity<Response<VoucherDTO>> createVoucher(@RequestBody VoucherDTO voucherDTO) {
-        VoucherDTO data= voucherService.createVoucher(voucherDTO);
+        VoucherDTO data = voucherService.createVoucher(voucherDTO);
         Response<VoucherDTO> response = new Response<>();
         response.setData(data);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);

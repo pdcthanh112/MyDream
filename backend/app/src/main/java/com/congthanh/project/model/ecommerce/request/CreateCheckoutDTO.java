@@ -27,6 +27,4 @@ public class CreateCheckoutDTO {
 
     private String paymentMethod;
 
-    private String note;
-
 }

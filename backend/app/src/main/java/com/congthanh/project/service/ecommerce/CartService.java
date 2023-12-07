@@ -14,7 +14,7 @@ public interface CartService {
 
   CartDTO createCart(CartDTO cartDTO);
 
-  Cart updateCart(CartDTO cartDTO);
+  CartDTO updateCart(CartDTO cartDTO);
 
   boolean deleteCart(String cartId);
 

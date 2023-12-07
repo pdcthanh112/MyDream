@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Builder
 public class OrderDetailDTO {
 
-    private String id;
+    private Long id;
 
     @NotNull
     private int quantity;

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "checkout")
 public class Checkout {
 
   @Id
@@ -41,9 +42,12 @@ public class Checkout {
   @Column(name = "checkout_date")
   private long checkoutDate;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")
-  @JsonManagedReference
+//  @OneToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")
+//  @JsonManagedReference
+  @OneToOne(mappedBy = "checkout", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonBackReference
+  @JsonIgnore
   private Cart cart;
 
   @OneToOne(mappedBy = "checkout", cascade = CascadeType.ALL, orphanRemoval = true)

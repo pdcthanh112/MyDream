@@ -13,14 +13,12 @@ type Product {
     name: String!
     category: Category
     subcategory: Subcategory
+    SKU: String
     quantity: Int
     price: Float
     production: String
-    sold: Int
     image: String
     description: String
-    ratingVote: Int
-    ratingValue: Float
     status: String
     slug: String
     store: Store

@@ -106,7 +106,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart updateCart(CartDTO cartDTO) {
+    public CartDTO updateCart(CartDTO cartDTO) {
         return null;
     }
 
