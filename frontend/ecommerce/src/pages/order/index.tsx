@@ -1,4 +1,5 @@
-import React from 'react'
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Order = () => {
   return (
@@ -7,3 +8,11 @@ const Order = () => {
 }
 
 export default Order
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ['common'])),
+    },
+  };
+}

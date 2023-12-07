@@ -1,6 +1,5 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
-import com.congthanh.project.dto.ecommerce.CartDTO;
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
@@ -9,28 +8,29 @@ import com.congthanh.project.model.ecommerce.request.CreateCheckoutDTO;
 import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
 import com.congthanh.project.model.ecommerce.request.CreateOrderDetailDTO;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
+import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
-import com.congthanh.project.repository.ecommerce.order.OrderRepository;
 import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
 import com.congthanh.project.service.ecommerce.CheckoutService;
 import com.congthanh.project.service.ecommerce.OrderDetailService;
 import com.congthanh.project.service.ecommerce.OrderService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
+import java.util.List;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
 
     @Autowired
+    private CheckoutRepository checkoutRepository;
+
+    @Autowired
     private CartRepository cartRepository;
 
     @Autowired
-    private CheckoutRepository checkoutRepository;
+    private CartItemRepository cartItemRepository;
 
     @Autowired
     private VoucherRepository voucherRepository;
@@ -42,37 +42,24 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrderDetailService orderDetailService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private CheckoutMapper checkoutMapper;
 
     @Override
     public CheckoutDTO getCheckoutById(int id) {
-        Checkout checkout = checkoutRepository.findById(id).orElseThrow(() -> new NotFoundException("checkout not found"));
-        CheckoutDTO response = CheckoutDTO.builder()
-                .id(checkout.getId())
-                .customer(checkout.getCustomer())
-                .total(checkout.getTotal())
-                .address(checkout.getAddress())
-                .phone(checkout.getPhone())
-                .paymentMethod(checkout.getPaymentMethod())
-                .checkoutDate(checkout.getCheckoutDate())
-                .cart(modelMapper.map(checkout.getCart(), CartDTO.class))
-                .build();
-        return response;
+        Checkout result = checkoutRepository.findById(id).orElseThrow(() -> new NotFoundException("checkout not found"));
+        return checkoutMapper.mapCheckoutEntityToDTO(result);
     }
 
     @Override
     public CheckoutDTO createCheckout(CreateCheckoutDTO createCheckoutDTO) {
         Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
-        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCC"+ cart);
         Voucher voucher = voucherRepository.findById(createCheckoutDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
+
         Checkout checkout = Checkout.builder()
                 .customer(createCheckoutDTO.getCustomer())
                 .total(createCheckoutDTO.getTotal())
                 .address(createCheckoutDTO.getAddress())
-                .paymentMethod(createCheckoutDTO.getPaymentMethod())
+                .payment(createCheckoutDTO.getPayment())
                 .checkoutDate(Instant.now().toEpochMilli())
                 .phone(createCheckoutDTO.getPhone())
                 .cart(cart)
@@ -82,12 +69,13 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         CreateOrderDTO createOrderDTO = CreateOrderDTO.builder()
                 .customer(createCheckoutDTO.getCustomer())
-//                .total(cart.getTotalOrderPrice())
+                .total(cart.getTotalOrderPrice())
                 .checkout(result.getId())
                 .build();
-
         Order order = orderService.createOrder(createOrderDTO);
-        for (CartItem cartItem: cart.getCartItems()) {
+
+        List<CartItem> cartItemList = cartItemRepository.getAllCartItemByCartId(cart.getId());
+        for (CartItem cartItem: cartItemList) {
             CreateOrderDetailDTO orderDetailDTO = CreateOrderDetailDTO.builder()
                     .productId(cartItem.getProduct().getId())
                     .quantity(cartItem.getQuantity())
@@ -95,6 +83,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                     .build();
             orderDetailService.createOrderDetail(orderDetailDTO);
         }
+
         return checkoutMapper.mapCheckoutEntityToDTO(result);
     }
 }

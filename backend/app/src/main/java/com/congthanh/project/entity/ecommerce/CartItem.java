@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,5 +32,9 @@ public class CartItem {
 
   @Column(name = "created_date")
   private long createdDate;
+
+  public BigDecimal getTotal() {
+    return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+  }
 
 }

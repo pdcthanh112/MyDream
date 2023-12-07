@@ -32,8 +32,8 @@ public class Checkout {
 
   private String phone;
 
-  @Column(name = "payment_method")
-  private String paymentMethod;
+  @Column(name = "payment")
+  private String payment;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "voucher")
@@ -42,9 +42,6 @@ public class Checkout {
   @Column(name = "checkout_date")
   private long checkoutDate;
 
-//  @OneToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "cart", nullable = false, referencedColumnName = "id")
-//  @JsonManagedReference
   @OneToOne(mappedBy = "checkout", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonBackReference
   @JsonIgnore

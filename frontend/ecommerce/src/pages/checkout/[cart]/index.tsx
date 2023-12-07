@@ -89,7 +89,7 @@ export default function Checkout(): React.ReactElement {
     data.phone = currentUser.userInfo.phone;
     data.total = total;
     data.voucher = voucher?.id;
-    data.paymentMethod = pickPaymentMethod
+    data.payment = pickPaymentMethod
     try {
       await checkout(data).then(response => {
       router.push(`/checkout/${cartId}/thank-you`)
@@ -139,7 +139,7 @@ export default function Checkout(): React.ReactElement {
           <h4 className="font-medium text-xl my-3">Checkout information</h4>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.paymentMethod?.message}>
+              <InputComponent title="Shipping address" className="col-span-4" error={formState.errors.payment?.message}>
                 <div className="flex justify-between">
                   {address && (
                     <p className="truncate">

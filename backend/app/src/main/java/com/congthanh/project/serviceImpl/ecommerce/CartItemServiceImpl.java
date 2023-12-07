@@ -14,7 +14,9 @@ import com.congthanh.project.service.ecommerce.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
@@ -36,6 +38,17 @@ public class CartItemServiceImpl implements CartItemService {
 
   @Autowired
   private ProductMapper productMapper;
+
+  @Override
+  public List<CartItemDTO> getItemByCartId(String cartId) {
+    List<CartItem> data = cartItemRepository.getAllCartItemByCartId(cartId);
+    List<CartItemDTO> result = new ArrayList<>();
+    for (CartItem item: data) {
+      CartItemDTO itemDTO = cartItemMapper.mapCartItemEntityToDTO(item);
+      result.add(itemDTO);
+    }
+    return result;
+  }
 
   @Override
   public CartItemDTO addToCart(String productId, int quantity, String cartId) {

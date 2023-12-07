@@ -28,7 +28,7 @@ public class Order {
   @Column(columnDefinition = "text")
   private String note;
 
-  @Column(precision = 38, scale = 4)
+  @Column(precision = 38, scale = 2)
   private BigDecimal total;
 
   @Column(name = "order_date")

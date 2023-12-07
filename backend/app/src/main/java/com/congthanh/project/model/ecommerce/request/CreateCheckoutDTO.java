@@ -25,6 +25,6 @@ public class CreateCheckoutDTO {
 
     private String phone;
 
-    private String paymentMethod;
+    private String payment;
 
 }

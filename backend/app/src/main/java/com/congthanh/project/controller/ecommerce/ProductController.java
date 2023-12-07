@@ -28,7 +28,7 @@ public class ProductController {
 
   @GetMapping("/getAll")
   @PermitAll
-  public ResponseEntity<Response<Object>> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
+  public ResponseEntity<Response<?>> getAllProduct(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit) {
     Object data = productService.getAllProduct(page, limit);
     Response<Object> response = new Response<>();
     response.setData(data);

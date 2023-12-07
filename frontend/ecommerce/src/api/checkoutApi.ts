@@ -10,7 +10,7 @@ export const checkout = async (data: CheckoutForm) => {
         voucher: data.voucher,
         address: data.address,
         phone: data.phone,
-        payment: data.paymentMethod,
+        payment: data.payment,
     })
     .then((response) => response)
     .catch((error) => {

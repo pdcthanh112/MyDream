@@ -36,9 +36,6 @@ public class Cart {
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<CartItem> cartItems;
 
-//  @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonBackReference
-//  @JsonIgnore
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "checkout", referencedColumnName = "id")
   @JsonManagedReference

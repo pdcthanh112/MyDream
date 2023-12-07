@@ -5,7 +5,7 @@ export interface CheckoutForm {
   address: string;
   phone: string;
   total: number;
-  paymentMethod: string;
+  payment: string;
   cart: Cart | string;
   voucher?: string;
 }
