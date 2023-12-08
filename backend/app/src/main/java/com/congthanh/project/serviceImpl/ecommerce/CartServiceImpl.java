@@ -120,6 +120,20 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+    @Override
+    public CartDTO getDefaultCartOfCustomer(String customerId) {
+        Cart data = cartRepository.getDefaultOfCustomer(customerId);
+        if (data != null) {
+            return cartMapper.mapCartEntityToDTO(data);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean setDefaultCartForCustomer(String customerId, String cartId) {
+        return cartRepository.setDefaultCartForCustomer(customerId, cartId);
+    }
+
 }
 
 

@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.SubcategoryDTO;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Subcategory;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
@@ -42,7 +42,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
         if (pageNo != null && pageSize != null) {
             Pageable pageable = PageRequest.of(pageNo, pageSize);
             Page<Subcategory> pageResult = subcategoryRepository.findAll(pageable);
-            ResponseWithTotalPage<SubcategoryDTO> result = new ResponseWithTotalPage<>();
+            ResponseWithPagination<SubcategoryDTO> result = new ResponseWithPagination<>();
             List<SubcategoryDTO> list = new ArrayList<>();
             if (pageResult.hasContent()) {
                 for (Subcategory subcategory : pageResult.getContent()) {

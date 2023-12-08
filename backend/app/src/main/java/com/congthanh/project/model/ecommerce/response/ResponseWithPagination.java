@@ -11,8 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseWithTotalPage<T> {
+public class ResponseWithPagination<T> {
 
   private int totalPage;
+
   private List<T> responseList;
+
 }

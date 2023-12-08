@@ -15,8 +15,6 @@ import java.util.Optional;
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, String>, ProductCustomRepository {
 
-  Optional<Product> findById(String id);
-
   @Query(nativeQuery = true, value = "SELECT product.*\n" +
           "FROM product  JOIN category on product.category = category.id\n" +
           "JOIN subcategory on product.subcategory = subcategory.id\n" +

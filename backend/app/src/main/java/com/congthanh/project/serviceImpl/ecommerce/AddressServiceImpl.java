@@ -41,8 +41,8 @@ public class AddressServiceImpl implements AddressService {
                 .isDefault(addressDTO.isDefault())
                 .build();
         Address result = addressRepository.save(address);
-        if(addressDTO.isDefault()) {
-            addressRepository.setDefaultAddressForCustomer(addressDTO.getCustomer(), result.getId());
+        if (addressDTO.isDefault()) {
+            this.setDefaultAddressForCustomer(addressDTO.getCustomer(), result.getId());
         }
         return addressMapper.mapAddressEntityToDTO(result);
     }
@@ -78,8 +78,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDTO getDefaultAddressOfCustomer(String customerId) {
-        Address data= addressRepository.getDefaultAddressOfCustomer(customerId);
-        if(data != null) {
+        Address data = addressRepository.getDefaultAddressOfCustomer(customerId);
+        if (data != null) {
             return addressMapper.mapAddressEntityToDTO(data);
         }
         return null;

@@ -18,4 +18,8 @@ public interface CartService {
 
   boolean deleteCart(String cartId);
 
+  CartDTO getDefaultCartOfCustomer(String customerId);
+
+  boolean setDefaultCartForCustomer(String customerId, String cartId);
+
 }

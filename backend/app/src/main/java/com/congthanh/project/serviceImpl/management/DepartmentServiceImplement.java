@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.management;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.management.DepartmentDTO;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.management.Department;
 import com.congthanh.project.repository.management.DepartmentRepository;
 import com.congthanh.project.service.management.DepartmentService;
@@ -31,7 +31,7 @@ public class DepartmentServiceImplement implements DepartmentService {
     if (page != null && limit != null) {
       Pageable pageable = PageRequest.of(page, limit);
       Page<Department> result = departmentRepository.findAll(pageable);
-      ResponseWithTotalPage<DepartmentDTO> response = new ResponseWithTotalPage<>();
+      ResponseWithPagination<DepartmentDTO> response = new ResponseWithPagination<>();
       if (result.hasContent()) {
         List<DepartmentDTO> list = new ArrayList<>();
         for (Department department : result.getContent()) {

@@ -28,6 +28,8 @@ public class CartDTO {
 
     private CheckoutDTO checkout;
 
+    private boolean isDefault;
+
     public BigDecimal getTotalOrderPrice() {
         BigDecimal sum = BigDecimal.ZERO;
         if (this.cartItems == null || this.cartItems.isEmpty()) {

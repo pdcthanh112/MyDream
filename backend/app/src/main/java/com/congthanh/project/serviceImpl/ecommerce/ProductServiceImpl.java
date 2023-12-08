@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Store;
@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     if (page != null & limit != null) {
       Pageable pageable = PageRequest.of(page, limit);
       Page<Product> result = productRepository.findAll(pageable);
-      ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+      ResponseWithPagination<ProductDTO> response = new ResponseWithPagination<>();
       if (result.hasContent()) {
         List<ProductDTO> list = new ArrayList<>();
         for (Product product : result.getContent()) {
@@ -146,10 +146,10 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ResponseWithTotalPage<ProductDTO> getProductByCategory(int categoryId, int page, int limit) {
+  public ResponseWithPagination<ProductDTO> getProductByCategory(int categoryId, int page, int limit) {
     Pageable pageable = PageRequest.of(page, limit);
     Page<Product> result = productRepository.findByCategoryId(categoryId, pageable);
-    ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+    ResponseWithPagination<ProductDTO> response = new ResponseWithPagination<>();
     if (result.hasContent()) {
       List<ProductDTO> list = new ArrayList<>();
       for (Product product : result.getContent()) {
@@ -165,10 +165,10 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ResponseWithTotalPage<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit) {
+  public ResponseWithPagination<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit) {
     Pageable pageable = PageRequest.of(page, limit);
     Page<Product> result = productRepository.findBySubcategoryId(subcategoryId, pageable);
-    ResponseWithTotalPage<ProductDTO> response = new ResponseWithTotalPage<>();
+    ResponseWithPagination<ProductDTO> response = new ResponseWithPagination<>();
     if (result.hasContent()) {
       List<ProductDTO> list = new ArrayList<>();
       for (Product product : result.getContent()) {

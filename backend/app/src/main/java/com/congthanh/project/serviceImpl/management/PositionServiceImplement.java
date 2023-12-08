@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.management;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.management.PositionDTO;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.management.Department;
 import com.congthanh.project.entity.management.Position;
 import com.congthanh.project.repository.management.DepartmentRepository;
@@ -36,7 +36,7 @@ public class PositionServiceImplement implements PositionService {
     if (page != null && limit != null) {
       Pageable pageable = PageRequest.of(page, limit);
       Page<Position> result = positionRepository.findAll(pageable);
-      ResponseWithTotalPage<PositionDTO> response = new ResponseWithTotalPage<>();
+      ResponseWithPagination<PositionDTO> response = new ResponseWithPagination<>();
       if (result.hasContent()) {
         List<PositionDTO> list = new ArrayList<>();
         for (Position position : result.getContent()) {

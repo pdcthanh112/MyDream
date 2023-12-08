@@ -3,6 +3,7 @@ package com.congthanh.project.entity.ecommerce;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,10 @@ public class Cart {
   @JoinColumn(name = "checkout", referencedColumnName = "id")
   @JsonManagedReference
   private Checkout checkout;
+
+  @Column(name = "is_default")
+  @JsonProperty("isDefault")
+  private boolean isDefault;
 
   @Transient
   public BigDecimal getTotalOrderPrice() {

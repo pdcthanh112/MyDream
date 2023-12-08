@@ -2,7 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.constant.common.StateStatus;
 import com.congthanh.project.dto.ecommerce.CategoryDTO;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.ecommerce.Category;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CategoryMapper;
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     if (pageNo != null && pageSize != null) {
       Pageable pageable = PageRequest.of(pageNo, pageSize);
       Page<Category> pageResult = categoryRepository.findAll(pageable);
-      ResponseWithTotalPage<CategoryDTO> result = new ResponseWithTotalPage<>();
+      ResponseWithPagination<CategoryDTO> result = new ResponseWithPagination<>();
       List<CategoryDTO> list = new ArrayList<>();
       if (pageResult.hasContent()) {
         for (Category category : pageResult.getContent()) {

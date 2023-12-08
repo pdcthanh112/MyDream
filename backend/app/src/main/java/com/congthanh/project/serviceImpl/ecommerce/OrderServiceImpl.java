@@ -1,22 +1,23 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
-import com.congthanh.project.dto.ecommerce.CartDTO;
-import com.congthanh.project.dto.ecommerce.CartItemDTO;
-import com.congthanh.project.dto.ecommerce.CheckoutDTO;
+import com.congthanh.project.dto.ecommerce.*;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CartMapper;
+import com.congthanh.project.model.ecommerce.mapper.OrderMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
 import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
 import com.congthanh.project.repository.ecommerce.order.OrderRepository;
 import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
-import com.congthanh.project.service.ecommerce.OrderDetailService;
 import com.congthanh.project.service.ecommerce.OrderService;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -41,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     private VoucherRepository voucherRepository;
 
     @Autowired
-    private OrderDetailService orderDetailService;
+    private OrderMapper orderMapper;
 
     @Autowired
     private CartMapper cartMapper;
@@ -65,6 +66,24 @@ public class OrderServiceImpl implements OrderService {
                 .status("NEW")
                 .build();
         return orderRepository.save(order);
+    }
+
+    @Override
+    public ResponseWithPagination<OrderDTO> getOrderByStatus(String status, int page, int limit) {
+        PageRequest pageRequest = PageRequest.of(page, limit);
+        Page<Order> data = orderRepository.findByStatus(status, pageRequest);
+        if(data.hasContent()) {
+            ResponseWithPagination<OrderDTO> response = new ResponseWithPagination<>();
+            List<OrderDTO> list = new ArrayList<>();
+            for(Order order: data) {
+                OrderDTO orderDTO = orderMapper.mapOrderEntityToDTO(order);
+                list.add(orderDTO);
+            }
+            response.setResponseList(list);
+            response.setTotalPage(data.getTotalPages());
+            return response;
+        }
+        return null;
     }
 
     @Override

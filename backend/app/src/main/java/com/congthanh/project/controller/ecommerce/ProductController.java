@@ -3,7 +3,7 @@ package com.congthanh.project.controller.ecommerce;
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.ProductDTO;
 import com.congthanh.project.model.ecommerce.response.Response;
-import com.congthanh.project.model.ecommerce.response.ResponseWithTotalPage;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.repository.ecommerce.product.ProductRepository;
 import com.congthanh.project.service.ecommerce.ProductService;
@@ -83,9 +83,9 @@ public class ProductController {
   }
 
   @GetMapping("/getByCategory")
-  public ResponseEntity<Response<ResponseWithTotalPage<ProductDTO>>> getProductByCategory(@RequestParam int categoryId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
-    ResponseWithTotalPage<ProductDTO> data = productService.getProductByCategory(categoryId, page, limit);
-    Response<ResponseWithTotalPage<ProductDTO>> response = new Response<>();
+  public ResponseEntity<Response<ResponseWithPagination<ProductDTO>>> getProductByCategory(@RequestParam int categoryId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
+    ResponseWithPagination<ProductDTO> data = productService.getProductByCategory(categoryId, page, limit);
+    Response<ResponseWithPagination<ProductDTO>> response = new Response<>();
     response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Get successfully");
@@ -93,9 +93,9 @@ public class ProductController {
   }
 
   @GetMapping("/getBySubcategory")
-  public ResponseEntity<Response<ResponseWithTotalPage<ProductDTO>>> getProductBySubcategory(@RequestParam int subcategory, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
-    ResponseWithTotalPage<ProductDTO> data = productService.getProductBySubcategory(subcategory, page, limit);
-    Response<ResponseWithTotalPage<ProductDTO>> response = new Response<>();
+  public ResponseEntity<Response<ResponseWithPagination<ProductDTO>>> getProductBySubcategory(@RequestParam int subcategory, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
+    ResponseWithPagination<ProductDTO> data = productService.getProductBySubcategory(subcategory, page, limit);
+    Response<ResponseWithPagination<ProductDTO>> response = new Response<>();
     response.setData(data);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
     response.setMessage("Get successfully");
