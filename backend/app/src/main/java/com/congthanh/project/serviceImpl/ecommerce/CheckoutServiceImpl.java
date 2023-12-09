@@ -83,6 +83,7 @@ public class CheckoutServiceImpl implements CheckoutService {
                     .build();
             orderDetailService.createOrderDetail(orderDetailDTO);
         }
+
         cart.setStatus("CHECKED_OUT");
         cartRepository.save(cart);
         return checkoutMapper.mapCheckoutEntityToDTO(result);

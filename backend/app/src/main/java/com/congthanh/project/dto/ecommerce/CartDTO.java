@@ -1,5 +1,6 @@
 package com.congthanh.project.dto.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class CartDTO {
 
     private String name;
 
-    private String customerId;
+    private String customer;
 
     private long createdDate;
 
@@ -26,8 +27,7 @@ public class CartDTO {
 
     private Set<CartItemDTO> cartItems;
 
-    private CheckoutDTO checkout;
-
+    @JsonProperty("isDefault")
     private boolean isDefault;
 
     public BigDecimal getTotalOrderPrice() {

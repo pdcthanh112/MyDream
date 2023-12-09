@@ -8,12 +8,11 @@ import { getCartByCustomerId } from 'api/cartApi';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { Popconfirm } from 'antd';
+import { Checkbox, Popconfirm } from 'antd';
 import { Customer } from '@models/CustomerModel';
 import { Cart, CreateCartForm } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
-import Button from '@components/UI/Button';
 import { useTranslation } from 'next-i18next';
 import { useCreateNewCart, useDeleteCart } from '@hooks/cart/cartHook';
 import Link from 'next/link';
@@ -31,8 +30,9 @@ const CartModal = () => {
 
   const { data: listCart } = useQuery(['cart'], async () => await getCartByCustomerId(currentUser.userInfo.accountId).then((response) => response.data));
 
-  const { register, resetField, handleSubmit } = useForm<CreateCartForm>();
+  const { register, resetField, handleSubmit, setValue } = useForm<CreateCartForm>();
   const onSubmit: SubmitHandler<CreateCartForm> = async (data) => {
+    data.customer = currentUser.userInfo.accountId;
     createNewCart(data, {
       onSuccess: () => {
         toast.success(t('cart.create_new_cart_successfully'));
@@ -48,8 +48,8 @@ const CartModal = () => {
       },
       onError() {
         toast.error(t('cart.delete_cart_failed'));
-      }
-    })
+      },
+    });
   };
 
   let countItem = 0;
@@ -72,7 +72,7 @@ const CartModal = () => {
           <div className="flex justify-end items-center">
             <div className="border border-gray-400 px-2 py-1 rounded">
               <input type="text" {...register('name', { value: 'New cart' })} defaultValue="New cart" placeholder="Enter cart name" className="focus:outline-none w-[12rem]" />
-              <input type="hidden" {...register('customerId', {})} defaultValue={currentUser.userInfo.accountId} />
+              <Checkbox onChange={(event) => setValue('isDefault', event.target.value)}>Default</Checkbox>
               <Icon component={HighlightOff} className="hover:cursor-pointer opacity-80" titleAccess="Clear" onClick={() => resetField('name')} />
             </div>
             <Icon component={ClearIcon} titleAccess="Cancel" className="hover:cursor-pointer" onClick={() => setIsCreateCart(false)} />

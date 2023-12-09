@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
         CartDTO result = new CartDTO();
         result.setId(cart.getId());
         result.setName(cart.getName());
-        result.setCustomerId(cart.getCustomerId());
+        result.setCustomer(cart.getCustomer());
         result.setCreatedDate(cart.getCreatedDate());
         result.setStatus(cart.getStatus());
 
@@ -67,7 +67,7 @@ public class CartServiceImpl implements CartService {
                 CartDTO cartTmp = new CartDTO();
                 cartTmp.setId(cart.getId());
                 cartTmp.setName(cart.getName());
-                cartTmp.setCustomerId(cart.getCustomerId());
+                cartTmp.setCustomer(cart.getCustomer());
                 cartTmp.setStatus(cart.getStatus());
                 cartTmp.setCreatedDate(cart.getCreatedDate());
                 List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
@@ -96,13 +96,17 @@ public class CartServiceImpl implements CartService {
     public CartDTO createCart(CartDTO cartDTO) {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
-                .customerId(cartDTO.getCustomerId())
+                .customer(cartDTO.getCustomer())
                 .createdDate(new Date().getTime())
+                .isDefault(cartDTO.isDefault())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();
+
         Cart result = cartRepository.save(cart);
-        CartDTO response = cartMapper.mapCartEntityToDTO(result);
-        return response;
+        if (cartDTO.isDefault()) {
+            this.setDefaultCartForCustomer(cartDTO.getCustomer(), result.getId());
+        }
+        return cartMapper.mapCartEntityToDTO(result);
     }
 
     @Override
@@ -122,7 +126,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartDTO getDefaultCartOfCustomer(String customerId) {
-        Cart data = cartRepository.getDefaultOfCustomer(customerId);
+        Cart data = cartRepository.getDefaultCartOfCustomer(customerId);
         if (data != null) {
             return cartMapper.mapCartEntityToDTO(data);
         }

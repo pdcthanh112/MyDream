@@ -3,6 +3,7 @@ package com.congthanh.project.repository.ecommerce.address;
 import com.congthanh.project.entity.ecommerce.Address;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -30,14 +31,14 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository{
 
     @Override
     public boolean setDefaultAddressForCustomer(String customerId, String addressId) {
-        String resetDefault = "UPDATE Address SET isDefault = false WHERE customer = :customerId";
-        TypedQuery<Address> query = entityManager.createQuery(resetDefault, Address.class);
-        query.setParameter("customerId", customerId);
+        String resetDefault = "UPDATE address SET is_default = false WHERE customer = ?1";
+        Query query = entityManager.createNativeQuery(resetDefault);
+        query.setParameter(1, customerId);
         query.executeUpdate();
 
-        String updateSingleAddressSql = "UPDATE Address SET isDefault = true WHERE id = :addressId";
-        TypedQuery<Address> updateSingleAddressQuery = entityManager.createQuery(updateSingleAddressSql, Address.class);
-        updateSingleAddressQuery.setParameter("addressId", addressId);
+        String updateSingleAddressSql = "UPDATE address SET is_default = true WHERE id = ?1";
+        Query updateSingleAddressQuery = entityManager.createNativeQuery(updateSingleAddressSql);
+        updateSingleAddressQuery.setParameter(1, addressId);
         return updateSingleAddressQuery.executeUpdate() > 0;
     }
 }

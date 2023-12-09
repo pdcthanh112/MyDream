@@ -2,7 +2,6 @@ package com.congthanh.project.entity.ecommerce;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +26,7 @@ public class Cart {
 
   private String name;
 
-  private String customerId;
+  private String customer;
 
   @Column(name = "created_date")
   private long createdDate;
@@ -37,9 +36,9 @@ public class Cart {
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<CartItem> cartItems;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "checkout", referencedColumnName = "id")
-  @JsonManagedReference
+  @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonBackReference
+  @JsonIgnore
   private Checkout checkout;
 
   @Column(name = "is_default")

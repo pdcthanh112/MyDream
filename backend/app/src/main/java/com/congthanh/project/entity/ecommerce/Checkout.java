@@ -25,7 +25,7 @@ public class Checkout {
 
   private String customer;
 
-  @Column(precision = 38, scale = 4)
+  @Column(precision = 38, scale = 2)
   private BigDecimal total;
 
   private String address;
@@ -42,9 +42,9 @@ public class Checkout {
   @Column(name = "checkout_date")
   private long checkoutDate;
 
-  @OneToOne(mappedBy = "checkout", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonBackReference
-  @JsonIgnore
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cart", referencedColumnName = "id", nullable = false)
+  @JsonManagedReference
   private Cart cart;
 
   @OneToOne(mappedBy = "checkout", cascade = CascadeType.ALL, orphanRemoval = true)

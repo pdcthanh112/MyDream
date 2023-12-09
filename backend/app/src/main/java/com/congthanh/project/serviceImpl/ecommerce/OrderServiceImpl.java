@@ -56,7 +56,11 @@ public class OrderServiceImpl implements OrderService {
         Voucher voucher = voucherRepository.findById(checkout.getVoucher().getId()).orElseThrow(() -> new NotFoundException("voucher not found"));
         BigDecimal orderTotal = createOrderDTO.getTotal();
         if(voucher != null) {
-            orderTotal = checkout.getTotal().multiply(BigDecimal.valueOf(voucher.getValue()));
+            if(voucher.getType().equals("PROMOTION")) {
+                orderTotal = checkout.getTotal().subtract(BigDecimal.valueOf(voucher.getValue()));
+            } else if (voucher.getType().equals("DISCOUNT")) {
+                orderTotal = checkout.getTotal().multiply(BigDecimal.valueOf(voucher.getValue()/100));
+            }
         }
         Order order = Order.builder()
                 .customer(createOrderDTO.getCustomer())
@@ -106,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
                 CartDTO cartTmp = new CartDTO();
                 cartTmp.setId(cart.getId());
                 cartTmp.setName(cart.getName());
-                cartTmp.setCustomerId(cart.getCustomerId());
+                cartTmp.setCustomer(cart.getCustomer());
                 cartTmp.setStatus(cart.getStatus());
                 cartTmp.setCreatedDate(cart.getCreatedDate());
                 List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());

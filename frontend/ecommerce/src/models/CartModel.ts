@@ -20,7 +20,8 @@ export interface CartItem {
 
 export interface CreateCartForm {
   name: string;
-  customerId: string;
+  customer: string;
+  isDefault: boolean
 }
 
 export interface AddToCartForm {

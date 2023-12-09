@@ -4,6 +4,7 @@ import com.congthanh.project.dto.ecommerce.CartItemDTO;
 import com.congthanh.project.entity.ecommerce.Cart;
 import com.congthanh.project.entity.ecommerce.CartItem;
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CartItemMapper;
 import com.congthanh.project.model.ecommerce.mapper.CartMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
@@ -54,8 +55,8 @@ public class CartItemServiceImpl implements CartItemService {
   public CartItemDTO addToCart(String productId, int quantity, String cartId) {
     CartItem checkExistProduct = cartItemRepository.checkExistProductFromCart(cartId, productId);
     if (checkExistProduct == null) {
-      Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException(" not found"));
-      Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("not found"));
+      Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart not found"));
+      Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("product not found"));
       CartItem cartItem = CartItem.builder()
               .product(product)
               .quantity(quantity)

@@ -5,7 +5,8 @@ export const createNewCart = async (data: CreateCartForm) => {
   return await axiosConfig
     .post('cart/create', {
       name: data.name,
-      customerId: data.customerId,
+      customer: data.customer,
+      isDefault: data.isDefault
     })
     .then((response) => response)
     .catch((error) => {
