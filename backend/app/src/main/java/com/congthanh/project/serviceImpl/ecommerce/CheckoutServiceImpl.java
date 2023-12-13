@@ -60,13 +60,16 @@ public class CheckoutServiceImpl implements CheckoutService {
         Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
         Voucher voucher = voucherRepository.findById(createCheckoutDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
 
-        PaymentDTO payment = paymentService.createPayment(PaymentDTO.builder().build());
+        Payment payment = paymentService.createPayment(PaymentDTO.builder()
+                .amount(createCheckoutDTO.getTotal())
+                .paymentMethod(createCheckoutDTO.getPayment())
+                .build());
 
         Checkout checkout = Checkout.builder()
                 .customer(createCheckoutDTO.getCustomer())
                 .total(createCheckoutDTO.getTotal())
                 .address(createCheckoutDTO.getAddress())
-//                .payment(createCheckoutDTO.getPayment())
+                .payment(payment)
                 .checkoutDate(Instant.now().toEpochMilli())
                 .phone(createCheckoutDTO.getPhone())
                 .cart(cart)

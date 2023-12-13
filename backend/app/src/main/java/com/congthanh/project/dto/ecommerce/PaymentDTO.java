@@ -24,4 +24,5 @@ public class PaymentDTO {
     private Long paymentDate;
 
     private String status;
+
 }

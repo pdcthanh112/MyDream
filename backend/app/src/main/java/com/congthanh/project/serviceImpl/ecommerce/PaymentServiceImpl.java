@@ -21,14 +21,14 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentMapper paymentMapper;
 
     @Override
-    public PaymentDTO createPayment(PaymentDTO paymentDTO) {
+    public Payment createPayment(PaymentDTO paymentDTO) {
         Payment payment = Payment.builder()
                 .amount(paymentDTO.getAmount())
                 .paymentMethod(paymentDTO.getPaymentMethod())
                 .createdDate(Instant.now().toEpochMilli())
                 .status(PaymentStatus.NEW.name())
                 .build();
-        Payment result = paymentRepository.save(payment);
-        return paymentMapper.mapPaymentEntityToDTO(result);
+        Payment result = paymentRepository.createPayment(payment);
+        return result;
     }
 }

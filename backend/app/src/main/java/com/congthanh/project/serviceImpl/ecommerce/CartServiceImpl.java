@@ -51,7 +51,7 @@ public class CartServiceImpl implements CartService {
                 CartItemDTO cartItemTmp = new CartItemDTO();
                 cartItemTmp.setId(cartItemItem.getId());
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                cartItemTmp.setCart(null); //cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
+                cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                 cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
                 cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
@@ -81,7 +81,7 @@ public class CartServiceImpl implements CartService {
                         CartItemDTO cartItemTmp = new CartItemDTO();
                         cartItemTmp.setId(cartItemItem.getId());
                         cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                        cartItemTmp.setCart(null); //cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
+                        cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                         cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
                         cartItems.add(cartItemTmp);

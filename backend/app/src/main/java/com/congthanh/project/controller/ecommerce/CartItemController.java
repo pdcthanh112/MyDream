@@ -17,14 +17,7 @@ public class CartItemController {
 
   @PostMapping("/addToCart")
   public ResponseEntity<Response<CartItemDTO>> addItemToCart(@RequestParam String productId, @RequestParam int quantity, @RequestParam String cartId) {
-    CartItemDTO cartItem = cartItemService.addToCart(productId, quantity, cartId);
-    CartItemDTO result = CartItemDTO.builder()
-            .id(cartItem.getId())
-            .product(cartItem.getProduct())
-            .quantity(cartItem.getQuantity())
-            .cart(cartItem.getCart())
-            .createdDate(cartItem.getCreatedDate())
-            .build();
+    CartItemDTO result = cartItemService.addToCart(productId, quantity, cartId);
     Response<CartItemDTO> response = new Response<>();
     response.setData(result);
     response.setStatus(ResponseStatus.STATUS_SUCCESS);
