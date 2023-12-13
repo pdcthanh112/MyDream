@@ -32,8 +32,10 @@ public class Checkout {
 
   private String phone;
 
-  @Column(name = "payment")
-  private String payment;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "payment", referencedColumnName = "id", nullable = false)
+  @JsonManagedReference
+  private Payment payment;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "voucher")

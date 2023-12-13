@@ -1,5 +1,7 @@
 package com.congthanh.project.entity.ecommerce;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,17 +17,25 @@ import java.math.BigDecimal;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "amount", precision = 19, scale = 4)
+    @Column(name = "amount", precision = 38, scale = 2)
     private BigDecimal amount;
 
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Column(name = "created_date")
+    private Long createdDate;
+
     @Column(name = "payment_date")
     private Long paymentedDate;
 
     private String status;
+
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JsonIgnore
+    private Checkout checkout;
 }

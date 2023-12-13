@@ -36,14 +36,14 @@ public class Cart {
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<CartItem> cartItems;
 
-  @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonBackReference
-  @JsonIgnore
-  private Checkout checkout;
-
   @Column(name = "is_default")
   @JsonProperty("isDefault")
   private boolean isDefault;
+
+  @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonBackReference
+  @JsonIgnore
+  private Checkout checkout;
 
   @Transient
   public BigDecimal getTotalOrderPrice() {

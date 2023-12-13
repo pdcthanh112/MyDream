@@ -5,11 +5,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PaymentDTO {
 
-    private String id;
+    private Long id;
+
+    private BigDecimal amount;
+
+    private String paymentMethod;
+
+    private Long createdDate;
+
+    private Long paymentDate;
+
+    private String status;
 }

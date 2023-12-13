@@ -30,6 +30,8 @@ public class CartDTO {
     @JsonProperty("isDefault")
     private boolean isDefault;
 
+//    private CheckoutDTO checkout;
+
     public BigDecimal getTotalOrderPrice() {
         BigDecimal sum = BigDecimal.ZERO;
         if (this.cartItems == null || this.cartItems.isEmpty()) {

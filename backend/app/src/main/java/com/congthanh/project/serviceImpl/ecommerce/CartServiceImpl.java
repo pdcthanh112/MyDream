@@ -12,7 +12,11 @@ import com.congthanh.project.service.ecommerce.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -47,7 +51,7 @@ public class CartServiceImpl implements CartService {
                 CartItemDTO cartItemTmp = new CartItemDTO();
                 cartItemTmp.setId(cartItemItem.getId());
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
+                cartItemTmp.setCart(null); //cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                 cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
                 cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
@@ -77,7 +81,7 @@ public class CartServiceImpl implements CartService {
                         CartItemDTO cartItemTmp = new CartItemDTO();
                         cartItemTmp.setId(cartItemItem.getId());
                         cartItemTmp.setQuantity(cartItemItem.getQuantity());
-                        cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
+                        cartItemTmp.setCart(null); //cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
                         cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
                         cartItems.add(cartItemTmp);
@@ -97,7 +101,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
                 .customer(cartDTO.getCustomer())
-                .createdDate(new Date().getTime())
+                .createdDate(Instant.now().toEpochMilli())
                 .isDefault(cartDTO.isDefault())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();

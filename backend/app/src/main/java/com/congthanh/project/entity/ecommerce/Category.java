@@ -26,11 +26,11 @@ public class Category {
 
   private String status;
 
-  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
   @JsonIgnore
   private Set<Subcategory> subcategories;
 
-  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Product> product;
 

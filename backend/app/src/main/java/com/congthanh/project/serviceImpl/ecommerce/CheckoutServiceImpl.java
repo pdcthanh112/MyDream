@@ -1,6 +1,7 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
+import com.congthanh.project.dto.ecommerce.PaymentDTO;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CheckoutMapper;
@@ -14,6 +15,7 @@ import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
 import com.congthanh.project.service.ecommerce.CheckoutService;
 import com.congthanh.project.service.ecommerce.OrderDetailService;
 import com.congthanh.project.service.ecommerce.OrderService;
+import com.congthanh.project.service.ecommerce.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,9 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrderDetailService orderDetailService;
 
     @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
     private CheckoutMapper checkoutMapper;
 
     @Override
@@ -55,11 +60,13 @@ public class CheckoutServiceImpl implements CheckoutService {
         Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
         Voucher voucher = voucherRepository.findById(createCheckoutDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
 
+        PaymentDTO payment = paymentService.createPayment(PaymentDTO.builder().build());
+
         Checkout checkout = Checkout.builder()
                 .customer(createCheckoutDTO.getCustomer())
                 .total(createCheckoutDTO.getTotal())
                 .address(createCheckoutDTO.getAddress())
-                .payment(createCheckoutDTO.getPayment())
+//                .payment(createCheckoutDTO.getPayment())
                 .checkoutDate(Instant.now().toEpochMilli())
                 .phone(createCheckoutDTO.getPhone())
                 .cart(cart)
