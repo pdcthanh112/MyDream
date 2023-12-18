@@ -36,14 +36,6 @@ type Subcategory {
     category: Category
 }
 
-type Store {
-    id: ID!
-    name: String!
-    avatar: String
-    background: String
-    domain: String
-}
-
 type Cart {
     id: ID!
     name: String
@@ -59,4 +51,12 @@ type CartItem {
     product: Product
     cartId: String
     createdDate: String
+}
+
+type Store {
+    id: ID!
+    name: String!
+    avatar: String
+    background: String
+    domain: String
 }

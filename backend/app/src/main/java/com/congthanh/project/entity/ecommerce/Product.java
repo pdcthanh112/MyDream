@@ -20,61 +20,65 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-  @Column(nullable = false)
-  private String name;
+    @Column(nullable = false)
+    private String name;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category", nullable = false)
-  private Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category", nullable = false)
+    private Category category;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "subcategory", nullable = false)
-  private Subcategory subcategory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory", nullable = false)
+    private Subcategory subcategory;
 
-  private int quantity;
+    private int quantity;
 
-  @Column(name = "price", precision = 19, scale = 4)
-  private BigDecimal price;
+    @Column(name = "price", precision = 19, scale = 4)
+    private BigDecimal price;
 
-  @Column(unique = true, name = "SKU")
-  private String SKU;
+    @Column(unique = true, name = "SKU")
+    private String SKU;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "store")
-  private Store store;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store")
+    private Store store;
 
-  private String production;
+    private String production;
 
-  @Column(length = 1500)
-  private String image;
+    @Column(length = 1500)
+    private String image;
 
-  @Column(columnDefinition = "text")
-  private String description;
+    @Column(columnDefinition = "text")
+    private String description;
 
-  private String status;
+    private String status;
 
-  @Column(nullable = false, unique = true)
-  private String slug;
+    @Column(nullable = false, unique = true)
+    private String slug;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonIgnore
-  private List<Review> review;
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<AttributeValue> attributeValues;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-  @JsonIgnore
-  private Set<CartItem> cartItems;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Review> review;
 
-  @ManyToMany(mappedBy = "product")
-  @JsonIgnore
-  @JsonBackReference
-  private Set<Wishlist> wishlist;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<CartItem> cartItems;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonIgnore
-  private List<OrderDetail> orderDetail;
+    @ManyToMany(mappedBy = "product")
+    @JsonIgnore
+    @JsonBackReference
+    private Set<Wishlist> wishlist;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<OrderDetail> orderDetail;
 
 }
