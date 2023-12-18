@@ -39,8 +39,8 @@ public class VoucherServiceImpl implements VoucherService {
                 .startDate(voucherDTO.getStartDate())
                 .endDate(voucherDTO.getEndDate())
                 .status("NEW")
-                .createdDate(Instant.now().toEpochMilli())
-                .updatedDate(Instant.now().toEpochMilli())
+                .createdAt(Instant.now().toEpochMilli())
+                .updatedAt(Instant.now().toEpochMilli())
                 .build();
         Voucher result = voucherRepository.save(voucher);
         return voucherMapper.mapVoucherEntityToDTO(result);

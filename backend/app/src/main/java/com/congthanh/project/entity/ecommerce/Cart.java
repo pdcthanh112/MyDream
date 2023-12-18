@@ -25,8 +25,8 @@ public class Cart {
 
   private String customer;
 
-  @Column(name = "created_date")
-  private long createdDate;
+  @Column(name = "created_at")
+  private long createdAt;
 
   private String status;
 

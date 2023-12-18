@@ -30,8 +30,8 @@ public class CartItem {
   @JoinColumn(name = "cart", nullable = false)
   private Cart cart;
 
-  @Column(name = "created_date")
-  private long createdDate;
+  @Column(name = "created_at")
+  private long createdAt;
 
   public BigDecimal getTotal() {
     return product.getPrice().multiply(BigDecimal.valueOf(quantity));

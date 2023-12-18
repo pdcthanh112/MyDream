@@ -40,11 +40,11 @@ const Cart: NextPage = (): React.ReactElement => {
 
   if (!listCart) {
     return (
-      <div className="w-full bg-white text-center">
-        <div className="w-full flex justify-center">
-          <Image src={CartEmptyImage} alt={'Cart Empty'} width={500} height={100} />
+      <div className="w-full h-[40rem] bg-white text-center">
+        <div className="w-full pt-12 flex justify-center">
+          <Image src={CartEmptyImage} alt={'Cart Empty'} width={300} height={100} />
         </div>
-        <div className="w-full flex justify-center font-medium text-2xl mb-5">{t('cart.cart_empty')}</div>
+        <div className="w-full flex justify-center font-medium text-xl mb-5">{t('cart.cart_empty')}</div>
         <div className="w-full flex justify-center">
           <Button className="bg-green-400 rounded-xl text-white" onClick={() => router.push('/')}>
             {t('common.back_to_home')}

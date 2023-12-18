@@ -16,7 +16,7 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
 
     @Override
     public List<Cart> findActiveCartByCustomerId(String customerId) {
-        String sql = "SELECT c FROM Cart c WHERE customer = :customerId AND status = :status ORDER BY createdDate desc";
+        String sql = "SELECT c FROM Cart c WHERE customer = :customerId AND status = :status ORDER BY createdAt desc";
         TypedQuery<Cart> query = entityManager.createQuery(sql, Cart.class);
         query.setParameter("customerId", customerId);
         query.setParameter("status", CartStatus.ACTIVE.name());

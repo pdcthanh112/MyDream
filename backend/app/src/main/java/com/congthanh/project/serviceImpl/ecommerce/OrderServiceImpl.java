@@ -112,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
                 cartTmp.setName(cart.getName());
                 cartTmp.setCustomer(cart.getCustomer());
                 cartTmp.setStatus(cart.getStatus());
-                cartTmp.setCreatedDate(cart.getCreatedDate());
+                cartTmp.setCreatedDate(cart.getCreatedAt());
                 List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
                 if (listCartItem.size() > 0) {
                     Set<CartItemDTO> cartItems = new HashSet<>();

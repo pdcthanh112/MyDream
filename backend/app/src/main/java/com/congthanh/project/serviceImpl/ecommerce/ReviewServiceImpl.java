@@ -30,7 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .rating(reviewDTO.getRating())
                 .product(product)
                 .customerId(reviewDTO.getCustomerId())
-                .createdDate(new Date().getTime())
+                .createdAt(new Date().getTime())
                 .build();
         return reviewRepository.save(review);
     }

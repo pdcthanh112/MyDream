@@ -24,7 +24,7 @@ public class Notification {
 
   private String content;
 
-  @Column(name = "created_date")
-  private long createdDate;
+  @Column(name = "created_at")
+  private long createdAt;
 
 }

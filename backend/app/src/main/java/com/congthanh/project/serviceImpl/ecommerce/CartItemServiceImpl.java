@@ -61,7 +61,7 @@ public class CartItemServiceImpl implements CartItemService {
               .product(product)
               .quantity(quantity)
               .cart(cart)
-              .createdDate(new Date().getTime())
+              .createdAt(new Date().getTime())
               .build();
       CartItem result =  cartItemRepository.save(cartItem);
       CartItemDTO response = cartItemMapper.mapCartItemEntityToDTO(result);

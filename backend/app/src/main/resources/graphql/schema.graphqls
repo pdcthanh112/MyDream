@@ -4,6 +4,7 @@ type Query {
     subcategory: [Subcategory]
     cart: [Cart]
     appData: AppData
+    store: [Store]
 }
 
 union AppData = Category | Subcategory
@@ -46,8 +47,8 @@ type Store {
 type Cart {
     id: ID!
     name: String
-    createdDate: String
-    customerId: String
+    createdAt: String
+    customer: String
     status: String
     cartItems: [CartItem]
 }

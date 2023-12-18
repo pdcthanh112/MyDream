@@ -31,7 +31,7 @@ public class Review {
     @JsonIgnore
     private Product product;
 
-    @Column(name = "created_date")
-    private long createdDate;
+    @Column(name = "created_at")
+    private long createdAt;
 
 }

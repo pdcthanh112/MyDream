@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService {
         result.setId(cart.getId());
         result.setName(cart.getName());
         result.setCustomer(cart.getCustomer());
-        result.setCreatedDate(cart.getCreatedDate());
+        result.setCreatedDate(cart.getCreatedAt());
         result.setStatus(cart.getStatus());
 
         List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
@@ -52,7 +52,7 @@ public class CartServiceImpl implements CartService {
                 cartItemTmp.setId(cartItemItem.getId());
                 cartItemTmp.setQuantity(cartItemItem.getQuantity());
                 cartItemTmp.setCart(cartMapper.mapCartEntityToDTO(cart));
-                cartItemTmp.setCreatedDate(cartItemItem.getCreatedDate());
+                cartItemTmp.setCreatedDate(cartItemItem.getCreatedAt());
                 cartItemTmp.setProduct(productMapper.mapProductEntityToDTO(cartItemItem.getProduct()));
 
                 cartItems.add(cartItemTmp);
@@ -73,7 +73,7 @@ public class CartServiceImpl implements CartService {
                 cartTmp.setName(cart.getName());
                 cartTmp.setCustomer(cart.getCustomer());
                 cartTmp.setStatus(cart.getStatus());
-                cartTmp.setCreatedDate(cart.getCreatedDate());
+                cartTmp.setCreatedDate(cart.getCreatedAt());
                 List<CartItem> listCartItem = cartItemRepository.getAllCartItemByCartId(cart.getId());
                 if (listCartItem.size() > 0) {
                     Set<CartItemDTO> cartItems = new HashSet<>();
@@ -101,7 +101,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
                 .customer(cartDTO.getCustomer())
-                .createdDate(Instant.now().toEpochMilli())
+                .createdAt(Instant.now().toEpochMilli())
                 .isDefault(cartDTO.isDefault())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();

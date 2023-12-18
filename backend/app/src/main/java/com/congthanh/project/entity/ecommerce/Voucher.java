@@ -44,11 +44,11 @@ public class Voucher {
 
     private String status;
 
-    @Column(name = "created_date")
-    private long createdDate;
+    @Column(name = "created_at")
+    private long createdAt;
 
-    @Column(name = "updated_date")
-    private long updatedDate;
+    @Column(name = "updated_at")
+    private long updatedAt;
 
     @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
