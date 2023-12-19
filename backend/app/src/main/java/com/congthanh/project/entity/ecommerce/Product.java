@@ -60,7 +60,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<AttributeValue> attributeValues;
 

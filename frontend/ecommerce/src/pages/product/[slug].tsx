@@ -36,8 +36,8 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { t } = useTranslation('common');
 
   const [quantity, setQuantity] = useState(1);
-  const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
-  const [store, setStore] = useState<Store>();
+  // const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
+  // const [store, setStore] = useState<Store>();
 
   const { mutate: addProductToCart } = useAddProductToCart();
 
@@ -45,33 +45,56 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
   const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data));
-  const { data: wishlist } = useQuery<Wishlist>(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
+  const { data: wishlist } = useQuery<Wishlist>(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((result) => result.data));
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getRatingStarofProduct(product.id).then((response) => {
-        if (response && response.data) {
-          setRatingStar(response.data);
-        }
-      });
-    };
-    if (!isLoading && product) {
-      fetchData();
-    }
-  }, [isLoading, product]);
+  // const { data: store } = useQuery(['store'], async () => await getStoreById(product.store).then((result) => {
+  //       console.log('STOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', result.data);
+  //       return result.data;
+  //     }),
+  // );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getStoreById(product.store).then((response) => {
-        if (response) {
-          setStore(response.data);
-        }
-      });
-    };
-    if (!isLoading && product) {
-      fetchData();
-    }
-  }, [isLoading, product]);
+  // const { data: ratingStar } = useQuery(['rating'], async () => await getRatingStarofProduct(product.id).then(result => {
+  //   console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
+  //   return result.data
+  // }));
+  const { data: store } = useQuery(['store'], async () => await getStoreById('bf4b47df-cb93-4691-a35e-f4f9044097a6').then((result) => {
+        console.log('STOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', result.data);
+        return result.data;
+      }),
+  );
+
+  const { data: ratingStar } = useQuery(['rating'], async () => await getRatingStarofProduct('054ba824-0bfe-4a13-aa3c-580fe55ba5af').then(result => {
+    console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
+    return result.data
+  }));
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getRatingStarofProduct(product.id).then((response) => {
+  //       if (response && response.data) {
+  //         setRatingStar(response.data);
+  //       }
+  //     });
+  //   };
+  //   if (!isLoading && product) {
+  //     fetchData();
+  //   }
+  // }, [isLoading, product]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+  //     await getStoreById(product.store).then((response) => {
+  //       if (response) {
+  //         setStore(response.data);
+  //       }
+  //     });
+  //   };
+  //   if (!isLoading && product) {
+  //     fetchData();
+  //   }
+  // }, [isLoading, product]);
 
   const handleAddProductToCart = () => {
     if (currentUser) {
