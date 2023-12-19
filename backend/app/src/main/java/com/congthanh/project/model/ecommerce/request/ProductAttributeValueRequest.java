@@ -1,4 +1,4 @@
-package com.congthanh.project.dto.ecommerce;
+package com.congthanh.project.model.ecommerce.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AttributeValueDTO {
+public class ProductAttributeValueRequest {
 
-    private long id;
-
-    private ProductAttributeDTO attribute;
+    private Long attribute;
 
     private String product;
 
