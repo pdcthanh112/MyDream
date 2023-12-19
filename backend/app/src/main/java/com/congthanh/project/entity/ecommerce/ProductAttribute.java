@@ -26,4 +26,5 @@ public class ProductAttribute {
     @OneToMany(mappedBy = "attribute", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<AttributeValue> attributeValues;
+
 }

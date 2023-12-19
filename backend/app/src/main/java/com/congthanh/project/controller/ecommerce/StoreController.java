@@ -6,11 +6,15 @@ import com.congthanh.project.dto.ecommerce.StoreDTO;
 import com.congthanh.project.model.ecommerce.response.Response;
 import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.entity.ecommerce.Store;
+import com.congthanh.project.repository.ecommerce.store.StoreRepository;
 import com.congthanh.project.service.ecommerce.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ecommerce/store")
@@ -18,6 +22,9 @@ public class StoreController {
 
     @Autowired
     private StoreService storeService;
+
+    @Autowired
+    private StoreRepository storeRepository;
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<Response<StoreDTO>> getStoreById(@PathVariable String id) {
@@ -46,5 +53,10 @@ public class StoreController {
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get successfully");
         return ResponseEntity.ok().body(response);
+    }
+
+    @QueryMapping(value = "store")
+    List<Store> stores() {
+        return storeRepository.findAll();
     }
 }
