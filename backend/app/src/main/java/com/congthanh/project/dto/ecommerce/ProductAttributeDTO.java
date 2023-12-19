@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductAttribute {
+public class ProductAttributeDTO {
 
     private long id;
 
