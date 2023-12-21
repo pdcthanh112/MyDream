@@ -22,7 +22,7 @@ export const getProductById = async (productId: any) => {
 export const getProductBySlug = async (productSlug: any) => {
   return await axiosConfig
     .get(`product/getBySlug/${productSlug}`)
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((error) => {
       throw error;
     });
@@ -31,6 +31,24 @@ export const getProductBySlug = async (productSlug: any) => {
 export const getProductBySubcategory = async (subcategoryId: any, page: number, limit: number) => {
   return await axiosConfig
     .get(`product/getBySubcategory?subcategory=${subcategoryId}&page=${page}&limit=${limit}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getAttributeByProductId = async (productId: string) => {
+  return await axiosConfig
+    .get(`attribute-value/getByProduct?product=${productId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getImageByProductId = async (productId: string) => {
+  return await axiosConfig
+    .get(`product-image/getByProduct?product=${productId}`)
     .then((response) => response.data)
     .catch((error) => {
       throw error;

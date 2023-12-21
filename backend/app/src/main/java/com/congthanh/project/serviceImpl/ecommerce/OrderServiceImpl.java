@@ -21,7 +21,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -64,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
         }
         Order order = Order.builder()
                 .customer(createOrderDTO.getCustomer())
-                .orderDate(new Date().getTime())
+                .orderDate(Instant.now().toEpochMilli())
                 .checkout(checkout)
                 .total(orderTotal)
                 .status("NEW")

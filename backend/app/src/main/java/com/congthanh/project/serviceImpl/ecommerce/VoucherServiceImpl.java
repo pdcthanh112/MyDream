@@ -2,6 +2,7 @@ package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.VoucherDTO;
 import com.congthanh.project.entity.ecommerce.Voucher;
+import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.VoucherMapper;
 import com.congthanh.project.repository.ecommerce.voucher.VoucherRepository;
 import com.congthanh.project.service.ecommerce.VoucherService;
@@ -29,7 +30,7 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public VoucherDTO createVoucher(VoucherDTO voucherDTO) {
         Voucher existVoucher = voucherRepository.getVoucherByCode(voucherDTO.getCode());
-        if(existVoucher != null) throw new RuntimeException("Code exits");
+        if (existVoucher != null) throw new RuntimeException("Code exits");
         Voucher voucher = Voucher.builder()
                 .code(voucherDTO.getCode())
                 .type(voucherDTO.getType())
@@ -39,9 +40,23 @@ public class VoucherServiceImpl implements VoucherService {
                 .startDate(voucherDTO.getStartDate())
                 .endDate(voucherDTO.getEndDate())
                 .status("NEW")
-                .createdAt(Instant.now().toEpochMilli())
-                .updatedAt(Instant.now().toEpochMilli())
                 .build();
+        Voucher result = voucherRepository.save(voucher);
+        return voucherMapper.mapVoucherEntityToDTO(result);
+    }
+
+    @Override
+    public VoucherDTO updateVoucher(String voucherId, VoucherDTO voucherDTO) {
+        Voucher voucher = voucherRepository.findById(voucherId).orElseThrow(() -> new NotFoundException("voucher not found"));
+
+        voucher.setCode(voucherDTO.getCode());
+        voucher.setType(voucherDTO.getType());
+        voucher.setValue(voucherDTO.getValue());
+        voucher.setUsageLimit(voucherDTO.getUsageLimit());
+        voucher.setDescription(voucherDTO.getDescription());
+        voucher.setStartDate(voucherDTO.getStartDate());
+        voucher.setEndDate(voucherDTO.getEndDate());
+
         Voucher result = voucherRepository.save(voucher);
         return voucherMapper.mapVoucherEntityToDTO(result);
     }
@@ -51,8 +66,9 @@ public class VoucherServiceImpl implements VoucherService {
         Voucher voucher = voucherRepository.getVoucherByCode(code);
 
         LocalDateTime currentDate = LocalDateTime.now();
-        if(currentDate.isBefore(voucher.getStartDate()) || currentDate.isAfter(voucher.getEndDate()) || voucher.getStatus().equals("INACTIVE")) return false;
-        if(voucher.getUsageLimit() == 0) return false;
+        if (currentDate.isBefore(voucher.getStartDate()) || currentDate.isAfter(voucher.getEndDate()) || voucher.getStatus().equals("INACTIVE"))
+            return false;
+        if (voucher.getUsageLimit() == 0) return false;
         return true;
     }
 }

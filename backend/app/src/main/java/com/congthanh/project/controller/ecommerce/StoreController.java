@@ -26,7 +26,7 @@ public class StoreController {
     @Autowired
     private StoreRepository storeRepository;
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Response<StoreDTO>> getStoreById(@PathVariable String id) {
         StoreDTO store = storeService.getStoreById(id);
         Response<StoreDTO> response = new Response<>();

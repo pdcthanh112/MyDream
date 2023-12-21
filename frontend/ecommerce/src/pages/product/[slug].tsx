@@ -1,12 +1,13 @@
 'use client';
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getProductBySlug } from 'api/productApi';
-import { Rating, Icon, Avatar } from '@mui/material';
+import { getAttributeByProductId, getImageByProductId, getProductBySlug } from 'api/productApi';
+import { Rating, Icon, Avatar, TableContainer, Table, TableBody, TableRow, TableCell } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
+import { Image as AntdImage, Carousel } from 'antd';
 import Daisy from '@assets/images/daisy1.jpg';
 import { roundNumber } from '@utils/helper';
 import Button from '@components/UI/Button';
@@ -26,75 +27,53 @@ import { Store } from '@models/StoreModel';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
+import { AttributeValue, ProductImage } from '@models/ProductModel';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { slug: productSlug } = router.query;
-  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation('common');
 
   const [quantity, setQuantity] = useState(1);
-  // const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
-  // const [store, setStore] = useState<Store>();
+  const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
+  const [store, setStore] = useState<Store>();
+  const [productAttribute, setProductAttribute] = useState<AttributeValue[]>();
+  const [productImage, setProductImage] = useState<ProductImage[]>();
 
   const { mutate: addProductToCart } = useAddProductToCart();
 
   const { mutate: addProductToWishlist } = useAddProductToWishlist();
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
-  const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data));
+  const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data), {
+    onSuccess: async (data) => {
+      await getRatingStarofProduct(data.id).then((response) => {
+        if (response && response.data) {
+          setRatingStar(response.data);
+        }
+      });
+      await getStoreById(data.store).then((response) => {
+        if (response && response.data) {
+          setStore(response.data);
+        }
+      });
+      await getAttributeByProductId(data.id).then((response) => {
+        if (response && response.data) {
+          setProductAttribute(response.data);
+        }
+      });
+      await getImageByProductId(data.id).then((response) => {
+        if (response && response.data) {
+          setProductImage(response.data);
+        }
+      });
+    },
+  });
+
   const { data: wishlist } = useQuery<Wishlist>(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((result) => result.data));
-
-  // const { data: store } = useQuery(['store'], async () => await getStoreById(product.store).then((result) => {
-  //       console.log('STOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', result.data);
-  //       return result.data;
-  //     }),
-  // );
-
-  // const { data: ratingStar } = useQuery(['rating'], async () => await getRatingStarofProduct(product.id).then(result => {
-  //   console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
-  //   return result.data
-  // }));
-  const { data: store } = useQuery(['store'], async () => await getStoreById('bf4b47df-cb93-4691-a35e-f4f9044097a6').then((result) => {
-        console.log('STOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', result.data);
-        return result.data;
-      }),
-  );
-
-  const { data: ratingStar } = useQuery(['rating'], async () => await getRatingStarofProduct('054ba824-0bfe-4a13-aa3c-580fe55ba5af').then(result => {
-    console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
-    return result.data
-  }));
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getRatingStarofProduct(product.id).then((response) => {
-  //       if (response && response.data) {
-  //         setRatingStar(response.data);
-  //       }
-  //     });
-  //   };
-  //   if (!isLoading && product) {
-  //     fetchData();
-  //   }
-  // }, [isLoading, product]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-  //     await getStoreById(product.store).then((response) => {
-  //       if (response) {
-  //         setStore(response.data);
-  //       }
-  //     });
-  //   };
-  //   if (!isLoading && product) {
-  //     fetchData();
-  //   }
-  // }, [isLoading, product]);
 
   const handleAddProductToCart = () => {
     if (currentUser) {
@@ -128,9 +107,8 @@ const ProductDetail: NextPage = (): React.ReactElement => {
             onSuccess() {
               toast.success(t('wishlist.add_item_to_wishlist_successfully'));
             },
-            onError(error) {
+            onError() {
               toast.error(t('wishlist.add_item_to_wishlist_failed'));
-              console.log(error);
             },
           },
         );
@@ -170,8 +148,15 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   return (
     <div className="w-[80%] mx-auto my-3">
       <div className="bg-white flex">
-        <div className="w-[40%] justify-center flex py-3">
-          <Image src={product.image || Daisy} alt="Product image" width={300} height={800} />
+        <div className="w-[40%] py-3">
+          <div className="justify-center flex">
+            <AntdImage src={product.image || Daisy} alt="Product image" width={300} />
+          </div>
+          <AntdImage.PreviewGroup>
+            {/* <Carousel style={{ width: '10vw' }} arrows={true} dots={false}> */}
+              {productImage?.map((item: ProductImage) => <Image key={item.id} width={100} height={100} src={item.imagePath} alt={item.alt || 'Product image'} />)}
+            {/* </Carousel> */}
+          </AntdImage.PreviewGroup>
         </div>
         <div className="w-[60%] p-3">
           <h1 className="font-medium text-2xl">{product.name}</h1>
@@ -266,6 +251,21 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <div className="col-span-1">{t('common.in_stock')}</div>
           <div className="col-span-3">{product.quantity - product.sold > 0 ? <p>{product.quantity - product.sold}</p> : <p>0</p>}</div>
         </div>
+      </div>
+      <div className="bg-white mt-10 p-5">
+        <h2 className="bg-yellow-100 px-2 py-1 rounded-sm">{t('product.product_attribute').toUpperCase()}</h2>
+        <TableContainer>
+          <Table>
+            <TableBody>
+              {productAttribute?.map((item: AttributeValue) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.attribute.name}</TableCell>
+                  <TableCell>{item.value}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
       <div className="bg-white mt-10 p-5">
         <h2 className="bg-yellow-100 px-2 py-1 rounded-sm">{t('product.product_description').toUpperCase()}</h2>

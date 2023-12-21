@@ -14,7 +14,7 @@ public class ProductImageCustomRepositoryImpl implements ProductImageCustomRepos
 
     @Override
     public List<ProductImage> getImageByProduct(String productId) {
-        String sql = "SELECT i FROM ProductImage i WHERE i.product = :productId";
+        String sql = "SELECT i FROM ProductImage i WHERE i.product = :productId ORDER BY isDefault DESC NULLS LAST";
         TypedQuery<ProductImage> query = entityManager.createQuery(sql, ProductImage.class);
         query.setParameter("productId", productId);
         return query.getResultList();

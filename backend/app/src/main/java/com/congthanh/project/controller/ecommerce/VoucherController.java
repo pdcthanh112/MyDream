@@ -44,6 +44,16 @@ public class VoucherController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Response<VoucherDTO>> updateVoucher(@PathVariable("id") String voucherId, @RequestBody VoucherDTO voucherDTO) {
+        VoucherDTO data = voucherService.updateVoucher(voucherId, voucherDTO);
+        Response<VoucherDTO> response = new Response<>();
+        response.setData(data);
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        response.setMessage("Created successfully");
+        return ResponseEntity.ok().body(response);
+    }
+
     @GetMapping("/checkValid")
     public ResponseEntity<String> validateVoucher(@RequestParam("code") String code) {
         boolean isVoucherValid = voucherService.checkValidVoucher(code);

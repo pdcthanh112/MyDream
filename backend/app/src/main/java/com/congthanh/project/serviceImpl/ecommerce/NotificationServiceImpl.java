@@ -42,7 +42,6 @@ public class NotificationServiceImpl implements NotificationService {
             .customer(notificationDTO.getCustomer())
             .content(notificationDTO.getContent())
             .title(notificationDTO.getTitle())
-            .createdAt(Instant.now().toEpochMilli())
             .build();
     Notification result = notificationRepository.save(notification);
     return notificationMapper.mapNotificationEntityToDTO(result);

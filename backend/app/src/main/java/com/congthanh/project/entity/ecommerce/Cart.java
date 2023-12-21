@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -43,6 +44,12 @@ public class Cart {
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private Checkout checkout;
+
+  @PrePersist
+  public void prePersist() {
+    this.createdAt = Instant.now().toEpochMilli();
+  }
+
 
   @Transient
   public BigDecimal getTotalOrderPrice() {

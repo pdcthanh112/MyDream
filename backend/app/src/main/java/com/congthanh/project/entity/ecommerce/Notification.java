@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,5 +28,10 @@ public class Notification {
 
   @Column(name = "created_at")
   private long createdAt;
+
+  @PrePersist
+  public void prePersist() {
+    this.createdAt = Instant.now().toEpochMilli();
+  }
 
 }

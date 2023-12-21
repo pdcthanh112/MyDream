@@ -8,5 +8,7 @@ public interface VoucherService {
 
     VoucherDTO createVoucher(VoucherDTO voucherDTO);
 
+    VoucherDTO updateVoucher(String voucherId, VoucherDTO voucherDTO);
+
     boolean checkValidVoucher(String code);
 }

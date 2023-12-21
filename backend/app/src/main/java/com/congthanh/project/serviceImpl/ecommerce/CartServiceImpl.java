@@ -101,7 +101,6 @@ public class CartServiceImpl implements CartService {
         Cart cart = Cart.builder()
                 .name(cartDTO.getName())
                 .customer(cartDTO.getCustomer())
-                .createdAt(Instant.now().toEpochMilli())
                 .isDefault(cartDTO.isDefault())
                 .status(StateStatus.STATUS_ACTIVE)
                 .build();

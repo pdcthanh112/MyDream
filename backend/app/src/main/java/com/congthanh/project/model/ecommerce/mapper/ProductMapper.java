@@ -19,7 +19,7 @@ public class ProductMapper {
         modelMapper.typeMap(Product.class, ProductDTO.class)
                 .addMapping(src -> src.getCategory().getName(), ProductDTO::setCategory)
                 .addMapping(src -> src.getSubcategory().getName(), ProductDTO::setSubcategory)
-                .addMapping(src -> src.getStore().getName(), ProductDTO::setStore);
+                .addMapping(src -> src.getStore().getId(), ProductDTO::setStore);
 
         modelMapper.typeMap(ProductDTO.class, Product.class)
                 .addMappings(mapper -> {
