@@ -1,6 +1,4 @@
-import { Product } from './ProductModel';
-
-export interface Cart {
+type Cart = {
   id: string;
   name: string;
   customerId: string;
@@ -10,7 +8,7 @@ export interface Cart {
   cartItems: CartItem[];
 }
 
-export interface CartItem {
+type CartItem = {
   id: string;
   product: Product;
   quantity: number;
@@ -18,18 +16,18 @@ export interface CartItem {
   cart?: string;
 }
 
-export interface CreateCartForm {
+type CreateCartForm = {
   name: string;
   customer: string;
   isDefault: boolean
 }
 
-export interface AddToCartForm {
+type AddToCartForm = {
   productId: any;
   quantity: number;
   cartId: string;
 }
-export interface UpdateCartItemForm {
+type UpdateCartItemForm = {
   quantity: number;
   itemId: string;
 }

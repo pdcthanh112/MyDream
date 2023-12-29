@@ -8,6 +8,8 @@ public interface ProductImageService {
 
     List<ProductImageDTO> getImageByProduct(String productId);
 
+    ProductImageDTO getDefaultImageByProduct(String productId);
+
     ProductImageDTO addProductImage(ProductImageDTO productImageDTO);
 
 }

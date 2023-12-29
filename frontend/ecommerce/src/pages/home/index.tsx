@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 import { fetchCategoryRequested } from '@redux/actions/category';
 import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
-import { Customer } from '@models/CustomerModel';
 import { PaginationParams } from '@models/Request';
 import { useRouter } from 'next/router';
 

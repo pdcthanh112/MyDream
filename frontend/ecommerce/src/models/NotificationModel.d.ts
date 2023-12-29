@@ -1,4 +1,4 @@
-export interface Notification {
+type Notification = {
   id: number;
   customer: string;
   title: string;

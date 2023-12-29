@@ -9,8 +9,6 @@ import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { Customer } from '@models/CustomerModel';
-import { Cart, CartItem as ICartItem } from '@models/CartModel';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import Image from 'next/image';
 import { Popconfirm } from 'antd';
@@ -80,7 +78,7 @@ const Cart: NextPage = (): React.ReactElement => {
                 </div>
                 {cart.cartItems?.length > 0 ? (
                   <>
-                    {cart.cartItems?.map((item: ICartItem) => {
+                    {cart.cartItems?.map((item: CartItem) => {
                       countItem++;
                       sumPrice += item.product.price * item.quantity;
                       return <CartItem key={item.id} item={item} />;

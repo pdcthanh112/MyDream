@@ -1,4 +1,4 @@
-export interface Product {
+interface Product {
   id: string;
   name: string;
   category: number;
@@ -9,25 +9,24 @@ export interface Product {
   price: number;
   production: string;
   sold: number;
-  image: string;
   status: string;
   slug: string;
   store: string;
 }
 
-export interface ProductAttribute {
+interface ProductAttribute {
   id: number;
   name: string;
 }
 
-export interface AttributeValue {
+interface AttributeValue {
   id: number;
   attribute: ProductAttribute;
   product: string;
   value: string;
 }
 
-export interface ProductImage {
+interface ProductImage {
   id: number;
   product: string;
   imagePath: string;

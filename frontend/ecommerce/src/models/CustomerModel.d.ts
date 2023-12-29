@@ -1,4 +1,4 @@
-export interface Customer {
+interface Customer {
   userInfo: {
     id: number;
     email: string;
@@ -17,13 +17,13 @@ export interface Customer {
   };
 }
 
-export interface LoginForm {
+interface LoginForm {
   email: string;
   password: string;
   remember?: boolean;
 }
 
-export interface SignupForm {
+interface SignupForm {
   email: string;
   name: string;
   password: string;

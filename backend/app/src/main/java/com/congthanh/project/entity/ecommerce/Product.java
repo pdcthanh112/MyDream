@@ -49,9 +49,6 @@ public class Product {
 
     private String production;
 
-    @Column(length = 1500)
-    private String image;
-
     @Column(columnDefinition = "text")
     private String description;
 

@@ -1,4 +1,4 @@
-export type Address = {
+type Address = {
   id: string;
   customer: string;
   phone: string;
@@ -11,7 +11,7 @@ export type Address = {
   isDefault: boolean;
 };
 
-export type CreateAddressForm = {
+type CreateAddressForm = {
   customer: string;
   phone: string;
   country: string;
@@ -23,7 +23,7 @@ export type CreateAddressForm = {
   isDefault: boolean
 };
 
-export type UpdateAddressForm = {
+type UpdateAddressForm = {
   id: string
   phone: string;
   country: string;

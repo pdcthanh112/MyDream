@@ -32,6 +32,15 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    public ProductImageDTO getDefaultImageByProduct(String productId) {
+        ProductImage data = productImageRepository.getDefaultImageByProduct(productId);
+        if (data == null) {
+            return null;
+        }
+        return productImageMapper.mapProductImageEntityToDTO(data);
+    }
+
+    @Override
     public ProductImageDTO addProductImage(ProductImageDTO productImageDTO) {
         ProductImage image = ProductImage.builder()
                 .product(productImageDTO.getProduct())

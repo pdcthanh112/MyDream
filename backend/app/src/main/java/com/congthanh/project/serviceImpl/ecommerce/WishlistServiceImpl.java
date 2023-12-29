@@ -59,7 +59,6 @@ public class WishlistServiceImpl implements WishlistService {
               .quantity(item.get("quantity", Integer.class))
               .price(item.get("price", BigDecimal.class))
               .production(item.get("production", String.class))
-              .image(item.get("image", String.class))
               .description(item.get("description", String.class))
               .status(item.get("status", String.class))
               .slug(item.get("slug", String.class))

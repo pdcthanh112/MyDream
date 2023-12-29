@@ -2,6 +2,7 @@ package com.congthanh.project.repository.ecommerce.productImage;
 
 import com.congthanh.project.entity.ecommerce.ProductImage;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
@@ -18,5 +19,17 @@ public class ProductImageCustomRepositoryImpl implements ProductImageCustomRepos
         TypedQuery<ProductImage> query = entityManager.createQuery(sql, ProductImage.class);
         query.setParameter("productId", productId);
         return query.getResultList();
+    }
+
+    @Override
+    public ProductImage getDefaultImageByProduct(String productId) {
+        try {
+            String sql = "SELECT i FROM ProductImage i WHERE i.product = :productId AND isDefault = TRUE";
+            TypedQuery<ProductImage> query = entityManager.createQuery(sql, ProductImage.class);
+            query.setParameter("productId", productId);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

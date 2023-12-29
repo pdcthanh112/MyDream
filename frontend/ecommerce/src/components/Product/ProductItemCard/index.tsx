@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Daisy from '@assets/images/daisy1.jpg';
+import DefaultImage from '@assets/images/default-image.jpg';
 import { Card, Rating, Icon } from '@mui/material';
 import Button from '@components/UI/Button';
 import { useRouter } from 'next/router';
@@ -9,15 +9,13 @@ import { useAppDispatch, useAppSelector } from '@redux/store';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { openModalAuth } from '@redux/features/modalAuth';
-import { Product } from '@models/ProductModel';
-import { Customer } from '@models/CustomerModel';
 import { toast } from 'react-toastify';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 import { getWishlistByCustomer } from 'api/wishlistApi';
-import { Wishlist } from '@models/WishlistModel';
 import { useEffect, useState } from 'react';
 import { getRatingStarofProduct } from 'api/reviewApi';
+import { getDefaultImageByProductId } from 'api/productApi';
 
 interface ProductProps {
   product: Product;
@@ -30,11 +28,24 @@ const ProductItemCard = ({ product }: ProductProps) => {
   const dispatch = useAppDispatch();
 
   const [ratingStar, setRatingStar] = useState<{vote: number, value: number}>({vote: 0, value: 0.0})
+  const [productDefaultImage, setProductDefaultImage] = useState<ProductImage>()
+
   const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
 
   const { mutate: addProductToWishlist } = useAddProductToWishlist();
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await getDefaultImageByProductId(product.id).then((response) => {
+        if (response && response.data) {
+          setProductDefaultImage(response.data)
+        }
+      })
+    }
+    fetchData();
+  }, [])
+  
   useEffect(() => {
     const fetchData = async () => {
       await getRatingStarofProduct(product.id).then((response) => {
@@ -105,7 +116,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
     <Card key={product.id} className=" bg-white z-30 p-3 text-sm hover:cursor-pointer">
       <div className="w-full flex items-center justify-center relative group">
         <div className="h-80">
-          <Image src={product.image || Daisy} alt="Product image" width={220} height={400} />
+          <Image src={productDefaultImage?.imagePath || DefaultImage} alt="Product image" width={220} height={400} />
         </div>
         <ul className="w-full h-36 bg-gray-100 absolute -bottom-36 flex flex-col items-end justify-center gap-2 font-semibold px-2 border-l border-r group-hover:bottom-0 duration-700">
           <li className="productLi" title={t('common.add_to_cart')} onClick={() => handleAddToCart(product.id)}>

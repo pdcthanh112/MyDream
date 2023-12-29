@@ -7,8 +7,8 @@ import { getAttributeByProductId, getImageByProductId, getProductBySlug } from '
 import { Rating, Icon, Avatar, TableContainer, Table, TableBody, TableRow, TableCell } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
-import { Image as AntdImage, Carousel } from 'antd';
-import Daisy from '@assets/images/daisy1.jpg';
+import { Image as AntdImage } from 'antd';
+import DefaultImage from '@assets/images/default-image.jpg';
 import { roundNumber } from '@utils/helper';
 import Button from '@components/UI/Button';
 import ProductSkeleton from './product-skeleton';
@@ -16,18 +16,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wishlist/wishlistHook';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import { Customer } from '@models/CustomerModel';
-import { Wishlist } from '@models/WishlistModel';
 import { openModalAuth } from '@redux/features/modalAuth';
 import { HeartEmpty, HeartFull } from '@assets/icons';
 import { toast } from 'react-toastify';
 import { useAddProductToCart } from '@hooks/cart/cartHook';
 import { getWishlistByCustomer } from 'api/wishlistApi';
-import { Store } from '@models/StoreModel';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
-import { AttributeValue, ProductImage } from '@models/ProductModel';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -42,6 +38,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const [store, setStore] = useState<Store>();
   const [productAttribute, setProductAttribute] = useState<AttributeValue[]>();
   const [productImage, setProductImage] = useState<ProductImage[]>();
+  const [currentImage, setCurrentImage] = useState<ProductImage>();
 
   const { mutate: addProductToCart } = useAddProductToCart();
 
@@ -68,6 +65,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
       await getImageByProductId(data.id).then((response) => {
         if (response && response.data) {
           setProductImage(response.data);
+          setCurrentImage(response.data.find((image: ProductImage) => image.isDefault === true))
         }
       });
     },
@@ -147,20 +145,31 @@ const ProductDetail: NextPage = (): React.ReactElement => {
 
   return (
     <div className="w-[80%] mx-auto my-3">
-      <div className="bg-white flex">
+      <div className="bg-white flex px-3 py-2">
         <div className="w-[40%] py-3">
-          <div className="justify-center flex">
-            <AntdImage src={product.image || Daisy} alt="Product image" width={300} />
-          </div>
-          <AntdImage.PreviewGroup>
+          <picture className="justify-center flex p-5">
+            {/* <AntdImage src={product.image || Daisy} alt="Product image" width={300} /> */}
+            <AntdImage src={currentImage?.imagePath} alt="Product image" width={300} />
+          </picture>
+
+          <div className="flex w-[90%] bg-red-200 overflow-x-auto ">
             {/* <Carousel style={{ width: '10vw' }} arrows={true} dots={false}> */}
-              {productImage?.map((item: ProductImage) => <Image key={item.id} width={100} height={100} src={item.imagePath} alt={item.alt || 'Product image'} />)}
+            {productImage?.map((item: ProductImage) => (
+              <Image
+                key={item.id}
+                width={60}
+                height={60}
+                src={item.imagePath}
+                alt={item.alt || 'Product image'}
+                className="mx-2 hover:cursor-pointer hover:border-2 hover:border-red-500"
+              />
+            ))}
             {/* </Carousel> */}
-          </AntdImage.PreviewGroup>
+          </div>
         </div>
         <div className="w-[60%] p-3">
-          <h1 className="font-medium text-2xl">{product.name}</h1>
-          <div className="flex justify-between">
+          <h1 className="font-medium text-2xl bg-gray-200 px-3 py-2 mb-3">{product.name}</h1>
+          <div className="flex justify-between my-3">
             <div className="flex items-center">
               <span className="mr-1">{ratingStar.value.toFixed(1)}</span>
               <Rating value={ratingStar.value} precision={0.1} size="small" readOnly />

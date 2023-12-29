@@ -46,6 +46,15 @@ export const getAttributeByProductId = async (productId: string) => {
     });
 };
 
+export const getDefaultImageByProductId = async (productId: string) => {
+  return await axiosConfig
+    .get(`product-image/getDefaultImage?product=${productId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getImageByProductId = async (productId: string) => {
   return await axiosConfig
     .get(`product-image/getByProduct?product=${productId}`)

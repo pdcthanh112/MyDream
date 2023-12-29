@@ -1,6 +1,4 @@
-import { Cart } from "./CartModel";
-
-export interface Checkout {
+type Checkout = {
   customer: string
   address: string;
   phone: string;
@@ -10,7 +8,7 @@ export interface Checkout {
   voucher?: string;
 }
 
-export interface CheckoutForm {
+type CheckoutForm = {
   customer: string
   address: string;
   phone: string;

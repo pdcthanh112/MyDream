@@ -1,4 +1,3 @@
-import { Product } from '@models/ProductModel';
 import ProductItemCard from './ProductItemCard';
 import ProductItemCardSkeleton from './ProductItemCard/ProductItemCardSkeleton';
 

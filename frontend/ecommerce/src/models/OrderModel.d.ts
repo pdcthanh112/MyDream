@@ -1,6 +1,4 @@
-import { Checkout } from './CheckoutModel';
-
-export interface Order {
+type Order = {
   id: number;
   customer: string;
   total: number;

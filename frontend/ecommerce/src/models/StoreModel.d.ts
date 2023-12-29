@@ -1,4 +1,4 @@
-export interface Store {
+type Store = {
   id: string;
   name: string;
   avatar: string;

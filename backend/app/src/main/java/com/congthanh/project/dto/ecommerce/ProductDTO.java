@@ -34,8 +34,6 @@ public class ProductDTO {
 
   private String production;
 
-  private String image;
-
   private String description;
 
   private String store;

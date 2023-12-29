@@ -1,4 +1,4 @@
-export interface Voucher {
+type Voucher = {
   id: string;
   code: string;
   type: 'Discount' | 'Promotion';
@@ -8,4 +8,4 @@ export interface Voucher {
   startDate: Date;
   endDate: Date;
   status: string;
-}
+};

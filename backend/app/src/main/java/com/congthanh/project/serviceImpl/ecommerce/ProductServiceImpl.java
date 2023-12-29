@@ -105,7 +105,6 @@ public class ProductServiceImpl implements ProductService {
               .quantity(productDTO.getQuantity())
               .price(productDTO.getPrice())
               .production(productDTO.getProduction())
-              .image(productDTO.getImage())
               .description(productDTO.getDescription())
               .status(StateStatus.STATUS_ACTIVE)
               .slug(productSlug)
@@ -127,7 +126,6 @@ public class ProductServiceImpl implements ProductService {
     product.setQuantity(productDTO.getQuantity());
     product.setPrice(productDTO.getPrice());
     product.setProduction(productDTO.getProduction());
-    product.setImage(productDTO.getImage());
     product.setDescription(productDTO.getDescription());
 
     productRepository.save(product);
