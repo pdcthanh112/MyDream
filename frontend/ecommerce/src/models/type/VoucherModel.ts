@@ -1,4 +1,4 @@
-type Voucher = {
+export type Voucher = {
   id: string;
   code: string;
   type: 'Discount' | 'Promotion';

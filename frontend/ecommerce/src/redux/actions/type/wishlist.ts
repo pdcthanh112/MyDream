@@ -1,4 +1,4 @@
-import { Wishlist } from '@models/WishlistModel';
+import { Wishlist } from '@models/type/WishlistModel';
 import * as actionName from '../name/wishlist';
 import {
   AddItemToWishlistCleanPayload,

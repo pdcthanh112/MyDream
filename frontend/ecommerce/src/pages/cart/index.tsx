@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { Popconfirm } from 'antd';
 import { useDeleteCart } from '@hooks/cart/cartHook';
 import { toast } from 'react-toastify';
+import { Cart, Customer } from '@models/type';
 
 const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

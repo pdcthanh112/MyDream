@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { PaginationParams } from '@models/Request';
+import { PaginationParams } from '@models/type/Request';
 import { useQuery } from '@tanstack/react-query';
 import { getOrderByStatus } from 'api/orderApi';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Order } from '@models/OrderModel';
-import Pagination from '@components/Pagination';
+import { Order } from '@models/type/OrderModel';
+import Pagination from '@components/UI/Pagination';
 import ListEmpty from '../../assets/images/list-empty.png';
 import Image from 'next/image';
 

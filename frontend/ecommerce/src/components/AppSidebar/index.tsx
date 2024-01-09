@@ -3,12 +3,10 @@ import './AppSidebar.scss';
 import { useRouter } from 'next/router';
 import { Avatar, Icon } from '@mui/material';
 import { useAppSelector } from '@redux/store';
-import { Customer } from '@models/CustomerModel';
-import { Category } from '@models/CategoryModel';
-import { Subcategory } from '@models/SubcategoryModel';
 import { ArrowBack as ArrowBackIcon, ArrowForwardIos as ArrowForwardIosIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
+import { Category, Customer, Subcategory } from '@models/type';
 
 const AppSidebar = () => {
   const router = useRouter();

@@ -31,7 +31,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 
     @Override
     public int countTotalSoldProduct(String productId) {
-        return 0;
+        String sql = "SELECT "
+
     }
 
 }

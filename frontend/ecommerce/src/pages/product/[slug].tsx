@@ -5,12 +5,11 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getAttributeByProductId, getImageByProductId, getProductBySlug } from 'api/productApi';
 import { Rating, Icon, Avatar, TableContainer, Table, TableBody, TableRow, TableCell } from '@mui/material';
-import { Add as AddIcon, Remove as MinusIcon, Storefront, ForumOutlined } from '@mui/icons-material';
+import { Add, Remove, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
 import { Image as AntdImage } from 'antd';
-import DefaultImage from '@assets/images/default-image.jpg';
 import { roundNumber } from '@utils/helper';
-import Button from '@components/UI/Button';
+import { Button } from '@components/UI';
 import ProductSkeleton from './product-skeleton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -24,9 +23,11 @@ import { getWishlistByCustomer } from 'api/wishlistApi';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
+import { AttributeValue, Customer, ProductImage, Store, Wishlist } from '@models/type';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
-  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
+  const currentUser: Customer
+   = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { slug: productSlug } = router.query;
 
@@ -65,7 +66,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
       await getImageByProductId(data.id).then((response) => {
         if (response && response.data) {
           setProductImage(response.data);
-          setCurrentImage(response.data.find((image: ProductImage) => image.isDefault === true))
+          setCurrentImage(response.data.find((image: ProductImage) => image.isDefault === true));
         }
       });
     },
@@ -148,12 +149,10 @@ const ProductDetail: NextPage = (): React.ReactElement => {
       <div className="bg-white flex px-3 py-2">
         <div className="w-[40%] py-3">
           <picture className="justify-center flex p-5">
-            {/* <AntdImage src={product.image || Daisy} alt="Product image" width={300} /> */}
             <AntdImage src={currentImage?.imagePath} alt="Product image" width={300} />
           </picture>
 
-          <div className="flex w-[90%] bg-red-200 overflow-x-auto ">
-            {/* <Carousel style={{ width: '10vw' }} arrows={true} dots={false}> */}
+          <div className="flex w-[90%] overflow-x-auto ">
             {productImage?.map((item: ProductImage) => (
               <Image
                 key={item.id}
@@ -162,9 +161,9 @@ const ProductDetail: NextPage = (): React.ReactElement => {
                 src={item.imagePath}
                 alt={item.alt || 'Product image'}
                 className="mx-2 hover:cursor-pointer hover:border-2 hover:border-red-500"
+                onClick={() => setCurrentImage(item)}
               />
             ))}
-            {/* </Carousel> */}
           </div>
         </div>
         <div className="w-[60%] p-3">
@@ -199,15 +198,15 @@ const ProductDetail: NextPage = (): React.ReactElement => {
             <span className="flex items-center mr-10">{t('product.Quantity')}</span>
             <div className="border-[#cccccc] border-2">
               <button className="bg-[#f3f3f3] px-3 py-2" disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)}>
-                <Icon component={MinusIcon} />
+                <Icon component={Remove} />
               </button>
               <input
                 type="number"
                 className="w-20 text-center focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 value={quantity}
               />
-              <button className="bg-[#f3f3f3] px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
-                <Icon component={AddIcon} />
+              <button className="bg-[#1c1818] px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
+                <Icon component={Add} />
               </button>
             </div>
             <span className="flex items-center ml-10">

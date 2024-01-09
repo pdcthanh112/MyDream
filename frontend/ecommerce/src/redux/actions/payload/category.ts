@@ -1,4 +1,4 @@
-import { Category } from '@models/CategoryModel';
+import { Category } from "@models/type";
 
 export interface FetchCategoryRequestedPayload {
   params: any;

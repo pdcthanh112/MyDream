@@ -5,4 +5,3 @@ export interface PaginationParams {
   order?: 'asc' | 'desc';
   totalPage?: number;
 }
-

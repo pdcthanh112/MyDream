@@ -1,6 +1,6 @@
 import { getHistoryByCustomer } from 'api/purchasingApi';
-import { CheckoutForm } from '@models/CheckoutModel';
-import { Customer } from '@models/CustomerModel';
+import { CheckoutForm } from '@models/type/CheckoutModel';
+import { Customer } from '@models/type/CustomerModel';
 import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
 

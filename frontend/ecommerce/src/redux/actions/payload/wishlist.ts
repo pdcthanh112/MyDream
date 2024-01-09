@@ -1,4 +1,4 @@
-import { Wishlist } from '@models/WishlistModel';
+import { Wishlist } from '@models/type';
 
 export interface FetchWishlistRequestedPayload {
   customerId: string;

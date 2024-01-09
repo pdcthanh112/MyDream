@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import Button from '@components/UI/Button';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import Link from 'next/link';
-import { LoginForm } from '@models/CustomerModel';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -19,6 +18,7 @@ import { useRouter } from 'next/router';
 import { fetchNotificationRequested } from '@redux/actions/notification';
 import { fetchCartRequested } from '@redux/actions/cart';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
+import { LoginForm } from '@models/form';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;

@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useState, ReactNode } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { SignupForm } from '@models/CustomerModel';
+import { SignupForm } from '@models/form';
 import { Autocomplete, TextField, Icon, Card, Tooltip } from '@mui/material';
 import { genderData } from '@utils/constants/dropdownData';
 import Button from '@components/UI/Button';

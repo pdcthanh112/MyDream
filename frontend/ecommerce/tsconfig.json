@@ -29,6 +29,7 @@
       "@config/*": ["config/*"],
       "@hooks/*": ["hooks/*"],
       "@models/*": ["models/*"],
+      // "@models": ["./models"],
       "@pages/*": ["pages/*"],
       "@redux/*": ["redux/*"],
       "@styles/*": ["styles/*"],

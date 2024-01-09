@@ -1,4 +1,6 @@
-type Order = {
+import { Checkout } from "@models/type";
+
+export type Order = {
   id: number;
   customer: string;
   total: number;

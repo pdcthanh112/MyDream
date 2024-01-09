@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAddressById } from 'api/addressApi';
-import { Address, UpdateAddressForm } from '@models/AddressModel';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Checkbox } from 'antd';
+import { Address } from '@models/type';
 import styled from 'styled-components';
 import { Autocomplete, TextField } from '@mui/material';
 import countryData from '../../../public/data/country.json';

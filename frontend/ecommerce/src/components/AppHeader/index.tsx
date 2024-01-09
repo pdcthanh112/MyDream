@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@redux/store';
-import Button from '@components/UI/Button';
+import { Button } from '@components/UI';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import AppLogo from '@assets/images/app-logo-removebg.png';
 import DefaultImage from '@assets/images/default-image.jpg';
@@ -16,11 +16,8 @@ import NotificationModal from '@components/NotificationModal';
 import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { logoutRequested } from '@redux/actions/auth';
-import { Customer } from '@models/CustomerModel';
-import { Category } from '@models/CategoryModel';
-import { Notification } from '@models/NotificationModel';
-import { Cart } from '@models/CartModel';
 import Link from 'next/link';
+import { Cart, Category, Customer, Notification } from '@models/type';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -44,7 +41,7 @@ const AppHeader = () => {
       <Link href={'/'}>
         <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" />
       </Link>
-      
+
       <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer">
         <span className="bg-gray-300 h-[2.5rem] w-20 rounded-l-md flex justify-center items-center relative group">
           <span className="">

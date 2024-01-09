@@ -1,5 +1,4 @@
 import axiosConfig from '@config/axiosConfig';
-import { CheckoutForm } from '@models/CheckoutModel';
 
 export const checkout = async (data: CheckoutForm) => {
   return await axiosConfig

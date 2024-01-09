@@ -1,4 +1,4 @@
-import { Cart } from "@models/CartModel";
+import { Cart } from "@models/type/CartModel";
 
 export interface FetchCartRequestedPayload {
   values: { id: string; name: string };

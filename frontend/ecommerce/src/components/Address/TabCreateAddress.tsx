@@ -1,5 +1,4 @@
 import React from 'react';
-import { CreateAddressForm } from '@models/AddressModel';
 import { Autocomplete, TextField } from '@mui/material';
 import { Button, Checkbox } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -10,6 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { useCreateAddress } from '@hooks/address/addressHook';
 import countryData from '../../../public/data/country.json';
 import provinceData from '../../../public/data/province.json';
+import { CreateAddressForm } from '@models/form';
 
 type InputComponentProps = {
   title: string;

@@ -1,4 +1,4 @@
-interface Product {
+export type Product = {
   id: string;
   name: string;
   category: number;
@@ -6,6 +6,7 @@ interface Product {
   description: string;
   SKU: string;
   quantity: number;
+  image?: string
   price: number;
   production: string;
   sold: number;
@@ -14,19 +15,19 @@ interface Product {
   store: string;
 }
 
-interface ProductAttribute {
+export type ProductAttribute = {
   id: number;
   name: string;
 }
 
-interface AttributeValue {
+export type AttributeValue = {
   id: number;
   attribute: ProductAttribute;
   product: string;
   value: string;
 }
 
-interface ProductImage {
+export type ProductImage = {
   id: number;
   product: string;
   imagePath: string;

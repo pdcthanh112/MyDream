@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import { useDeleteCartItem, useUpdateCartItem } from '@hooks/cart/cartHook';
 import { Popconfirm } from 'antd';
 import Link from 'next/link';
+import { CartItem } from '@models/type';
 
 interface CartItemProps {
   item: CartItem;

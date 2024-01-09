@@ -1,4 +1,4 @@
-import { Notification } from '@models/NotificationModel';
+import { Notification } from '@models/type';
 
 export interface FetchNotificationRequestedPayload {
   accountId: string;

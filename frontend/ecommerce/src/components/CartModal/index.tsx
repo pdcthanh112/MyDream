@@ -3,19 +3,19 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
 import { Done as DoneIcon, Clear as ClearIcon, HighlightOff, Delete } from '@mui/icons-material';
+import { Cart, Customer } from '@models/type';
 import { useAppSelector } from '@redux/store';
 import { getCartByCustomerId } from 'api/cartApi';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { Checkbox, Popconfirm } from 'antd';
-import { Customer } from '@models/CustomerModel';
-import { Cart, CreateCartForm } from '@models/CartModel';
 import DefaultImage from '@assets/images/default-image.jpg';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import { useTranslation } from 'next-i18next';
 import { useCreateNewCart, useDeleteCart } from '@hooks/cart/cartHook';
 import Link from 'next/link';
+import { CreateCartForm } from '@models/form';
 
 const CartModal = () => {
   const router = useRouter();

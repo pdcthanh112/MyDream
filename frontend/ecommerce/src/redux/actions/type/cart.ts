@@ -1,4 +1,4 @@
-import { Cart } from '@models/CartModel';
+import { Cart } from '@models/type/CartModel';
 import * as actionName from '../name/cart';
 import {
   AddItemToCartFailedPayload,

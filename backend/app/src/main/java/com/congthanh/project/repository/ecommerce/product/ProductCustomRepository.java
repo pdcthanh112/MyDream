@@ -15,4 +15,5 @@ public interface ProductCustomRepository {
     boolean checkExistSlug(String slug);
 
     int countTotalSoldProduct(String productId);
+
 }

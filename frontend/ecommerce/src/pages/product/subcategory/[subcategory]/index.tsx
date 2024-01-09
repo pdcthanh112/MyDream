@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getProductBySubcategory } from 'api/productApi';
-import { PaginationParams } from '@models/Request';
-import Pagination from '@components/Pagination';
+import { PaginationParams } from '@models/type/Request';
+import Pagination from '@components/UI/Pagination';
 import ShowListProduct from '@components/Product/ShowListProduct';
 import NotFound from './not-found';
 

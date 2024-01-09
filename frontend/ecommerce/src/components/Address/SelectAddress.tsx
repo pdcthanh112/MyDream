@@ -3,11 +3,11 @@ import { useAppSelector } from '@redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { getAddressByCustomer } from 'api/addressApi';
 import { Modal, Tabs, type TabsProps, Radio, Button } from 'antd';
-import { Address } from '@models/AddressModel';
 import TabCreateAddress from './TabCreateAddress';
 import TabEditAddress from './TabEditAddress';
 import { Icon } from '@mui/material';
 import { Add } from '@mui/icons-material';
+import { Address } from '@models/type';
 
 type PropsType = {
   isOpen: boolean;

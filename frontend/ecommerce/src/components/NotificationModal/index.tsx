@@ -6,8 +6,7 @@ import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import DefaultImage from '@assets/images/default-image.jpg';
-import { Customer } from '@models/CustomerModel';
-import { Notification } from '@models/NotificationModel';
+import { Customer, Notification } from '@models/type';
 
 export default function NotificationModal() {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

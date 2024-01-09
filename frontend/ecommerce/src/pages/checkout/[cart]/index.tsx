@@ -23,6 +23,7 @@ import SelectAddress from '@components/Address/SelectAddress';
 import { checkout } from 'api/checkoutApi';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { Address, CheckoutForm, Voucher } from '@models/type';
 
 interface InputComponentProps {
   title: string;

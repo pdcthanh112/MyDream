@@ -1,4 +1,6 @@
-type Checkout = {
+import { Cart } from "@models/type";
+
+export type Checkout = {
   customer: string
   address: string;
   phone: string;
@@ -8,7 +10,7 @@ type Checkout = {
   voucher?: string;
 }
 
-type CheckoutForm = {
+export type CheckoutForm = {
   customer: string
   address: string;
   phone: string;

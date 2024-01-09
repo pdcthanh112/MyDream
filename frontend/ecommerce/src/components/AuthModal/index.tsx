@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Modal, Box, Icon } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginForm, SignupForm } from '@models/CustomerModel';
 import { useAppDispatch } from '@redux/store';
 import { Visibility, VisibilityOff, Close, Email as EmailIcon, Lock as LockIcon, AccountCircle } from '@mui/icons-material';
 import { loginRequested } from '@redux/actions/auth';
@@ -16,6 +15,7 @@ import { closeModalAuth } from '@redux/features/modalAuth';
 import { useTranslation } from 'next-i18next';
 import { getAuthLogo } from '@utils/helper';
 import { signIn } from 'next-auth/react';
+import { LoginForm, SignupForm } from '@models/form';
 
 interface InputComponentProps {
   title: string;

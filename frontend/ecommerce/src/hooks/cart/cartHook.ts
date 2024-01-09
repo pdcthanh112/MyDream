@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddToCartForm, CreateCartForm, UpdateCartItemForm } from '@models/CartModel';
+import { AddToCartForm, CreateCartForm, UpdateCartItemForm } from '@models/type/CartModel';
 import { addProductToCart, createNewCart, deleteCart, deleteCartItem, updateCartItem } from 'api/cartApi';
 
 export const useCreateNewCart = () => {

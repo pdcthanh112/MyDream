@@ -1,5 +1,3 @@
-import { Subcategory } from "@models/SubcategoryModel";
-
 export interface FetchSubcategoryStartPayload {
   params: { token: string };
 }

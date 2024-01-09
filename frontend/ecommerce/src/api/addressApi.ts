@@ -1,5 +1,4 @@
 import axiosConfig from '@config/axiosConfig';
-import { CreateAddressForm, UpdateAddressForm } from '@models/AddressModel';
 
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig

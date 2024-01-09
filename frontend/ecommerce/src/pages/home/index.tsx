@@ -5,15 +5,16 @@ import { useQuery } from '@tanstack/react-query';
 import Banner from '@components/Banner';
 import { getAllProduct } from 'api/productApi';
 import ShowListProduct from '@components/Product/ShowListProduct';
-import Pagination from '@components/Pagination';
+import Pagination from '@components/UI/Pagination';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { fetchCategoryRequested } from '@redux/actions/category';
 import { fetchSubcategoryRequested } from '@redux/actions/subcategory';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
-import { PaginationParams } from '@models/Request';
+import { PaginationParams } from '@models/type/Request';
 import { useRouter } from 'next/router';
+import { Customer } from '@models/type';
 
 const Home: NextPage = (): React.ReactElement => {
   const { locale } = useRouter();

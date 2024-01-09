@@ -1,4 +1,4 @@
-import { Notification } from '@models/NotificationModel';
+import { Notification } from '@models/type/NotificationModel';
 import * as actionName from '../name/notification';
 import { FetchNotificationFailedPayload, FetchNotificationRequestedPayload, FetchNotificationStartPayload, FetchNotificationSucceededPayload } from '../payload/notification';
 
