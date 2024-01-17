@@ -1,24 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import { Icon } from '@mui/material';
-import { Done as DoneIcon, Clear as ClearIcon, HighlightOff, Delete } from '@mui/icons-material';
-import { Cart, Customer } from '@models/type';
+import { Done as DoneIcon, Clear, HighlightOff, Delete } from '@mui/icons-material';
+import { Cart, CartItem, Customer } from '@models/type';
 import { useAppSelector } from '@redux/store';
 import { getCartByCustomerId } from 'api/cartApi';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { Checkbox, Popconfirm } from 'antd';
-import DefaultImage from '@assets/images/default-image.jpg';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
 import { useTranslation } from 'next-i18next';
 import { useCreateNewCart, useDeleteCart } from '@hooks/cart/cartHook';
 import Link from 'next/link';
 import { CreateCartForm } from '@models/form';
+import ShowCartItem from './ShowCartItem';
 
 const CartModal = () => {
-  const router = useRouter();
+
   const { t } = useTranslation('common');
 
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
@@ -75,7 +74,7 @@ const CartModal = () => {
               <Checkbox onChange={(event) => setValue('isDefault', event.target.value)}>Default</Checkbox>
               <Icon component={HighlightOff} className="hover:cursor-pointer opacity-80" titleAccess="Clear" onClick={() => resetField('name')} />
             </div>
-            <Icon component={ClearIcon} titleAccess="Cancel" className="hover:cursor-pointer" onClick={() => setIsCreateCart(false)} />
+            <Icon component={Clear} titleAccess="Cancel" className="hover:cursor-pointer" onClick={() => setIsCreateCart(false)} />
             <button className="hover:cursor-pointer" title="Create">
               <Icon component={DoneIcon} />
             </button>
@@ -100,24 +99,14 @@ const CartModal = () => {
             </Popconfirm>
           </div>
           {cart.cartItems?.length > 0 ? (
-            <>
-              {cart.cartItems.map((item) => {
-                countItem += 1;
+            <React.Fragment>
+              {cart.cartItems.map((item: CartItem) => {
+                countItem += 1;      
                 return (
-                  <div
-                    key={item.id}
-                    className="flex justify-between px-5 py-2 hover:bg-gray-100 hover:cursor-pointer"
-                    title={item.product.name}
-                    onClick={() => router.push(`product/${item.product.id}`)}>
-                    <span className="flex items-center">
-                      <Image src={item.product.image || DefaultImage} alt="" width={40} height={40} className="border border-gray-300" />
-                      <h4 className="truncate ml-2 w-56">{item.product.name}</h4>
-                    </span>
-                    <span className="text-yellow-500">${item.product.price}</span>
-                  </div>
+                  <ShowCartItem item={item} key={item.id}/>
                 );
               })}
-            </>
+            </React.Fragment>
           ) : (
             <div className="flex justify-center">{t('cart.this_cart_have_no_item')}</div>
           )}

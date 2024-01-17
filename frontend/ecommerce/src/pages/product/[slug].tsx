@@ -205,7 +205,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
                 className="w-20 text-center focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 value={quantity}
               />
-              <button className="bg-[#1c1818] px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
+              <button className="bg-[#f3f3f3] px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
                 <Icon component={Add} />
               </button>
             </div>

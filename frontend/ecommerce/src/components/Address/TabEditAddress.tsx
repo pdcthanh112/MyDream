@@ -9,6 +9,7 @@ import countryData from '../../../public/data/country.json';
 import { useUpdateAddress } from '@hooks/address/addressHook';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
+import { UpdateAddressForm } from '@models/form';
 
 type InputComponentProps = {
   title: string;

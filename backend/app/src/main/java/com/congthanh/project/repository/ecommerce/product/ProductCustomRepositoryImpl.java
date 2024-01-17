@@ -1,6 +1,7 @@
 package com.congthanh.project.repository.ecommerce.product;
 
 import com.congthanh.project.entity.ecommerce.Product;
+import com.congthanh.project.enums.ecommerce.OrderStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -30,9 +31,12 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
     }
 
     @Override
-    public int countTotalSoldProduct(String productId) {
-        String sql = "SELECT "
-
+    public Long countTotalSoldProduct(String productId) {
+        String sql = "SELECT SUM(quantity) FROM OrderDetail WHERE product = :productId AND status = :status ";
+        TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);
+        query.setParameter("productId", productId);
+        query.setParameter("status", OrderStatus.COMPLETED);
+        return query.getSingleResult();
     }
 
 }

@@ -1,5 +1,6 @@
-import { NextPage } from 'next';
+"use client"
 import { useState } from 'react';
+import { NextPage } from 'next';
 import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
 import { Card, Icon, CircularProgress } from '@mui/material';
@@ -7,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@components/UI/Button';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -14,7 +16,6 @@ import { useTranslation } from 'next-i18next';
 import { authClean, loginRequested } from '@redux/actions/auth';
 import { getProviders, signIn } from 'next-auth/react';
 import { getAuthLogo } from '@utils/helper';
-import { useRouter } from 'next/router';
 import { fetchNotificationRequested } from '@redux/actions/notification';
 import { fetchCartRequested } from '@redux/actions/cart';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
@@ -29,10 +30,11 @@ const InputField = styled.div`
 `;
 
 const Login: NextPage = ({ providers }: any): React.ReactElement => {
-  const { t } = useTranslation('common');
+
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const authState = useAppSelector((state) => state.auth);
-  const router = useRouter();
+  const { t } = useTranslation('common');
 
   const [showPassword, setShowPassword] = useState(false);
 
