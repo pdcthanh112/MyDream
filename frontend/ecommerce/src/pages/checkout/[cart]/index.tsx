@@ -24,6 +24,7 @@ import { checkout } from 'api/checkoutApi';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { Address, CheckoutForm, Voucher } from '@models/type';
+import { NextPage } from 'next';
 
 interface InputComponentProps {
   title: string;
@@ -49,7 +50,7 @@ const InputField = styled.div`
   position: relative;
 `;
 
-export default function Checkout(): React.ReactElement {
+const Checkout: NextPage = (): React.ReactElement => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
   const param = useParams();
@@ -78,7 +79,7 @@ export default function Checkout(): React.ReactElement {
   const { register, setValue, watch, handleSubmit, formState, setError } = useForm<CheckoutForm>();
   const onSubmit: SubmitHandler<CheckoutForm> = async (data) => {
     data.customer = currentUser.userInfo.accountId;
-    data.cart = cartId?.toString()??'';
+    data.cart = cartId?.toString() ?? '';
     if (!address) {
       setError('address', { message: 'choose address' });
     } else {
@@ -87,13 +88,13 @@ export default function Checkout(): React.ReactElement {
     data.phone = currentUser.userInfo.phone;
     data.total = total;
     data.voucher = voucher?.id;
-    data.payment = pickPaymentMethod
+    data.payment = pickPaymentMethod;
     try {
-      await checkout(data).then(response => {
-      router.push(`/checkout/${cartId}/thank-you`)
-      })
+      await checkout(data).then((response) => {
+        router.push(`/checkout/${cartId}/thank-you`);
+      });
     } catch (error) {
-      toast.error("error")
+      toast.error('error');
     }
   };
 
@@ -238,7 +239,9 @@ export default function Checkout(): React.ReactElement {
               )}
             </div>
             <div className="flex justify-center">
-              <Button htmlType='submit' className="bg-yellow-300 rounded-xl w-[40%]">Checkout</Button>
+              <Button htmlType="submit" className="bg-yellow-300 rounded-xl w-[40%]">
+                Checkout
+              </Button>
             </div>
           </form>
         </div>
@@ -277,7 +280,9 @@ export default function Checkout(): React.ReactElement {
                     />
                   </InputField>
                 </InputComponent>
-                <Button className="bg-yellow-300 rounded-xl ml-3 h-fit" htmlType='submit'>Apply</Button>
+                <Button className="bg-yellow-300 rounded-xl ml-3 h-fit" htmlType="submit">
+                  Apply
+                </Button>
               </div>
             </form>
           </div>
@@ -292,7 +297,9 @@ export default function Checkout(): React.ReactElement {
       </div>
     </div>
   );
-}
+};
+
+export default Checkout;
 
 export async function getServerSideProps(context: any) {
   return {

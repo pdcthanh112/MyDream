@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RatingStarDTO {
+public class RatingStarRequest {
 
     @Min(0)
     private Long vote;

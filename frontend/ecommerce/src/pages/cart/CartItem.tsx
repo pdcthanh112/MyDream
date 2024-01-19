@@ -1,24 +1,36 @@
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { Icon } from '@mui/material';
 import { Add as AddIcon, Remove as MinusIcon, Delete } from '@mui/icons-material';
-import { useTranslation } from 'next-i18next';
 import { useDeleteCartItem, useUpdateCartItem } from '@hooks/cart/cartHook';
 import { Popconfirm } from 'antd';
 import Link from 'next/link';
-import { CartItem } from '@models/type';
+import { CartItem, ProductImage } from '@models/type';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useState } from 'react';
+import { getDefaultImageByProductId } from 'api/productApi';
 
 interface CartItemProps {
   item: CartItem;
 }
 
 const CartItem = ({ item }: CartItemProps): React.ReactElement => {
-  const router = useRouter();
   const { t } = useTranslation('common');
+
+  const [image, setImage] = useState<ProductImage>();
 
   const { mutate: updateCartItem } = useUpdateCartItem();
   const { mutate: deleteCartItem } = useDeleteCartItem();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getDefaultImageByProductId(item.product.id);
+      if (response && response.data) {
+        setImage(response.data);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleUpdateCartItem = (cartItemId: string, quantity: number) => {
     updateCartItem({ itemId: cartItemId, quantity: quantity }, {});
@@ -30,11 +42,11 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
 
   return (
     <div className=" items-center border border-gray-600 rounded my-2 grid grid-cols-12">
-      <Image src={item.product.image || DefaultImage} alt="Product image" className="col-span-1" width={100} height={120} />
+      <Image src={image?.imagePath || DefaultImage} alt={image?.alt || 'Product image'} className="col-span-1" width={100} height={100} />
 
-      <div className="ml-3 col-span-6">
+      <div className="ml-3 col-span-6" title={item.product.name}>
         <Link href={`/product/${item.product.slug}`}>
-          <span className="hover:cursor-pointer">{item.product.name}</span>
+          <span className="hover:cursor-pointer truncate">{item.product.name}</span>
         </Link>
       </div>
 

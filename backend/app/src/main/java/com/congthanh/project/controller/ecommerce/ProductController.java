@@ -112,6 +112,17 @@ public class ProductController {
     return ResponseEntity.ok().body(response);
   }
 
+  @GetMapping("/sold/{id}")
+  public ResponseEntity<Response<Long>> getSoldByProduct(@PathVariable("id") String productId) {
+    System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"+productId);
+    Long result = productService.getSoldByProduct(productId);
+    Response<Long> response = new Response<>();
+    response.setData(result);
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    response.setMessage("Get successfully");
+    return ResponseEntity.ok().body(response);
+  }
+
   @QueryMapping(value = "product")
   List<Product> products() {
     return productRepository.findAll();

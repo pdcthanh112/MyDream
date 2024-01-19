@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface OrderCustomRepository {
 
-    Page<Order> findByStatus(String status, Pageable pageable);
+
 
 }

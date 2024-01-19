@@ -1,7 +1,7 @@
 package com.congthanh.project.serviceImpl.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.ReviewDTO;
-import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.request.RatingStarRequest;
 import com.congthanh.project.entity.ecommerce.Product;
 import com.congthanh.project.entity.ecommerce.Review;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
@@ -36,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public RatingStarDTO getRatingStarOfProduct(String productId) {
+    public RatingStarRequest getRatingStarOfProduct(String productId) {
         return reviewRepository.getReviewStatsFromProduct(productId);
     }
 }

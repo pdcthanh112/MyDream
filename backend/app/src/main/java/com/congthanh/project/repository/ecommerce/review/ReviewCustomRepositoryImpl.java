@@ -1,6 +1,6 @@
 package com.congthanh.project.repository.ecommerce.review;
 
-import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.request.RatingStarRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -12,7 +12,7 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository{
     private EntityManager entityManager;
 
     @Override
-    public RatingStarDTO getReviewStatsFromProduct(String productId) {
+    public RatingStarRequest getReviewStatsFromProduct(String productId) {
         String sql = "SELECT COUNT(rating), AVG(rating) FROM Review  WHERE product.id = :productId";
         Query query = entityManager.createQuery(sql);
         query.setParameter("productId", productId);
@@ -21,6 +21,6 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository{
         Long vote = result[0] != null ? (Long) result[0] : 0;
         Double value = result[1] != null ? (Double) result[1] : 0;
 
-        return new RatingStarDTO(vote, value);
+        return new RatingStarRequest(vote, value);
     }
 }

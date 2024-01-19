@@ -28,7 +28,7 @@ public class WishlistController {
   }
 
   @PostMapping("/add")
-  public ResponseEntity<Response> addProductToWishlist(@RequestBody Map<String, String> requestData) {
+  public ResponseEntity<Response<?>> addProductToWishlist(@RequestBody Map<String, String> requestData) {
     String customerId = requestData.get("customerId");
     String productId = requestData.get("productId");
     Response<String> response = new Response<>();

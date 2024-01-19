@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateOrderDetailDTO {
+public class CreateOrderDetailRequest {
 
     private String productId;
 

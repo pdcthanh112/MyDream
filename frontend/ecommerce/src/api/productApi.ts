@@ -63,3 +63,12 @@ export const getImageByProductId = async (productId: string) => {
       throw error;
     });
 };
+
+export const getSoldByProduct = async (productId: string) => {
+  return await axiosConfig
+    .get(`product/sold/${productId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

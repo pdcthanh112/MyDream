@@ -2,7 +2,7 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.ReviewDTO;
-import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.request.RatingStarRequest;
 import com.congthanh.project.model.ecommerce.response.Response;
 import com.congthanh.project.entity.ecommerce.Review;
 import com.congthanh.project.service.ecommerce.ReviewService;
@@ -28,9 +28,9 @@ public class ReviewController {
     }
 
     @GetMapping("/getRatingStar")
-    public ResponseEntity<Response<RatingStarDTO>> getRatingStarOfProduct(@RequestParam("product") String productId) {
-        RatingStarDTO rating = reviewService.getRatingStarOfProduct(productId);
-        Response<RatingStarDTO> response = new Response<>();
+    public ResponseEntity<Response<RatingStarRequest>> getRatingStarOfProduct(@RequestParam("product") String productId) {
+        RatingStarRequest rating = reviewService.getRatingStarOfProduct(productId);
+        Response<RatingStarRequest> response = new Response<>();
         response.setData(rating);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         response.setMessage("Get rating star successfully");

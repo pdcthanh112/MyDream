@@ -9,7 +9,6 @@ export type Product = {
   image?: string
   price: number;
   production: string;
-  sold: number;
   status: string;
   slug: string;
   store: string;

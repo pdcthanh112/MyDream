@@ -25,4 +25,7 @@ public interface ProductService {
   ResponseWithPagination<ProductDTO> getProductBySubcategory(int subcategoryId, int page, int limit);
 
   List<ProductDTO> searchProduct(String keyword);
+
+  Long getSoldByProduct(String productId);
+
 }

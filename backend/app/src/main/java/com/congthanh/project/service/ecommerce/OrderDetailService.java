@@ -1,9 +1,13 @@
 package com.congthanh.project.service.ecommerce;
 
 import com.congthanh.project.dto.ecommerce.OrderDetailDTO;
-import com.congthanh.project.model.ecommerce.request.CreateOrderDetailDTO;
+import com.congthanh.project.model.ecommerce.request.CreateOrderDetailRequest;
+import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 
 public interface OrderDetailService {
 
-    OrderDetailDTO createOrderDetail(CreateOrderDetailDTO createOrderDetailDTO);
+    OrderDetailDTO createOrderDetail(CreateOrderDetailRequest createOrderDetailRequest);
+
+    ResponseWithPagination<OrderDetailDTO> getOrderDetailByStatus(String status, int page, int limit);
+
 }

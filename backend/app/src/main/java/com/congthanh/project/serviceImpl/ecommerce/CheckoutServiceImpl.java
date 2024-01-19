@@ -5,9 +5,9 @@ import com.congthanh.project.dto.ecommerce.PaymentDTO;
 import com.congthanh.project.entity.ecommerce.*;
 import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CheckoutMapper;
-import com.congthanh.project.model.ecommerce.request.CreateCheckoutDTO;
-import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
-import com.congthanh.project.model.ecommerce.request.CreateOrderDetailDTO;
+import com.congthanh.project.model.ecommerce.request.CreateCheckoutRequest;
+import com.congthanh.project.model.ecommerce.request.CreateOrderRequest;
+import com.congthanh.project.model.ecommerce.request.CreateOrderDetailRequest;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.checkout.CheckoutRepository;
@@ -56,37 +56,37 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public CheckoutDTO createCheckout(CreateCheckoutDTO createCheckoutDTO) {
-        Cart cart = cartRepository.findById(createCheckoutDTO.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
-        Voucher voucher = voucherRepository.findById(createCheckoutDTO.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
+    public CheckoutDTO createCheckout(CreateCheckoutRequest createCheckoutRequest) {
+        Cart cart = cartRepository.findById(createCheckoutRequest.getCartId()).orElseThrow(() -> new NotFoundException("cart not found"));
+        Voucher voucher = voucherRepository.findById(createCheckoutRequest.getVoucher()).orElseThrow(() -> new NotFoundException("voucher not found"));
 
         Payment payment = paymentService.createPayment(PaymentDTO.builder()
-                .amount(createCheckoutDTO.getTotal())
-                .paymentMethod(createCheckoutDTO.getPayment())
+                .amount(createCheckoutRequest.getTotal())
+                .paymentMethod(createCheckoutRequest.getPayment())
                 .build());
 
         Checkout checkout = Checkout.builder()
-                .customer(createCheckoutDTO.getCustomer())
-                .total(createCheckoutDTO.getTotal())
-                .address(createCheckoutDTO.getAddress())
+                .customer(createCheckoutRequest.getCustomer())
+                .total(createCheckoutRequest.getTotal())
+                .address(createCheckoutRequest.getAddress())
                 .payment(payment)
                 .checkoutDate(Instant.now().toEpochMilli())
-                .phone(createCheckoutDTO.getPhone())
+                .phone(createCheckoutRequest.getPhone())
                 .cart(cart)
                 .voucher(voucher)
                 .build();
         Checkout result = checkoutRepository.save(checkout);
 
-        CreateOrderDTO createOrderDTO = CreateOrderDTO.builder()
-                .customer(createCheckoutDTO.getCustomer())
+        CreateOrderRequest createOrderRequest = CreateOrderRequest.builder()
+                .customer(createCheckoutRequest.getCustomer())
                 .total(cart.getTotalOrderPrice())
                 .checkout(result.getId())
                 .build();
-        Order order = orderService.createOrder(createOrderDTO);
+        Order order = orderService.createOrder(createOrderRequest);
 
         List<CartItem> cartItemList = cartItemRepository.getAllCartItemByCartId(cart.getId());
         for (CartItem cartItem: cartItemList) {
-            CreateOrderDetailDTO orderDetailDTO = CreateOrderDetailDTO.builder()
+            CreateOrderDetailRequest orderDetailDTO = CreateOrderDetailRequest.builder()
                     .productId(cartItem.getProduct().getId())
                     .quantity(cartItem.getQuantity())
                     .order(order)

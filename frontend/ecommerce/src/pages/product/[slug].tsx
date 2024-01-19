@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getAttributeByProductId, getImageByProductId, getProductBySlug } from 'api/productApi';
+import { getAttributeByProductId, getImageByProductId, getProductBySlug, getSoldByProduct } from 'api/productApi';
 import { Rating, Icon, Avatar, TableContainer, Table, TableBody, TableRow, TableCell } from '@mui/material';
 import { Add, Remove, Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ import { getWishlistByCustomer } from 'api/wishlistApi';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
-import { AttributeValue, Customer, ProductImage, Store, Wishlist } from '@models/type';
+import { AttributeValue, Customer, Product, ProductImage, Store, Wishlist } from '@models/type';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const currentUser: Customer
@@ -36,6 +36,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
 
   const [quantity, setQuantity] = useState(1);
   const [ratingStar, setRatingStar] = useState<{ vote: number; value: number }>({ vote: 0, value: 0.0 });
+  const [sold, setSold] = useState<number>(0);
   const [store, setStore] = useState<Store>();
   const [productAttribute, setProductAttribute] = useState<AttributeValue[]>();
   const [productImage, setProductImage] = useState<ProductImage[]>();
@@ -69,6 +70,12 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           setCurrentImage(response.data.find((image: ProductImage) => image.isDefault === true));
         }
       });
+      await getSoldByProduct(data.id).then((response) => {
+        console.log("RRRRRRRRRRRRRRRRRRRRR", response)
+        if(response && response.data) {
+          setSold(response.data)
+        }
+      })
     },
   });
 
@@ -149,7 +156,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
       <div className="bg-white flex px-3 py-2">
         <div className="w-[40%] py-3">
           <picture className="justify-center flex p-5">
-            <AntdImage src={currentImage?.imagePath} alt="Product image" width={300} />
+            <AntdImage src={currentImage?.imagePath} alt="Product image" width={300} height={300}/>
           </picture>
 
           <div className="flex w-[90%] overflow-x-auto ">
@@ -178,7 +185,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </span>
               <span className="opacity-80 mx-2">|</span>
               <span>
-                {t('product.sold')}: {product.sold}
+                {t('product.sold')}: {sold}
               </span>
             </div>
             <div>
@@ -210,10 +217,8 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               </button>
             </div>
             <span className="flex items-center ml-10">
-              {product.quantity - product.sold > 0 ? (
-                <p>
-                  {product.quantity - product.sold} {t('common.available')}
-                </p>
+              {product.quantity > 0 ? (
+                <p>{product.quantity} {t('common.available')}</p>
               ) : (
                 <p>{t('common.sold_out')}</p>
               )}
@@ -224,7 +229,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
               <AddToCartIcon width={28} height={28} />
               <span className="ml-1">{t('common.add_to_cart')}</span>
             </Button>
-            <Button className="bg-yellow-400 text-[#fff] ml-3" disable={product.quantity - product.sold <= 0}>
+            <Button className="bg-yellow-400 text-[#fff] ml-3" disable={product.quantity <= 0}>
               <span className="mx-3">{t('product.buy_now')}</span>
             </Button>
           </div>
@@ -257,7 +262,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <div className="col-span-1">{t('common.Subcategory')}</div>
           <div className="col-span-3">{product.subcategory}</div>
           <div className="col-span-1">{t('common.in_stock')}</div>
-          <div className="col-span-3">{product.quantity - product.sold > 0 ? <p>{product.quantity - product.sold}</p> : <p>0</p>}</div>
+          <div className="col-span-3">{product.quantity > 0 ? <p>{product.quantity}</p> : <p>0</p>}</div>
         </div>
       </div>
       <div className="bg-white mt-10 p-5">

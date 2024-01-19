@@ -2,9 +2,8 @@ package com.congthanh.project.controller.ecommerce;
 
 import com.congthanh.project.constant.common.ResponseStatus;
 import com.congthanh.project.dto.ecommerce.CheckoutDTO;
-import com.congthanh.project.model.ecommerce.request.CreateCheckoutDTO;
+import com.congthanh.project.model.ecommerce.request.CreateCheckoutRequest;
 import com.congthanh.project.model.ecommerce.response.Response;
-import com.congthanh.project.entity.ecommerce.Checkout;
 import com.congthanh.project.service.ecommerce.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +28,8 @@ public class CheckoutController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Response<CheckoutDTO>> createCheckout(@RequestBody CreateCheckoutDTO createCheckoutDTO) {
-        CheckoutDTO checkout = checkoutService.createCheckout(createCheckoutDTO);
+    public ResponseEntity<Response<CheckoutDTO>> createCheckout(@RequestBody CreateCheckoutRequest createCheckoutRequest) {
+        CheckoutDTO checkout = checkoutService.createCheckout(createCheckoutRequest);
         Response<CheckoutDTO> response = new Response<>();
         response.setData(checkout);
         response.setStatus(ResponseStatus.STATUS_SUCCESS);

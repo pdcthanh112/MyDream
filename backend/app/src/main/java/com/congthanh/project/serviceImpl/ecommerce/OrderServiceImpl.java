@@ -6,7 +6,7 @@ import com.congthanh.project.exception.ecommerce.NotFoundException;
 import com.congthanh.project.model.ecommerce.mapper.CartMapper;
 import com.congthanh.project.model.ecommerce.mapper.OrderMapper;
 import com.congthanh.project.model.ecommerce.mapper.ProductMapper;
-import com.congthanh.project.model.ecommerce.request.CreateOrderDTO;
+import com.congthanh.project.model.ecommerce.request.CreateOrderRequest;
 import com.congthanh.project.model.ecommerce.response.ResponseWithPagination;
 import com.congthanh.project.repository.ecommerce.cartItem.CartItemRepository;
 import com.congthanh.project.repository.ecommerce.cart.CartRepository;
@@ -55,10 +55,10 @@ public class OrderServiceImpl implements OrderService {
     private ProductMapper productMapper;
 
     @Override
-    public Order createOrder(CreateOrderDTO createOrderDTO) {
-        Checkout checkout = checkoutRepository.findById((int) createOrderDTO.getCheckout()).orElseThrow(() -> new NotFoundException("Checkout not found"));
+    public Order createOrder(CreateOrderRequest createOrderRequest) {
+        Checkout checkout = checkoutRepository.findById((int) createOrderRequest.getCheckout()).orElseThrow(() -> new NotFoundException("Checkout not found"));
         Voucher voucher = voucherRepository.findById(checkout.getVoucher().getId()).orElseThrow(() -> new NotFoundException("voucher not found"));
-        BigDecimal orderTotal = createOrderDTO.getTotal();
+        BigDecimal orderTotal = createOrderRequest.getTotal();
         if(voucher != null) {
             if(voucher.getType().equals("PROMOTION")) {
                 orderTotal = checkout.getTotal().subtract(BigDecimal.valueOf(voucher.getValue()));
@@ -67,31 +67,13 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         Order order = Order.builder()
-                .customer(createOrderDTO.getCustomer())
+                .customer(createOrderRequest.getCustomer())
                 .orderDate(Instant.now().toEpochMilli())
                 .checkout(checkout)
                 .total(orderTotal)
                 .status("NEW")
                 .build();
         return orderRepository.save(order);
-    }
-
-    @Override
-    public ResponseWithPagination<OrderDTO> getOrderByStatus(String status, int page, int limit) {
-        PageRequest pageRequest = PageRequest.of(page, limit);
-        Page<Order> data = orderRepository.findByStatus(status, pageRequest);
-        if(data.hasContent()) {
-            ResponseWithPagination<OrderDTO> response = new ResponseWithPagination<>();
-            List<OrderDTO> list = new ArrayList<>();
-            for(Order order: data) {
-                OrderDTO orderDTO = orderMapper.mapOrderEntityToDTO(order);
-                list.add(orderDTO);
-            }
-            response.setResponseList(list);
-            response.setTotalPage(data.getTotalPages());
-            return response;
-        }
-        return null;
     }
 
     @Override

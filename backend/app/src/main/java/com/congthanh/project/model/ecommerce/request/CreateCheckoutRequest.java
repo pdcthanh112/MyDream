@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateCheckoutDTO {
+public class CreateCheckoutRequest {
 
     private String customer;
 

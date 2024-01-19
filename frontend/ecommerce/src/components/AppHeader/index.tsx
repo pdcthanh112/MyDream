@@ -13,16 +13,15 @@ import { Search as SearchIcon, ArrowDropDownOutlined, NavigateNext } from '@mui/
 import CartModal from '@components/CartModal';
 import LanguageSwitcher from '@components/LanguageSwitcher';
 import NotificationModal from '@components/NotificationModal';
-import { NotificationIcon, ShoppingCartIcon } from '@assets/icons';
+import { NotificationIcon } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
 import { logoutRequested } from '@redux/actions/auth';
 import Link from 'next/link';
-import { Cart, Category, Customer, Notification } from '@models/type';
+import { Category, Customer, Notification } from '@models/type';
 
 const AppHeader = () => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const appCategory: Category[] = useAppSelector((state) => state.category.data);
-  const listCart: Cart[] = useAppSelector((state) => state.cart.data);
   const listNotification: Notification[] = useAppSelector((state) => state.notification.data);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -64,14 +63,7 @@ const AppHeader = () => {
       <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
         <LanguageSwitcher />
 
-        <div className="flex items-start justify-center relative group">
-          <ShoppingCartIcon width={32} height={'32'} onClick={() => router.push('/cart')} className="hover:cursor-pointer" />
-          <p className="hidden md:inline font-extrabold md:text-sm mt-3">{t('common.cart')}</p>
-          {listCart?.length > 0 && <span className="absolute -top-1 right-7 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">{listCart?.length}</span>}
-          <Card className="hidden absolute top-8 right-0 py-2 w-[25rem] h-[30rem] group-hover:block group-hover:z-50 max-h-96 group-hover:overflow-y-scroll">
-            <CartModal />
-          </Card>
-        </div>
+        <CartModal />
 
         <div className="flex items-start justify-center relative">
           <NotificationIcon width={33} height={33} className="hover:cursor-pointer" onClick={() => setShowNotification(!showNotification)} />

@@ -15,7 +15,8 @@ import { useAddProductToWishlist, useRemoveProductFromWishlist } from '@hooks/wi
 import { getWishlistByCustomer } from 'api/wishlistApi';
 import { useEffect, useState } from 'react';
 import { getRatingStarofProduct } from 'api/reviewApi';
-import { getDefaultImageByProductId } from 'api/productApi';
+import { getDefaultImageByProductId, getSoldByProduct } from 'api/productApi';
+import { Customer, Product, ProductImage, Wishlist } from '@models/type';
 
 interface ProductProps {
   product: Product;
@@ -28,6 +29,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
   const dispatch = useAppDispatch();
 
   const [ratingStar, setRatingStar] = useState<{vote: number, value: number}>({vote: 0, value: 0.0})
+  const [sold, setSold] = useState<number>(0);
   const [productDefaultImage, setProductDefaultImage] = useState<ProductImage>()
 
   const { data: wishlist } = useQuery(['wishlist'], async () => await getWishlistByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
@@ -51,6 +53,17 @@ const ProductItemCard = ({ product }: ProductProps) => {
       await getRatingStarofProduct(product.id).then((response) => {
         if (response && response.data) {
           setRatingStar(response.data)
+        }
+      })
+    }
+    fetchData();
+  }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getSoldByProduct(product.id).then((response) => {
+        if (response && response.data) {
+          setSold(response.data)
         }
       })
     }
@@ -162,7 +175,7 @@ const ProductItemCard = ({ product }: ProductProps) => {
         </div>
 
         <span className="italic ml-2">
-          {t('product.Sold')}: {product.sold}
+          {t('product.Sold')}: {sold}
         </span>
 
         <Button className="w-full bg-yellow-400" onClick={() => handleAddToCart(product.id)}>

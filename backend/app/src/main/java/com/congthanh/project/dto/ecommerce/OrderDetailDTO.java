@@ -22,6 +22,8 @@ public class OrderDetailDTO {
     @NotNull
     private ProductDTO product;
 
+    private OrderDTO order;
+
     private String status;
 
     public BigDecimal getTotal() {

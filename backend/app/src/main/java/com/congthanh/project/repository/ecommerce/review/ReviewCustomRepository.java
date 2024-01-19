@@ -1,6 +1,6 @@
 package com.congthanh.project.repository.ecommerce.review;
 
-import com.congthanh.project.model.ecommerce.request.RatingStarDTO;
+import com.congthanh.project.model.ecommerce.request.RatingStarRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface ReviewCustomRepository {
 
-    RatingStarDTO getReviewStatsFromProduct(String productId);
+    RatingStarRequest getReviewStatsFromProduct(String productId);
 }

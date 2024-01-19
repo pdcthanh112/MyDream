@@ -32,10 +32,10 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 
     @Override
     public Long countTotalSoldProduct(String productId) {
-        String sql = "SELECT SUM(quantity) FROM OrderDetail WHERE product = :productId AND status = :status ";
+        String sql = "SELECT SUM(quantity) FROM OrderDetail WHERE product.id = :productId AND status = :status";
         TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);
         query.setParameter("productId", productId);
-        query.setParameter("status", OrderStatus.COMPLETED);
+        query.setParameter("status", OrderStatus.COMPLETED.name());
         return query.getSingleResult();
     }
 

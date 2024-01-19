@@ -197,4 +197,10 @@ public class ProductServiceImpl implements ProductService {
       return null;
     }
   }
+
+  @Override
+  public Long getSoldByProduct(String productId) {
+    Long result = productRepository.countTotalSoldProduct(productId);
+    return result != null ? result : 0;
+  }
 }
