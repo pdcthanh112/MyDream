@@ -1,11 +1,13 @@
 import axiosConfig from '@config/axiosConfig';
+import { CreateAddressForm, UpdateAddressForm } from '@models/form';
+import { AxiosError } from 'axios';
 
 export const getAddressById = async (addressId: string) => {
   return await axiosConfig
     .get(`address/${addressId}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw error;
+      throw new AxiosError(error);
     });
 };
 
@@ -14,7 +16,7 @@ export const getAddressByCustomer = async (customerId: string) => {
     .get(`address/getByCustomer?customer=${customerId}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw error;
+      throw new AxiosError(error);
     });
 };
 
@@ -33,7 +35,7 @@ export const createAddress = async (data: CreateAddressForm) => {
     })
     .then((response) => response.data)
     .catch((error) => {
-      throw error;
+      throw new AxiosError(error);
     });
 };
 
@@ -50,7 +52,7 @@ export const updateAddress = async (addressId: string, data: UpdateAddressForm) 
     })
     .then((response) => response.data)
     .catch((error) => {
-      throw error;
+      throw new AxiosError(error);
     });
 };
 
@@ -58,7 +60,7 @@ export const getDefaultAddressOfCustomer = async (customerId: string) => {
   return await axiosConfig
     .get(`address/getDefaultAddress?customer=${customerId}`)
     .then((response) => response.data)
-    .catch((error) => {
+    .catch((error: AxiosError) => {
       throw error;
     });
 };

@@ -47,7 +47,7 @@ export default function History(): React.ReactElement {
         <div>Loading</div>
       ) : (
         <React.Fragment>
-          {listOrder ? (
+          {/* {listOrder ? (
             listOrder.map((item: OrderDetail) => (
               <div key={item.id} className="bg-white my-2 px-3 py-2">
                 <div className="flex justify-end">
@@ -61,7 +61,7 @@ export default function History(): React.ReactElement {
             ))
           ) : (
             <div>null</div>
-          )}
+          )} */}
         </React.Fragment>
       )}
     </div>
