@@ -13,6 +13,7 @@ export const clearLocalStorage = () => {
   LocalStorageEventTarget.dispatchEvent(clearStorageEvent);
 };
 export const getAccessTokenFromLocalStorage = () => localStorage.getItem('access_token') || '';
+
 export const getProfileFromLocalStorage = () => {
   const result = localStorage.getItem('profile');
   return result ? JSON.parse(result) : null;

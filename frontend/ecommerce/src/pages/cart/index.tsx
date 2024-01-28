@@ -7,6 +7,7 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import Button from '@components/UI/Button';
 import { useAppSelector } from '@redux/store';
 import { useRouter } from 'next/router';
+import { Cart, Customer } from '@models/type';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import CartEmptyImage from '@assets/images/cart-empty-image.png';
@@ -14,7 +15,6 @@ import Image from 'next/image';
 import { Popconfirm } from 'antd';
 import { useDeleteCart } from '@hooks/cart/cartHook';
 import { toast } from 'react-toastify';
-import { Cart, Customer } from '@models/type';
 
 const Cart: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

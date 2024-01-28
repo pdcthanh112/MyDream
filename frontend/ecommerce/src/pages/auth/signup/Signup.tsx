@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useState, ReactNode } from 'react';
+import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignupForm } from '@models/form';
@@ -77,7 +77,7 @@ const Signup: NextPage = (): React.ReactElement => {
 
   const ValidatePasswordForm = () => {
     return (
-      <>
+      <React.Fragment>
         <div className={`${validated.lengthValidated && 'text-green-500'}`}>
           <Icon component={validated.lengthValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
           <span className="ml-1">{t('signup.8_32_characters')}</span>
@@ -98,9 +98,10 @@ const Signup: NextPage = (): React.ReactElement => {
           <Icon component={validated.specialValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_special_character')}</span>
         </div>
-      </>
+      </React.Fragment>
     );
   };
+  
   return (
     <Card className="flex items-center justify-center h-[85vh] w-screen bg-gradient-to-tr from-blue-500 to-purple-500">
       <div className="bg-white h-[80%] w-[52%] px-8 py-3">

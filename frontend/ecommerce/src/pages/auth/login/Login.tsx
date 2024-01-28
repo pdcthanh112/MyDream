@@ -1,25 +1,26 @@
-"use client"
-import { useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
-import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import Image from 'next/image';
 import { Card, Icon, CircularProgress } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@components/UI/Button';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import path from '@config/path';
+import LoginPageBackground from '@assets/images/login-page-background.jpg';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { LoginForm } from '@models/form';
 import { authClean, loginRequested } from '@redux/actions/auth';
 import { getProviders, signIn } from 'next-auth/react';
 import { getAuthLogo } from '@utils/helper';
 import { fetchNotificationRequested } from '@redux/actions/notification';
 import { fetchCartRequested } from '@redux/actions/cart';
 import { fetchWishlistRequested } from '@redux/actions/wishlist';
-import { LoginForm } from '@models/form';
 
 const InputField = styled.div`
   border: 1px solid #b6b6b6;
@@ -30,7 +31,6 @@ const InputField = styled.div`
 `;
 
 const Login: NextPage = ({ providers }: any): React.ReactElement => {
-
   const router = useRouter();
   const dispatch = useAppDispatch();
   const authState = useAppSelector((state) => state.auth);
@@ -42,10 +42,10 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     dispatch(loginRequested({ email: data.email, password: data.password }));
     if (authState.status === 'succeeded') {
-      dispatch(fetchNotificationRequested(authState.currentUser.userInfo.accountId))
-      dispatch(fetchCartRequested(authState.currentUser.userInfo.accountId))
-      dispatch(fetchWishlistRequested(authState.currentUser.userInfo.accountId))
-      dispatch(authClean())
+      dispatch(fetchNotificationRequested(authState.currentUser.userInfo.accountId));
+      dispatch(fetchCartRequested(authState.currentUser.userInfo.accountId));
+      dispatch(fetchWishlistRequested(authState.currentUser.userInfo.accountId));
+      dispatch(authClean());
       router.push('/');
     }
   };
@@ -109,7 +109,7 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
           <div className=" w-[40%] h-0.5 bg-[#808080] mt-3"></div>
         </div>
 
-        <div className="mt-4 grid grid-cols-12 gap-2">
+        {/* <div className="mt-4 grid grid-cols-12 gap-2">
           {Object.values(providers).map((provider: any) => {
             const data = getAuthLogo(provider.id);
             return (
@@ -117,20 +117,20 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
                 key={provider.id}
                 title={`Sign in with ${provider.name}`}
                 className={`flex items-center rounded-md text-white col-span-6 w-full bg-[${data.bgColor}]`}
-                style={{backgroundColor: data.bgColor}}
+                style={{ backgroundColor: data.bgColor }}
                 onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
                 <span className={`border-r-2 border-r-slate-200 p-2 rounded-l-lg bg-[${data.iconBg}]`}>
-                  <Image src={data.img} alt="" width={28}></Image>
+                  <Image src={data.img} alt="" width={28} />
                 </span>
                 <span className="ml-2">Sign in with {provider.name}</span>
               </button>
             );
           })}
-        </div>
+        </div> */}
 
         <div className="flex justify-center mt-4 text-sm">
           <span>{t('login.you_dont_have_an_account')}</span>
-          <Link href={'/auth/signup'} className="hover:text-yellow-600">
+          <Link href={path.signup} className="hover:text-yellow-600">
             &nbsp;{t('login.register_now')}
           </Link>
         </div>

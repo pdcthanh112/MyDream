@@ -44,6 +44,10 @@
     "contact": "Contact",
     "follow": "Follow"
   },
+  "manage": {
+    "profile": "Profile"
+  }, 
+
   "header": {
     "your_shopping": "Your shopping",
     "view_your_cart": "View your cart",

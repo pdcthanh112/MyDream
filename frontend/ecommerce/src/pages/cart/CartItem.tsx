@@ -1,7 +1,7 @@
 import DefaultImage from '@assets/images/default-image.jpg';
 import Image from 'next/image';
 import { Icon } from '@mui/material';
-import { Add as AddIcon, Remove as MinusIcon, Delete } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 import { useDeleteCartItem, useUpdateCartItem } from '@hooks/cart/cartHook';
 import { Popconfirm } from 'antd';
 import Link from 'next/link';
@@ -9,12 +9,14 @@ import { CartItem, ProductImage } from '@models/type';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { getDefaultImageByProductId } from 'api/productApi';
+import QuantitySelector from '@components/QuantitySelector';
 
 interface CartItemProps {
   item: CartItem;
 }
 
 const CartItem = ({ item }: CartItemProps): React.ReactElement => {
+
   const { t } = useTranslation('common');
 
   const [image, setImage] = useState<ProductImage>();
@@ -51,7 +53,7 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
       </div>
 
       <div className="flex items-center col-span-2">
-        <div className="border-[#cccccc] border-2 flex">
+        {/* <div className="border-[#cccccc] border-2 flex">
           <button
             className="bg-[#f3f3f3] px-2 py-1"
             title={t('common.decrease')}
@@ -75,7 +77,14 @@ const CartItem = ({ item }: CartItemProps): React.ReactElement => {
             }}>
             <Icon component={AddIcon} />
           </button>
-        </div>
+        </div> */}
+        <QuantitySelector 
+        value={item.quantity} 
+        onIncrease={(value) => handleUpdateCartItem(item.id, value)} 
+        onDecrease={(value) => handleUpdateCartItem(item.id, value)}
+         onType={(value) => console.log('item.id', value)}
+        //  onType={(value) => handleUpdateCartItem(item.id, value)}
+         />
       </div>
       <div className="flex justify-center col-span-2">
         <span className="hidden lg:flex">Total:&nbsp;</span>

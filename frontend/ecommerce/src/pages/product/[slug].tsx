@@ -1,13 +1,13 @@
 'use client';
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getAttributeByProductId, getImageByProductId, getProductBySlug, getSoldByProduct } from 'api/productApi';
 import { Rating, Icon, Avatar, TableContainer, Table, TableBody, TableRow, TableCell } from '@mui/material';
-import { Add, Remove, Storefront, ForumOutlined } from '@mui/icons-material';
+import { Storefront, ForumOutlined } from '@mui/icons-material';
 import Image from 'next/image';
-import { Image as AntdImage } from 'antd';
+import DefaultImage from '@assets/images/default-image.jpg';
 import { roundNumber } from '@utils/helper';
 import { Button } from '@components/UI';
 import ProductSkeleton from './product-skeleton';
@@ -23,11 +23,11 @@ import { getWishlistByCustomer } from 'api/wishlistApi';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
-import { AttributeValue, Customer, Product, ProductImage, Store, Wishlist } from '@models/type';
+import { AttributeValue, Customer, ProductImage, Store, Wishlist } from '@models/type';
+import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 
 const ProductDetail: NextPage = (): React.ReactElement => {
-  const currentUser: Customer
-   = useAppSelector((state) => state.auth.currentUser);
+  const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { slug: productSlug } = router.query;
 
@@ -41,6 +41,9 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const [productAttribute, setProductAttribute] = useState<AttributeValue[]>();
   const [productImage, setProductImage] = useState<ProductImage[]>();
   const [currentImage, setCurrentImage] = useState<ProductImage>();
+  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5]);
+
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const { mutate: addProductToCart } = useAddProductToCart();
 
@@ -71,11 +74,10 @@ const ProductDetail: NextPage = (): React.ReactElement => {
         }
       });
       await getSoldByProduct(data.id).then((response) => {
-        console.log("RRRRRRRRRRRRRRRRRRRRR", response)
-        if(response && response.data) {
-          setSold(response.data)
+        if (response && response.data) {
+          setSold(response.data);
         }
-      })
+      });
     },
   });
 
@@ -149,31 +151,81 @@ const ProductDetail: NextPage = (): React.ReactElement => {
     }
   };
 
+  const handleZoom = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const image = imageRef.current as HTMLImageElement;
+    const { naturalHeight, naturalWidth } = image;
+    const { offsetX, offsetY } = event.nativeEvent;
+    const top = offsetY * (1 - naturalHeight / rect.height);
+    const left = offsetX * (1 - naturalWidth / rect.width);
+    image.style.width = naturalWidth + 'px';
+    image.style.height = naturalHeight + 'px';
+    image.style.maxWidth = 'unset';
+    image.style.top = top + 'px';
+    image.style.left = left + 'px';
+  };
+
+  const handleRemoveZoom = () => {
+    imageRef.current?.removeAttribute('style');
+  };
+
+  const next = () => {
+    if (currentIndexImages[1] < 10) {
+      setCurrentIndexImages([currentIndexImages[0] + 1, currentIndexImages[1] + 1]);
+    }
+  };
+
+  const prev = () => {
+    if (currentIndexImages[0] > 0) {
+      setCurrentIndexImages([currentIndexImages[0] - 1, currentIndexImages[1] - 1]);
+    }
+  };
+
   if (isLoading) return <ProductSkeleton />;
 
   return (
     <div className="w-[80%] mx-auto my-3">
       <div className="bg-white flex px-3 py-2">
         <div className="w-[40%] py-3">
-          <picture className="justify-center flex p-5">
-            <AntdImage src={currentImage?.imagePath} alt="Product image" width={300} height={300}/>
-          </picture>
-
-          <div className="flex w-[90%] overflow-x-auto ">
-            {productImage?.map((item: ProductImage) => (
-              <Image
-                key={item.id}
-                width={60}
-                height={60}
-                src={item.imagePath}
-                alt={item.alt || 'Product image'}
-                className="mx-2 hover:cursor-pointer hover:border-2 hover:border-red-500"
-                onClick={() => setCurrentImage(item)}
-              />
-            ))}
+          <div className="relative w-full pt-[100%] shadow cursor-zoom-in overflow-hidden" onMouseLeave={handleRemoveZoom} onMouseMove={handleZoom}>
+            <Image
+              src={currentImage?.imagePath || DefaultImage}
+              alt={currentImage?.alt || product.name}
+              width={300}
+              height={300}
+              ref={imageRef}
+              className="absolute pointer-events-none top-0 left-0 h-full w-full bg-white object-cover"
+            />
+          </div>
+          <div className="relative mt-4 grid grid-cols-5 gap-2 h-28 overflow-hidden">
+            <button onClick={prev} className="absolute left-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button onClick={next} className="absolute right-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+            {productImage?.slice(...currentIndexImages).map((img: any) => {
+              const isActive = img === currentImage;
+              return (
+                <div key={img.id} className="relative w-full pt-[100%]" onClick={() => setCurrentImage(img)}>
+                  <Image
+                    src={img.imagePath}
+                    alt={img.alt || product.name}
+                    width={50}
+                    height={50}
+                    className={`cursor-pointer absolute top-0 left-0 h-full w-full bg-white object-cover ${isActive && 'border-2 border-red-400'}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="w-[60%] p-3">
+        <div className="w-[60%] ml-5 p-3">
           <h1 className="font-medium text-2xl bg-gray-200 px-3 py-2 mb-3">{product.name}</h1>
           <div className="flex justify-between my-3">
             <div className="flex items-center">
@@ -203,22 +255,12 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <div className="font-semibold text-3xl text-yellow-400">{product.price}</div>
           <div className="flex mt-10">
             <span className="flex items-center mr-10">{t('product.Quantity')}</span>
-            <div className="border-[#cccccc] border-2">
-              <button className="bg-[#f3f3f3] px-3 py-2" disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)}>
-                <Icon component={Remove} />
-              </button>
-              <input
-                type="number"
-                className="w-20 text-center focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                value={quantity}
-              />
-              <button className="bg-[#f3f3f3] px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
-                <Icon component={Add} />
-              </button>
-            </div>
+            <QuantitySelector value={quantity} max={product.quantity} onDecrease={setQuantity} onIncrease={setQuantity} onType={setQuantity} />
             <span className="flex items-center ml-10">
               {product.quantity > 0 ? (
-                <p>{product.quantity} {t('common.available')}</p>
+                <p>
+                  {product.quantity} {t('common.available')}
+                </p>
               ) : (
                 <p>{t('common.sold_out')}</p>
               )}

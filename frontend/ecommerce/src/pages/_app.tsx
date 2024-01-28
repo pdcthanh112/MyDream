@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './../styles/globals.css';
 import App, { AppPropsWithLayout } from 'app/page';
 import { Provider } from 'react-redux';
@@ -15,6 +15,8 @@ import { ConfigProvider } from 'antd';
 // const vi_VN = dynamic(() => import('antd/lib/locale/vi_VN'));
 // const en_US = dynamic(() => import('antd/lib/locale/en_US'));
 import en_US from 'antd/lib/locale/en_US';
+// import { AppContext, AppProvider } from '@context/AppContext';
+// import { LocalStorageEventTarget } from '@utils/auth';
 
 // const es_ES = dynamic(() => import('antd/lib/locale/es_ES'));
 // const zh_CN = dynamic(() => import('antd/lib/locale/zh_CN'));
@@ -25,6 +27,12 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
     cache: new InMemoryCache(),
   });
 
+  // const { reset } = useContext(AppContext)
+  // useEffect(() => {
+  //   LocalStorageEventTarget.addEventListener('clearLS', reset)
+  //   return LocalStorageEventTarget.removeEventListener('clearLS', reset)
+  // }, [reset])
+
   const queryClient = new QueryClient();
 
   return (
@@ -33,11 +41,13 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }, router }: AppP
         <SessionProvider session={session}>
           <ApolloProvider client={client}>
             <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <QueryClientProvider client={queryClient}>
-                  <App Component={Component} pageProps={pageProps} router={router} />
-                </QueryClientProvider>
-              </PersistGate>
+              {/* <AppProvider> */}
+                <PersistGate loading={null} persistor={persistor}>
+                  <QueryClientProvider client={queryClient}>
+                    <App Component={Component} pageProps={pageProps} router={router} />
+                  </QueryClientProvider>
+                </PersistGate>
+              {/* </AppProvider> */}
             </Provider>
           </ApolloProvider>
         </SessionProvider>

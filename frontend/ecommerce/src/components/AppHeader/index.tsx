@@ -4,6 +4,7 @@ import './AppHeader.scss';
 import Image from 'next/image';
 import { Card, Avatar, Icon } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import path from '@config/path';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { Button } from '@components/UI';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -37,7 +38,7 @@ const AppHeader = () => {
 
   return (
     <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
-      <Link href={'/'}>
+      <Link href={path.home}>
         <Image src={AppLogo} alt="App Logo" width={100} className="cursor-pointer mx-12" />
       </Link>
 
@@ -89,7 +90,7 @@ const AppHeader = () => {
             ) : (
               <div>
                 <div>{t('common.welcome')}</div>
-                <div className="font-semibold md:text-sm" onClick={() => router.push('/auth/login')}>
+                <div className="font-semibold md:text-sm" onClick={() => router.push(path.login)}>
                   {t('common.login')} or {t('common.signup')}
                 </div>
               </div>
@@ -112,14 +113,14 @@ const AppHeader = () => {
                   <div className="w-1/2">
                     <h3 className="font-semibold text-base">{t('header.your_shopping')}</h3>
                     <menu className="leading-6">
-                      <li className="sub-item-link" onClick={() => router.push('/cart')}>
+                      <li className="sub-item-link" onClick={() => router.push(path.cart)}>
                         {t('header.view_your_cart')}
                       </li>
                       <li className="sub-item-link">{t('common.checkout')}</li>
-                      <li className="sub-item-link" onClick={() => router.push('/wishlist')}>
+                      <li className="sub-item-link" onClick={() => router.push(path.wishlist)}>
                         {t('header.wishlist')}
                       </li>
-                      <li className="sub-item-link" onClick={() => router.push('/history')}>
+                      <li className="sub-item-link" onClick={() => router.push(path.history)}>
                         {t('header.history')}
                       </li>
                     </menu>
@@ -127,7 +128,7 @@ const AppHeader = () => {
                   <div className="w-1/2 border-l-2 border-l-gray-100 pl-4">
                     <h3 className="font-semibold text-base">{t('header.your_account')}</h3>
                     <menu className="leading-6">
-                      <li className="sub-item-link" onClick={() => router.push('/account')}>
+                      <li className="sub-item-link" onClick={() => router.push(path.account)}>
                         {t('header.account')}
                       </li>
                       <li className="sub-item-link">{t('header.orders')}</li>
