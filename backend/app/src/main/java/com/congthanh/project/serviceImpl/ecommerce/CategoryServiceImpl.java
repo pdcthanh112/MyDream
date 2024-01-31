@@ -63,8 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public CategoryDTO getCategoryById(int id) {
     Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(("not found")));
-    CategoryDTO result = categoryMapper.mapCategoryEntityToDTO(category);
-    return result;
+    return categoryMapper.mapCategoryEntityToDTO(category);
   }
 
   @Override
@@ -84,13 +83,14 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public Category updateCategory(CategoryDTO categoryDTO) {
+  public CategoryDTO updateCategory(CategoryDTO categoryDTO) {
     Category category = categoryRepository.findById(categoryDTO.getId()).orElseThrow(() -> new RuntimeException("Category not found"));
 
     category.setName(categoryDTO.getName());
+    category.setImage(category.getImage());
 
-    categoryRepository.save(category);
-    return category;
+    Category result = categoryRepository.save(category);
+    return categoryMapper.mapCategoryEntityToDTO(result);
   }
 
   @Override

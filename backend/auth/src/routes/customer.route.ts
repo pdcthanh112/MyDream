@@ -20,6 +20,7 @@ export class CustomerRoute implements Routes {
     this.router.post(`${this.path}/auth/login`, this.authController.login);
     this.router.post(`${this.path}/auth/signup`, this.authController.signup);
     this.router.post(`${this.path}/auth/logout`, AuthMiddleware, this.authController.logout);
+    this.router.post(`${this.path}/auth/change-password`, AuthMiddleware, this.authController.changePassword);
     // this.router.post('/logout', AuthMiddleware, this.auth.logOut);
 
     // this.router.get(`${this.path}`, this.customerController.getUsers);

@@ -6,7 +6,7 @@ import { SignupForm } from '@models/form';
 import { Autocomplete, TextField, Icon, Card, Tooltip } from '@mui/material';
 import { genderData } from '@utils/constants/dropdownData';
 import Button from '@components/UI/Button';
-import { Visibility, VisibilityOff, RadioButtonChecked as RadioButtonCheckedIcon, CheckCircleOutline as CheckCircleOutlineIcon } from '@mui/icons-material';
+import { Visibility, VisibilityOff, RadioButtonChecked, CheckCircleOutline } from '@mui/icons-material';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -79,23 +79,23 @@ const Signup: NextPage = (): React.ReactElement => {
     return (
       <React.Fragment>
         <div className={`${validated.lengthValidated && 'text-green-500'}`}>
-          <Icon component={validated.lengthValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
+          <Icon component={validated.lengthValidated ? CheckCircleOutline : RadioButtonChecked} fontSize="inherit" />
           <span className="ml-1">{t('signup.8_32_characters')}</span>
         </div>
         <div className={`${validated.lowerValidated && 'text-green-500'}`}>
-          <Icon component={validated.lowerValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
+          <Icon component={validated.lowerValidated ? CheckCircleOutline : RadioButtonChecked} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_lowercase_letter')}</span>
         </div>
         <div className={`${validated.upperValidated && 'text-green-500'}`}>
-          <Icon component={validated.upperValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
+          <Icon component={validated.upperValidated ? CheckCircleOutline : RadioButtonChecked} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_uppercase_letter')}</span>
         </div>
         <div className={`${validated.numberValidated && 'text-green-500'}`}>
-          <Icon component={validated.numberValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
+          <Icon component={validated.numberValidated ? CheckCircleOutline : RadioButtonChecked} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_numberic_character')}</span>
         </div>
         <div className={`${validated.specialValidated && 'text-green-500'}`}>
-          <Icon component={validated.specialValidated ? CheckCircleOutlineIcon : RadioButtonCheckedIcon} fontSize="inherit" />
+          <Icon component={validated.specialValidated ? CheckCircleOutline : RadioButtonChecked} fontSize="inherit" />
           <span className="ml-1">{t('signup.at_least_1_special_character')}</span>
         </div>
       </React.Fragment>

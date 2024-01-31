@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CustomerSignupDTO, CustomerLoginDTO } from '@dtos/customer.dto';
+import { CustomerSignupDTO, CustomerLoginDTO, ChangePasswordDTO } from '@dtos/customer.dto';
 import { Customer } from '@interfaces/account.interface';
 import { AuthService } from '@services/ecommerce/auth.service';
 import { RequestWithUser } from '@interfaces/auth.interface';
@@ -42,4 +42,17 @@ export class AuthController {
       next(error);
     }
   };
+
+  public changePassword = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data: ChangePasswordDTO = req.body;
+      
+      const result = await this.service.changePassword(data);
+
+      res.status(200).json({ data: result, message: 'change password successfully', status: 'SUCCESS' })
+    } catch (error) {
+      next(error);
+    }
+  };
+
 }

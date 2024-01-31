@@ -12,13 +12,13 @@ const ManageNavbar = () => {
   const { t } = useTranslation('common');
 
   return (
-    <div className="px-3 py-2">
+    <div className="px-3 py-2 flex flex-col">
       <div className="flex border-b-2 border-gray-300 pb-2">
         {/* <Image src={customer.userInfo.image || DefaultImage} alt={customer.userInfo.name} width={40} height={40}/> */}
         <Image src={DefaultImage} alt={customer.userInfo.name} width={50} height={50} className="rounded-full" />
         <span className="font-semibold flex items-center ml-3">{customer.userInfo.name}</span>
       </div>
-      <div>
+      <div className='flex flex-col'>
         <Link href={path.profile}>{t('manage.profile')}</Link>
         <Link href={path.changePassword}>Change password</Link>
       </div>

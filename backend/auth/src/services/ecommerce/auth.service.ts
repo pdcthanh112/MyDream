@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { SECRET_KEY } from '@config/index';
 import { MYSQL_DB } from '@databases/mysql';
-import { CustomerLoginDTO, CustomerSignupDTO } from '@dtos/customer.dto';
+import { ChangePasswordDTO, CustomerLoginDTO, CustomerSignupDTO } from '@dtos/customer.dto';
 import { HttpException } from '@exceptions/httpException';
 import { DataStoredInToken, LoginError, TokenData } from '@interfaces/auth.interface';
 import { Customer } from '@interfaces/account.interface';
@@ -22,7 +22,9 @@ const createCookie = (tokenData: TokenData): string => {
 
 @Service()
 export class AuthService {
-  public async login(loginData: CustomerLoginDTO,): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
+  public async login(
+    loginData: CustomerLoginDTO,
+  ): Promise<{ cookie: string; customerWithoutPassword: Omit<Customer, 'password'>; tokenData: TokenData }> {
     const findCustomer: Customer = (await MYSQL_DB.Customer.findOne({ where: { email: loginData.email } })).dataValues;
     if (!findCustomer) throw new HttpException(409, `This email ${loginData.email} was not found`, 101001);
 
@@ -89,7 +91,21 @@ export class AuthService {
 
   public async logout(customerData: Customer): Promise<Omit<Customer, 'password'>> {
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: customerData.email } });
+
     if (!findCustomer) throw new HttpException(409, `This email ${customerData.email} does not exists`, 101001);
+
     return findCustomer;
+  }
+
+  public async changePassword(data: ChangePasswordDTO): Promise<any> {
+    const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { accountId: data.customerId } });
+
+    if (!findCustomer) throw new HttpException(409, `This account does not exists`, 101001);
+
+    const hashCurrentPassword = await hash(data.currentPassword, 10);
+    if (findCustomer.password !== hashCurrentPassword) throw new HttpException(409, `Password does not match`, 101001);
+
+    const hashNewPassword = await hash(data.newPassword, 10);
+    return await MYSQL_DB.Customer.update({ password: hashNewPassword }, {where: {accountId: data.customerId }});
   }
 }

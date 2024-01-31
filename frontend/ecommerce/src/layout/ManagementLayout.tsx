@@ -1,28 +1,18 @@
 'use client';
 import React from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ManageNavbar from '@components/ManageNavbar';
 
-interface LayoutProps {
+type LayoutProps = {
   children: React.ReactNode;
-}
-
+};
+console.log('management layout')
 const ManagementLayout = ({ children }: LayoutProps) => {
-  
   return (
-    <div className="bg-white flex w-4/5 mx-auto">
-      <ManageNavbar/>
-      {children}
+    <div className="bg-white w-4/5 mx-auto my-3 px-3 py-2 flex">
+      <div className='w-1/5'><ManageNavbar /></div>
+      <div className='w-4/5 px-3 py-2'>{children}</div>
     </div>
   );
 };
 
 export default ManagementLayout;
-
-export async function getServerSideProps(context: any) {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale, ['common'])),
-    },
-  };
-}

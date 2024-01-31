@@ -1,6 +1,5 @@
 'use client';
-import React, { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
+import React from 'react';
 import { CustomMeta as Metadata } from '@components/Metadata';
 
 import AppHeader from '@components/AppHeader';
@@ -11,8 +10,10 @@ import { useAppSelector } from '@redux/store';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import AuthModal from '@components/AuthModal';
 
+import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 const HeaderComponent = styled.header`
@@ -28,7 +29,11 @@ const FooterComponent = styled.footer`
   width: 100%;
 `;
 
-const RootLayout = ({ children }: { children: ReactNode }): React.ReactElement => {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+const RootLayout = ({ children }: LayoutProps) => {
   const openModalAuth = useAppSelector((state) => state.modalAuth.isOpenModalAuth);
 
   return (

@@ -15,3 +15,10 @@ export type SignupForm = {
   gender: string;
   image?: string;
 };
+
+export type ChangePasswordForm = {
+  accountId: string;
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword?: string;
+};

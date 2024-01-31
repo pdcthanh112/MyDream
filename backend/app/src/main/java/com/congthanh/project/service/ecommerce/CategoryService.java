@@ -11,7 +11,7 @@ public interface CategoryService {
 
   CategoryDTO createCategory(CategoryDTO categoryDTO);
 
-  Category updateCategory(CategoryDTO categoryDTO);
+  CategoryDTO updateCategory(CategoryDTO categoryDTO);
 
   boolean deleteCategory(int id);
 

@@ -59,9 +59,13 @@ public class CategoryController {
   }
 
   @PutMapping("/update")
-  public ResponseEntity<String> updateCategory(@RequestBody CategoryDTO categoryDTO) {
-    Category category = categoryService.updateCategory(categoryDTO);
-    return ResponseEntity.status(HttpStatus.OK).body("Update successfully");
+  public ResponseEntity<Response<CategoryDTO>> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+    CategoryDTO data = categoryService.updateCategory(categoryDTO);
+    Response<CategoryDTO> response = new Response<>();
+    response.setData(data);
+    response.setMessage("Create successfully");
+    response.setStatus(ResponseStatus.STATUS_SUCCESS);
+    return ResponseEntity.ok().body(response);
   }
 
   @DeleteMapping("/delete/{id}")

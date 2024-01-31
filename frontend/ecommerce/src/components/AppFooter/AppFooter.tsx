@@ -22,7 +22,7 @@ const TextStyle = styled.p`
   text-transform: none;
 `;
 
-const Footer = (): React.ReactElement => {
+const AppFooter = (): React.ReactElement => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -106,4 +106,4 @@ const Footer = (): React.ReactElement => {
   );
 };
 
-export default Footer;
+export default AppFooter;

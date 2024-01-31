@@ -1,52 +1,70 @@
-import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsPhoneNumber, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsPhoneNumber, IsNumber, Matches } from 'class-validator';
 
 export class CustomerLoginDTO {
   @IsEmail()
-  public email: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(32)
-  public password: string;
+  password: string;
 }
 
 export class CustomerSignupDTO {
   @IsEmail()
-  public email: string;
+  email: string;
 
   accountId?: string;
 
-  public name: string;
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  @MaxLength(32)
+  password: string;
+
+  @IsPhoneNumber()
+  phone: string;
+
+  address: string;
+  dob?: Date;
+  gender: string;
+  image?: string;
+
+}
+export class UpdateCustomerDTO {
+  name: string;
+
+  @IsPhoneNumber()
+  phone: string;
+
+  address: string;
+  department: string;
+  dob: Date;
+  gender: string;
+  image: string;
+  
+  @IsNumber()
+  salary: number
+
+}
+
+export class ChangePasswordDTO {
+
+  @IsNotEmpty()
+  customerId: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(9)
   @MaxLength(32)
-  public password: string;
+  currentPassword: string;
 
-  @IsPhoneNumber()
-  public phone: string;
-
-  public address: string;
-  public dob?: Date;
-  public gender: string;
-  public image?: string;
-
-}
-export class UpdateCustomerDTO {
-  public name: string;
-
-  @IsPhoneNumber()
-  public phone: string;
-
-  public address: string;
-  public department: string;
-  public dob: Date;
-  public gender: string;
-  public image: string;
-  
-  @IsNumber()
-  public salary: number
-
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(9)
+  @MaxLength(32)
+  newPassword: string;
 }
