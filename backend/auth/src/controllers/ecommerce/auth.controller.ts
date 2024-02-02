@@ -46,13 +46,22 @@ export class AuthController {
   public changePassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data: ChangePasswordDTO = req.body;
-      
+
       const result = await this.service.changePassword(data);
 
-      res.status(200).json({ data: result, message: 'change password successfully', status: 'SUCCESS' })
+      res.status(200).json({ data: result, message: 'change password successfully', status: 'SUCCESS' });
     } catch (error) {
       next(error);
     }
   };
 
+  public forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data: { email: string } = req.body;
+      const result = await this.service.forgetPassword({ email: data.email });
+      res.status(200).json({ data: result, message: 'change password successfully', status: 'SUCCESS' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

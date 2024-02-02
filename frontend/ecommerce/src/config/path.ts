@@ -1,17 +1,20 @@
 const path = {
-    home: '/',
-    account: '/account',
-    profile: '/manage/profile',
-    changePassword: '/auth/change-password',
-    resetPassword: '/auth/reset-password',
-    notification: '/manage/notification',
-    vouchers: '/manage/vouchers', 
-    login: '/auth/login',
-    signup: '/auth/signup',
-    logout: '/logout',
-    product: '/product/:slug',
-    cart: '/cart',
-    history: '/history',
-    wishlist: '/wishlist'
-  } as const
-  export default path
+  account: '/account',
+  address: '/address',
+  bankingAccount: 'banking-account',
+  cart: '/cart',
+  changePassword: '/auth/change-password',
+  history: '/history',
+  home: '/',
+  login: '/auth/login',
+  logout: '/logout',
+  notification: '/manage/notification',
+  order: '/order',
+  product: '/product/:slug',
+  profile: '/manage/profile',
+  resetPassword: '/auth/reset-password',
+  signup: '/auth/signup',
+  vouchers: '/manage/vouchers',
+  wishlist: '/wishlist',
+} as const;
+export default path;

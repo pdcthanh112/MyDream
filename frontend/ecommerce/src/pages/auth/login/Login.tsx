@@ -61,9 +61,10 @@ const Login: NextPage = ({ providers }: any): React.ReactElement => {
             <InputField className={formState.errors.email && 'bg-red-100'}>
               <Icon component={Email} />
               <input
-                type="email"
+                type="text"
                 {...register('email', {
                   required: 'Email is require',
+                  pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, message: 'email is invalid' },
                 })}
                 placeholder="Enter your email"
                 className={`focus:outline-none ml-3 w-[22rem] ${formState.errors.email && 'bg-red-100'}`}

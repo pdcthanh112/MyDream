@@ -8,6 +8,7 @@ import { HttpException } from '@exceptions/httpException';
 import { DataStoredInToken, LoginError, TokenData } from '@interfaces/auth.interface';
 import { Customer } from '@interfaces/account.interface';
 import { v4 as uuidv4 } from 'uuid';
+import sendEmail from '@utils/sendEmail';
 
 const createToken = (customer: Customer): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: customer.id };
@@ -106,6 +107,31 @@ export class AuthService {
     if (findCustomer.password !== hashCurrentPassword) throw new HttpException(409, `Password does not match`, 101001);
 
     const hashNewPassword = await hash(data.newPassword, 10);
-    return await MYSQL_DB.Customer.update({ password: hashNewPassword }, {where: {accountId: data.customerId }});
+    return await MYSQL_DB.Customer.update({ password: hashNewPassword }, { where: { accountId: data.customerId } });
+  }
+
+  public async forgetPassword(data: { email: string }): Promise<any> {
+    console.log('DDDDDDDDDDDDDDDDDDDDDDDDd', data.email);
+    const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: data.email } });
+    // const findCustomer: Customer = await MYSQL_DB.Customer.findOne({where: {email : data.email}})
+
+    if (!findCustomer) throw new HttpException(409, `This email does not exists`, 101001);
+
+    const resetPassworrdToken = '';
+
+    const mailOptions = {
+      email: findCustomer.email,
+      subject: 'Reset Password',
+      content: `Click vào link sau để đặt lại mật khẩu của bạn:`,
+      // content: `Click vào link sau để đặt lại mật khẩu của bạn: ${baseUrl}/reset-password/${resetPassworrdToken}`,
+    };
+
+    try {
+      await sendEmail(mailOptions.email, mailOptions.subject, mailOptions.content);
+      return { message: 'Email sent successfully' };
+    } catch (error) {
+      console.error(error);
+      throw new HttpException(500, 'Failed to send email', 101005);
+    }
   }
 }

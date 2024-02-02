@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './AppHeader.scss';
 import Image from 'next/image';
 import { Card, Avatar, Icon } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import path from '@config/path';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { Button } from '@components/UI';
@@ -104,37 +104,28 @@ const AppHeader = () => {
                     <Avatar src={currentUser.userInfo.image || String(DefaultImage)} />
                     <span className="font-medium text-lg ml-3">{currentUser.userInfo.name}</span>
                   </span>
-                  <span className="flex items-center hover:cursor-pointer hover:underline hover:text-yellow-600" onClick={() => router.push('/manage')}>
+                  <Link href={path.profile} className="flex items-center hover:cursor-pointer hover:underline hover:text-yellow-600">
                     {t('common.manage_profile')}
                     <Icon component={NavigateNext} />
-                  </span>
+                  </Link>
                 </div>
                 <div className="flex">
                   <div className="w-1/2">
                     <h3 className="font-semibold text-base">{t('header.your_shopping')}</h3>
                     <menu className="leading-6">
-                      <li className="sub-item-link" onClick={() => router.push(path.cart)}>
-                        {t('header.view_your_cart')}
-                      </li>
-                      <li className="sub-item-link">{t('common.checkout')}</li>
-                      <li className="sub-item-link" onClick={() => router.push(path.wishlist)}>
-                        {t('header.wishlist')}
-                      </li>
-                      <li className="sub-item-link" onClick={() => router.push(path.history)}>
-                        {t('header.history')}
-                      </li>
+                      <MenuItem name={t('header.view_your_cart')} url={path.cart} />
+                      <MenuItem name={t('header.orders')} url={path.order} />
+                      <MenuItem name={t('header.wishlist')} url={path.wishlist} />
+                      <MenuItem name={t('header.history')} url={path.history} />
                     </menu>
                   </div>
                   <div className="w-1/2 border-l-2 border-l-gray-100 pl-4">
                     <h3 className="font-semibold text-base">{t('header.your_account')}</h3>
                     <menu className="leading-6">
-                      <li className="sub-item-link" onClick={() => router.push(path.account)}>
-                        {t('header.account')}
-                      </li>
-                      <li className="sub-item-link">{t('header.orders')}</li>
-                      <li className="sub-item-link">{t('header.recommendations')}</li>
-                      <li className="sub-item-link">{t('header.browsing_history')}</li>
-                      <li className="sub-item-link">{t('header.watchlist')}</li>
+                      <MenuItem name={t('header.account')} url={path.account} />
+                      <MenuItem name={t('header.recommendations')} url={path.home} />
+                      <MenuItem name={t('header.browsing_history')} url={path.home} />
+                      <MenuItem name={t('header.watchlist')} url={path.home} />
                     </menu>
                     <Button className="bg-yellow-400 w-52 rounded-xl" onClick={() => handleLogout()}>
                       {t('common.logout')}
@@ -151,5 +142,13 @@ const AppHeader = () => {
     </div>
   );
 };
+
+const MenuItem = ({ name, url, className }: { name: string; url: string; className?: string }) => (
+  <li>
+    <Link href={url} className={`opacity-80 hover:opacity-90 hover:underline hover:text-blue-600 ${className}`}>
+      {name}
+    </Link>
+  </li>
+);
 
 export default AppHeader;
