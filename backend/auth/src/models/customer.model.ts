@@ -20,8 +20,7 @@ export class CustomerModel extends Model<Customer> implements Customer {
 }
 
 export default function (sequelize: Sequelize): typeof CustomerModel {
-  CustomerModel.init(
-    {
+  CustomerModel.init({
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

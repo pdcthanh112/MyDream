@@ -4,6 +4,7 @@ import { CustomerSignupDTO, CustomerLoginDTO, ChangePasswordDTO } from '@dtos/cu
 import { Customer } from '@interfaces/account.interface';
 import { AuthService } from '@services/ecommerce/auth.service';
 import { RequestWithUser } from '@interfaces/auth.interface';
+import { OTP } from '@interfaces/otp.interface';
 
 export class AuthController {
   public service = Container.get(AuthService);
@@ -60,6 +61,26 @@ export class AuthController {
       const data: { email: string } = req.body;
       const result = await this.service.forgetPassword({ email: data.email });
       res.status(200).json({ data: result, message: 'change password successfully', status: 'SUCCESS' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public generateOTP = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data: { phone: string } = req.body;
+      const result: OTP = await this.service.generateOTP(data);
+      res.status(200).json({ data: result, message: 'generate otp successfully', status: 'SUCCESS' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public verifyOTP = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = req.body;
+      const result = await this.service.verifyOTP(data);
+      res.status(200).json({ data: result, message: 'verify OTP successfully', status: 'SUCCESS' });
     } catch (error) {
       next(error);
     }

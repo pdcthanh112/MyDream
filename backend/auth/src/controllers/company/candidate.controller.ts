@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { CreateCandidateDto } from '@dtos/candidate.dto';
+import { CreateCandidateDTO } from '@dtos/candidate.dto';
 import { Candidate } from '@interfaces/account.interface';
 import { CandidateService } from '@services/company/candidate.service';
 
@@ -30,7 +30,7 @@ export class CandidateController {
 
   public createCandidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateCandidateDto = req.body;
+      const userData: CreateCandidateDTO = req.body;
       const createCandidateData: Candidate = await this.service.createCandidate(userData);
 
       res.status(201).json({ data: createCandidateData, message: 'created' });
@@ -42,7 +42,7 @@ export class CandidateController {
   public updateCandidate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
-      const userData: CreateCandidateDto = req.body;
+      const userData: CreateCandidateDTO = req.body;
       const updateCandidateData: Candidate = await this.service.updateCandidate(userId, userData);
 
       res.status(200).json({ data: updateCandidateData, message: 'updated' });

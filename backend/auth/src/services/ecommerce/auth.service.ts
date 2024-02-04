@@ -9,6 +9,9 @@ import { DataStoredInToken, LoginError, TokenData } from '@interfaces/auth.inter
 import { Customer } from '@interfaces/account.interface';
 import { v4 as uuidv4 } from 'uuid';
 import sendEmail from '@utils/sendEmail';
+import sendSMS from '@utils/sendSMS';
+import { generateOTP } from '@utils/helper';
+import { OTP } from '@interfaces/otp.interface';
 
 const createToken = (customer: Customer): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: customer.id };
@@ -111,9 +114,7 @@ export class AuthService {
   }
 
   public async forgetPassword(data: { email: string }): Promise<any> {
-    console.log('DDDDDDDDDDDDDDDDDDDDDDDDd', data.email);
     const findCustomer: Customer = await MYSQL_DB.Customer.findOne({ where: { email: data.email } });
-    // const findCustomer: Customer = await MYSQL_DB.Customer.findOne({where: {email : data.email}})
 
     if (!findCustomer) throw new HttpException(409, `This email does not exists`, 101001);
 
@@ -123,15 +124,43 @@ export class AuthService {
       email: findCustomer.email,
       subject: 'Reset Password',
       content: `Click vào link sau để đặt lại mật khẩu của bạn:`,
-      // content: `Click vào link sau để đặt lại mật khẩu của bạn: ${baseUrl}/reset-password/${resetPassworrdToken}`,
     };
 
     try {
       await sendEmail(mailOptions.email, mailOptions.subject, mailOptions.content);
+
       return { message: 'Email sent successfully' };
     } catch (error) {
       console.error(error);
       throw new HttpException(500, 'Failed to send email', 101005);
     }
+  }
+
+  public async generateOTP(data: { phone: string }): Promise<OTP> {
+    const otp = generateOTP();
+    const result: OTP = await MYSQL_DB.OTP.create({ code: otp });
+    const content = `Your OTP is ${otp}, please don't share OTP for other people. This code will expire in 5 minutes.`;
+    await sendSMS(content, data.phone)
+      .then(response => response)
+      .catch(error => {
+        throw error;
+      });
+    return result;
+  }
+
+  public async verifyOTP(data: any): Promise<any> {
+    const otp = await MYSQL_DB.OTP.findOne(data.userId);
+
+    if (!otp || otp.expiredAt < new Date()) {
+      throw new HttpException(409, 'Invalid OTP or expired', 101006);
+    }
+
+    if (otp.code !== data.otp) {
+      throw new HttpException(409, 'Incorrect OTP', 101007);
+    }
+
+    await MYSQL_DB.OTP.destroy({ where: { $code$: '' } });
+
+    return { message: 'OTP verified successfully' };
   }
 }

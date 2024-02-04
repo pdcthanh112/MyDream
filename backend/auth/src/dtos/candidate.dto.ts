@@ -1,6 +1,6 @@
 import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsPhoneNumber, IsNumber } from 'class-validator';
 
-export class CandidateLoginDto {
+export class CandidateLoginDTO {
   @IsEmail()
   public email: string;
 
@@ -11,7 +11,7 @@ export class CandidateLoginDto {
   public password: string;
 }
 
-export class CreateCandidateDto {
+export class CreateCandidateDTO {
   accountId: string;
   empAccount: string; 
 

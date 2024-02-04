@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
 import { MYSQL_DB } from '@databases/mysql';
-import { CreateCandidateDto } from '@dtos/candidate.dto';
+import { CreateCandidateDTO } from '@dtos/candidate.dto';
 import { HttpException } from '@exceptions/httpException';
 import { Candidate } from '@interfaces/account.interface';
 
@@ -19,7 +19,7 @@ export class CandidateService {
     return findCandidate;
   }
 
-  public async createCandidate(userData: CreateCandidateDto): Promise<Candidate> {
+  public async createCandidate(userData: CreateCandidateDTO): Promise<Candidate> {
     const findCandidate: Candidate = await MYSQL_DB.Candidate.findOne({ where: { email: userData.email } });
     if (findCandidate) throw new HttpException(409, `This email ${userData.email} already exists`);
 
@@ -28,7 +28,7 @@ export class CandidateService {
     return createCandidateData;
   }
 
-  public async updateCandidate(userId: number, userData: CreateCandidateDto): Promise<Candidate> {
+  public async updateCandidate(userId: number, userData: CreateCandidateDTO): Promise<Candidate> {
     const findCandidate: Candidate = await MYSQL_DB.Candidate.findByPk(userId);
     if (!findCandidate) throw new HttpException(409, "Candidate doesn't exist");
 
