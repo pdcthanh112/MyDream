@@ -1,5 +1,5 @@
 import axiosConfig from '@config/axiosConfig';
-import { ChangePasswordForm, SignupForm } from '@models/form';
+import { ChangePasswordForm, ResetPasswordForm, SignupForm } from '@models/form';
 import axios from 'axios';
 
 export const login = async (email: string, password: string) => {
@@ -38,7 +38,41 @@ export const signup = async (data: SignupForm) => {
 
 export const changePassword = async (data: ChangePasswordForm) => {
   return await axios
-    .post('http://localhost:8000/ecommerce/auth/change-password', data)
+    .post('http://localhost:8000/ecommerce/auth/change-password', {
+      accountId: data.accountId,
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const resetPassword = async (data: ResetPasswordForm) => {
+  return await axios
+    .post('http://localhost:8000/ecommerce/auth/reset-password', {
+      accountId: data.accountId,
+      password: data.newPassword,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const generateOTP = async (data: any) => {
+  return await axios
+    .get('http://localhost:8000/ecommerce/auth/generate-otp')
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const verifyOTP = async (data: any) => {
+  return await axios
+    .get('http://localhost:8000/ecommerce/auth/verify-otp')
     .then((response) => response.data)
     .catch((error) => {
       throw error;

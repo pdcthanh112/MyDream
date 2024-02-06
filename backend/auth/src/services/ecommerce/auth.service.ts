@@ -118,12 +118,88 @@ export class AuthService {
 
     if (!findCustomer) throw new HttpException(409, `This email does not exists`, 101001);
 
+    const resetPassworrdUrl = 'http://localhost:3000/auth/reset-password';
     const resetPassworrdToken = '';
 
     const mailOptions = {
       email: findCustomer.email,
-      subject: 'Reset Password',
-      content: `Click vào link sau để đặt lại mật khẩu của bạn:`,
+      subject: "CongThanh's Ecommerce App - Reset Password",
+      content: `<!DOCTYPE html>
+      <html lang="vi">
+     
+      <head>
+          <meta char
+          set="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+              body {
+                  font-family: Arial, sans-serif;
+                  margin: 0;
+                  padding: 0;
+              }
+      
+              .header {
+                  padding: 20px;
+                  text-align: center;
+              }
+      
+              .logo {
+                  display: block;
+                  margin: 0 auto;
+                  width: 100px;
+              }
+      
+              .content {
+                  padding: 20px;
+              }
+      
+              .content p {
+                  font-size: 16px;
+                  line-height: 1.5;
+              }
+      
+              .content a {
+                  color: #000;
+                  text-decoration: underline;
+              }
+      
+              .content a:hover {
+                  color: #dae509;
+                  text-decoration: underline;
+      
+              }
+      
+              .footer {
+                  padding: 20px;
+                  text-align: center;
+              }
+      
+              .footer p {
+                  font-size: 14px;
+                  color: #666;
+              }
+          </style>
+      </head>
+      
+      <body>
+      
+          <div class="content">
+              <p>Bạn đang nhận được email này vì bạn đã yêu cầu đặt lại mật khẩu cho tài khoản của bạn tại [Tên công ty].</p>
+              <p>Vui lòng nhấp vào liên kết dưới đây để đặt lại mật khẩu của bạn:</p>
+              <p><a href="${resetPassworrdUrl}">Đặt lại mật khẩu</a></p>
+              <p>Liên kết này sẽ hết hạn trong 24 giờ.</p>
+              <p>Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.</p>
+          </div>
+          <div class="footer">
+              <p>Trân trọng,</p>
+      
+              <img src="https://firebasestorage.googleapis.com/v0/b/congthanh-project.appspot.com/o/ecommerce%2Fcustomer%2Fwallpaper.jpg?alt=media&token=09e60c5b-d8b0-42ff-9ea3-719246ff1eab"
+                  alt="Logo [Tên công ty]" class="logo">
+              <h4>CongThanh's Ecommerce App</h4>
+          </div>
+      </body>
+      
+      </html>`,
     };
 
     try {
@@ -148,18 +224,18 @@ export class AuthService {
     return result;
   }
 
-  public async verifyOTP(data: any): Promise<any> {
-    const otp = await MYSQL_DB.OTP.findOne(data.userId);
+  public async verifyOTP(data: { code: string }): Promise<any> {
+    const otp = await MYSQL_DB.OTP.findOne({ where: { code: data.code } });
 
     if (!otp || otp.expiredAt < new Date()) {
       throw new HttpException(409, 'Invalid OTP or expired', 101006);
     }
 
-    if (otp.code !== data.otp) {
+    if (otp.code !== data.code) {
       throw new HttpException(409, 'Incorrect OTP', 101007);
     }
 
-    await MYSQL_DB.OTP.destroy({ where: { $code$: '' } });
+    await MYSQL_DB.OTP.destroy({ where: { code: data.code } });
 
     return { message: 'OTP verified successfully' };
   }

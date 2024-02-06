@@ -22,3 +22,9 @@ export type ChangePasswordForm = {
   newPassword: string;
   confirmPassword?: string;
 };
+
+export type ResetPasswordForm = {
+  accountId: string;
+  newPassword: string;
+  confirmPassword?: string;
+};
