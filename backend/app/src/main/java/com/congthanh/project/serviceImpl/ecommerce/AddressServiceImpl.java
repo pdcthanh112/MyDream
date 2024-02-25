@@ -22,7 +22,7 @@ public class AddressServiceImpl implements AddressService {
     private AddressMapper addressMapper;
 
     @Override
-    public AddressDTO getAddressById(String addressId) {
+    public AddressDTO getAddressById(Long addressId) {
         Address result = addressRepository.findById(addressId).orElseThrow(() -> new NotFoundException("address not found"));
         return addressMapper.mapAddressEntityToDTO(result);
     }
@@ -48,7 +48,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDTO updateAddress(String addressId, AddressDTO addressDTO) {
+    public AddressDTO updateAddress(Long addressId, AddressDTO addressDTO) {
         Address exitsAddress = addressRepository.findById(addressId).orElseThrow(() -> new NotFoundException("address not found"));
         exitsAddress.setPhone(addressDTO.getPhone());
         exitsAddress.setCountry(addressDTO.getCountry());
@@ -60,6 +60,16 @@ public class AddressServiceImpl implements AddressService {
         exitsAddress.setPostalCode(addressDTO.getPostalCode());
         Address result = addressRepository.save(exitsAddress);
         return addressMapper.mapAddressEntityToDTO(result);
+    }
+
+    @Override
+    public boolean deleteAddress(Long addressId) {
+        try {
+            addressRepository.deleteById(addressId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -86,7 +96,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public boolean setDefaultAddressForCustomer(String customerId, String addressId) {
+    public boolean setDefaultAddressForCustomer(String customerId, Long addressId) {
         return addressRepository.setDefaultAddressForCustomer(customerId, addressId);
     }
 }

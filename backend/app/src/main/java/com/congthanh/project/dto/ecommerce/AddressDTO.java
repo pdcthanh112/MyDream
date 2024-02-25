@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AddressDTO {
 
-    private String id;
+    private Long id;
 
     @NotNull
     private String customer;

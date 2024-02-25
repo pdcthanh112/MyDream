@@ -1,13 +1,12 @@
 import axiosConfig from '@config/axiosConfig';
 import { CreateAddressForm, UpdateAddressForm } from '@models/form';
-import { AxiosError } from 'axios';
 
-export const getAddressById = async (addressId: string) => {
+export const getAddressById = async (addressId: number) => {
   return await axiosConfig
     .get(`address/${addressId}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw new AxiosError(error);
+      throw error;
     });
 };
 
@@ -16,7 +15,7 @@ export const getAddressByCustomer = async (customerId: string) => {
     .get(`address/getByCustomer?customer=${customerId}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw new AxiosError(error);
+      throw error;
     });
 };
 
@@ -35,11 +34,11 @@ export const createAddress = async (data: CreateAddressForm) => {
     })
     .then((response) => response.data)
     .catch((error) => {
-      throw new AxiosError(error);
+      throw new error;
     });
 };
 
-export const updateAddress = async (addressId: string, data: UpdateAddressForm) => {
+export const updateAddress = async (addressId: number, data: UpdateAddressForm) => {
   return await axiosConfig
     .put(`address/update/${addressId}`, {
       phone: data.phone,
@@ -52,7 +51,16 @@ export const updateAddress = async (addressId: string, data: UpdateAddressForm) 
     })
     .then((response) => response.data)
     .catch((error) => {
-      throw new AxiosError(error);
+      throw new error;
+    });
+};
+
+export const deleteAddress = async (addressId: number) => {
+  return await axiosConfig
+    .delete(`address/delete/${addressId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw new error;
     });
 };
 
@@ -60,7 +68,7 @@ export const getDefaultAddressOfCustomer = async (customerId: string) => {
   return await axiosConfig
     .get(`address/getDefaultAddress?customer=${customerId}`)
     .then((response) => response.data)
-    .catch((error: AxiosError) => {
+    .catch((error) => {
       throw error;
     });
 };

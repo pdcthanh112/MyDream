@@ -1,6 +1,6 @@
 const path = {
   account: '/account',
-  address: '/address',
+  address: '/manage/address',
   bankingAccount: 'banking-account',
   cart: '/cart',
   changePassword: '/auth/change-password',

@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
-interface InputComponentProps {
+type InputComponentProps = {
   title: string;
   children: ReactNode;
   error?: any;
@@ -176,7 +176,7 @@ const Signup: NextPage = (): React.ReactElement => {
                   type={showPassword ? 'text' : 'password'}
                   {...register('confirm', {
                     required: 'Confirm password is require',
-                    validate: (value) => value === watch('password') || 'Confirm do not match',
+                    validate: (value: string) => value === watch('password') || 'Confirm do not match',
                   })}
                   placeholder="Enter your confirm"
                   className={`focus:outline-none ml-3 w-[100%] ${formState.errors.confirm && 'bg-red-100'}`}

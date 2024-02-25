@@ -16,6 +16,15 @@ export type SignupForm = {
   image?: string;
 };
 
+export type EditProfileForm = {
+  name: string;
+  phone: string;
+  address: string;
+  dob: Date;
+  gender: string;
+  image: string;
+};
+
 export type ChangePasswordForm = {
   accountId: string;
   currentPassword: string;

@@ -19,7 +19,7 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response<AddressDTO>> getAddressById(@PathVariable("id")String addressId) {
+    public ResponseEntity<Response<AddressDTO>> getAddressById(@PathVariable("id") Long addressId) {
         AddressDTO data = addressService.getAddressById(addressId);
         Response<AddressDTO> response = new Response<>();
         response.setData(data);
@@ -39,11 +39,20 @@ public class AddressController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response<AddressDTO>> updateAddress(@PathVariable("id") String addressId, @RequestBody AddressDTO addressDTO) {
+    public ResponseEntity<Response<AddressDTO>> updateAddress(@PathVariable("id") Long addressId, @RequestBody AddressDTO addressDTO) {
         AddressDTO data = addressService.updateAddress(addressId, addressDTO);
         Response<AddressDTO> response = new Response<>();
         response.setData(data);
         response.setMessage("update successfully");
+        response.setStatus(ResponseStatus.STATUS_SUCCESS);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Response<String>> deleteAddress(@PathVariable("id") Long addressId) {
+        addressService.deleteAddress(addressId);
+        Response<String> response = new Response<>();
+        response.setMessage("delete successfully");
         response.setStatus(ResponseStatus.STATUS_SUCCESS);
         return ResponseEntity.ok().body(response);
     }

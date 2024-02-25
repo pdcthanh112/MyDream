@@ -30,7 +30,7 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository{
     }
 
     @Override
-    public boolean setDefaultAddressForCustomer(String customerId, String addressId) {
+    public boolean setDefaultAddressForCustomer(String customerId, Long addressId) {
         String resetDefault = "UPDATE address SET is_default = false WHERE customer = ?1";
         Query query = entityManager.createNativeQuery(resetDefault);
         query.setParameter(1, customerId);

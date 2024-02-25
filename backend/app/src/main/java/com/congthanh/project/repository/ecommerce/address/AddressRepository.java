@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface AddressRepository extends JpaRepository<Address, String>, AddressCustomRepository {
+public interface AddressRepository extends JpaRepository<Address, Long>, AddressCustomRepository {
 
 }

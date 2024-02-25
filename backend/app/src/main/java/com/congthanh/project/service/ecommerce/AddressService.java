@@ -6,16 +6,18 @@ import java.util.List;
 
 public interface AddressService {
 
-    AddressDTO getAddressById(String addressId);
+    AddressDTO getAddressById(Long addressId);
 
     AddressDTO createAddress(AddressDTO addressDTO);
 
-    AddressDTO updateAddress(String addressId, AddressDTO addressDTO);
+    AddressDTO updateAddress(Long addressId, AddressDTO addressDTO);
+
+    boolean deleteAddress(Long addressId);
 
     List<AddressDTO> getAddressByCustomer(String customerId);
 
     AddressDTO getDefaultAddressOfCustomer(String customerId);
 
-    boolean setDefaultAddressForCustomer(String customerId, String addressId);
+    boolean setDefaultAddressForCustomer(String customerId, Long addressId);
 
 }

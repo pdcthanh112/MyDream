@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@redux/store';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { LoginForm } from '@models/form';
 import { authClean, loginRequested } from '@redux/actions/auth';
 import { getProviders, signIn } from 'next-auth/react';

@@ -16,6 +16,6 @@ public interface AddressCustomRepository {
     Address getDefaultAddressOfCustomer(String customerId);
 
     @Modifying
-    boolean setDefaultAddressForCustomer(String customerId, String addressId);
+    boolean setDefaultAddressForCustomer(String customerId, Long addressId);
 
 }
