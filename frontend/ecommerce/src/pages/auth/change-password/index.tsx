@@ -109,7 +109,7 @@ const ChangePassword = (): React.ReactElement => {
           </InputField>
 
           <div className="flex justify-center mt-10">
-            <Button className="bg-yellow-300 rounded-lg w-[40%]">{t('signup.register')}</Button>
+            <Button className="bg-yellow-300 rounded-lg w-[40%]">{t('signup.save')}</Button>
           </div>
         </form>
       </div>

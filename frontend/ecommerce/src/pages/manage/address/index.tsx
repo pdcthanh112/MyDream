@@ -10,20 +10,30 @@ import { PlusIcon } from '@assets/icons';
 import { Icon } from '@mui/material';
 import TabCreateAddress from '@components/Address/TabCreateAddress';
 import { Modal, Popconfirm } from 'antd';
-import { useDeleteAddress } from '@hooks/address/addressHook';
+import { useDeleteAddress, useUpdateAddress } from '@hooks/address/addressHook';
 import { toast } from 'react-toastify';
 import AddressSkeleton from './AddressSkeleton';
+import TabEditAddress from '@components/Address/TabEditAddress';
+import { UpdateAddressForm } from '@models/form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const AddressPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const [isCreate, setIsCreate] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<Address | null>();
 
+  const { mutate: updateAddress } = useUpdateAddress();
   const { mutate: deleteAddress } = useDeleteAddress();
 
   const { data: listAddress, isLoading } = useQuery({
     queryKey: ['address'],
     queryFn: async () => await getAddressByCustomer(currentUser.userInfo.accountId).then((response) => response.data),
   });
+
+  const { register, handleSubmit, formState } = useForm<UpdateAddressForm>();
+  const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
+    console.log('DDDDDDDDDDDdd', data)
+  }
 
   const handleDeleteAddress = (addressId: number) => {
     if (currentUser) {
@@ -80,9 +90,10 @@ const AddressPage = (): React.ReactElement => {
               <div className="col-span-2 text-end">
                 <Button className={`text-sm ${item.isDefault && 'invisible'}`}>Mark as default</Button>
                 <div>
-                  <span title="Edit" className="text-blue-400 hover:cursor-pointer hover:underline mr-2">
+                  <span title="Edit" className="text-blue-400 hover:cursor-pointer hover:underline mr-2" onClick={() => setIsUpdate(item)}>
                     Edit
                   </span>
+
                   <Popconfirm title="Delete address" description="Are you sure to delete this address?" onConfirm={() => handleDeleteAddress(item.id)} okText="Yes" cancelText="No">
                     <span title="Delete" className="text-blue-400 hover:cursor-pointer hover:underline">
                       Delete
@@ -92,6 +103,17 @@ const AddressPage = (): React.ReactElement => {
               </div>
             </div>
           ))}
+          {isUpdate && (
+            <Modal open={!!isUpdate} onCancel={() => setIsUpdate(null)} okText='Save' footer={false}>
+              <TabEditAddress
+                address={isUpdate}
+                onSubmit={() => onSubmit}
+                onBack={function (): void {
+                  throw new Error('Function not implemented.');
+                }}
+              />
+            </Modal>
+          )}
         </React.Fragment>
       )}
     </div>

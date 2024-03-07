@@ -1,3 +1,3 @@
-export * from './MainLayout'
+export * from './RootLayout'
 export * from './EmptyLayout'
 export * from './ManagementLayout'

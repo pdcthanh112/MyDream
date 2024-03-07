@@ -1,5 +1,5 @@
 'use client';
-import { NextPage } from 'next';
+import { Metadata, NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
@@ -25,6 +25,23 @@ import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
 import { AttributeValue, Customer, ProductImage, Store, Wishlist } from '@models/type';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const product = await getProductBySlug(params.slug);
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      images: [
+        {
+          url: product.image,
+        },
+      ],
+    },
+  };
+}
 
 const ProductDetail: NextPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);

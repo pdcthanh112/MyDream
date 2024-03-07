@@ -18,7 +18,7 @@ type PropsType = {
 const SelectAddress = ({ isOpen, handleOpen, changeAddress }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
 
-  const [activeTab, setActiveTab] = useState({ currentTab: '1', addressId: '' });
+  const [activeTab, setActiveTab] = useState({ currentTab: '1', addressId: 0 });
   const [address, setAddress] = useState<Address>();
 
   const { data: listAddress } = useQuery(['address'], async () => await getAddressByCustomer(currentUser.userInfo.accountId).then((response) => response.data));
@@ -55,7 +55,7 @@ const SelectAddress = ({ isOpen, handleOpen, changeAddress }: PropsType) => {
           ))}
         </Radio.Group>
 
-        <Button onClick={() => setActiveTab({ currentTab: '2', addressId: '' })} className="bg-yellow-300">
+        <Button onClick={() => setActiveTab({ currentTab: '2', addressId: -1 })} className="bg-yellow-300">
           <Icon component={Add} />
           <span>Add new address</span>
         </Button>
@@ -81,12 +81,12 @@ const SelectAddress = ({ isOpen, handleOpen, changeAddress }: PropsType) => {
     {
       key: '2',
       label: null,
-      children: <TabCreateAddress onBack={() => setActiveTab({ currentTab: '1', addressId: '' })} />,
+      children: <TabCreateAddress onBack={() => setActiveTab({ currentTab: '1', addressId: -1 })} />,
     },
     {
       key: '3',
       label: null,
-      children: <TabEditAddress addressId={activeTab.addressId} onBack={() => setActiveTab({ currentTab: '1', addressId: '' })} />,
+      children: <TabEditAddress addressId={activeTab.addressId} onBack={() => setActiveTab({ currentTab: '1', addressId: -1 })} />,
     },
   ];
 

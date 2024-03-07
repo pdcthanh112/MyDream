@@ -36,49 +36,49 @@ const InputField = styled.div`
 `;
 
 type PropsType = {
-  addressId: string;
+  address: Address;
   onBack: () => void;
+  onSubmit: () => void
 };
 
-const TabEditAddress = ({ addressId, onBack }: PropsType) => {
-
-  const [address, setAddress] = useState<Address>()
+const TabEditAddress = ({ address, onBack, onSubmit }: PropsType) => {
 
   const {mutate: updateAddress} = useUpdateAddress()
   const { t } = useTranslation('common');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAddressById(addressId).then(response => {
-        if(response && response.data) {
-          setAddress(response.data)
-        }
-      })
-    }
-    if(addressId !== '') {
-      fetchData();
-    }
-  }, [addressId])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getAddressById(addressId).then(response => {
+  //       if(response && response.data) {
+  //         setAddress(response.data)
+  //       }
+  //     })
+  //   }
+  //   if(addressId !== -1) {
+  //     fetchData();
+  //   }
+  // }, [addressId])
 
   const { register, handleSubmit, formState, setValue } = useForm<UpdateAddressForm>();
 
-  const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
-    updateAddress(data, {
-      onSuccess() {
-        toast.success(t('change_successfully'));
-      },
-      onError() {
-        toast.error(t('change_failed'));
-      },
-    })
-  };
+  // const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
+  //   // updateAddress(data, {
+  //   //   onSuccess() {
+  //   //     toast.success(t('change_successfully'));
+  //   //   },
+  //   //   onError() {
+  //   //     toast.error(t('change_failed'));
+  //   //   },
+  //   // })
+  //   console.log('RRRRRRRRRRRRRRRRRR')
+  // };
 
   return (
     <React.Fragment>
       <h3>Update address</h3>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input type="hidden" {...register('id', {})} defaultValue={addressId} />
+          <input type="hidden" {...register('id', {})} defaultValue={address.id} />
           {/* <input type="hidden" {...register('customer', {})} defaultValue={currentUser.userInfo.accountId} /> */}
           <div className="grid grid-cols-12 gap-4">
             <InputComponent title="Phone" className="col-span-7" error={formState.errors.phone?.message}>
@@ -174,14 +174,14 @@ const TabEditAddress = ({ addressId, onBack }: PropsType) => {
 
           <Checkbox>Set as default</Checkbox>
 
-          <div className="flex justify-end">
+          {/* <div className="flex justify-end">
             <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => onBack()}>
               Back
             </Button>
             <Button type="primary" danger htmlType="submit">
               Save
             </Button>
-          </div>
+          </div> */}
         </form>
       </div>
     </React.Fragment>
