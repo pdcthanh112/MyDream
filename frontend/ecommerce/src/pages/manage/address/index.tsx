@@ -10,30 +10,54 @@ import { PlusIcon } from '@assets/icons';
 import { Icon } from '@mui/material';
 import TabCreateAddress from '@components/Address/TabCreateAddress';
 import { Modal, Popconfirm } from 'antd';
-import { useDeleteAddress, useUpdateAddress } from '@hooks/address/addressHook';
+import { useCreateAddress, useDeleteAddress, useUpdateAddress } from '@hooks/address/addressHook';
 import { toast } from 'react-toastify';
 import AddressSkeleton from './AddressSkeleton';
 import TabEditAddress from '@components/Address/TabEditAddress';
-import { UpdateAddressForm } from '@models/form';
+import { CreateAddressForm, UpdateAddressForm } from '@models/form';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 
 const AddressPage = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<Address | null>();
 
+  const { mutate: createAddress } = useCreateAddress();
   const { mutate: updateAddress } = useUpdateAddress();
   const { mutate: deleteAddress } = useDeleteAddress();
+
+  const { t } = useTranslation('common');
 
   const { data: listAddress, isLoading } = useQuery({
     queryKey: ['address'],
     queryFn: async () => await getAddressByCustomer(currentUser.userInfo.accountId).then((response) => response.data),
   });
 
-  const { register, handleSubmit, formState } = useForm<UpdateAddressForm>();
-  const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
-    console.log('DDDDDDDDDDDdd', data)
-  }
+  // const { register, handleSubmit, formState } = useForm<UpdateAddressForm>();
+  const onCreate: SubmitHandler<CreateAddressForm> = (data) => {
+    createAddress(data, {
+      onSuccess() {
+        setIsCreate(false);
+        toast.success(t('create_successfully'));
+      },
+      onError() {
+        toast.error(t('create_failed'));
+      },
+    });
+  };
+
+  const onUpdate: SubmitHandler<UpdateAddressForm> = (data) => {
+    updateAddress(data, {
+      onSuccess() {
+        setIsUpdate(null);
+        toast.success(t('change_successfully'));
+      },
+      onError() {
+        toast.error(t('change_failed'));
+      },
+    });
+  };
 
   const handleDeleteAddress = (addressId: number) => {
     if (currentUser) {
@@ -58,8 +82,9 @@ const AddressPage = (): React.ReactElement => {
           <span>Add new address</span>
         </Button>
         {isCreate && (
-          <Modal open={isCreate} onCancel={() => setIsCreate(false)}>
+          <Modal open={isCreate} onCancel={() => setIsCreate(false)} footer={false}>
             <TabCreateAddress
+              handleCreate={onCreate}
               onBack={function (): void {
                 throw new Error('Function not implemented.');
               }}
@@ -69,10 +94,9 @@ const AddressPage = (): React.ReactElement => {
       </div>
       {isLoading ? (
         <>
-          <AddressSkeleton />
-          <AddressSkeleton />
-          <AddressSkeleton />
-          <AddressSkeleton />
+          {Array(4).map((_, id) => (
+            <AddressSkeleton key={id} />
+          ))}
         </>
       ) : (
         <React.Fragment>
@@ -93,7 +117,6 @@ const AddressPage = (): React.ReactElement => {
                   <span title="Edit" className="text-blue-400 hover:cursor-pointer hover:underline mr-2" onClick={() => setIsUpdate(item)}>
                     Edit
                   </span>
-
                   <Popconfirm title="Delete address" description="Are you sure to delete this address?" onConfirm={() => handleDeleteAddress(item.id)} okText="Yes" cancelText="No">
                     <span title="Delete" className="text-blue-400 hover:cursor-pointer hover:underline">
                       Delete
@@ -104,13 +127,11 @@ const AddressPage = (): React.ReactElement => {
             </div>
           ))}
           {isUpdate && (
-            <Modal open={!!isUpdate} onCancel={() => setIsUpdate(null)} okText='Save' footer={false}>
+            <Modal open={!!isUpdate} footer={false}>
               <TabEditAddress
                 address={isUpdate}
-                onSubmit={() => onSubmit}
-                onBack={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
+                handleUpdate={onUpdate}
+                onBack={() => setIsUpdate(null)}
               />
             </Modal>
           )}

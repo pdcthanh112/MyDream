@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getAddressById } from 'api/addressApi';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Button, Checkbox } from 'antd';
 import { Address } from '@models/type';
 import styled from 'styled-components';
 import { Autocomplete, TextField } from '@mui/material';
 import countryData from '../../../public/data/country.json';
-import { useUpdateAddress } from '@hooks/address/addressHook';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
 import { UpdateAddressForm } from '@models/form';
 
@@ -38,46 +35,20 @@ const InputField = styled.div`
 type PropsType = {
   address: Address;
   onBack: () => void;
-  onSubmit: () => void
+  handleUpdate: (data: UpdateAddressForm) => void
 };
 
-const TabEditAddress = ({ address, onBack, onSubmit }: PropsType) => {
+const TabEditAddress = ({ address, onBack, handleUpdate }: PropsType) => {
 
-  const {mutate: updateAddress} = useUpdateAddress()
   const { t } = useTranslation('common');
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getAddressById(addressId).then(response => {
-  //       if(response && response.data) {
-  //         setAddress(response.data)
-  //       }
-  //     })
-  //   }
-  //   if(addressId !== -1) {
-  //     fetchData();
-  //   }
-  // }, [addressId])
-
   const { register, handleSubmit, formState, setValue } = useForm<UpdateAddressForm>();
-
-  // const onSubmit: SubmitHandler<UpdateAddressForm> = (data) => {
-  //   // updateAddress(data, {
-  //   //   onSuccess() {
-  //   //     toast.success(t('change_successfully'));
-  //   //   },
-  //   //   onError() {
-  //   //     toast.error(t('change_failed'));
-  //   //   },
-  //   // })
-  //   console.log('RRRRRRRRRRRRRRRRRR')
-  // };
 
   return (
     <React.Fragment>
       <h3>Update address</h3>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleUpdate)}>
           <input type="hidden" {...register('id', {})} defaultValue={address.id} />
           {/* <input type="hidden" {...register('customer', {})} defaultValue={currentUser.userInfo.accountId} /> */}
           <div className="grid grid-cols-12 gap-4">
@@ -174,14 +145,14 @@ const TabEditAddress = ({ address, onBack, onSubmit }: PropsType) => {
 
           <Checkbox>Set as default</Checkbox>
 
-          {/* <div className="flex justify-end">
+          <div className="flex justify-end">
             <Button type="default" style={{ marginRight: '8px' }} danger onClick={() => onBack()}>
-              Back
+              Cancel
             </Button>
             <Button type="primary" danger htmlType="submit">
               Save
             </Button>
-          </div> */}
+          </div>
         </form>
       </div>
     </React.Fragment>

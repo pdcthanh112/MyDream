@@ -1,3 +1,4 @@
+import { Product } from '@models/type';
 import ProductItemCard from './ProductItemCard';
 import ProductItemCardSkeleton from './ProductItemCard/ProductItemCardSkeleton';
 
@@ -9,16 +10,9 @@ const ShowListProduct = ({ listProduct, loading }: ShowListProductProps): React.
   if (loading)
     return (
       <div className="w-[90%] mx-auto grid gap-4 grid-flow-row-dense grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
-        <ProductItemCardSkeleton />
+        {Array(10).map((_, id) => (
+          <ProductItemCardSkeleton key={id} />
+        ))}
       </div>
     );
 

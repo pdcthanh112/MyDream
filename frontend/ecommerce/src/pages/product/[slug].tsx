@@ -1,6 +1,6 @@
 'use client';
-import { Metadata, NextPage } from 'next';
 import { useRef, useState } from 'react';
+import { Metadata, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getAttributeByProductId, getImageByProductId, getProductBySlug, getSoldByProduct } from 'api/productApi';
@@ -23,13 +23,14 @@ import { getWishlistByCustomer } from 'api/wishlistApi';
 import { getStoreById } from 'api/storeApi';
 import Link from 'next/link';
 import { getRatingStarofProduct } from 'api/reviewApi';
-import { AttributeValue, Customer, ProductImage, Store, Wishlist } from '@models/type';
+import { AttributeValue, Customer, Product, ProductImage, Store, Wishlist } from '@models/type';
 import QuantitySelector from '@components/QuantitySelector/QuantitySelector';
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
   return {
-    title: product.title,
+    title: 'product.title',
+    // title: product.title,
     description: product.description,
     openGraph: {
       title: product.title,
@@ -44,6 +45,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 const ProductDetail: NextPage = (): React.ReactElement => {
+
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
   const router = useRouter();
   const { slug: productSlug } = router.query;
@@ -67,7 +69,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
   const { mutate: addProductToWishlist } = useAddProductToWishlist();
   const { mutate: removeProductFromWishlist } = useRemoveProductFromWishlist();
 
-  const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug).then((result) => result.data), {
+  const { data: product, isLoading } = useQuery(['product'], async () => await getProductBySlug(productSlug as string).then((result) => result.data), {
     onSuccess: async (data) => {
       await getRatingStarofProduct(data.id).then((response) => {
         if (response && response.data) {
@@ -357,9 +359,11 @@ const AddToCartIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default ProductDetail;
 
-export async function getServerSideProps({ locale }: any) {
+export async function getServerSideProps({ locale, params }: any) {
+  // const product = await getProductBySlug(params.slug).then(response => response.data);
   return {
     props: {
+      // product,
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };

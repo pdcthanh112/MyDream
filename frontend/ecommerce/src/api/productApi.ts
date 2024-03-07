@@ -10,7 +10,7 @@ export const getAllProduct = async (page?: number, limit?: number) => {
     });
 };
 
-export const getProductById = async (productId: any) => {
+export const getProductById = async (productId: string) => {
   return await axiosConfig
     .get(`product/getById/${productId}`)
     .then((response) => response)
@@ -19,7 +19,7 @@ export const getProductById = async (productId: any) => {
     });
 };
 
-export const getProductBySlug = async (productSlug: any) => {
+export const getProductBySlug = async (productSlug: string) => {
   return await axiosConfig
     .get(`product/getBySlug/${productSlug}`)
     .then((response) => response.data)

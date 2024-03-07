@@ -4,9 +4,6 @@ import { Button, Checkbox } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useAppSelector } from '@redux/store';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'next-i18next';
-import { useCreateAddress } from '@hooks/address/addressHook';
 import countryData from '../../../public/data/country.json';
 import provinceData from '../../../public/data/province.json';
 import { CreateAddressForm } from '@models/form';
@@ -36,33 +33,31 @@ const InputField = styled.div`
 `;
 
 type PropsType = {
+  handleCreate: (data: CreateAddressForm) => void
   onBack: () => void;
 };
 
-const TabCreateAddress = ({ onBack }: PropsType) => {
+const TabCreateAddress = ({ handleCreate, onBack }: PropsType) => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
-
-  const { mutate: createAddress } = useCreateAddress();
-  const { t } = useTranslation('common');
 
   const { register, handleSubmit, formState, setValue } = useForm<CreateAddressForm>();
 
-  const onSubmit: SubmitHandler<CreateAddressForm> = (data) => {
-    createAddress(data, {
-      onSuccess() {
-        toast.success(t('add_successfully'));
-      },
-      onError() {
-        toast.error(t('add_failed'));
-      },
-    });
-  };
+  // const onSubmit: SubmitHandler<CreateAddressForm> = (data) => {
+  //   createAddress(data, {
+  //     onSuccess() {
+  //       toast.success(t('add_successfully'));
+  //     },
+  //     onError() {
+  //       toast.error(t('add_failed'));
+  //     },
+  //   });
+  // };
 
   return (
     <React.Fragment>
       <h3>create address</h3>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleCreate)}>
           <input type="hidden" {...register('customer', {})} defaultValue={currentUser.userInfo.accountId} />
           <div className="grid grid-cols-12 gap-4">
             <InputComponent title="Phone" className="col-span-7" error={formState.errors.phone?.message}>

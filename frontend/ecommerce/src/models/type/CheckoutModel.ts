@@ -12,7 +12,7 @@ export type Checkout = {
 
 export type CheckoutForm = {
   customer: string
-  address: string;
+  address: number;
   phone: string;
   total: number;
   payment: string;

@@ -28,7 +28,7 @@ const InformationField: React.FC<InformationFieldProps> = (element) => {
 const Profile = (): React.ReactElement => {
   const currentUser: Customer = useAppSelector((state) => state.auth.currentUser);
 
-  const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(true);
+  const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
 
   const { t } = useTranslation('common');
   return (
