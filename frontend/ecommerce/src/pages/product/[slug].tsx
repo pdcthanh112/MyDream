@@ -302,7 +302,7 @@ const ProductDetail: NextPage = (): React.ReactElement => {
           <div className="w-full ml-3">
             <h3 className="mb-2">{store?.name}</h3>
             <div className="flex">
-              <Button className=" bg-yellow-100 border-solid border-2 border-yellow-300 text-yellow-400 mr-3">
+              <Button className="bg-yellow-50 text-yellow-300 border-solid border-2 border-yellow-300 mr-3">
                 <Icon component={ForumOutlined} />
                 <span>{t('common.contact')}</span>
               </Button>

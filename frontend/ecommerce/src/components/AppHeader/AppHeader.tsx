@@ -36,6 +36,10 @@ const AppHeader = () => {
     dispatch(logoutRequested({ email: 'fjasljflashfiahsd' }));
   };
 
+  const handleSearch = () => {
+    
+  }
+
   return (
     <div className="flex items-center bg-slate-400 p-1 flex-grow py-2">
       <Link href={path.home}>
